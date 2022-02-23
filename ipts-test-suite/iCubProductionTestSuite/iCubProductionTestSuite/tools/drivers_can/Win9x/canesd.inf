@@ -1,0 +1,269 @@
+; INF file for esd CAN interfaces PCI/331, ISA/331, PC104/331, CAN/PCC, ISA/200
+;                                 PCI/360, PCI/200, USB/331
+; Copyright (c) 1997-2002, electronic system design gmbh
+
+[Version]
+Signature=$CHICAGO$
+Class=CanInterface
+Provider=%String0%
+
+;------------ Class install section -------------
+;
+[ClassInstall]
+AddReg=CanClassReg
+
+;------------ Destination directory section -------------
+;
+[DestinationDirs]
+DefaultDestDir=11                     ; Default destination is system directory
+usb331_CopyFiles=10,System32\Drivers  ; WDM drivers directory on 98/ME
+cpcc_CtrlFile=10                      ; Copy these files to windows directory
+
+;------------ Manufacturer -------------
+;
+[Manufacturer]
+%String1%=Can_Driver
+
+;------------ Driver sections -----------
+;
+[Can_Driver]
+%String2%=pci_331,PCI\VEN_10B5&DEV_9050&SUBSYS_000112FE
+%String3%=isa_331,*ISA331
+%String4%=pc104_331,*PC104331
+%String5%=cpcc,*CPCC
+%String6%=isa_200,*ISA200
+%String7%=pci_360,PCI\VEN_10E3&DEV_0860&SUBSYS_000012FE
+%String8%=pci_200,PCI\VEN_10B5&DEV_9050&SUBSYS_000412FE
+%String9%=isa_200b,*ISA200
+%String10%=usb_331,USB\VID_0AB4&PID_0001
+
+;------------ Install sections -----------
+;
+[pci_331]
+CopyFiles=pci331_CopyFiles, common_CopyFiles
+AddReg=pci331_AddReg
+DelReg=DEL_CURRENT_REG
+Reboot
+
+[isa_331]
+CopyFiles=isa331_CopyFiles, common_CopyFiles
+AddReg=isa331_AddReg
+DelReg=DEL_CURRENT_REG
+LogConfig=isa331_LogConfig
+Reboot
+
+[pc104_331]
+CopyFiles=pc104331_CopyFiles, common_CopyFiles
+AddReg=pc104331_AddReg
+DelReg=DEL_CURRENT_REG
+LogConfig=pc104331_LogConfig
+Reboot
+
+[cpcc]
+CopyFiles=cpcc_CopyFiles, cpcc_CtrlFile, common_CopyFiles
+AddReg=cpcc_AddReg
+DelReg=DEL_CURRENT_REG
+Reboot
+
+[isa_200]
+CopyFiles=isa200_CopyFiles, common_CopyFiles
+AddReg=isa200_AddReg
+DelReg=DEL_CURRENT_REG
+LogConfig=isa200_LogConfig
+Reboot
+
+[pci_360]
+CopyFiles=pci360_CopyFiles, common_CopyFiles
+AddReg=pci360_AddReg
+DelReg=DEL_CURRENT_REG
+Reboot
+
+[pci_200]
+CopyFiles=pci200_CopyFiles, common_CopyFiles
+AddReg=pci200_AddReg
+DelReg=DEL_CURRENT_REG
+Reboot
+
+[isa_200b]
+CopyFiles=isa200b_CopyFiles, common_CopyFiles
+AddReg=isa200_AddReg
+DelReg=DEL_CURRENT_REG
+LogConfig=isa200_LogConfig
+Reboot
+
+[usb_331]
+CopyFiles=usb331_CopyFiles, common_CopyFilesNoBoot
+AddReg=usb331_AddReg
+DelReg=DEL_CURRENT_REG
+
+;------------ Factory default sections for non P'n'P cards -----------
+;
+[isa_331.FactDef]
+ConfigPriority=HARDRECONFIG
+IOConfig=1e0-1e7
+IRQConfig=7
+
+[pc104_331.FactDef]
+ConfigPriority=HARDRECONFIG
+IOConfig=1e0-1e7
+IRQConfig=7
+
+[isa_200.FactDef]
+ConfigPriority=HARDRECONFIG
+IOConfig=1e8-1eb
+IRQConfig=7
+
+[isa_200b.FactDef]
+ConfigPriority=HARDRECONFIG
+IOConfig=1e8-1eb
+IRQConfig=7
+
+;--------- CopyFiles sections ----------
+;
+[pci331_CopyFiles]
+pci331.vxd, pci331.vxd, pci331.vx_, 2
+dnet.dll, dnet.dll, dnet.dl_
+
+[isa331_CopyFiles]
+isa331.vxd, isa331.vxd, isa331.vx_, 2
+dnet.dll, dnet.dll, dnet.dl_
+
+[pc104331_CopyFiles]
+pc104331.vxd, pc104331.vxd, pc104331.vx_, 2
+dnet.dll, dnet.dll, dnet.dl_
+
+[cpcc_CopyFiles]
+cpcc.vxd, cpcc.vxd, cpcc.vx_, 2
+
+[cpcc_CtrlFile]
+cpcc.exe
+
+[isa200_CopyFiles]
+isa200.vxd, isa200.vxd, isa200.vx_, 2
+
+[pci360_CopyFiles]
+pci360.vxd, pci360.vxd, pci360.vx_, 2
+
+[pci200_CopyFiles]
+pci200.vxd, pci200.vxd, pci200.vx_, 2
+
+[isa200b_CopyFiles]
+isa200.vxd, isa200b.vxd, isa200.vx_, 2
+
+[usb331_CopyFiles]
+usb331.sys,,,2
+
+[common_CopyFiles]
+ntcan.dll, ntcan.dll, ntcan.dl_
+canui.dll, canui.dll, canui.dl_
+calcan32.dll, calcan32.dll, calcan32.dl_
+
+[common_CopyFilesNoBoot]
+ntcan.dll,,,2
+canui.dll,,,2
+calcan32.dll,,,2
+
+;---------  AddReg sections  ---------
+;
+[pci331_AddReg]
+HKR,,Ver,0,1.0
+HKR,,DevLoader,0,pci331.vxd
+
+[isa331_AddReg]
+HKR,,Ver,0,1.0
+HKR,,DevLoader,0,isa331.vxd
+
+[pc104331_AddReg]
+HKR,,Ver,0,1.0
+HKR,,DevLoader,0,pc104331.vxd
+
+[cpcc_AddReg]
+HKR,,Ver,0,1.0
+HKR,,DevLoader,0,cpcc.vxd
+HKR,,Port,2,LPT1
+HKR,,ModeDetection,3,0
+HKR,,Net,3,0
+
+[isa200_AddReg]
+HKR,,Ver,0,1.0
+HKR,,DevLoader,0,isa200.vxd
+
+[pci360_AddReg]
+HKR,,Ver,0,1.0
+HKR,,DevLoader,0,pci360.vxd
+
+[pci200_AddReg]
+HKR,,Ver,0,1.0
+HKR,,DevLoader,0,pci200.vxd
+
+[usb331_AddReg]
+HKR,,Ver,0,1.0
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,usb331.sys
+HKR,,ErrorStatus,1,00,00,00,00,00,00,00,00,00,00,00,00
+
+[CanClassReg]
+HKR,,,0,%CanClassName%
+HKR,,EnumPropPages,0,canui.dll,EnumPropPages
+HKR,,Icon,0,0
+
+;---------  DelReg sections  ----------
+;
+[DEL_CURRENT_REG]
+HKR,,DevLoader,0,
+HKR,,Ver,0,
+
+;--------- LogConfig sections ----------
+;
+[isa331_LogConfig]
+ConfigPriority=HARDRECONFIG
+IRQConfig=3,4,5,7,9,10,11,12,14,15
+IOConfig=100-107(3ff::),1e0-1e7(3ff::),1e8-1ef(3ff::),250-257(3ff::),2a0-2a7(3ff::),390-397(3ff::),3f0-3f7(3ff::)
+
+[pc104331_LogConfig]
+ConfigPriority=HARDRECONFIG
+IRQConfig=3,4,5,7,9,10,11,12,14,15
+IOConfig=100-107(3ff::),1e0-1e7(3ff::),1e8-1ef(3ff::),250-257(3ff::),2a0-2a7(3ff::),390-397(3ff::),3f0-3f7(3ff::)
+
+[isa200_LogConfig]
+ConfigPriority=HARDRECONFIG
+IRQConfig=3,4,5,7,9,10,11,12,14,15
+IOConfig=100-103(3ff::),1e0-1e3(3ff::),1e8-1eb(3ff::),250-253(3ff::),2a0-2a3(3ff::),390-393(3ff::),3f0-3f3(3ff::)
+
+[ControlFlags]
+
+;--------- Source disk and files section ---------
+;
+[SourceDisksNames]
+1=%DiskName%,,1
+
+[SourceDisksFiles]
+pci331.vxd=1
+isa331.vxd=1
+pc104331.vxd=1
+cpcc.vxd=1
+ntcan.dll=1
+canui.dll=1
+cpcc.exe=1
+isa200.vxd=1
+pci360.vxd=1
+pci200.vxd=1
+isa200b.vxd=1
+usb331.sys=1
+
+;--------- User visible strings ---------
+;
+[Strings]
+String0="esd gmbh Hannover Germany"
+String1="esd gmbh Hannover Germany"
+String2="PCI/331 CAN Controller"
+String3="ISA/331 CAN Controller"
+String4="PC104/331 CAN Controller"
+String5="CAN/PCC CAN Controller"
+String6="ISA/200 CAN Controller (w/o CAN2.0B support)"
+String7="PCI/360 CAN Controller"
+String8="PCI/200 CAN Controller"
+String9="ISA/200 CAN Controller (with CAN2.0B support)"
+String10="USB/331 CAN Controller"
+CanClassName="CAN Interface"
+DiskName="CAN Interface Device Driver for Windows 9x/ME"

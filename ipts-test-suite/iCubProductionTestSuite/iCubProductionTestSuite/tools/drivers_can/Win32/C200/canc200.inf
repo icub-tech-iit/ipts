@@ -1,0 +1,307 @@
+;
+;                         Driver Installation file for
+;   CAN-PCI/200, CAN-PCI/266, CPCI-CAN/200, CAN-PCIe/200, CAN-PCI104/200
+;                             and PMC-CAN/266
+;
+;            WDM driver for Windows 2000/XP/Vista/7 (32-bit)
+;
+;        Copyright (c) 2001 - 2011, esd electronic system design gmbh.
+;                             All rights reserved
+;
+
+[Version]
+Signature=$WINDOWS NT$
+Class=CanInterface
+ClassGuid={42EEB68D-02B1-406c-B4F6-902F240EF58D}
+Provider=%MFGNAME%
+DriverPackageDisplayName="CAN-PCI/2xx Device Driver"
+DriverPackageType=PlugAndPlay
+CatalogFile=canc200.cat
+DriverVer=02/20/2012,6.1.2602.0
+
+[DestinationDirs]
+DefaultDestDir          = 12      ; DIRID_DRIVER                  
+Canui32CopyFiles        = 11      ; DIRID_SYSTEM
+Common.CopyFiles        = 11      ; DIRID_SYSTEM
+
+[SourceDisksFiles]
+c200.sys                = 1,\x86
+canui32.dll             = 1,\x86
+ntcan.dll               = 1,\x86
+calcan32.dll            = 1,\x86
+
+[SourceDisksNames]
+1=%INSTDISK%
+
+;------------------------------------------------------------------------------
+;  Driver Install section
+;------------------------------------------------------------------------------
+
+[Manufacturer]
+%MFGNAME%=DeviceList
+
+[DeviceList]
+; DisplayName          Section        DeviceID
+; -----------          -------        --------
+%C200_DESCRIPTION%    =C200,          PCI\VEN_10B5&DEV_9050&SUBSYS_000412FE     ; CAN-PCI/200
+%C266_DESCRIPTION%    =C266,          PCI\VEN_10B5&DEV_9056&SUBSYS_000912FE     ; CAN-PCI/266
+%CP200_DESCRIPTION%   =CP200,         PCI\VEN_10B5&DEV_9030&SUBSYS_010B12FE     ; CPCI-CAN/200
+%C200E_DESCRIPTION%   =C200E,         PCI\VEN_10B5&DEV_9056&SUBSYS_020012FE     ; CAN-PCIe/200
+%C104_DESCRIPTION%    =C104,          PCI\VEN_10B5&DEV_9030&SUBSYS_050112FE     ; CAN-PCI104/200
+%P266_DESCRIPTION%    =P266,          PCI\VEN_10B5&DEV_9056&SUBSYS_000E12FE     ; PMC-CAN/266
+
+;------------------------------------------------------------------------------
+;  Class Install Section Windows 2000 / XP / Vista / 7 (32-Bit)
+;------------------------------------------------------------------------------
+
+[ClassInstall32.NT]
+AddReg=Canui32AddReg
+CopyFiles=Canui32CopyFiles
+
+[Canui32AddReg]
+HKR,,,0,%CLASSNAME%
+HKR,,EnumPropPages32,,"canui32.dll,EnumPropPages"
+HKR,,Icon,,"100"
+
+[Canui32CopyFiles]
+canui32.dll,,,0x62
+
+;------------------------------------------------------------------------------
+;  CAN-PCI/200 Installation Section for Windows 2000 / XP / Vista / 7 (32-Bit)
+;------------------------------------------------------------------------------
+
+[C200]
+CopyFiles     = C200.CopyFiles, Common.CopyFiles
+AddReg        = C200.MakeFriendlyName.AddReg
+
+[C200.Services]
+AddService    = c200,2,C200.AddService,C200.AddEventLog
+
+[C200.AddService]
+ServiceType   = 1		;SERVICE_KERNEL_DRIVER
+StartType     = 3		;SERVICE_DEMAND_START
+ErrorControl  = 1		;SERVICE_ERROR_NORMAL
+ServiceBinary = %10%\system32\drivers\c200.sys
+AddReg        = CommonAddReg
+
+[C200.AddEventLog]
+AddReg        = C200.AddEventLog.Reg
+
+[C200.AddEventLog.Reg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\c200.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[C200.HW]
+AddReg        = C200.RegHW
+
+[C200.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PCI%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%C200_DESCRIPTION%
+
+[C200.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,C200FriendlyName,,"rundll32 canui32,CreateCanDeviceName ""CAN PCI/200"" ""CAN-PCI/200 (%d)"""
+
+[C200.CopyFiles]
+c200.sys,,,2
+
+[C200.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  CAN-PCIe/200 Installation Section for Windows 2000 / XP / Vista / 7 (32-Bit)
+;------------------------------------------------------------------------------
+
+[C200E]
+CopyFiles=C200.CopyFiles,Common.CopyFiles
+AddReg=C200E.MakeFriendlyName.AddReg
+
+[C200E.Services]
+AddService=c200,2,C200.AddService,C200.AddEventLog
+
+[C200E.HW]
+AddReg=C200E.RegHW
+
+[C200E.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PCIE%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%C200E_DESCRIPTION%
+
+[C200E.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,C200E_FriendlyName,,"rundll32 canui32,CreateCanDeviceName ""CAN PCIe/200"" ""CAN-PCIe/200 (%d)"""
+
+[C200E.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  CAN-PCI/266 Installation Section for Windows 2000 / XP / Vista / 7 (32-Bit)
+;------------------------------------------------------------------------------
+
+[C266]
+CopyFiles=C200.CopyFiles,Common.CopyFiles
+AddReg=C266.MakeFriendlyName.AddReg
+
+[C266.Services]
+AddService=c200,2,C200.AddService,C200.AddEventLog
+
+[C266.HW]
+AddReg=C266.RegHW
+
+[C266.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PCI%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%C266_DESCRIPTION%
+
+[C266.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,C266FriendlyName,,"rundll32 canui32,CreateCanDeviceName ""CAN PCI/266"" ""CAN-PCI/266 (%d)"""
+
+[C266.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  CPCI-CAN/200 Installation Section for Windows 2000 / XP / Vista / 7 (32-Bit)
+;------------------------------------------------------------------------------
+
+[CP200]
+CopyFiles=C200.CopyFiles,Common.CopyFiles
+AddReg=CP200.MakeFriendlyName.AddReg
+
+[CP200.Services]
+AddService=c200,2,C200.AddService,C200.AddEventLog
+
+[CP200.HW]
+AddReg=CP200.RegHW
+
+[CP200.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PCI%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%CP200_DESCRIPTION%
+
+[CP200.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,CP200FriendlyName,,"rundll32 canui32,CreateCanDeviceName ""CAN CPCI/200"" ""CPCI-CAN/200 (%d)"""
+
+[CP200.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  CAN-PCI104/200 Installation Section for Windows 2000 / XP / Vista / 7 (32-Bit)
+;------------------------------------------------------------------------------
+
+[C104]
+CopyFiles=C200.CopyFiles,Common.CopyFiles
+AddReg=C104.MakeFriendlyName.AddReg
+
+[C104.Services]
+AddService=c200,2,C200.AddService,C200.AddEventLog
+
+[C104.HW]
+AddReg=C104.RegHW
+
+[C104.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PCI104%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%C104_DESCRIPTION%
+
+[C104.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,C104FriendlyName,,"rundll32 canui32,CreateCanDeviceName ""CAN PCI104/200"" ""CAN-PCI104/200 (%d)"""
+
+[C104.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  PMC-CAN/266 Installation Section for Windows 2000 / XP / Vista / 7 (32-Bit)
+;------------------------------------------------------------------------------
+
+[P266]
+CopyFiles=C200.CopyFiles,Common.CopyFiles
+AddReg=P266.MakeFriendlyName.AddReg
+
+[P266.Services]
+AddService=c200,2,C200.AddService,C200.AddEventLog
+
+[P266.HW]
+AddReg=P266.RegHW
+
+[P266.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PMC%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%P266_DESCRIPTION%
+
+
+[P266.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,P266FriendlyName,,"rundll32 canui32,CreateCanDeviceName ""CAN PMC/266"" ""PMC-CAN/266 (%d)"""
+
+[P266.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  Common Installation Section
+;------------------------------------------------------------------------------
+[Common.CopyFiles]
+ntcan.dll,,,2
+calcan32.dll,,,2
+canui32.dll,,,2
+
+[CommonAddReg]
+HKR, "Parameters", "NET0", 0x00010001, 0x00000100
+HKR, "Parameters", "NET1", 0x00010001, 0x00000302
+HKR, "Parameters", "NET2", 0x00010001, 0x00000504
+HKR, "Parameters", "NET3", 0x00010001, 0x00000706
+HKR, "Parameters", "NET4", 0x00010001, 0x00000908
+HKR, "Parameters", "BAUD0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+
+;------------------------------------------------------------------------------
+;  Common WMI security descriptor
+;------------------------------------------------------------------------------
+[WMIGuidSecurity_RoAu]
+security="O:BAG:BAD:(A;;GR;;;AU)"
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+[Strings]
+
+; -------------------------- Non-Localizable Strings -------------------
+
+REG_SZ          = 0x00000000
+REG_MULTI_SZ    = 0x00010000
+REG_EXPAND_SZ   = 0x00020000
+REG_BINARY      = 0x00000001
+REG_DWORD       = 0x00010001
+BUS_TYPE_ID     = "BusTypeID"
+BUS_TYPE_PCI    = 0x00000000
+BUS_TYPE_ISA    = 0x00000001
+BUS_TYPE_LPT    = 0x00000002
+BUS_TYPE_USB    = 0x00000003
+BUS_TYPE_PCIE   = 0x00000004
+BUS_TYPE_PCI104 = 0x00000005
+BUS_TYPE_PMC    = 0x00000006
+AFFINITY        = "Affinity"
+RUNONCEKEYNAME = "Software\Microsoft\Windows\CurrentVersion\RunOnce"
+
+; -------------------------- Localizable Strings -----------------------
+
+MFGNAME             = "esd gmbh"
+INSTDISK            = "ESD GmbH CAN Driver Installation Disc"
+C200_DESCRIPTION    = "CAN PCI/200"
+C266_DESCRIPTION    = "CAN PCI/266"
+CP200_DESCRIPTION   = "CAN CPCI/200"
+C200E_DESCRIPTION   = "CAN PCIe/200"
+C104_DESCRIPTION    = "CAN PCI104/200"
+P266_DESCRIPTION    = "CAN PMC/266"
+CLASSNAME           = "CAN Interface"

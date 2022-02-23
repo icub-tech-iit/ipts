@@ -1,0 +1,195 @@
+;
+;     Driver Installation file for CAN-PCI/331, CPCI-CAN/331 and PMC-CAN/331
+;
+;           WDM driver for Windows XP/2003/Vista/2008/7 (64 bit)
+;
+;        Copyright (c) 2001 - 2009, esd electronic system design gmbh.
+;                             All rights reserved
+;
+
+[Version]
+Signature=$WINDOWS NT$
+Class=CanInterface
+ClassGuid={42EEB68D-02B1-406c-B4F6-902F240EF58D}
+Provider=%MFGNAME%
+DriverPackageDisplayName="CAN-PCI/331 Device Driver"
+DriverPackageType=PlugAndPlay
+DriverVer=03/13/2012,6.1.2602.0
+CatalogFile=canc331a.cat
+
+[Manufacturer]
+%MFGNAME%=DeviceList, NTAMD64
+
+[DestinationDirs]
+DefaultDestDir          = 12                       ; DIRID_DRIVER
+Canui64CopyFiles        = 11                       ; DIRID_SYSTEM
+Common.AMD64.CopyFiles  = 11                       ; DIRID_SYSTEM
+Common.CopyFiles.WOW64  = 10,SysWOW64              ; DIRID_SYSTEM
+
+[SourceDisksFiles]
+ntcan.dll        = 1,\x86
+calcan32.dll     = 1,\x86
+
+[SourceDisksFiles.AMD64]
+c331a.sys        = 1,\amd64
+canui64.dll      = 1,\amd64
+ntcan64.dll      = 1,\amd64
+calcan64.dll     = 1,\amd64
+
+[SourceDisksNames]
+1=%INSTDISK%
+
+[DeviceList.NTAMD64]; This section will only be installed by Windows XP 64-bit
+; DisplayName          Section        DeviceID
+; -----------          -------        --------
+%C331_DESCRIPTION%    =C331.AMD64,    PCI\VEN_10B5&DEV_9050&SUBSYS_000112FE     ; CAN PCI/331
+%P331_DESCRIPTION%    =P331.AMD64,    PCI\VEN_10B5&DEV_9030&SUBSYS_000C12FE     ; CAN PMC/331
+
+;------------------------------------------------------------------------------
+;  Class Install Section Windows XP/ Vista /7 (64 Bit) 
+;------------------------------------------------------------------------------
+
+[ClassInstall32.NTAMD64]
+AddReg=Canui64AddReg
+CopyFiles=Canui64CopyFiles
+
+[Canui64AddReg]
+HKR,,,0,%CLASSNAME%
+HKR,,EnumPropPages32,,"canui64.dll,EnumPropPages"
+HKR,,Icon,,"100"
+
+[Canui64CopyFiles]
+canui64.dll,,,0x62
+
+;------------------------------------------------------------------------------
+;  PCI/331 Installation Section for Windows XP / Vista / 7 (64-Bit)
+;------------------------------------------------------------------------------
+[C331.AMD64]
+CopyFiles=C331.AMD64.CopyFiles,Common.AMD64.CopyFiles, Common.CopyFiles.WOW64
+AddReg=C331.AMD64.MakeFriendlyName.AddReg
+
+[C331.AMD64.CopyFiles]
+c331a.sys,,,2
+
+[C331.AMD64.Services]
+AddService=c331,2,C331.AMD64.AddService,C331.AMD64.AddEventLog
+
+[C331.AMD64.AddService]
+ServiceType   = 1		;SERVICE_KERNEL_DRIVER
+StartType     = 3		;SERVICE_DEMAND_START
+ErrorControl  = 1		;SERVICE_ERROR_NORMAL
+ServiceBinary = %12%\c331a.sys
+AddReg        = CommonAddReg
+
+[C331.AMD64.AddEventLog]
+AddReg = C331.AMD64.AddEventLog.Reg
+
+[C331.AMD64.AddEventLog.Reg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\c331a.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[C331.AMD64.HW]
+AddReg=C331.AMD64.RegHW
+
+[C331.AMD64.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PCI%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%C331_DESCRIPTION%
+
+[C331.AMD64.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,C331FriendlyName,,"rundll32 canui64,CreateCanDeviceName ""CAN PCI/331"" ""CAN-PCI/331 (%d)"""
+
+[C331.AMD64.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  PMC-CAN/331 Installation Section for Windows XP / Vista / 7 (64-Bit)
+;------------------------------------------------------------------------------
+[P331.AMD64]
+CopyFiles=C331.AMD64.CopyFiles,Common.AMD64.CopyFiles, Common.CopyFiles.WOW64
+AddReg=P331.AMD64.MakeFriendlyName.AddReg
+
+[P331.AMD64.Services]
+AddService=c331,2,C331.AMD64.AddService,C331.AMD64.AddEventLog
+
+[P331.AMD64.HW]
+AddReg=P331.AMD64.RegHW
+
+[P331.AMD64.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PMC%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%P331_DESCRIPTION%
+
+[P331.AMD64.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,P331FriendlyName,,"rundll32 canui64,CreateCanDeviceName ""CAN PMC/331"" ""PMC-CAN/331 (%d)"""
+
+[P331.AMD64.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  Common Installation Section
+;------------------------------------------------------------------------------
+
+[Common.AMD64.CopyFiles]
+ntcan.dll,ntcan64.dll,,2
+calcan64.dll,,,2
+canui64.dll,,,2
+
+[Common.CopyFiles.WOW64]
+ntcan.dll,,,2
+calcan32.dll,,,2
+
+[CommonAddReg]
+HKR, "Parameters", "NET0", 0x00010001, 0x00000100
+HKR, "Parameters", "NET1", 0x00010001, 0x00000302
+HKR, "Parameters", "NET2", 0x00010001, 0x00000504
+HKR, "Parameters", "NET3", 0x00010001, 0x00000706
+HKR, "Parameters", "NET4", 0x00010001, 0x00000908
+HKR, "Parameters", "BAUD0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+
+;------------------------------------------------------------------------------
+;  Common WMI security descriptor
+;------------------------------------------------------------------------------
+[WMIGuidSecurity_RoAu]
+security="O:BAG:BAD:(A;;GR;;;AU)"
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+[Strings]
+
+; -------------------------- Non-Localizable Strings -------------------
+
+REG_SZ          = 0x00000000
+REG_MULTI_SZ    = 0x00010000
+REG_EXPAND_SZ   = 0x00020000
+REG_BINARY      = 0x00000001
+REG_DWORD       = 0x00010001
+BUS_TYPE_ID     = "BusTypeID"
+BUS_TYPE_PCI    = 0x00000000
+BUS_TYPE_ISA    = 0x00000001
+BUS_TYPE_LPT    = 0x00000002
+BUS_TYPE_USB    = 0x00000003
+BUS_TYPE_PCIE   = 0x00000004
+BUS_TYPE_PCI104 = 0x00000005
+BUS_TYPE_PMC    = 0x00000006
+RUNONCEKEYNAME = "Software\Microsoft\Windows\CurrentVersion\RunOnce"
+AFFINITY        = "Affinity"
+
+
+; -------------------------- Localizable Strings -----------------------
+
+MFGNAME             = "esd gmbh"
+INSTDISK            = "ESD GmbH CAN Driver Installation Disc"
+C331_DESCRIPTION    = "CAN PCI/331"
+P331_DESCRIPTION    = "CAN PMC/331"
+CLASSNAME           = "CAN Interface"

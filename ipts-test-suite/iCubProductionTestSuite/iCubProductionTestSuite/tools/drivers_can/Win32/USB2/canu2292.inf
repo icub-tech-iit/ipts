@@ -1,0 +1,205 @@
+;
+;      Driver Installation file for CAN-USB/2, CAN-AIR/2 and CBX-AIR/2
+;
+;            WDM driver for Windows 2000/XP/Vista/2008/7 (32-bit)
+;
+;        Copyright (c) 2001 - 2011, esd electronic system design gmbh.
+
+[Version]
+Signature=$WINDOWS NT$
+Class=CanInterface
+ClassGuid={42EEB68D-02B1-406c-B4F6-902F240EF58D}
+Provider=%MFGNAME%
+DriverPackageDisplayName="CAN-USB/2 Device Driver"
+DriverPackageType=PlugAndPlay
+CatalogFile=canu2292.cat
+DriverVer=02/16/2012,6.1.2602.0
+
+[Manufacturer]
+%MFGNAME%=DeviceList
+
+[DestinationDirs]
+DefaultDestDir          = 12      ; DIRID_DRIVER                  
+Canui32CopyFiles        = 11      ; DIRID_SYSTEM
+Common.CopyFiles        = 11      ; DIRID_SYSTEM
+
+[SourceDisksFiles]
+usb2292.sys      = 1,\x86
+canui32.dll      = 1,\x86
+ntcan.dll        = 1,\x86
+calcan32.dll     = 1,\x86
+
+[SourceDisksNames]
+1=%INSTDISK%,disk1
+
+[DeviceList]
+; DisplayName          Section        DeviceID
+; -----------          -------        --------
+%U2292_DESCRIPTION%   =U2292,         USB\VID_0AB4&PID_0010         ; CAN-USB/2
+%CANAIR_DESCRIPTION%  =CANAIR,        USB\VID_0AB4&PID_0018         ; CAN-AIR/2
+%CBXAIR_DESCRIPTION%  =CBXAIR,        USB\VID_0AB4&PID_0019         ; CBX-AIR/2
+
+;------------------------------------------------------------------------------
+;  Class Install Section Windows 2000/XP/Vista/7 (32-Bit)
+;------------------------------------------------------------------------------
+
+[ClassInstall32.NT]
+AddReg=Canui32AddReg
+CopyFiles=Canui32CopyFiles
+
+[Canui32AddReg]
+HKR,,,0,%CLASSNAME%
+HKR,,EnumPropPages32,,"canui32.dll,EnumPropPages"
+HKR,,Icon,,"100"
+
+[Canui32CopyFiles]
+canui32.dll,,,0x62
+
+
+;------------------------------------------------------------------------------
+;  CAN-USB/2 Installation Section for Windows 2000/XP/Vista/7 (32-Bit)
+;------------------------------------------------------------------------------
+[U2292]
+CopyFiles=U2292.CopyFiles,Common.CopyFiles
+AddReg=U2292.MakeFriendlyName.AddReg
+
+[U2292.CopyFiles]
+usb2292.sys,,,2
+
+[U2292.Services]
+AddService=usb2292,2,U2292.AddService,U2292.AddEventLog
+
+[U2292.AddService]
+ServiceType   = 1		;SERVICE_KERNEL_DRIVER
+StartType     = 3		;SERVICE_DEMAND_START
+ErrorControl  = 1		;SERVICE_ERROR_NORMAL
+ServiceBinary = %12%\usb2292.sys
+AddReg=CommonAddReg
+
+[U2292.AddEventLog]
+AddReg = U2292.AddEventLog.Reg
+
+[U2292.AddEventLog.Reg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\usb2292.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[U2292.HW]
+AddReg=U2292.RegHW
+
+[U2292.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_USB%
+HKR,,FriendlyName,,%U2292_DESCRIPTION%
+
+[U2292.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,U2292FriendlyName,,"rundll32 canui32,CreateCanDeviceName ""CAN USB/2"" ""CAN-USB/2 (%d)"""
+
+[U2292.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  CAN-AIR/2 Installation Section for Windows 2000/XP/Vista/7 (32-Bit)
+;------------------------------------------------------------------------------
+[CANAIR]
+CopyFiles=U2292.CopyFiles,Common.CopyFiles
+AddReg=CANAIR.MakeFriendlyName.AddReg
+
+[CANAIR.Services]
+AddService=usb2292,2,U2292.AddService,U2292.AddEventLog
+
+[CANAIR.HW]
+AddReg=CANAIR.RegHW
+
+[CANAIR.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_USB%
+HKR,,FriendlyName,,%CANAIR_DESCRIPTION%
+
+[CANAIR.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,CANAIRFriendlyName,,"rundll32 canui32,CreateCanDeviceName ""CAN AIR/2"" ""CAN-AIR/2 (%d)"""
+
+[CANAIR.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  CBX-AIR/2 Installation for Windows 2000/XP/Vista/7 (32-Bit)
+;------------------------------------------------------------------------------
+[CBXAIR]
+CopyFiles=U2292.CopyFiles,Common.CopyFiles
+AddReg=CBXAIR.MakeFriendlyName.AddReg
+
+[CBXAIR.Services]
+AddService=usb2292,2,U2292.AddService,U2292.AddEventLog
+
+[CBXAIR.HW]
+AddReg=CBXAIR.RegHW
+
+[CBXAIR.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_USB%
+HKR,,FriendlyName,,%CBXAIR_DESCRIPTION%
+
+[CBXAIR.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,CBXAIRFriendlyName,,"rundll32 canui32,CreateCanDeviceName ""CBX AIR/2"" ""CBX-AIR/2 (%d)"""
+
+[CBXAIR.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  Common Installation Section
+;------------------------------------------------------------------------------
+[Common.CopyFiles]
+ntcan.dll,,,2
+calcan32.dll,,,2
+canui32.dll,,,2
+
+[CommonAddReg]
+HKR, "Parameters", "NET0", 0x00010001, 0x00000100
+HKR, "Parameters", "NET1", 0x00010001, 0x00000302
+HKR, "Parameters", "NET2", 0x00010001, 0x00000504
+HKR, "Parameters", "NET3", 0x00010001, 0x00000706
+HKR, "Parameters", "NET4", 0x00010001, 0x00000908
+HKR, "Parameters", "BAUD0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+
+[WMIGuidSecurity_RoAu]
+security="O:BAG:BAD:(A;;GR;;;AU)"
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+[Strings]
+
+; -------------------------- Non-Localizable Strings -------------------
+
+REG_SZ          = 0x00000000
+REG_MULTI_SZ    = 0x00010000
+REG_EXPAND_SZ   = 0x00020000
+REG_BINARY      = 0x00000001
+REG_DWORD       = 0x00010001
+BUS_TYPE_ID     = "BusTypeID"
+BUS_TYPE_PCI    = 0x00000000
+BUS_TYPE_ISA    = 0x00000001
+BUS_TYPE_LPT    = 0x00000002
+BUS_TYPE_USB    = 0x00000003
+BUS_TYPE_PCIE   = 0x00000004
+BUS_TYPE_PCI104 = 0x00000005
+BUS_TYPE_PMC    = 0x00000006
+RUNONCEKEYNAME = "Software\Microsoft\Windows\CurrentVersion\RunOnce"
+
+; -------------------------- Localizable Strings -----------------------
+
+MFGNAME             = "ESD GmbH"
+INSTDISK            = "ESD GmbH CAN Driver Installation Disc"
+U2292_DESCRIPTION   = "CAN USB/2"
+CANAIR_DESCRIPTION  = "CAN AIR/2"
+CBXAIR_DESCRIPTION  = "CBX AIR/2"
+CLASSNAME           = "CAN Interface"
