@@ -57,8 +57,9 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NtcanNet">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\ESD\CAN\NtcanNET\lib\NtcanNet.dll</HintPath>
+    <Reference Include="NtcanNet, Version=2.1.5.0, Culture=neutral, PublicKeyToken=6615f2958a501dde, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\ESD\CAN\SDK\net\net35\NtcanNet.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
