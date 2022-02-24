@@ -12,6 +12,9 @@ In this repo there are Visual Studio solution file, sources, and the installer p
 
 You can install **IPTS** on a Windows 10 machine.
 
+:warning:
+  **If the installer is required by suppliers or, in general, by external parties from IIT please refer to the installer attached in the provided release and DO NOT USE the link below**
+  
 - Download the [installer](https://github.com/icub-tech-iit/ipts/raw/master/ipts-test-suite/iCubProductionTestSuite/Output/IPTS-Setup.exe)
 - Run it and follow the wizard
 
