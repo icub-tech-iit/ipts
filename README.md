@@ -12,7 +12,7 @@ In this repo there are Visual Studio solution file, sources, and the installer p
 
 You can install **IPTS** on a Windows 10 machine.
 
-- Download the [installer](https://github.com/icub-tech-iit/ipts/tree/master/ipts-test-suite/iCubProductionTestSuite/Output)
+- Download the [installer](https://github.com/icub-tech-iit/ipts/raw/master/ipts-test-suite/iCubProductionTestSuite/Output/IPTS-Setup.exe)
 - Run it and follow the wizard
 
 ### 1.2 Installing ESD CAN-USB drivers
