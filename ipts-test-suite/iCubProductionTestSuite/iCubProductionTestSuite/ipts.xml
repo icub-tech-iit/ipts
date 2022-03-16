@@ -375,7 +375,7 @@
      
   </testplan>
 
-   <testplan id="3" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
+   <testplan id="4" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
 
     <test id="1" name="Connessioni Setup">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
@@ -400,7 +400,7 @@
   
        **************************************************************************************************-->
 	   
-   <testplan id="4" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="1">
+   <testplan id="5" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
 
 
     <test id="1" name="Controllo visivo">
@@ -415,20 +415,21 @@
       <operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
     </test>
 	
-	<test id="3" name="Verifica fasatura rotore">
+	<test id="4" name="Verifica fasatura rotore">
       <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
     </test>
 	
-	<test id="4" name="Connessioni Setup">
+	<test id="5" name="Verifica accoppiamento rotore / albero">
+      <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
+    </test>   
+	
+	<test id="6" name="Test sensori di hall">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/brushlessMotors/setup.jpg" />
       <operation type="okDialog" text="Asemblare statore e rotore con la meccanica di test, collegare quindi i fili al setup." image="img/brushlessMotors/assembly.jpg" />
-    </test>
-	
-	<test id="5" name="Test sensori di hall">
       <operation type="yesNoDialog" text="Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Hall Sens. Muovendo a mano il rotore i valori sul display cambiano?" image="img/brushlessMotors/hall.jpg" />
     </test>
 	
-	<test id="6" name="Test motore">
+	<test id="7" name="Test motore">
       <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
 	  
 2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.
@@ -440,7 +441,7 @@
      
   </testplan>
   
-   <testplan id="5" board="BRUSHLESS MOTORS" iitcode="10350" reportsDir="brushlessMotors" rev="1">
+   <testplan id="6" board="BRUSHLESS MOTORS" iitcode="10350" reportsDir="brushlessMotors" rev="2">
 
 
     <test id="1" name="Controllo visivo">
@@ -455,20 +456,21 @@
       <operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
     </test>
 	
-	<test id="3" name="Verifica fasatura rotore">
+	<test id="4" name="Verifica fasatura rotore">
       <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
     </test>
-	
-	<test id="4" name="Connessioni Setup">
+	   
+	<test id="5" name="Verifica accoppiamento rotore / albero">
+      <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
+    </test> 
+
+	<test id="6" name="Test sensori di hall">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/brushlessMotors/setup.jpg" />
       <operation type="okDialog" text="Asemblare statore e rotore con la meccanica di test, collegare quindi i fili al setup." image="img/brushlessMotors/assembly.jpg" />
-    </test>
-	
-	<test id="5" name="Test sensori di hall">
       <operation type="yesNoDialog" text="Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Hall Sens. Muovendo a mano il rotore i valori sul display cambiano?" image="img/brushlessMotors/hall.jpg" />
     </test>
 	
-	<test id="6" name="Test motore">
+	<test id="7" name="Test motore">
       <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
 	  
 2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.

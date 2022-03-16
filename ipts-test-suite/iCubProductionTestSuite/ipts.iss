@@ -283,6 +283,7 @@ Source: "iCubProductionTestSuite\img\brushlessMotors\hall.jpg"; DestDir: "{app}\
 Source: "iCubProductionTestSuite\img\brushlessMotors\motor.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\brushlessMotors\setup.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\brushlessMotors\valori.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\brushlessMotors\allineamento-albero-rotore.png"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\dcMotors\encoderWaveForm.jpg"; DestDir: "{app}\img\dcMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\dcMotors\label1.jpg"; DestDir: "{app}\img\dcMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\dcMotors\label2.jpg"; DestDir: "{app}\img\dcMotors"; Flags: ignoreversion

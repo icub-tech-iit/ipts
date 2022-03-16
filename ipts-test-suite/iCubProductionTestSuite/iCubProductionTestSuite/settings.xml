@@ -6,10 +6,10 @@
  * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  */
 -->
-<iptsSettings lastSel="0" operator="tome">
+<iptsSettings lastSel="4" operator="tome">
   <setting testplan="0" serial="2" />
   <setting testplan="1" serial="5" />
   <setting testplan="2" serial="2" />
   <setting testplan="3" serial="1" />
-  <setting testplan="4" serial="L0001" />
+  <setting testplan="4" serial="1" />
 </iptsSettings>
