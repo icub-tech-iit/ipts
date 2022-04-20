@@ -647,4 +647,44 @@
      
   </testplan>
 
+	<testplan id="8" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="2">
+
+
+		<test id="1" name="Controllo visivo">
+			<operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
+		</test>
+
+		<test id="2" name="Controllo assenza cc">
+			<operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
+		</test>
+
+		<test id="3" name="Verifica valore avvolgimenti">
+			<operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
+		</test>
+
+		<test id="4" name="Verifica fasatura rotore">
+			<operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
+		</test>
+
+		<test id="5" name="Verifica accoppiamento rotore / albero">
+			<operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
+		</test>
+
+		<test id="6" name="Test sensori di hall">
+			<operation type="okDialog" text="Preparazione setup di test..." image="img/brushlessMotors/setup.jpg" />
+			<operation type="okDialog" text="Asemblare statore e rotore con la meccanica di test, collegare quindi i fili al setup." image="img/brushlessMotors/assembly.jpg" />
+			<operation type="yesNoDialog" text="Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Hall Sens. Muovendo a mano il rotore i valori sul display cambiano?" image="img/brushlessMotors/hall.jpg" />
+		</test>
+
+		<test id="7" name="Test motore">
+			<operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
+	  
+2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.
+
+3. Verificare che selezionando V+ -> rotazione in senso antiorario.
+
+4. Verificare che selezionando V- -> rotazione in senso orario." image="img/brushlessMotors/motor.jpg" />
+		</test>
+
+	</testplan>
 </iCubProductionTestSuite>
