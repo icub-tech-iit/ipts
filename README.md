@@ -16,6 +16,9 @@ IIT Code | Revisions | Description
 12264    |           | FAULHABER MOTOR 1016M012GK380+GEARBOX 10/1 i=16	
 10347    |           | BLDC motor assembly, OD 49.2, ID 9.54, L 20.7, stack length 5.7, airgap diam 29.5	
 10350    |           | BLDC motor assembly, OD 49.2, ID 9.54, L 27.7, stack length 12.7, airgap diam 29.5	
+7117     |           | Moog BLDC motor, OD 49.2, ID 15.5, L 24.7 , W/O HALL SENSOR
+7116     |           | Moog BLDC motor, OD 49.2, ID 15.5, L 17.7 , W/O HALL SENSOR
+10182    |           | Moog BLDC motor, OD 72.4, ID 15.5, L 27.5 , W/O HALL SENSOR	
 
 
 ---
@@ -88,7 +91,7 @@ Follow the steps below:
 
 ## 2 Run IPTS
 
-- Launch the ``iCubProductionTestSuite.exe`` either from start menu, Desktop shortcut or installation folder with Administrator privileges
+- Launch the ``iCubProductionTestSuite.exe`` either from start menu, Desktop shortcut or installation folder with ***Administrator privileges***
 
 - Enter the full operator’s name
 
