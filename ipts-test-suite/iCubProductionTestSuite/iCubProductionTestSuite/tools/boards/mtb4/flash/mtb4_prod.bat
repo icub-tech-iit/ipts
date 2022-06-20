@@ -15,9 +15,6 @@ echo;
 "%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c -P "..\..\icub-firmware-build\CAN\mtb4\mtb4.hex"
 echo;
 echo;
-"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -Rst -Run
-echo;
-echo;
 IF %errorlevel% NEQ 0 GOTO :error
 GOTO :end
 :error

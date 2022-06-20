@@ -9,7 +9,7 @@ Here is the list of the codes tested with the `IPTS` suite
 
 IIT Code | Revisions | Description
 -------- | ----------|----------
-12008    | B         | MTB4, IIT - Electronic board for tactile sensor, with 3 axis accelerometers Vin 5Vcc
+12008    | B,C       | MTB4, IIT - Electronic board for tactile sensor, with 3 axis accelerometers Vin 5Vcc
 11996    | B         | STRAIN2, IIT - Electronic board, 6 channels strain gauges variable gain interface board with CAN/UART, Temperature sensor, IMU, STM32L4
 5443     | D,E       | MC4-PLUS, IIT - Electronic board with cortex M4, Ethernet and power driver for 4 DC motors, SPI interface, 2 analog channels, 12-32V supply voltage, low brightness	
 2694     |           | 2224U012SR+IE2-512+2082 Faulhaber - Brush motor, encoder with 500mm cable lenght	
@@ -88,7 +88,7 @@ Follow the steps below:
 
 ## 2 Run IPTS
 
-- Launch the ``iCubProductionTestSuite.exe`` either from start menu, Desktop shortcut or installation folder
+- Launch the ``iCubProductionTestSuite.exe`` either from start menu, Desktop shortcut or installation folder with Administrator privileges
 
 - Enter the full operator’s name
 
