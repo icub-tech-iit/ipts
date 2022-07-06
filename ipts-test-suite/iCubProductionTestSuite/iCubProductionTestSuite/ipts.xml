@@ -182,7 +182,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
   
        **************************************************************************************************-->
 
-  <testplan id="2" board="STRAIN2" iitcode="11996.B" reportsDir="strain2" rev="4">
+  <testplan id="2" board="STRAIN2" iitcode="11996.B" reportsDir="strain2" rev="5">
 
     <interfaces>
       <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
@@ -207,51 +207,44 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
     </test>
 
     <test id="3" name="Test comunicazione CAN">
-      <operation type="send" interface="CAN" command="00"/>
+      <operation type="send" interface="CAN" command="06"/>
       <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
     </test>
-    
-     <test id="4" name="Test MCU Device ID">
-      <operation type="send" interface="CAN" command="07" />
-      <operation type="receivePassFail" interface="CAN" valPass="0x04 0x35" logMess="true" />
-    </test>
         
-    <test id="5" name="Verifica Revisione Firmmware di Test">
-      <operation type="send" interface="CAN" command="01" />
-      <operation type="receivePassFail" interface="CAN" valPass="0x02 0x01" logMess="true" />
+    <test id="4" name="Verifica Revisione Firmmware di Test">
+      <operation type="send" interface="CAN" command="00" />
+      <operation type="receivePassFail" interface="CAN" valPass="0x03 0x00" logMess="true" />
     </test>
 
-    <test id="6" name="Test Led OFF">
-      <operation type="send" interface="CAN" command="02" />
+    <test id="5" name="Test Led OFF">
+      <operation type="send" interface="CAN" command="01" />
       <operation type="yesNoDialog" text="Il led blu é spento?" image="img/strain2/strain2_ledOFF.jpg" />
     </test>
 
-    <test id="7" name="Test Led ON">
-      <operation type="send" interface="CAN" command="03" />
-      <operation type="yesNoDialog" text="I led rosso e blu sono accesi?" image="img/strain2/strain2_ledON.jpg" />
+    <test id="6" name="Test Led ON">
+      <operation type="send" interface="CAN" command="02" />
+      <operation type="yesNoDialog" text="Il led blu é acceso?" image="img/strain2/strain2_ledON.jpg" />
     </test>
 
-    <test id="8" name="Test sensori di temperatura (top+bottom)">
+    <test id="7" name="Test sensori di temperatura (top+bottom)">
       <operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
-      <operation type="send" interface="CAN" command="05" appendVar="tempIn" />
+      <operation type="send" interface="CAN" command="03" appendVar="tempIn" />
       <operation type="wait" value="500" />
       <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true"/>
     </test>
 
-    <test id="9" name="Test IMU">
+    <test id="8" name="Test IMU">
       <operation type="send" interface="CAN" command="04" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="true" />
     </test>
 
-    <test id="10" name="Test dei 6 canali analogici">
- 	  <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2_reset.bat" log="false" />
-	  <operation type="wait" value="2000" />
-      <operation type="send" interface="CAN" command="06"/>
-      <operation type="wait" value="2000" />
+    <test id="9" name="Test dei 6 canali analogici">
+      <operation type="send" interface="CAN" command="05"/>
+      <operation type="wait" value="500" />
       <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
     </test>
 
-    <test id="11" name="Flash Bootloader/Applicativo">
+    <test id="10" name="Flash Bootloader/Applicativo">
       <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2_prod.bat" />
     </test>
   </testplan>
