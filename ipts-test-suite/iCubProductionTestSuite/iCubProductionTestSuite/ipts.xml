@@ -178,7 +178,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
   <!-- **************************************************************************************************
   
-		TESTPLAN FOR STRAIN2
+		TESTPLAN FOR STRAIN2 rev B and C
   
        **************************************************************************************************-->
 
@@ -250,13 +250,81 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
   </testplan>
 
 
+	<testplan id="3" board="STRAIN2C" iitcode="11996.C" reportsDir="strain2" rev="1">
+
+		<interfaces>
+			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+		</interfaces>
+
+		<test id="1" name="Test Assenza corto VIN-GND">
+			<operation type="okDialog" text="Verificare con il multimetro che i pad 1 e 4 NON siano in corto." image="img/strain2/strain2_short.jpg" />
+			<operation type="passFailDialog" text="I pin NON SONO in corto?" />
+		</test>
+
+		<test id="2" name="Flash Firmware di test">
+			<operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura" image="img/strain2/strain2_setup1.jpg" />
+			<operation type="okDialog" text="Collegare il setup di test come in figura
+
+            1. Connettere l'ESD CAN-USB (2) e il programmatore ST-LINK (3) alle usb del PC
+            2. Connettere l'ESD CAN-USB (2) an connettore J3 del jig (4)
+            3. Connettere il programmatore ST-LINK (3) al connettore J2 del jig (4) 
+  			4. Premere Invio a programmazione terminata"
+
+					   image="img/strain2/strain2_setup2.jpg" />
+			<operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2c_test.bat" />
+		</test>
+
+		<test id="3" name="Test comunicazione CAN">
+			<operation type="send" interface="CAN" command="06"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+		</test>
+
+		<test id="4" name="Verifica Revisione Firmmware di Test">
+			<operation type="send" interface="CAN" command="00" />
+			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="true" />
+		</test>
+
+		<test id="5" name="Test Led OFF">
+			<operation type="send" interface="CAN" command="01" />
+			<operation type="yesNoDialog" text="Il led blu é spento?" image="img/strain2/strain2_ledOFF.jpg" />
+		</test>
+
+		<test id="6" name="Test Led ON">
+			<operation type="send" interface="CAN" command="02" />
+			<operation type="yesNoDialog" text="Il led blu é acceso?" image="img/strain2/strain2_ledON.jpg" />
+		</test>
+
+		<test id="7" name="Test sensori di temperatura (top+bottom)">
+			<operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
+			<operation type="send" interface="CAN" command="03" appendVar="tempIn" />
+			<operation type="wait" value="500" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true"/>
+		</test>
+
+		<test id="8" name="Test IMU">
+			<operation type="send" interface="CAN" command="04" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="true" />
+		</test>
+
+		<test id="9" name="Test dei 6 canali analogici">
+			<operation type="send" interface="CAN" command="05"/>
+			<operation type="wait" value="500" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+		</test>
+
+		<test id="10" name="Flash Bootloader/Applicativo">
+			<operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2c_prod.bat" />
+		</test> 
+	</testplan>
+
+
     <!-- **************************************************************************************************
   
 		TESTPLAN FOR MC4-PLUS
   
        **************************************************************************************************-->
 
-  <testplan id="3" board="MC4-PLUS" iitcode="5443.D" reportsDir="mc4plus" rev="1">
+  <testplan id="4" board="MC4-PLUS" iitcode="5443.D" reportsDir="mc4plus" rev="1">
 
     <interfaces>
       <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
@@ -421,7 +489,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 	
   </testplan>
 
-  <testplan id="4" board="MC4-PLUS" iitcode="5443.E" reportsDir="mc4plus" rev="1">
+  <testplan id="5" board="MC4-PLUS" iitcode="5443.E" reportsDir="mc4plus" rev="1">
 
     <interfaces>
       <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
@@ -592,7 +660,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
   
        **************************************************************************************************-->
 	   
-   <testplan id="5" board="DC MOTORS" iitcode="2694" reportsDir="dcMotors" rev="1">
+   <testplan id="6" board="DC MOTORS" iitcode="2694" reportsDir="dcMotors" rev="1">
 
     <test id="1" name="Connessioni Setup">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
@@ -616,7 +684,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
      
   </testplan>
 
-   <testplan id="6" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
+   <testplan id="7" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
 
     <test id="1" name="Connessioni Setup">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
@@ -641,7 +709,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
   
        **************************************************************************************************-->
 	   
-   <testplan id="7" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
+   <testplan id="8" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
 
 
     <test id="1" name="Controllo visivo">
