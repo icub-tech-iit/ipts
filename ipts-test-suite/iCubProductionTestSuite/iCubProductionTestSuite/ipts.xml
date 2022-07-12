@@ -281,7 +281,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 		<test id="4" name="Verifica Revisione Firmmware di Test">
 			<operation type="send" interface="CAN" command="00" />
-			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="true" />
+			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="1" />
 		</test>
 
 		<test id="5" name="Test Led OFF">
@@ -298,18 +298,18 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 			<operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
 			<operation type="send" interface="CAN" command="03" appendVar="tempIn" />
 			<operation type="wait" value="500" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
 		</test>
 
 		<test id="8" name="Test IMU">
 			<operation type="send" interface="CAN" command="04" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="true" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
 		</test>
 
 		<test id="9" name="Test dei 6 canali analogici">
 			<operation type="send" interface="CAN" command="05"/>
 			<operation type="wait" value="500" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="3" />
 		</test>
 
 		<test id="10" name="Flash Bootloader/Applicativo">

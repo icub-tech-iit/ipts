@@ -108,12 +108,19 @@ namespace iCubProductionTestSuite.classes
                         if (!res) Pass = false;
                         if (o.Log == null || !o.Log.Equals("false"))
                         {
-                            if (repeated && (o.Log == null || !o.Log.Equals("false"))) logBox.Items.RemoveAt(logBox.Items.Count - 1);
+                            int nrMess = Convert.ToInt16(o.LogMess);
 
-                            if (o.LogMess != null && o.LogMess.Equals("true"))
+                            if (repeated && (o.Log == null || !o.Log.Equals("false"))) logBox.Items.RemoveAt(logBox.Items.Count - nrMess);
+
+                            if (nrMess > 0)
                             {
-                                s = string.Format("{0,-3} {1,-40} {2,-8} {3,-30}", test.Id + ")", test.Name, CmdResult, " [" + crr.Cmsg[0].ToString().Substring(23, crr.Cmsg[0].ToString().Length - 23) + "]");
-                                logBox.Items.Add(s);
+                                for(int i = 0; i < nrMess; i++)
+                                {
+                                    if(i == 0) s = string.Format("{0,-3} {1,-40} {2,-8} {3,-30}", test.Id + ")", test.Name, CmdResult, " [" + crr.Cmsg[i].ToString().Substring(23, crr.Cmsg[i].ToString().Length - 23) + "]");
+                                    else s = string.Format("{0,-3} {1,-40} {2,-8} {3,-30}", "", "", "", " [" + crr.Cmsg[i].ToString().Substring(23, crr.Cmsg[i].ToString().Length - 23) + "]");
+                                    logBox.Items.Add(s);
+                                }
+
                             }
                             else
                             {

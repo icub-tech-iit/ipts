@@ -101,6 +101,7 @@ namespace iCubProductionTestSuite.classes
         {
             if (tis.Count.Equals(0)) { Pass = false; return; }
 
+            int nrMess = Convert.ToInt16(op.LogMess);
             foreach (TestInterface ti in tis)
             {
                 switch (ti.Name)
@@ -108,8 +109,8 @@ namespace iCubProductionTestSuite.classes
                     case "CAN":
                         cu = new CanUtils(ti);
                         // Byte c = cu.receive();
-                        //Cmsg[0] = cu.receive();
-                        Cmsg.Add(cu.receive());
+                        if(nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive());
+                        else Cmsg.Add(cu.receive());
                         //cu.receive();
                         string[] vpl = op.ValPass.Split(' ');
                         for(int i = 0; i < vpl.Length; i++)
