@@ -24,7 +24,7 @@
       <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
     </interfaces>
 
-    <test id="1" name="Test Assenza corto 5V-GND">
+    <test id="1" name="Test Assenza corto 5V-GND" stopOnFail="true">
       <operation type="okDialog" text="Verificare che i pin 1 e 4 del connettore J1 non siano in corto." image="img/mtb4/MTB4_short.jpg" />
       <operation type="passFailDialog" text="I pin NON SONO in corto?" />
     </test>
@@ -51,9 +51,9 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
     </test>
     
-    <test id="4" name="Verifica Revisione Firmmware di Test">
+    <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
       <operation type="send" interface="CAN" command="00" />
-      <operation type="receivePassFail" interface="CAN" valPass="0x03 0x00" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0x03 0x00" logMess="1" />
     </test>
 
     <test id="5" name="Test Led OFF">
@@ -69,7 +69,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
     <test id="7" name="Test Temperatura">
       <operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
       <operation type="send" interface="CAN" command="03" appendVar="tempIn" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 
     <test id="8" name="Test GPIO">
@@ -81,7 +81,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
     <test id="9" name="Test IMU">
       <operation type="send" interface="CAN" command="04" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
     </test>
 
     <test id="10" name="Test secondo CAN">
@@ -104,7 +104,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 		</interfaces>
 
 		
-		<test id="1" name="Test Assenza corto 5V-GND">
+		<test id="1" name="Test Assenza corto 5V-GND" stopOnFail="true">
 			<operation type="okDialog" text="Verificare che i pin 1 e 4 del connettore J1 non siano in corto." image="img/mtb4/MTB4_short.jpg" />
 			<operation type="passFailDialog" text="I pin NON SONO in corto?" />
 		</test>
@@ -131,9 +131,9 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 
-		<test id="4" name="Verifica Revisione Firmmware di Test">
+		<test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
 			<operation type="send" interface="CAN" command="00" />
-			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="true" />
+			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="1" />
 		</test>
 
 		<test id="5" name="Test Led OFF">
@@ -149,7 +149,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 		<test id="7" name="Test Temperatura">
 			<operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
 			<operation type="send" interface="CAN" command="03" appendVar="tempIn" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
 		<test id="8" name="Test GPIO">
@@ -161,7 +161,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 		<test id="9" name="Test IMU">
 			<operation type="send" interface="CAN" command="04" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="true" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
 		</test>
 
 		<test id="10" name="Test secondo CAN">
@@ -188,7 +188,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
     </interfaces>
 
-    <test id="1" name="Test Assenza corto VIN-GND">
+    <test id="1" name="Test Assenza corto VIN-GND" stopOnFail="true">
       <operation type="okDialog" text="Verificare con il multimetro che i pad 1 e 4 NON siano in corto." image="img/strain2/strain2_short.jpg" />
       <operation type="passFailDialog" text="I pin NON SONO in corto?" />
     </test>
@@ -211,9 +211,9 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
     </test>
         
-    <test id="4" name="Verifica Revisione Firmmware di Test">
+    <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
       <operation type="send" interface="CAN" command="00" />
-      <operation type="receivePassFail" interface="CAN" valPass="0x03 0x00" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0x03 0x00" logMess="1" />
     </test>
 
     <test id="5" name="Test Led OFF">
@@ -230,18 +230,18 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
       <operation type="send" interface="CAN" command="03" appendVar="tempIn" />
       <operation type="wait" value="500" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true"/>
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
     </test>
 
     <test id="8" name="Test IMU">
       <operation type="send" interface="CAN" command="04" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
     </test>
 
     <test id="9" name="Test dei 6 canali analogici">
       <operation type="send" interface="CAN" command="05"/>
       <operation type="wait" value="500" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 
     <test id="10" name="Flash Bootloader/Applicativo">
@@ -256,7 +256,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
 		</interfaces>
 
-		<test id="1" name="Test Assenza corto VIN-GND">
+		<test id="1" name="Test Assenza corto VIN-GND" stopOnFail="true">
 			<operation type="okDialog" text="Verificare con il multimetro che i pad 1 e 4 NON siano in corto." image="img/strain2/strain2_short.jpg" />
 			<operation type="passFailDialog" text="I pin NON SONO in corto?" />
 		</test>
@@ -279,7 +279,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 
-		<test id="4" name="Verifica Revisione Firmmware di Test">
+		<test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
 			<operation type="send" interface="CAN" command="00" />
 			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="1" />
 		</test>
@@ -330,7 +330,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
     </interfaces>
 	
-	<test id="1" name="Test Assorbimento">
+	<test id="1" name="Test Assorbimento" stopOnFail="true">
 	  <operation type="okDialog" text="Collegare la scheda al cavo di alimentazione del setup ed al programmatore ST-LINK come in figura. Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img/mc4plus/connections1.jpg" />
       <operation type="passFailDialog" text="L'assorbimento é inferiore a 80 mA?" />
     </test>
@@ -339,7 +339,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_test.bat" />
     </test>
 	
-	<test id="3" name="Test Fimware Running">
+	<test id="3" name="Test Fimware Running" stopOnFail="true">
 	  <operation type="wait" value="4000" />
       <operation type="yesNoDialog" text="Scollegare il programmatore ST-LINK 2 e capovolgere la scheda. Il led VERDE DL3 lampeggia?" image="img/mc4plus/fw-running.gif" />
     </test>
@@ -352,9 +352,9 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
     </test>
 	
-	<test id="5" name="Verifica Revisione Firmmware di Test">
+	<test id="5" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
       <operation type="send" interface="CAN" command="0" />
-      <operation type="receivePassFail" interface="CAN" valPass="0x02 0x00" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0x02 0x00" logMess="1" />
     </test>
 	
 	<test id="6" name="Test Leds">
@@ -371,103 +371,103 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 	
 	<test id="8" name="Test TVIN">
       <operation type="send" interface="CAN" command="4" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="9" name="Test TVAUX">
       <operation type="send" interface="CAN" command="5" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="10" name="Test Analog Input AN1">
       <operation type="send" interface="CAN" command="6" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="11" name="Test Analog Input AN2">
       <operation type="send" interface="CAN" command="7" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="12" name="Test Analog Input AN3">
       <operation type="send" interface="CAN" command="8" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="13" name="Test Analog Input AN4">
       <operation type="send" interface="CAN" command="9" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="14" name="Test Encoder Reading 1 (P2)">
 	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U2 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u2.gif" />
       <operation type="send" interface="CAN" command="13" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="15" name="Test Encoder Reading 2 (P3)">
 	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U1 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u1.gif" />
       <operation type="send" interface="CAN" command="14" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="16" name="Test Encoder Reading 3 (P4)">
       <operation type="okDialog" text="Premere OK quindi premere e rilasciare U3 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u3.gif" />     
 	  <operation type="send" interface="CAN" command="15" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="17" name="Test Encoder Reading 4 (P5)">
 	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U4 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u4.gif" />
       <operation type="send" interface="CAN" command="16" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="18" name="Test PWM 1 (P2)">
       <operation type="send" interface="CAN" command="17" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="19" name="Test PWM 2 (P3)">
       <operation type="send" interface="CAN" command="18" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="20" name="Test PWM 3 (P4)">
       <operation type="send" interface="CAN" command="19" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="21" name="Test PWM 4 (P5)">
       <operation type="send" interface="CAN" command="20" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="22" name="Test EEprom">
       <operation type="send" interface="CAN" command="10" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="23" name="Test Micrel">
       <operation type="send" interface="CAN" command="11" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="24" name="Test SPI">
       <operation type="send" interface="CAN" command="12" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="25" name="Test Fault L">
 	  <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-1.jpg" />
       <operation type="send" interface="CAN" command="21" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="26" name="Test Fault H">
 	  <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-2.jpg" />
       <operation type="send" interface="CAN" command="22" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
     <test id="27" name="Flash Bootloader/Applicativo">
@@ -519,7 +519,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 	
 	<test id="5" name="Verifica Revisione Firmmware di Test">
       <operation type="send" interface="CAN" command="0" />
-      <operation type="receivePassFail" interface="CAN" valPass="0x02 0x00" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0x02 0x00" logMess="1" />
     </test>
 	
 	<test id="6" name="Test Leds">
@@ -536,103 +536,103 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 	
 	<test id="8" name="Test TVIN">
       <operation type="send" interface="CAN" command="4" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="9" name="Test TVAUX">
       <operation type="send" interface="CAN" command="5" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="10" name="Test Analog Input AN1">
       <operation type="send" interface="CAN" command="6" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="11" name="Test Analog Input AN2">
       <operation type="send" interface="CAN" command="7" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="12" name="Test Analog Input AN3">
       <operation type="send" interface="CAN" command="8" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="13" name="Test Analog Input AN4">
       <operation type="send" interface="CAN" command="9" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="14" name="Test Encoder Reading 1 (P2)">
 	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U2 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u2.gif" />
       <operation type="send" interface="CAN" command="13" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="15" name="Test Encoder Reading 2 (P3)">
 	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U1 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u1.gif" />
       <operation type="send" interface="CAN" command="14" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="16" name="Test Encoder Reading 3 (P4)">
       <operation type="okDialog" text="Premere OK quindi premere e rilasciare U3 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u3.gif" />     
 	  <operation type="send" interface="CAN" command="15" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="17" name="Test Encoder Reading 4 (P5)">
 	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U4 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u4.gif" />
       <operation type="send" interface="CAN" command="16" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="18" name="Test PWM 1 (P2)">
       <operation type="send" interface="CAN" command="17" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="19" name="Test PWM 2 (P3)">
       <operation type="send" interface="CAN" command="18" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="20" name="Test PWM 3 (P4)">
       <operation type="send" interface="CAN" command="19" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="21" name="Test PWM 4 (P5)">
       <operation type="send" interface="CAN" command="20" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="22" name="Test EEprom">
       <operation type="send" interface="CAN" command="10" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="23" name="Test Micrel">
       <operation type="send" interface="CAN" command="11" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="24" name="Test SPI">
       <operation type="send" interface="CAN" command="12" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="25" name="Test Fault L">
 	  <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-1.jpg" />
       <operation type="send" interface="CAN" command="21" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
 	<test id="26" name="Test Fault H">
 	  <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-2.jpg" />
       <operation type="send" interface="CAN" command="22" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="true" />
+      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
     </test>
 	
     <test id="27" name="Flash Bootloader/Applicativo">

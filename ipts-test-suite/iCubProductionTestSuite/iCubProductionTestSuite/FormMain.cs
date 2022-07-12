@@ -228,14 +228,16 @@ namespace iCubProductionTestSuite
                     else STOP = false;
                 }
 
+                bool PASS_TMP = true;
                 //eseguo il test
                 while (repeat)
                 {
                     tp.setTestResult(testid, "Running...");
                     this.Refresh();
-                    PASS = tr.runTest(t, this.listBoxLog, repeated);
+                    PASS_TMP = tr.runTest(t, this.listBoxLog, repeated);
+                    
 
-                    if (!PASS)
+                    if (!PASS_TMP)
                     {
                         tp.setTestResult(testid, "Fail");
                         if (MessageBox.Show("Vuoi ripetere il test : " + t.Name + " ?", "Test Fallito!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
@@ -244,15 +246,16 @@ namespace iCubProductionTestSuite
                         }
                         else
                         {
-                            PASS = true;
+                            //PASS = true;
                             repeated = true;
                         }
                     }
                     else { repeat = false; repeated = false; }
                     }
                 repeat = true;
+                if (!PASS_TMP) PASS = false;
 
-                if (!PASS && !DEBUG)
+                if (!PASS_TMP && !DEBUG && t.StopOnFail != null && t.StopOnFail == "true")
                 {
                     
                     startStop1.setStartEnabled(true);
@@ -260,7 +263,8 @@ namespace iCubProductionTestSuite
                 }
                 else
                 {
-                    tp.setTestResult(testid, "Pass");
+                    if(!PASS_TMP) tp.setTestResult(testid, "Fail");
+                    else tp.setTestResult(testid, "Pass");
 
                 }
             }
