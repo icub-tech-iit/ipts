@@ -10,6 +10,6 @@
   <setting testplan="0" serial="0" />
   <setting testplan="1" serial="2" />
   <setting testplan="2" serial="2" />
-  <setting testplan="3" serial="0" />
+  <setting testplan="3" serial="1" />
   <setting testplan="4" serial="1" />
 </iptsSettings>

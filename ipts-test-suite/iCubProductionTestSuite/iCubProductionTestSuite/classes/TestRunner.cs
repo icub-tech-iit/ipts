@@ -112,7 +112,7 @@ namespace iCubProductionTestSuite.classes
 
                             if (o.LogMess != null && o.LogMess.Equals("true"))
                             {
-                                s = string.Format("{0,-3} {1,-40} {2,-8} {3,-30}", test.Id + ")", test.Name, CmdResult, " [" + crr.Cmsg.ToString().Substring(23, crr.Cmsg.ToString().Length - 23) + "]");
+                                s = string.Format("{0,-3} {1,-40} {2,-8} {3,-30}", test.Id + ")", test.Name, CmdResult, " [" + crr.Cmsg[0].ToString().Substring(23, crr.Cmsg[0].ToString().Length - 23) + "]");
                                 logBox.Items.Add(s);
                             }
                             else
