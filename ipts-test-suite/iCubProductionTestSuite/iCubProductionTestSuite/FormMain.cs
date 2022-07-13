@@ -227,7 +227,7 @@ namespace iCubProductionTestSuite
                     }
                     else STOP = false;
                 }
-
+                repeated = false;
                 bool PASS_TMP = true;
                 //eseguo il test
                 while (repeat)

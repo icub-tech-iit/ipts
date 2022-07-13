@@ -29,7 +29,7 @@
       <operation type="passFailDialog" text="I pin NON SONO in corto?" />
     </test>
 
-	  <test id="2" name="Flash Firmware di test">
+	  <test id="2" name="Flash Firmware di test" stopOnFail="true">
 		  <operation type="okDialog" text="Collegamenti setup:
 
 1. Connettere l' ESD CAN-USB (2) ed il ST-Link (3) alle USB del PC (1)
@@ -46,7 +46,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 		  <operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4_test.bat" />
 	  </test>
 
-    <test id="3" name="Test comunicazione CAN">
+    <test id="3" name="Test comunicazione CAN" stopOnFail="true">
       <operation type="send" interface="CAN" command="06"/>
       <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
     </test>
@@ -109,7 +109,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 			<operation type="passFailDialog" text="I pin NON SONO in corto?" />
 		</test>
 
-		<test id="2" name="Flash Firmware di test">
+		<test id="2" name="Flash Firmware di test" stopOnFail="true">
 			<operation type="okDialog" text="Collegamenti setup:
 
 1. Connettere l' ESD CAN-USB (2) ed il ST-Link (3) alle USB del PC (1)
@@ -126,7 +126,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 			<operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4c_test.bat" />
 		</test>
 
-		<test id="3" name="Test comunicazione CAN">
+		<test id="3" name="Test comunicazione CAN" stopOnFail="true">
 			<operation type="send" interface="CAN" command="06"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
@@ -193,7 +193,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <operation type="passFailDialog" text="I pin NON SONO in corto?" />
     </test>
 
-    <test id="2" name="Flash Firmware di test">
+    <test id="2" name="Flash Firmware di test" stopOnFail="true">
       <operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura" image="img/strain2/strain2_setup1.jpg" />
       <operation type="okDialog" text="Collegare il setup di test come in figura
 
@@ -206,7 +206,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2_test.bat" />
     </test>
 
-    <test id="3" name="Test comunicazione CAN">
+    <test id="3" name="Test comunicazione CAN" stopOnFail="true">
       <operation type="send" interface="CAN" command="06"/>
       <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
     </test>
@@ -261,7 +261,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 			<operation type="passFailDialog" text="I pin NON SONO in corto?" />
 		</test>
 
-		<test id="2" name="Flash Firmware di test">
+		<test id="2" name="Flash Firmware di test" stopOnFail="true">
 			<operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura" image="img/strain2/strain2_setup1.jpg" />
 			<operation type="okDialog" text="Collegare il setup di test come in figura
 
@@ -274,7 +274,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 			<operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2c_test.bat" />
 		</test>
 
-		<test id="3" name="Test comunicazione CAN">
+		<test id="3" name="Test comunicazione CAN" stopOnFail="true">
 			<operation type="send" interface="CAN" command="06"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
@@ -335,7 +335,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <operation type="passFailDialog" text="L'assorbimento é inferiore a 80 mA?" />
     </test>
 	
-	<test id="2" name="Flash Firmware di test">
+	<test id="2" name="Flash Firmware di test" stopOnFail="true">
       <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_test.bat" />
     </test>
 	
@@ -345,7 +345,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
     </test>
 	
 		
-	<test id="4" name="Test comunicazione CAN">
+	<test id="4" name="Test comunicazione CAN" stopOnFail="true">
   	  <operation type="okDialog" text="Collegare il cavo CAN dell' ESD CAN/USB al connettore P9 della mc4plus lasciando vuoti i pin laterali" image="img/mc4plus/can-connect.jpg" />
   	  <operation type="wait" value="1000" />
       <operation type="send" interface="CAN" command="23"/>
@@ -495,22 +495,22 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
     </interfaces>
 	
-	<test id="1" name="Test Assorbimento">
+	<test id="1" name="Test Assorbimento" stopOnFail="true">
 	  <operation type="okDialog" text="Collegare la scheda al cavo di alimentazione del setup ed al programmatore ST-LINK come in figura. Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img/mc4plus/connections1.jpg" />
       <operation type="passFailDialog" text="L'assorbimento é inferiore a 80 mA?" />
     </test>
 	
-	<test id="2" name="Flash Firmware di test">
+	<test id="2" name="Flash Firmware di test" stopOnFail="true">
       <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_test.bat" />
     </test>
 	
-	<test id="3" name="Test Fimware Running">
+	<test id="3" name="Test Fimware Running" stopOnFail="true">
 	  <operation type="wait" value="4000" />
       <operation type="yesNoDialog" text="Scollegare il programmatore ST-LINK 2 e capovolgere la scheda. Il led VERDE DL3 lampeggia?" image="img/mc4plus/fw-running.gif" />
     </test>
 	
 		
-	<test id="4" name="Test comunicazione CAN">
+	<test id="4" name="Test comunicazione CAN" stopOnFail="true">
   	  <operation type="okDialog" text="Collegare il cavo CAN dell' ESD CAN/USB al connettore P9 della mc4plus lasciando vuoti i pin laterali" image="img/mc4plus/can-connect.jpg" />
   	  <operation type="wait" value="1000" />
       <operation type="send" interface="CAN" command="23"/>

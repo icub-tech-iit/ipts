@@ -110,7 +110,11 @@ namespace iCubProductionTestSuite.classes
                         {
                             int nrMess = Convert.ToInt16(o.LogMess);
 
-                            if (repeated && (o.Log == null || !o.Log.Equals("false"))) logBox.Items.RemoveAt(logBox.Items.Count - nrMess);
+                            if (repeated && (o.Log == null || !o.Log.Equals("false")))
+                            {
+                                for(int j = nrMess; j >=1; j--) logBox.Items.RemoveAt(logBox.Items.Count - j);
+                            }
+                            logBox.Refresh();
 
                             if (nrMess > 0)
                             {
@@ -163,6 +167,7 @@ namespace iCubProductionTestSuite.classes
                     default: break;
                 }
             }
+            logBox.Refresh();
             return Pass;
         }
     }
