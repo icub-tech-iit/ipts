@@ -97,7 +97,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
   </testplan>
 
 
-	<testplan id="1" board="MTB4C" iitcode="12008.C" reportsDir="mtb4" rev="1">
+	<testplan id="1" board="MTB4C" iitcode="12008.C" reportsDir="mtb4c" rev="1">
 
 		<interfaces>
 			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
@@ -256,7 +256,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
   </testplan>
 
 
-	<testplan id="3" board="STRAIN2C" iitcode="11996.C" reportsDir="strain2" rev="1">
+	<testplan id="3" board="STRAIN2C" iitcode="11996.C" reportsDir="strain2c" rev="1">
 
 		<interfaces>
 			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
