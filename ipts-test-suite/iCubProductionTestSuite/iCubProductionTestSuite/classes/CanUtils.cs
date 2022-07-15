@@ -134,7 +134,7 @@ namespace iCubProductionTestSuite.classes
             }
 
             // Configure timeout
-            port.ReceiveTimeout = 3000;
+           port.ReceiveTimeout = 3000;
          
             // Set the bit rate to 1000 KBit/s
             port.BitRate = new CanBitRate(CanBitRateTable.Cia1000KBit);

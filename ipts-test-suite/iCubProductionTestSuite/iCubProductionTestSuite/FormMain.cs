@@ -35,7 +35,7 @@ namespace iCubProductionTestSuite
         bool DEBUG = false;
         String LAST_SN = "0";
         String OPERATOR = "";
-        static String SW_VER = "1.1.0 - 20/06/2022"; // refer to svn log searching the revision to see the changes 
+        static String SW_VER = "1.2.0 - 15/07/2022"; // refer to svn log searching the revision to see the changes 
         String RESULT = ""; 
         static String CONFIG_DIR = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
  //     static String CONFIG_DIR = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\IIT\\IPTS";
@@ -288,14 +288,12 @@ namespace iCubProductionTestSuite
                 Report rep = new Report();
                 rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, view, false, CONFIG_DIR + "\\" + REPORTS_DIR + "\\" + tp.ReportsDir, FW_DIR);
 
-                if (PASS)
-                {
-                    double d;
+                //Aggiorno SN
+                double d;
 
-                    if (double.TryParse(LAST_SN.Substring(0,1), out d)) LAST_SN = Convert.ToString(Convert.ToInt16(fi_s.Serial) + 1);
-                    else LAST_SN = LAST_SN.Substring(0,1) + Convert.ToString(Convert.ToInt16(fi_s.Serial.Substring(1,fi_s.Serial.Length - 1)) + 1).PadLeft(4, '0');
-                }
-
+                if (double.TryParse(LAST_SN.Substring(0,1), out d)) LAST_SN = Convert.ToString(Convert.ToInt16(fi_s.Serial) + 1);
+                else LAST_SN = LAST_SN.Substring(0,1) + Convert.ToString(Convert.ToInt16(fi_s.Serial.Substring(1,fi_s.Serial.Length - 1)) + 1).PadLeft(4, '0');
+               
 
                 //aggiorno file settings
                 try

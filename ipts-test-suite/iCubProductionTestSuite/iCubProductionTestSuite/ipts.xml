@@ -193,18 +193,22 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <operation type="passFailDialog" text="I pin NON SONO in corto?" />
     </test>
 
-    <test id="2" name="Flash Firmware di test" stopOnFail="true">
-      <operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura" image="img/strain2/strain2_setup1.jpg" />
-      <operation type="okDialog" text="Collegare il setup di test come in figura
+	  <test id="2" name="Flash Firmware di test" stopOnFail="true">
+		  <operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura
+										Assicurarsi che gli switch siano nella corretta posizione." image="img/strain2/strain2_setup1.jpg" />
+		  <operation type="okDialog" text="Collegare il setup di test come in figura
 
-            1. Connettere l'ESD CAN-USB (2) e il programmatore ST-LINK (3) alle usb del PC
-            2. Connettere l'ESD CAN-USB (2) an connettore J3 del jig (4)
-            3. Connettere il programmatore ST-LINK (3) al connettore J2 del jig (4) 
-  			4. Premere Invio a programmazione terminata"
+1. Connettere l'ESD CAN-USB (2) e il programmatore ST-LINK (3) alle usb del PC
 
-				 image="img/strain2/strain2_setup2.jpg" />
-      <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2_test.bat" />
-    </test>
+2. Connettere l'ESD CAN-USB (2) an connettore J3 del jig (4)
+
+3. Connettere il programmatore ST-LINK (3) al connettore J2 del jig (4) 
+
+4. Premere Invio a programmazione terminata"
+
+					 image="img/strain2/strain2_setup2.jpg" />
+		  <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2_test.bat" />
+	  </test>
 
     <test id="3" name="Test comunicazione CAN" stopOnFail="true">
       <operation type="send" interface="CAN" command="06"/>
@@ -233,18 +237,20 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
       <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
     </test>
 
-    <test id="8" name="Test IMU">
-      <operation type="send" interface="CAN" command="04" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
-    </test>
+	  <test id="8" name="Test IMU">
+		  <operation type="wait" value="500" />
+		  <operation type="send" interface="CAN" command="04" />
+		  <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
+	  </test>
 
-    <test id="9" name="Test dei 6 canali analogici">
-      <operation type="send" interface="CAN" command="05"/>
-      <operation type="wait" value="500" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
+	  <test id="9" name="Test dei 6 canali analogici">
+		  <operation type="send" interface="CAN" command="05"/>
+		  <operation type="wait" value="500" />
+		  <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="3" />
+	  </test>
 
-    <test id="10" name="Flash Bootloader/Applicativo">
+
+	  <test id="10" name="Flash Bootloader/Applicativo">
       <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2_prod.bat" />
     </test>
   </testplan>
@@ -262,13 +268,17 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 		</test>
 
 		<test id="2" name="Flash Firmware di test" stopOnFail="true">
-			<operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura" image="img/strain2/strain2_setup1.jpg" />
+			<operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura
+										Assicurarsi che gli switch siano nella corretta posizione." image="img/strain2/strain2_setup1.jpg" />
 			<operation type="okDialog" text="Collegare il setup di test come in figura
 
-            1. Connettere l'ESD CAN-USB (2) e il programmatore ST-LINK (3) alle usb del PC
-            2. Connettere l'ESD CAN-USB (2) an connettore J3 del jig (4)
-            3. Connettere il programmatore ST-LINK (3) al connettore J2 del jig (4) 
-  			4. Premere Invio a programmazione terminata"
+1. Connettere l'ESD CAN-USB (2) e il programmatore ST-LINK (3) alle usb del PC
+
+2. Connettere l'ESD CAN-USB (2) an connettore J3 del jig (4)
+
+3. Connettere il programmatore ST-LINK (3) al connettore J2 del jig (4) 
+
+4. Premere Invio a programmazione terminata"
 
 					   image="img/strain2/strain2_setup2.jpg" />
 			<operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2c_test.bat" />
@@ -302,16 +312,17 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 		</test>
 
 		<test id="8" name="Test IMU">
+			<operation type="wait" value="500" />
 			<operation type="send" interface="CAN" command="04" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
 		</test>
-
+		
 		<test id="9" name="Test dei 6 canali analogici">
 			<operation type="send" interface="CAN" command="05"/>
 			<operation type="wait" value="500" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="3" />
 		</test>
-
+		
 		<test id="10" name="Flash Bootloader/Applicativo">
 			<operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2c_prod.bat" />
 		</test> 
