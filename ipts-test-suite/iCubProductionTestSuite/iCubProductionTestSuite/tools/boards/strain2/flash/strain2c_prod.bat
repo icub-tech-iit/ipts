@@ -9,8 +9,10 @@ if %OS%==64BIT set PATH=%ProgramFiles(x86)%
 "%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -ME
 echo;
 echo;
-"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -P "hex\strain2_revB_test_v190.hex" -Rst -Run
+"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c -P "hex\strain2c.v1B0.bootloader.hex"
 echo;
+echo;
+
 IF %errorlevel% NEQ 0 GOTO :error
 GOTO :end
 :error

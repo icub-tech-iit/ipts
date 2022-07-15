@@ -260,8 +260,23 @@ namespace iCubProductionTestSuite.classes
                 XmlNodeList ops;
                 Test test = new Test();
 
-                test.Id = node1.Attributes["id"].Value;
-                test.Name = node1.Attributes["name"].Value;
+                XmlAttributeCollection attributes_test = node1.Attributes;
+                foreach (XmlAttribute t in attributes_test)
+                {
+                    switch (t.Name)
+                    {
+                        case "id":
+                            test.Id = node1.Attributes["id"].Value;
+                            break;
+                        case "name":
+                            test.Name = node1.Attributes["name"].Value;
+                            break;
+                        case "stopOnFail":
+                            test.StopOnFail = node1.Attributes["stopOnFail"].Value;
+                            break;
+                        default: break;
+                    }
+                }
 
                 ops = node1.SelectNodes("operation");
 
@@ -346,7 +361,7 @@ namespace iCubProductionTestSuite.classes
                             case "errorMessage":
                                 operation.ErrorMessage = op.Attributes["errorMessage"].Value;
                                 break;
-
+                           
                             default: break;
                         }
                     }
@@ -575,6 +590,7 @@ namespace iCubProductionTestSuite.classes
         private String name;
         private bool result;
         private List<Operation> operationList;
+        private string stopOnFail;
 
         public string Id
         {
@@ -625,6 +641,19 @@ namespace iCubProductionTestSuite.classes
             set
             {
                 result = value;
+            }
+        }
+
+        public string StopOnFail
+        {
+            get
+            {
+                return stopOnFail;
+            }
+
+            set
+            {
+                stopOnFail = value;
             }
         }
 

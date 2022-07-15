@@ -23,7 +23,7 @@ namespace iCubProductionTestSuite.classes
         private List<OperationVariable> opvl;
         private bool pass = true;
         private CanUtils cu;
-        private CanMessage cmsg;
+        private List<CanMessage> cmsg;
         
 
         public bool Pass
@@ -39,7 +39,7 @@ namespace iCubProductionTestSuite.classes
             }
         }
 
-        public CanMessage Cmsg
+        public List<CanMessage> Cmsg
         {
             get
             {
@@ -57,6 +57,7 @@ namespace iCubProductionTestSuite.classes
             this.tis = tis;
             this.op = op;
             this.opvl = opvl;
+            this.cmsg = new List<CanMessage>();
         }
 
         public CommandRunner(Operation op, List<TestInterface> tis)
@@ -100,6 +101,7 @@ namespace iCubProductionTestSuite.classes
         {
             if (tis.Count.Equals(0)) { Pass = false; return; }
 
+            int nrMess = Convert.ToInt16(op.LogMess);
             foreach (TestInterface ti in tis)
             {
                 switch (ti.Name)
@@ -107,12 +109,13 @@ namespace iCubProductionTestSuite.classes
                     case "CAN":
                         cu = new CanUtils(ti);
                         // Byte c = cu.receive();
-                         Cmsg = cu.receive();
+                        if(nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive());
+                        else Cmsg.Add(cu.receive());
                         //cu.receive();
                         string[] vpl = op.ValPass.Split(' ');
                         for(int i = 0; i < vpl.Length; i++)
                         {
-                            int b = Cmsg[i];
+                            int b = Cmsg[0][i];
                             int value = Convert.ToInt32(vpl[i], 16);
                             if (!b.Equals(value)) Pass = false;
                            
