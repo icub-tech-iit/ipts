@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>iCubProductionTestSuite</RootNamespace>
     <AssemblyName>iCubProductionTestSuite</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -59,7 +59,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NtcanNet">
-      <HintPath>..\..\..\..\..\Program Files (x86)\ESD\CAN\NtcanNET\lib\NtcanNet.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files\ESD\CAN\SDK\net\net35\NtcanNet.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
