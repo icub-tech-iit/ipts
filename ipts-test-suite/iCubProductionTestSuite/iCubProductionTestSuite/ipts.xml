@@ -830,13 +830,28 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 	</testplan>
   
+	<!-- **************************************************************************************************
+  
+		TESTPLAN FOR RFE 
+  
+       **************************************************************************************************-->
+
+	<testplan id="6" board="RFE_MASTER_MPCA" iitcode="12024.C" reportsDir="rfe" rev="1">
+
+		<interfaces>
+			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+			<interface name="SERIAL" netPort="COM4" bitrate="9600" messageID="0x551" />
+		</interfaces>
+
+
+	</testplan>
     <!-- **************************************************************************************************
   
 		TESTPLAN FOR DC MOTORS
   
        **************************************************************************************************-->
 	   
-   <testplan id="6" board="DC MOTORS" iitcode="2694" reportsDir="dcMotors" rev="1">
+   <testplan id="7" board="DC MOTORS" iitcode="2694" reportsDir="dcMotors" rev="1">
 
     <test id="1" name="Connessioni Setup">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
@@ -860,7 +875,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
      
   </testplan>
 
-   <testplan id="7" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
+   <testplan id="8" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
 
     <test id="1" name="Connessioni Setup">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
@@ -878,14 +893,15 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
     </test>
      
   </testplan>
-  
+
+	
       <!-- **************************************************************************************************
   
 		TESTPLAN FOR BRUSHLESS MOTORS
   
        **************************************************************************************************-->
 	   
-   <testplan id="8" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
+   <testplan id="9" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
 
 
     <test id="1" name="Controllo visivo">
@@ -926,7 +942,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
      
   </testplan>
   
-   <testplan id="9" board="BRUSHLESS MOTORS" iitcode="10350" reportsDir="brushlessMotors" rev="2">
+   <testplan id="10" board="BRUSHLESS MOTORS" iitcode="10350" reportsDir="brushlessMotors" rev="2">
 
 
     <test id="1" name="Controllo visivo">
@@ -967,7 +983,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
      
   </testplan>
 
-	<testplan id="10" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="2">
+	<testplan id="11" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="2">
 
 
 		<test id="1" name="Controllo visivo">
@@ -1008,7 +1024,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 	</testplan>
 
-	<testplan id="11" board="BRUSHLESS MOTORS" iitcode="7116" reportsDir="brushlessMotors" rev="2">
+	<testplan id="12" board="BRUSHLESS MOTORS" iitcode="7116" reportsDir="brushlessMotors" rev="2">
 
 
 		<test id="1" name="Controllo visivo">
@@ -1045,7 +1061,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 	</testplan>
 
-	<testplan id="12" board="BRUSHLESS MOTORS" iitcode="10182" reportsDir="brushlessMotors" rev="2">
+	<testplan id="13" board="BRUSHLESS MOTORS" iitcode="10182" reportsDir="brushlessMotors" rev="2">
 
 
 		<test id="1" name="Controllo visivo">

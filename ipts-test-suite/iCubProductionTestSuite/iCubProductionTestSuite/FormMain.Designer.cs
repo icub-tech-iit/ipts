@@ -30,6 +30,7 @@ namespace iCubProductionTestSuite
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonSelDeselAllTest = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +49,7 @@ namespace iCubProductionTestSuite
             this.buttonClearLog = new System.Windows.Forms.Button();
             this.buttonSaveLog = new System.Windows.Forms.Button();
             this.startStop1 = new iCubProductionTestSuite.classes.StartStop();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.menuStrip1.SuspendLayout();
             this.groupBoxTestMode.SuspendLayout();
             this.SuspendLayout();
@@ -73,7 +75,7 @@ namespace iCubProductionTestSuite
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(977, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(977, 28);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -83,20 +85,20 @@ namespace iCubProductionTestSuite
             this.openTestReportFolderToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.toolStripMenuItemFile.Name = "toolStripMenuItemFile";
-            this.toolStripMenuItemFile.Size = new System.Drawing.Size(37, 20);
+            this.toolStripMenuItemFile.Size = new System.Drawing.Size(44, 24);
             this.toolStripMenuItemFile.Text = "File";
             // 
             // openTestReportFolderToolStripMenuItem
             // 
             this.openTestReportFolderToolStripMenuItem.Name = "openTestReportFolderToolStripMenuItem";
-            this.openTestReportFolderToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.openTestReportFolderToolStripMenuItem.Size = new System.Drawing.Size(248, 24);
             this.openTestReportFolderToolStripMenuItem.Text = "Open TestReports folder...";
             this.openTestReportFolderToolStripMenuItem.Click += new System.EventHandler(this.openTestReportFolderToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(248, 24);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -105,13 +107,13 @@ namespace iCubProductionTestSuite
             this.toolStripMenuItemHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.toolStripMenuItemHelp.Name = "toolStripMenuItemHelp";
-            this.toolStripMenuItemHelp.Size = new System.Drawing.Size(44, 20);
+            this.toolStripMenuItemHelp.Size = new System.Drawing.Size(53, 24);
             this.toolStripMenuItemHelp.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -131,7 +133,7 @@ namespace iCubProductionTestSuite
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(367, 74);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 16);
+            this.label1.Size = new System.Drawing.Size(68, 16);
             this.label1.TabIndex = 9;
             this.label1.Text = "Test Log";
             // 
@@ -176,7 +178,7 @@ namespace iCubProductionTestSuite
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(13, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(279, 16);
+            this.label2.Size = new System.Drawing.Size(278, 16);
             this.label2.TabIndex = 16;
             this.label2.Text = "Test Name                                      Status";
             // 
@@ -235,7 +237,7 @@ namespace iCubProductionTestSuite
             // startStop1
             // 
             this.startStop1.Location = new System.Drawing.Point(10, 878);
-            this.startStop1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.startStop1.Margin = new System.Windows.Forms.Padding(4);
             this.startStop1.Name = "startStop1";
             this.startStop1.Size = new System.Drawing.Size(331, 77);
             this.startStop1.TabIndex = 17;
@@ -293,6 +295,7 @@ namespace iCubProductionTestSuite
         private System.Windows.Forms.ListBox listBoxLog;
         private System.Windows.Forms.Label labelOperator;
         private System.Windows.Forms.ToolStripMenuItem openTestReportFolderToolStripMenuItem;
+        private System.IO.Ports.SerialPort serialPort1;
     }
 }
 

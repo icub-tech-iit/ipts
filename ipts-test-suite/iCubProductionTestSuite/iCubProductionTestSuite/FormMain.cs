@@ -29,6 +29,7 @@ namespace iCubProductionTestSuite
         List<Testplan> tplist;
         SettingsFile sf;
         CanUtils cu;
+        SerialUtils su;
         GroupedControls controlsDebug = new GroupedControls();
         bool STOP = false;
         bool PASS = true;
@@ -299,8 +300,6 @@ namespace iCubProductionTestSuite
                 try
                 {
                     cp.writeSettings(CONFIG_DIR + "\\" + SETTINGS_FILE, OPERATOR, sf.LastSel, LAST_SN);
-     
-
                 }
                 catch (Exception ape)
                 {
@@ -332,6 +331,16 @@ namespace iCubProductionTestSuite
                         {
                             error = true;
                             MessageBox.Show("Errore interfaccia CAN, controllare collegamenti", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            startStop1.setStartEnabled(true);
+                        }
+                        break;
+
+                    case "SERIAL":
+                        su = new SerialUtils();
+                        if (su.Ports.Count == 0)
+                        {
+                            error = true;
+                            MessageBox.Show("Errore interfaccia SERIALE, controllare collegamenti", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             startStop1.setStartEnabled(true);
                         }
                         break;
