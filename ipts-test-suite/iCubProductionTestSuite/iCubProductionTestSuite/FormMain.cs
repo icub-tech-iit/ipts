@@ -146,7 +146,15 @@ namespace iCubProductionTestSuite
                 MessageBox.Show(ape.Message);
                 Application.Exit();
             }
+            
+            //scelta interfaccie
+            foreach (TestInterface t in tp.TestInterfaces)
+            {
+                FormInput fi_i = new FormInput(t);
+                fi_i.ShowDialog();
+            }
 
+                        
             //setto titolo del form
             this.Text += " -  " + tp.Boardname + " - " + tp.Iitcode + " - Testplan rev. " + tp.Rev;
 

@@ -77,7 +77,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SerialUtils.cs" />
+    <Compile Include="classes\SerialUtils.cs" />
     <Compile Include="classes\AppException.cs" />
     <Compile Include="classes\CanUtils.cs" />
     <Compile Include="classes\CommandRunner.cs" />

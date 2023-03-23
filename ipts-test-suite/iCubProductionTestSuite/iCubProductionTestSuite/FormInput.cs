@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Esd.IO.Ntcan;
 using iCubProductionTestSuite.classes;
 
 
@@ -25,6 +26,8 @@ namespace iCubProductionTestSuite
         private String serial;
         private String user;
         private int selBoard;
+        private int selCAN;
+        private int selSERIAL;
         private String prevVal ="";
 
         public FormInput(String text, String type, String prev)
@@ -73,6 +76,38 @@ namespace iCubProductionTestSuite
             this.comboBox1.Visible = true;
             this.comboBox1.DataSource = lb;
             this.button1.Click += buttonSelBoard_Click;
+            this.comboBox1.SelectedIndex = index;
+
+        }
+
+        public FormInput(TestInterface t)
+        {
+            InitializeComponent();
+            int index = 0;
+            int portCount = 0;
+
+            List<String> lb = new List<string>();
+
+            switch(t.Name)
+            {
+                case "CAN": CanUtils cu = new CanUtils(); portCount = cu.Ports.Count; foreach (String p in cu.Ports) lb.Add(p); break;
+                case "SERIAL": CanUtils su = new CanUtils(); portCount = su.Ports.Count; foreach (String p in su.Ports) lb.Add(p); break;
+
+                default: break;
+            }
+
+            if(portCount == 0)
+            {
+                MessageBox.Show("Nessuna Interfaccia " + t.Name + " rilevata!", "Errore",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+
+            this.label1.Text = "Selezionare Interfaccia " + t.Name;
+            this.textBox1.Visible = false;
+            this.comboBox1.Visible = true;
+            this.comboBox1.DataSource = lb;
+            this.button1.Click += buttonSelCAN_Click;
             this.comboBox1.SelectedIndex = index;
 
         }
@@ -162,6 +197,34 @@ namespace iCubProductionTestSuite
             {
                 prevVal = value;
             }
+        }
+
+        public int SelSerial
+        {
+            get
+            {
+                return SelSerial;
+            }
+
+            set
+            {
+                SelSerial = value;
+            }
+        }
+
+        public int SelCAN { get => selCAN; set => selCAN = value; }
+        public int SelSERIAL { get => selSERIAL; set => selSERIAL = value; }
+
+        private void buttonSelCAN_Click(object sender, EventArgs e)
+        {
+            this.SelCAN = this.comboBox1.SelectedIndex;
+            this.Hide();
+        }
+
+        private void buttonSelSerial_Click(object sender, EventArgs e)
+        {
+            this.SelSerial = this.comboBox1.SelectedIndex;
+            this.Hide();
         }
 
         private void buttonSelBoard_Click(object sender, EventArgs e)
