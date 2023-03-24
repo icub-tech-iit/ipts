@@ -24,17 +24,17 @@ namespace iCubProductionTestSuite.classes
         private int messageId;
 
         public SerialUtils() {
-            ports = getPorts();
+            this.ports = new List<string>();
+            this.port = new SerialPort();
+            this.ports = getPorts();
         }
 
         // Get list of available Serial ports
         private List<String> getPorts() 
         {
             string[] serialPorts;
-            ports = new List<string>();
-
+            
             serialPorts = SerialPort.GetPortNames();
-                            ports = getPorts();
             foreach(String p in serialPorts)
             {
                 ports.Add(p);
