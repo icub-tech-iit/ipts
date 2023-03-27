@@ -26,8 +26,8 @@ namespace iCubProductionTestSuite
         private String serial;
         private String user;
         private int selBoard;
-        private int selCAN;
-        private int selSERIAL;
+        private String selCAN;
+        private String selSERIAL;
         private String prevVal ="";
 
         public FormInput(String text, String type, String prev)
@@ -88,10 +88,69 @@ namespace iCubProductionTestSuite
             List<String> lb = new List<string>();
 
 
+            //switch (t.Name)
+            //{
+            //    case "CAN": CanUtils cu = new CanUtils(); portCount = cu.Ports.Count; foreach (String p in cu.Ports) lb.Add(p); break;
+            //    case "SERIAL": SerialUtils su = new SerialUtils(); portCount = su.Ports.Count; foreach (String p in su.Ports) lb.Add(p); break;
+
+            //    default: break;
+            //}
+
+            //if (portCount == 0)
+            //{
+            //    MessageBox.Show("Nessuna Interfaccia " + t.Name + " rilevata!", "Errore",
+            //        MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    Application.Exit();
+            //}
+            //else
+            //{
+            //    this.label1.Text = "Selezionare Interfaccia " + t.Name;
+            //    this.textBox1.Visible = false;
+            //    this.comboBox1.Visible = true;
+            //    this.comboBox1.DataSource = lb;
+            //    this.button1.Click += buttonSelCAN_Click;
+            //    this.comboBox1.SelectedIndex = index;
+            //}
+
+
+
             switch (t.Name)
             {
-                case "CAN": CanUtils cu = new CanUtils(); portCount = cu.Ports.Count; foreach (String p in cu.Ports) lb.Add(p); break;
-                case "SERIAL": SerialUtils su = new SerialUtils(); portCount = su.Ports.Count; foreach (String p in su.Ports) lb.Add(p); break;
+                case "CAN":
+                    CanUtils cu = new CanUtils();
+                    portCount = cu.Ports.Count;
+                    foreach (String p in cu.Ports)
+                        lb.Add(p);
+                    if (portCount == 0)
+                    {
+                        MessageBox.Show("Nessuna Interfaccia " + t.Name + " rilevata!", "Errore",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
+                    this.label1.Text = "Selezionare Interfaccia " + t.Name;
+                    this.textBox1.Visible = false;
+                    this.comboBox1.Visible = true;
+                    this.comboBox1.DataSource = lb;
+                    this.button1.Click += buttonSelCAN_Click;
+                    this.comboBox1.SelectedIndex = index;
+                    break;
+                case "SERIAL":
+                    SerialUtils su = new SerialUtils();
+                    portCount = su.Ports.Count;
+                    foreach (String p in su.Ports) lb.Add(p);
+                    if (portCount == 0)
+                    {
+                        MessageBox.Show("Nessuna Interfaccia " + t.Name + " rilevata!", "Errore",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
+                    this.label1.Text = "Selezionare Interfaccia " + t.Name;
+                    this.textBox1.Visible = false;
+                    this.comboBox1.Visible = true;
+                    this.comboBox1.DataSource = lb;
+                    this.button1.Click += buttonSelSERIAL_Click;
+                    this.comboBox1.SelectedIndex = index;
+                    break;
 
                 default: break;
             }
@@ -103,7 +162,7 @@ namespace iCubProductionTestSuite
                 Application.Exit();
             }
             else
-            { 
+            {
                 this.label1.Text = "Selezionare Interfaccia " + t.Name;
                 this.textBox1.Visible = false;
                 this.comboBox1.Visible = true;
@@ -111,7 +170,7 @@ namespace iCubProductionTestSuite
                 this.button1.Click += buttonSelCAN_Click;
                 this.comboBox1.SelectedIndex = index;
             }
-            
+
         }
 
         public int Val_int
@@ -214,18 +273,18 @@ namespace iCubProductionTestSuite
             }
         }
 
-        public int SelCAN { get => selCAN; set => selCAN = value; }
-        public int SelSERIAL { get => selSERIAL; set => selSERIAL = value; }
+        public string SelCAN { get => selCAN; set => selCAN = value; }
+        public string SelSERIAL { get => selSERIAL; set => selSERIAL = value; }
 
         private void buttonSelCAN_Click(object sender, EventArgs e)
         {
-            this.SelCAN = this.comboBox1.SelectedIndex;
+            this.SelCAN = this.comboBox1.SelectedItem.ToString();
             this.Hide();
         }
 
-        private void buttonSelSerial_Click(object sender, EventArgs e)
+        private void buttonSelSERIAL_Click(object sender, EventArgs e)
         {
-            this.SelSerial = this.comboBox1.SelectedIndex;
+            this.SelSERIAL = this.comboBox1.SelectedItem.ToString();
             this.Hide();
         }
 

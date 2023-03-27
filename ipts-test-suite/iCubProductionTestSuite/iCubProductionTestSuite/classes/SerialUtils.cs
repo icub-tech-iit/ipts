@@ -13,6 +13,7 @@ using Esd.IO.Ntcan;
 using System.IO;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Reflection;
 
 namespace iCubProductionTestSuite.classes
 {
@@ -27,6 +28,14 @@ namespace iCubProductionTestSuite.classes
             this.ports = new List<string>();
             this.port = new SerialPort();
             this.ports = getPorts();
+        }
+
+        public SerialUtils(TestInterface ti) {
+            this.ports = new List<string>();
+            this.port = new SerialPort();
+            this.ports = getPorts();
+            port.PortName = ti.NetPort;
+
         }
 
         // Get list of available Serial ports
@@ -52,6 +61,7 @@ namespace iCubProductionTestSuite.classes
         {
             get
             {
+                ports = getPorts();
                 return ports;
             }
 
@@ -90,7 +100,7 @@ namespace iCubProductionTestSuite.classes
             // Configure the bit rate to 500 KBit/s
             port.BaudRate = 9600;
 
-   
+            port.Write(data[0]);
             port.Close();
         }
 
@@ -111,8 +121,10 @@ namespace iCubProductionTestSuite.classes
                 Application.Exit();
             }
 
-        
-            
+            port.BaudRate = 9600;
+
+            msg = port.ReadTo("OK");
+
             port.Close();
             return msg;
         }

@@ -153,6 +153,10 @@ namespace iCubProductionTestSuite
 
                 FormInput fi_i = new FormInput(t);
                 fi_i.ShowDialog();
+                if (t.Name.Equals("CAN")) t.NetPort = fi_i.SelCAN;
+                else if (t.Name.Equals("SERIAL")) t.NetPort = fi_i.SelSERIAL;
+                int i = 0;
+                i++;
             }
 
             //setto titolo del form
@@ -344,7 +348,7 @@ namespace iCubProductionTestSuite
                         break;
 
                     case "SERIAL":
-                 //       su = new SerialUtils();
+                        su = new SerialUtils();
                         if (su.Ports.Count == 0)
                         {
                             error = true;
