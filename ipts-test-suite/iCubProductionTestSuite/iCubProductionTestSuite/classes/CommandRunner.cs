@@ -54,12 +54,14 @@ namespace iCubProductionTestSuite.classes
             }
         }
 
-        public CommandRunner(Operation op, List<TestInterface> tis, List<OperationVariable> opvl)
+        public CommandRunner(Operation op, List<TestInterface> tis, List<OperationVariable> opvl, CanUtils cu_c, SerialUtils su_t)
         {
             this.tis = tis;
             this.op = op;
             this.opvl = opvl;
             this.cmsg = new List<CanMessage>();
+            this.cu = cu_c;
+            this.su = su_t;
         }
 
         public CommandRunner(Operation op, List<TestInterface> tis)
@@ -102,7 +104,7 @@ namespace iCubProductionTestSuite.classes
                 {
                     if (ti.Name.Equals("SERIAL"))
                     {
-                        su = new SerialUtils(ti);
+                        //su = new SerialUtils(ti);
                         su.send(data);
                     }
                 }
@@ -156,13 +158,13 @@ namespace iCubProductionTestSuite.classes
                     {
                         if (ti.Name.Equals("SERIAL"))
                         {
-                            su = new SerialUtils(ti);
+                            //su = new SerialUtils(ti);
                             //// Byte c = cu.receive();
                             //if (nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive());
                             //else Cmsg.Add(cu.receive());
                             string msg = su.receive();
-                            string[] vpl = op.ValPass.Split(' ');
-                            if (msg.Equals(vpl[2])) Pass = false;
+                            //string[] vpl = op.ValPass.Split(' ');
+                            if (!msg.Equals(op.ValPass)) Pass = false;
                         }
                     }
                     break;

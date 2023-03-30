@@ -14,6 +14,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Reflection;
+using System.Windows.Interop;
 
 namespace iCubProductionTestSuite.classes
 {
@@ -23,19 +24,30 @@ namespace iCubProductionTestSuite.classes
         private List<String> ports;
         private SerialPort port;
         private int messageId;
+        private String serialRx;
+        private static string serialRX;
 
         public SerialUtils() {
             this.ports = new List<string>();
             this.port = new SerialPort();
-            this.ports = getPorts();
+          //  this.ports = getPorts();
         }
 
         public SerialUtils(TestInterface ti) {
             this.ports = new List<string>();
-            this.port = new SerialPort();
-            this.ports = getPorts();
-            port.PortName = ti.NetPort;
 
+            this.port = new SerialPort(ti.Name);
+
+        //    this.ports = getPorts();
+            port.PortName = ti.NetPort;
+            port.BaudRate = 9600;
+            port.Parity = Parity.None;
+            port.StopBits = StopBits.One;
+            port.DataBits = 8;
+            port.Handshake = Handshake.None;
+            port.RtsEnable = true;
+
+            port.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
         }
 
         // Get list of available Serial ports
@@ -54,14 +66,21 @@ namespace iCubProductionTestSuite.classes
 
         }
 
-      
 
-      
+        private static void DataReceivedHandler(
+                    object sender,
+                    SerialDataReceivedEventArgs e)
+        {
+            SerialPort sp = (SerialPort)sender;
+            string indata = sp.ReadExisting();
+            serialRX = indata;
+            
+        }
+
         public List<String> Ports
         {
             get
             {
-                ports = getPorts();
                 return ports;
             }
 
@@ -100,33 +119,31 @@ namespace iCubProductionTestSuite.classes
             // Configure the bit rate to 500 KBit/s
             port.BaudRate = 9600;
 
+            // Open the Serial port for communication and catch error
+            if (!port.IsOpen)
+            {
+                MessageBox.Show("Attenzione nessuna interfaccia Seriale presente!", "Errore",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+
             port.Write(data[0]);
-            port.Close();
+
+            // Open the Serial port for communication and catch error
+            if (!port.IsOpen)
+            {
+                MessageBox.Show("Attenzione nessuna interfaccia Seriale presente!", "Errore",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+
+            //          port.Close();
         }
 
         public String receive()
         {
-            int timeout = 0;
-            String msg = "";
-
-            // Open the Serial port for communication and catch error
-            try
-            {
-                port.Open();
-            }
-            catch (IOException)
-            {
-                MessageBox.Show("Attenzione nessuna interfaccia Seriale presente!", "Errore",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
-            }
-
-            port.BaudRate = 9600;
-
-            msg = port.ReadTo("OK");
-
-            port.Close();
-            return msg;
+           
+            return serialRX;
         }
     }   
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -135,9 +136,11 @@ namespace iCubProductionTestSuite
                     this.comboBox1.SelectedIndex = index;
                     break;
                 case "SERIAL":
-                    SerialUtils su = new SerialUtils();
-                    portCount = su.Ports.Count;
-                    foreach (String p in su.Ports) lb.Add(p);
+                    //SerialUtils su = new SerialUtils();
+                    //portCount = su.Ports.Count;
+                    portCount = SerialPort.GetPortNames().Length;
+
+                    foreach (String p in SerialPort.GetPortNames()) lb.Add(p);
                     if (portCount == 0)
                     {
                         MessageBox.Show("Nessuna Interfaccia " + t.Name + " rilevata!", "Errore",

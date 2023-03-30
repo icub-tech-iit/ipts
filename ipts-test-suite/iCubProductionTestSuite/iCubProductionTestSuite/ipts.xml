@@ -858,8 +858,8 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 		<test id="3" name="Test comunicazione Seriale" stopOnFail="true">
 			<operation type="okDialog" text="Collegare il cavo CAN dell' ESD CAN/USB al connettore P9 della mc4plus lasciando vuoti i pin laterali" image="img/mc4plus/can-connect.jpg" />
-			<operation type="wait" value="1000" />
 			<operation type="send" interface="SERIAL" command="test"/>
+			<operation type="wait" value="1000" />
 			<operation type="receivePassFail" interface="SERIAL" valPass="  OK"/>
 		</test>
 		

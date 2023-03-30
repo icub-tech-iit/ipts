@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using iCubProductionTestSuite.classes;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Ports;
 
 namespace iCubProductionTestSuite
 {
@@ -153,11 +154,13 @@ namespace iCubProductionTestSuite
 
                 FormInput fi_i = new FormInput(t);
                 fi_i.ShowDialog();
-                if (t.Name.Equals("CAN")) t.NetPort = fi_i.SelCAN;
-                else if (t.Name.Equals("SERIAL")) t.NetPort = fi_i.SelSERIAL;
+                if (t.Name.Equals("CAN")) { t.NetPort = fi_i.SelCAN; cu = new CanUtils(t); }
+                else if (t.Name.Equals("SERIAL")) { t.NetPort = fi_i.SelSERIAL; su = new SerialUtils(t); }
                 int i = 0;
                 i++;
             }
+
+     
 
             //setto titolo del form
             this.Text += " -  " + tp.Boardname + " - " + tp.Iitcode + " - Testplan rev. " + tp.Rev;
@@ -247,7 +250,7 @@ namespace iCubProductionTestSuite
                 {
                     tp.setTestResult(testid, "Running...");
                     this.Refresh();
-                    PASS_TMP = tr.runTest(t, this.listBoxLog, repeated);
+                    PASS_TMP = tr.runTest(t, this.listBoxLog, repeated, cu, su);
                     
 
                     if (!PASS_TMP)
@@ -348,8 +351,8 @@ namespace iCubProductionTestSuite
                         break;
 
                     case "SERIAL":
-                        su = new SerialUtils();
-                        if (su.Ports.Count == 0)
+                        //su = new SerialUtils();
+                        if (SerialPort.GetPortNames().Length == 0)
                         {
                             error = true;
                             MessageBox.Show("Errore interfaccia SERIALE, controllare collegamenti", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
