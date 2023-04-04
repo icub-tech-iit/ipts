@@ -104,7 +104,7 @@ namespace iCubProductionTestSuite.classes
                 {
                     if (ti.Name.Equals("SERIAL"))
                     {
-                        //su = new SerialUtils(ti);
+                        su = new SerialUtils(ti);
                         su.send(data);
                     }
                 }
@@ -158,7 +158,7 @@ namespace iCubProductionTestSuite.classes
                     {
                         if (ti.Name.Equals("SERIAL"))
                         {
-                            //su = new SerialUtils(ti);
+                            su = new SerialUtils(ti);
                             //// Byte c = cu.receive();
                             //if (nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive());
                             //else Cmsg.Add(cu.receive());

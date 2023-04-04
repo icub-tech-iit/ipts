@@ -148,17 +148,17 @@ namespace iCubProductionTestSuite
                 Application.Exit();
             }
 
-            //scelta interfaccie
-            foreach (TestInterface t in tp.TestInterfaces)
-            {
+            //scelta interfaccie - DA RIVEDERE
+            //foreach (TestInterface t in tp.TestInterfaces)
+            //{
 
-                FormInput fi_i = new FormInput(t);
-                fi_i.ShowDialog();
-                if (t.Name.Equals("CAN")) { t.NetPort = fi_i.SelCAN; cu = new CanUtils(t); }
-                else if (t.Name.Equals("SERIAL")) { t.NetPort = fi_i.SelSERIAL; su = new SerialUtils(t); }
-                int i = 0;
-                i++;
-            }
+            //    FormInput fi_i = new FormInput(t);
+            //    fi_i.ShowDialog();
+            //    if (t.Name.Equals("CAN")) { t.NetPort = fi_i.SelCAN; cu = new CanUtils(t); }
+            //    else if (t.Name.Equals("SERIAL")) { t.NetPort = fi_i.SelSERIAL; su = new SerialUtils(t); }
+            //    int i = 0;
+            //    i++;
+            //}
 
      
 
@@ -200,7 +200,7 @@ namespace iCubProductionTestSuite
             LAST_SN = fi_s.Serial;
 
             //verifica interfacce (CAN, Seriale..)
-            if (checkErrorInterfaces()) return;
+            //if (checkErrorInterfaces()) return;
 
             if (radioButtonProduction.Checked) listBoxLog.Items.Clear();
 
