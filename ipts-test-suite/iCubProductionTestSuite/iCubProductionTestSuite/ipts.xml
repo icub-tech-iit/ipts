@@ -844,7 +844,20 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 		</interfaces>
 
 		<test id="1" name="Connessioni Setup">
-			<operation type="okDialog" text="Disalimentare la scheda, posizionarla sul setup e collegare tutti i cavi ai risppettivi connettori come in figura. Alimentare a 24Vdc @3A; quindi premere OK." image="img/rfe/rfe-setup.jpg" />
+			<operation type="okDialog" text="Collegare il setup di test come in figura
+
+1. Impostare l'alimentatore a 12V @1A
+
+2. Connettere il cavo di alimentazione (1) al connettore J5 della RFE (2)
+
+3. Connettere il programmatore ST-LINK (3) al connettore J8 della RFE (4) 
+
+4. Connettere l'interfaccia USB/CAN (5) al connettore J4 della RFE (6)
+
+5. Connettere il cavo USBC al connettore J9 della RFE (7)
+
+6. Premere Invio a programmazione terminata"
+					   image="img/rfe/rfe-setup.jpg" />
 			<operation type="wait" value="2000" />
 		</test>
 		
@@ -857,7 +870,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 
-		<test id="4" name="Test comunicazione Seriale" stopOnFail="true">
+		<test id="4" name="Test comunicazione Seriale" stopOnFail="false">
 			<operation type="send" interface="SERIAL" command="test"/>
 			<operation type="wait" value="1000" />
 			<operation type="receivePassFail" interface="SERIAL" valPass="  OK"/>
@@ -924,14 +937,18 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J1 come in figura" image="img/rfe/rfe-j1.jpg" />
 			<operation type="wait" value="500" />
 			<operation type="send" interface="CAN" command="12" />
-			<operation type="passFailDialog" text="I led sulla scheda esterna sono accesi?"  image="img/rfe/rfe-_j5_2jpg"/>
+			<operation type="passFailDialog" text="I led sulla scheda esterna sono accesi?" />
 		</test>
 
 		<test id="15" name="Test J5 (12V)">
-			<operation type="okDialog" text="Collegare apposito connettore J5 all'alímentatore esterno settato su 12Vdc @.8A come in figura e alimentare" image="img/rfe/rfe-j5.jpg" />
-			<operation type="send" interface="CAN" command="13" />
-			<operation type="wait" value="500" />
-			<operation type="passFailDialog" text="Scollegare il cavo USB, Il led Blue é sempre acceso?"  image="img/rfe/rfe-_j5_2jpg"/>
+			<operation type="okDialog" text="Accendere alimentatore esterno 12V "/>
+			<operation type="send" interface="CAN" command="04" />
+			<operation type="wait" value="500" />			
+			<operation type="passFailDialog" text="Scollegare il cavo USB, Il led Blue é sempre acceso?"  image="img/rfe/rfe-j5_2jpg"/>
+		</test>
+		
+		<test id="16" name="Flash Bootloader/Applicativo">
+			<operation type="batch" batchDir="tools\boards\rfe\flash" batchFile="rfe_prod.bat" />
 		</test>
 		
 	</testplan>
