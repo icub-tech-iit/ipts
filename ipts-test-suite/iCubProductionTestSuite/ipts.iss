@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "IPTS"
-#define MyAppVersion "1.2.0"
+#define MyAppVersion "1.3.0"
 #define MyAppPublisher "Fondazione Istituto Italiano di Tecnologia"
 #define MyAppURL "http://www.iit.it/"
 #define MyAppExeName "iCubProductionTestSuite.exe"
@@ -352,6 +352,23 @@ Source: "iCubProductionTestSuite\tools\boards\strain2\flash\hex\strain2_revC_tes
 Source: "iCubProductionTestSuite\tools\boards\strain2\flash\hex\strain2c.v1B0.bootloader.hex"; DestDir: "{app}\tools\boards\strain2\flash\hex"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2c_prod.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2c_test.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-bottom.png"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-j1.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-j2.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-j5.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-j5_2.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-j10.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-j11.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-j12.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-j13.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-ledOFF.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-ledON.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-setup.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\rfe\rfe-top.png"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\rfe\flash\hex\rfe.test.v183.hex"; DestDir: "{app}\tools\boards\rfe\flash\hex"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_prod.bat"; DestDir: "{app}\tools\boards\rfe\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_reset.bat"; DestDir: "{app}\tools\boards\rfe\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_test.bat"; DestDir: "{app}\tools\boards\rfe\flash"; Flags: ignoreversion
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}\tools"

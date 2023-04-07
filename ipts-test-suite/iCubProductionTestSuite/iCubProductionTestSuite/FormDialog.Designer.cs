@@ -85,7 +85,7 @@
             // textBox1
             // 
             this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(851, 79);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -102,6 +102,7 @@
             this.Controls.Add(this.buttonYes);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FormDialog";
             this.Text = "iCub Production Test Suite - Info";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
