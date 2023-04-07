@@ -886,62 +886,62 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 			<operation type="yesNoDialog" text="Il led blu é acceso?" image="img/rfe/rfe-ledON.jpg" />
 		</test>
 
-		<test id="7" name="Test IMU BOSCH">
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="05" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
-		</test>
-
-		<test id="8" name="Test IMU MPU-9250">
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="06" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
-		</test>
-
-		<test id="9" name="Test Connector J2 (servo)">
-			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J2 come in figura" image="img/rfe/rfe-j2.jpg" />
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="07" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
-		</test>
-
-		<test id="10" name="Test Connector J10 (i2c1)">
+		<test id="7" name="Test Connector J10 (i2c1)">
 			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J10 come in figura" image="img/rfe/rfe-j10.jpg" />
 			<operation type="wait" value="500" />
 			<operation type="send" interface="CAN" command="08" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
 		</test>
 
-		<test id="11" name="Test Connector J11 (i2c2)">
+		<test id="8" name="Test Connector J11 (i2c2)">
 			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J11 come in figura" image="img/rfe/rfe-j11.jpg" />
 			<operation type="wait" value="500" />
 			<operation type="send" interface="CAN" command="09" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
 		</test>
 
-		<test id="12" name="Test Connector J12 (i2c3)">
+		<test id="9" name="Test Connector J12 (i2c3)">
 			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J12 come in figura" image="img/rfe/rfe-j12.jpg" />
 			<operation type="wait" value="500" />
 			<operation type="send" interface="CAN" command="10" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
 		</test>
 
-		<test id="13" name="Test Connector J13 (i2c4)">
+		<test id="10" name="Test Connector J13 (i2c4)">
 			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J13 come in figura" image="img/rfe/rfe-j13.jpg" />
 			<operation type="wait" value="500" />
 			<operation type="send" interface="CAN" command="11" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
 		</test>
 
-		<test id="14" name="Test Connector J1 (spi1)">
+		<test id="11" name="Test Connector J1 (spi1)">
 			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J1 come in figura" image="img/rfe/rfe-j1.jpg" />
 			<operation type="wait" value="500" />
 			<operation type="send" interface="CAN" command="12" />
 			<operation type="passFailDialog" text="I led sulla scheda esterna sono accesi?" />
 		</test>
 
+		<test id="12" name="Test IMU BOSCH">
+			<operation type="wait" value="500" />
+			<operation type="send" interface="CAN" command="05" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
+		</test>
+
+		<test id="13" name="Test IMU MPU-9250">
+			<operation type="wait" value="500" />
+			<operation type="send" interface="CAN" command="06" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+		</test>
+
+		<test id="14" name="Test Connector J2 (servo)">
+			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J2 come in figura" image="img/rfe/rfe-j2.jpg" />
+			<operation type="wait" value="500" />
+			<operation type="send" interface="CAN" command="07" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+		</test>
+
 		<test id="15" name="Test J5 (12V)">
-			<operation type="okDialog" text="Accendere alimentatore esterno 12V "/>
+			<operation type="okDialog" text="Accendere alimentatore esterno 12V " image="img/rfe/rfe-j5.jpg"/>
 			<operation type="send" interface="CAN" command="04" />
 			<operation type="wait" value="500" />			
 			<operation type="passFailDialog" text="Scollegare il cavo USB, Il led Blue é sempre acceso?"  image="img/rfe/rfe-j5_2jpg"/>
