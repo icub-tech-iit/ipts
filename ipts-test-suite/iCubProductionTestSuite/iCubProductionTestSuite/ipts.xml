@@ -830,13 +830,137 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 	</testplan>
   
+	<!-- **************************************************************************************************
+  
+		TESTPLAN FOR RFE 
+  
+       **************************************************************************************************-->
+
+	<testplan id="6" board="RFE_MASTER_MPCA" iitcode="12024.C" reportsDir="rfe" rev="1">
+
+		<interfaces>
+			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+			<interface name="SERIAL" netPort="COM4" bitrate="9600" />
+		</interfaces>
+
+		<test id="1" name="Connessioni Setup">
+			<operation type="okDialog" text="Collegare il setup di test come in figura
+
+1. Impostare l'alimentatore a 12V @1A
+
+2. Connettere il cavo di alimentazione (1) al connettore J5 della RFE (2)
+
+3. Connettere il programmatore ST-LINK (3) al connettore J8 della RFE (4) 
+
+4. Connettere l'interfaccia USB/CAN (5) al connettore J4 della RFE (6)
+
+5. Connettere il cavo USBC al connettore J9 della RFE (7)
+
+6. Premere Invio a programmazione terminata"
+					   image="img/rfe/rfe-setup.jpg" />
+			<operation type="wait" value="2000" />
+		</test>
+		
+		<test id="2" name="Flash Firmware di test" stopOnFail="true">
+			<operation type="batch" batchDir="tools\boards\rfe\flash" batchFile="rfe_test.bat" />
+		</test>
+
+		<test id="3" name="Test comunicazione CAN" stopOnFail="true">
+			<operation type="send" interface="CAN" command="0"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+		</test>
+
+		<test id="4" name="Test comunicazione Seriale" stopOnFail="false">
+			<operation type="send" interface="SERIAL" command="test"/>
+			<operation type="wait" value="1000" />
+			<operation type="receivePassFail" interface="SERIAL" valPass="  OK"/>
+		</test>
+
+		<test id="5" name="Test Led Blue OFF">
+			<operation type="send" interface="CAN" command="02" />
+			<operation type="yesNoDialog" text="Il led blu é spento?" image="img/rfe/rfe-ledOFF.jpg" />
+		</test>
+
+		<test id="6" name="Test Led Blue ON">
+			<operation type="send" interface="CAN" command="03" />
+			<operation type="yesNoDialog" text="Il led blu é acceso?" image="img/rfe/rfe-ledON.jpg" />
+		</test>
+
+		<test id="7" name="Test IMU BOSCH">
+			<operation type="wait" value="500" />
+			<operation type="send" interface="CAN" command="05" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
+		</test>
+
+		<test id="8" name="Test IMU MPU-9250">
+			<operation type="wait" value="500" />
+			<operation type="send" interface="CAN" command="06" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+		</test>
+
+		<test id="9" name="Test Connector J2 (servo)">
+			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J2 come in figura" image="img/rfe/rfe-j2.jpg" />
+			<operation type="wait" value="500" />
+			<operation type="send" interface="CAN" command="07" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+		</test>
+
+		<test id="10" name="Test Connector J10 (i2c1)">
+			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J10 come in figura" image="img/rfe/rfe-j10.jpg" />
+			<operation type="wait" value="500" />
+			<operation type="send" interface="CAN" command="08" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+		</test>
+
+		<test id="11" name="Test Connector J11 (i2c2)">
+			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J11 come in figura" image="img/rfe/rfe-j11.jpg" />
+			<operation type="wait" value="500" />
+			<operation type="send" interface="CAN" command="09" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+		</test>
+
+		<test id="12" name="Test Connector J12 (i2c3)">
+			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J12 come in figura" image="img/rfe/rfe-j12.jpg" />
+			<operation type="wait" value="500" />
+			<operation type="send" interface="CAN" command="10" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+		</test>
+
+		<test id="13" name="Test Connector J13 (i2c4)">
+			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J13 come in figura" image="img/rfe/rfe-j13.jpg" />
+			<operation type="wait" value="500" />
+			<operation type="send" interface="CAN" command="11" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+		</test>
+
+		<test id="14" name="Test Connector J1 (spi1)">
+			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J1 come in figura" image="img/rfe/rfe-j1.jpg" />
+			<operation type="wait" value="500" />
+			<operation type="send" interface="CAN" command="12" />
+			<operation type="passFailDialog" text="I led sulla scheda esterna sono accesi?" />
+		</test>
+
+		<test id="15" name="Test J5 (12V)">
+			<operation type="okDialog" text="Accendere alimentatore esterno 12V "/>
+			<operation type="send" interface="CAN" command="04" />
+			<operation type="wait" value="500" />			
+			<operation type="passFailDialog" text="Scollegare il cavo USB, Il led Blue é sempre acceso?"  image="img/rfe/rfe-j5_2jpg"/>
+		</test>
+		
+		<test id="16" name="Flash Bootloader/Applicativo">
+			<operation type="batch" batchDir="tools\boards\rfe\flash" batchFile="rfe_prod.bat" />
+		</test>
+		
+	</testplan>
+
+	
     <!-- **************************************************************************************************
   
 		TESTPLAN FOR DC MOTORS
   
        **************************************************************************************************-->
 	   
-   <testplan id="6" board="DC MOTORS" iitcode="2694" reportsDir="dcMotors" rev="1">
+   <testplan id="7" board="DC MOTORS" iitcode="2694" reportsDir="dcMotors" rev="1">
 
     <test id="1" name="Connessioni Setup">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
@@ -860,7 +984,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
      
   </testplan>
 
-   <testplan id="7" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
+   <testplan id="8" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
 
     <test id="1" name="Connessioni Setup">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
@@ -878,14 +1002,15 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
     </test>
      
   </testplan>
-  
+
+	
       <!-- **************************************************************************************************
   
 		TESTPLAN FOR BRUSHLESS MOTORS
   
        **************************************************************************************************-->
 	   
-   <testplan id="8" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
+   <testplan id="9" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
 
 
     <test id="1" name="Controllo visivo">
@@ -926,7 +1051,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
      
   </testplan>
   
-   <testplan id="9" board="BRUSHLESS MOTORS" iitcode="10350" reportsDir="brushlessMotors" rev="2">
+   <testplan id="10" board="BRUSHLESS MOTORS" iitcode="10350" reportsDir="brushlessMotors" rev="2">
 
 
     <test id="1" name="Controllo visivo">
@@ -967,7 +1092,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
      
   </testplan>
 
-	<testplan id="10" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="2">
+	<testplan id="11" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="2">
 
 
 		<test id="1" name="Controllo visivo">
@@ -1008,7 +1133,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 	</testplan>
 
-	<testplan id="11" board="BRUSHLESS MOTORS" iitcode="7116" reportsDir="brushlessMotors" rev="2">
+	<testplan id="12" board="BRUSHLESS MOTORS" iitcode="7116" reportsDir="brushlessMotors" rev="2">
 
 
 		<test id="1" name="Controllo visivo">
@@ -1045,7 +1170,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 	</testplan>
 
-	<testplan id="12" board="BRUSHLESS MOTORS" iitcode="10182" reportsDir="brushlessMotors" rev="2">
+	<testplan id="13" board="BRUSHLESS MOTORS" iitcode="10182" reportsDir="brushlessMotors" rev="2">
 
 
 		<test id="1" name="Controllo visivo">

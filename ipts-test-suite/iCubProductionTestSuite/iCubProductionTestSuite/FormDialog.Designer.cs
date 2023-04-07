@@ -40,9 +40,9 @@
             // 
             this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOk.Location = new System.Drawing.Point(1018, 659);
+            this.buttonOk.Location = new System.Drawing.Point(1018, 717);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(134, 42);
+            this.buttonOk.Size = new System.Drawing.Size(135, 42);
             this.buttonOk.TabIndex = 2;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -52,9 +52,9 @@
             // 
             this.buttonYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonYes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonYes.Location = new System.Drawing.Point(934, 659);
+            this.buttonYes.Location = new System.Drawing.Point(934, 717);
             this.buttonYes.Name = "buttonYes";
-            this.buttonYes.Size = new System.Drawing.Size(134, 42);
+            this.buttonYes.Size = new System.Drawing.Size(135, 42);
             this.buttonYes.TabIndex = 3;
             this.buttonYes.Text = "YES";
             this.buttonYes.UseVisualStyleBackColor = true;
@@ -64,9 +64,9 @@
             // 
             this.buttonNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonNo.Location = new System.Drawing.Point(1106, 659);
+            this.buttonNo.Location = new System.Drawing.Point(1106, 717);
             this.buttonNo.Name = "buttonNo";
-            this.buttonNo.Size = new System.Drawing.Size(134, 42);
+            this.buttonNo.Size = new System.Drawing.Size(135, 42);
             this.buttonNo.TabIndex = 4;
             this.buttonNo.Text = "NO";
             this.buttonNo.UseVisualStyleBackColor = true;
@@ -78,7 +78,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(-122, 1);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(967, 700);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -89,14 +89,14 @@
             this.textBox1.Location = new System.Drawing.Point(851, 79);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(450, 555);
+            this.textBox1.Size = new System.Drawing.Size(450, 622);
             this.textBox1.TabIndex = 5;
             // 
             // FormDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1363, 716);
+            this.ClientSize = new System.Drawing.Size(1495, 774);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.buttonNo);
             this.Controls.Add(this.buttonYes);

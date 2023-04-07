@@ -64,7 +64,7 @@ namespace iCubProductionTestSuite.classes
 
 
         
-        public bool runTest(Test test, ListBox logBox, bool repeated)
+        public bool runTest(Test test, ListBox logBox, bool repeated, CanUtils cu_t, SerialUtils su_t)
         {
             opvl = new List<OperationVariable>();
             Pass = true;
@@ -97,12 +97,12 @@ namespace iCubProductionTestSuite.classes
                         break;
 
                     case "send":
-                        CommandRunner crs = new CommandRunner(o, tp.TestInterfaces, opvl);
+                        CommandRunner crs = new CommandRunner(o, tp.TestInterfaces, opvl, cu_t, su_t);
                         crs.send();
                         break;
 
                     case "receivePassFail":
-                        CommandRunner crr = new CommandRunner(o, tp.TestInterfaces, opvl);
+                        CommandRunner crr = new CommandRunner(o, tp.TestInterfaces, opvl, cu_t, su_t);
                         crr.receivePassFail();
                         res = crr.Pass;
                         if (!res) Pass = false;

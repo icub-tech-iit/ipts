@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +24,7 @@ namespace iCubProductionTestSuite.classes
         private List<OperationVariable> opvl;
         private bool pass = true;
         private CanUtils cu;
+        private SerialUtils su;
         private List<CanMessage> cmsg;
         
 
@@ -52,12 +54,14 @@ namespace iCubProductionTestSuite.classes
             }
         }
 
-        public CommandRunner(Operation op, List<TestInterface> tis, List<OperationVariable> opvl)
+        public CommandRunner(Operation op, List<TestInterface> tis, List<OperationVariable> opvl, CanUtils cu_c, SerialUtils su_t)
         {
             this.tis = tis;
             this.op = op;
             this.opvl = opvl;
             this.cmsg = new List<CanMessage>();
+            this.cu = cu_c;
+            this.su = su_t;
         }
 
         public CommandRunner(Operation op, List<TestInterface> tis)
@@ -83,18 +87,41 @@ namespace iCubProductionTestSuite.classes
                     if(o.Name.Equals(op.AppendVar)) data.Add(o.Value);
             }
 
-            foreach (TestInterface ti in tis)
+            if (op.Interf.Equals("CAN"))
             {
-                switch(ti.Name)
+                foreach (TestInterface ti in tis)
                 {
-                    case "CAN":
+                   if(ti.Name.Equals("CAN"))
+                    {
                         cu = new CanUtils(ti);
                         cu.send(data);
-                        break;
-                    default:
-                        break;
+                    }
                 }
             }
+            else if (op.Interf.Equals("SERIAL"))
+            {
+                foreach (TestInterface ti in tis)
+                {
+                    if (ti.Name.Equals("SERIAL"))
+                    {
+                        su = new SerialUtils(ti);
+                        su.send(data);
+                    }
+                }
+            }
+
+            //foreach (TestInterface ti in tis)
+            //{
+            //    switch(ti.Name)
+            //    {
+            //        case "CAN":
+            //            cu = new CanUtils(ti);
+            //            cu.send(data);
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
         }
 
         public void receivePassFail()
@@ -102,30 +129,73 @@ namespace iCubProductionTestSuite.classes
             if (tis.Count.Equals(0)) { Pass = false; return; }
 
             int nrMess = Convert.ToInt16(op.LogMess);
-            foreach (TestInterface ti in tis)
+
+            switch (op.Interf)
             {
-                switch (ti.Name)
-                {
-                    case "CAN":
-                        cu = new CanUtils(ti);
-                        // Byte c = cu.receive();
-                        if(nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive());
-                        else Cmsg.Add(cu.receive());
-                        //cu.receive();
-                        string[] vpl = op.ValPass.Split(' ');
-                        for(int i = 0; i < vpl.Length; i++)
+                case "CAN":
+                    foreach (TestInterface ti in tis)
+                    {
+                        if (ti.Name.Equals("CAN"))
                         {
-                            int b = Cmsg[0][i];
-                            int value = Convert.ToInt32(vpl[i], 16);
-                            if (!b.Equals(value)) Pass = false;
-                           
-                        }                        
-                        break;
-                   
-                    default:
-                        break;
-                }
+                            cu = new CanUtils(ti);
+                            // Byte c = cu.receive();
+                            if (nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive());
+                            else Cmsg.Add(cu.receive());
+                            //cu.receive();
+                            string[] vpl = op.ValPass.Split(' ');
+                            for (int i = 0; i < vpl.Length; i++)
+                            {
+                                int b = Cmsg[0][i];
+                                int value = Convert.ToInt32(vpl[i], 16);
+                                if (!b.Equals(value)) Pass = false;
+
+                            }
+                        }
+                    }
+                    break;
+                case "SERIAL":
+                    foreach (TestInterface ti in tis)
+                    {
+                        if (ti.Name.Equals("SERIAL"))
+                        {
+                            su = new SerialUtils(ti);
+                            //// Byte c = cu.receive();
+                            //if (nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive());
+                            //else Cmsg.Add(cu.receive());
+                            string msg = su.receive();
+                            //string[] vpl = op.ValPass.Split(' ');
+                            if (!msg.Equals(op.ValPass)) Pass = false;
+                        }
+                    }
+                    break;
+                default: break;
             }
+
+
+            //foreach (TestInterface ti in tis)
+            //{
+            //    switch (ti.Name)
+            //    {
+            //        case "CAN":
+            //            cu = new CanUtils(ti);
+            //            // Byte c = cu.receive();
+            //            if (nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive());
+            //            else Cmsg.Add(cu.receive());
+            //            //cu.receive();
+            //            string[] vpl = op.ValPass.Split(' ');
+            //            for (int i = 0; i < vpl.Length; i++)
+            //            {
+            //                int b = Cmsg[0][i];
+            //                int value = Convert.ToInt32(vpl[i], 16);
+            //                if (!b.Equals(value)) Pass = false;
+
+            //            }
+            //            break;
+
+            //        default:
+            //            break;
+            //    }
+            //}
         }
 
         public void passFailDialog(String test)

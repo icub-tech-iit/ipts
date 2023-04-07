@@ -46,8 +46,6 @@ namespace iCubProductionTestSuite.classes
         }
 
       
-
-      
         public List<String> Ports
         {
             get

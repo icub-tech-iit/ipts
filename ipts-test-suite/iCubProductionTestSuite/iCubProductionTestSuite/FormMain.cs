@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using iCubProductionTestSuite.classes;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Ports;
 
 namespace iCubProductionTestSuite
 {
@@ -29,6 +30,7 @@ namespace iCubProductionTestSuite
         List<Testplan> tplist;
         SettingsFile sf;
         CanUtils cu;
+        SerialUtils su;
         GroupedControls controlsDebug = new GroupedControls();
         bool STOP = false;
         bool PASS = true;
@@ -146,6 +148,20 @@ namespace iCubProductionTestSuite
                 Application.Exit();
             }
 
+            //scelta interfaccie - DA RIVEDERE
+            //foreach (TestInterface t in tp.TestInterfaces)
+            //{
+
+            //    FormInput fi_i = new FormInput(t);
+            //    fi_i.ShowDialog();
+            //    if (t.Name.Equals("CAN")) { t.NetPort = fi_i.SelCAN; cu = new CanUtils(t); }
+            //    else if (t.Name.Equals("SERIAL")) { t.NetPort = fi_i.SelSERIAL; su = new SerialUtils(t); }
+            //    int i = 0;
+            //    i++;
+            //}
+
+     
+
             //setto titolo del form
             this.Text += " -  " + tp.Boardname + " - " + tp.Iitcode + " - Testplan rev. " + tp.Rev;
 
@@ -184,7 +200,7 @@ namespace iCubProductionTestSuite
             LAST_SN = fi_s.Serial;
 
             //verifica interfacce (CAN, Seriale..)
-            if (checkErrorInterfaces()) return;
+            //if (checkErrorInterfaces()) return;
 
             if (radioButtonProduction.Checked) listBoxLog.Items.Clear();
 
@@ -234,7 +250,7 @@ namespace iCubProductionTestSuite
                 {
                     tp.setTestResult(testid, "Running...");
                     this.Refresh();
-                    PASS_TMP = tr.runTest(t, this.listBoxLog, repeated);
+                    PASS_TMP = tr.runTest(t, this.listBoxLog, repeated, cu, su);
                     
 
                     if (!PASS_TMP)
@@ -299,8 +315,6 @@ namespace iCubProductionTestSuite
                 try
                 {
                     cp.writeSettings(CONFIG_DIR + "\\" + SETTINGS_FILE, OPERATOR, sf.LastSel, LAST_SN);
-     
-
                 }
                 catch (Exception ape)
                 {
@@ -332,6 +346,16 @@ namespace iCubProductionTestSuite
                         {
                             error = true;
                             MessageBox.Show("Errore interfaccia CAN, controllare collegamenti", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            startStop1.setStartEnabled(true);
+                        }
+                        break;
+
+                    case "SERIAL":
+                        //su = new SerialUtils();
+                        if (SerialPort.GetPortNames().Length == 0)
+                        {
+                            error = true;
+                            MessageBox.Show("Errore interfaccia SERIALE, controllare collegamenti", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             startStop1.setStartEnabled(true);
                         }
                         break;
