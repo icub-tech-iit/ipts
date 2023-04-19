@@ -12,6 +12,7 @@ IIT Code | Revisions | Description
 12008    | B,C       | MTB4, IIT - Electronic board for tactile sensor, with 3 axis accelerometers Vin 5Vcc
 11996    | B,C      | STRAIN2, IIT - Electronic board, 6 channels strain gauges variable gain interface board with CAN/UART, Temperature sensor, IMU, STM32L4
 5443     | D,E       | MC4-PLUS, IIT - Electronic board with cortex M4, Ethernet and power driver for 4 DC motors, SPI interface, 2 analog channels, 12-32V supply voltage, low brightness	
+12024    | C         | RFE_MASTER, IIT - Electronic Board, Robot Face Expression Master board
 2694     |           | 2224U012SR+IE2-512+2082 Faulhaber - Brush motor, encoder with 500mm cable lenght	
 12264    |           | FAULHABER MOTOR 1016M012GK380+GEARBOX 10/1 i=16	
 10347    |           | BLDC motor assembly, OD 49.2, ID 9.54, L 20.7, stack length 5.7, airgap diam 29.5	
@@ -19,7 +20,6 @@ IIT Code | Revisions | Description
 7117     |           | Moog BLDC motor, OD 49.2, ID 15.5, L 24.7 , W/O HALL SENSOR
 7116     |           | Moog BLDC motor, OD 49.2, ID 15.5, L 17.7 , W/O HALL SENSOR
 10182    |           | Moog BLDC motor, OD 72.4, ID 15.5, L 27.5 , W/O HALL SENSOR	
-
 
 ---
 
