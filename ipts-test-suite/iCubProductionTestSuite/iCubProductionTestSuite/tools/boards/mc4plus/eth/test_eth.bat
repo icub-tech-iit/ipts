@@ -11,6 +11,4 @@ Rem pause
 EXIT 0
 
 :error
-echo Test Failed! %ip% is NOT available 
-Rem pause
-EXIT 1
+echo Test Failed! %ip% is NOT availabl
