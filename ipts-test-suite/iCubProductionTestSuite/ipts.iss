@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "IPTS"
-#define MyAppVersion "1.3.0"
+#define MyAppVersion "1.4.0"
 #define MyAppPublisher "Fondazione Istituto Italiano di Tecnologia"
 #define MyAppURL "http://www.iit.it/"
 #define MyAppExeName "iCubProductionTestSuite.exe"
@@ -307,6 +307,13 @@ Source: "iCubProductionTestSuite\img\mc4plus\fault-2.jpg"; DestDir: "{app}\img\m
 Source: "iCubProductionTestSuite\img\mc4plus\flashapp.jpg"; DestDir: "{app}\img\mc4plus"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mc4plus\fw-running.gif"; DestDir: "{app}\img\mc4plus"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mc4plus\setup.jpg"; DestDir: "{app}\img\mc4plus"; Flags: ignoreversion
+
+Source: "iCubProductionTestSuite\img\mc4plus-cshape\mc4plus-cshape.jpg"; DestDir: "{app}\img\mc4plus-cshape"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\mc4plus-cshape\mc4plus-cshape-app-run.gif"; DestDir: "{app}\img\mc4plus-cshape"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\mc4plus-cshape\mc4plus-cshape-setup.jpg"; DestDir: "{app}\img\mc4plus-cshape"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\mc4plus-cshape\mc4plus-cshape-test-led.gif"; DestDir: "{app}\img\mc4plus-cshape"; Flags: ignoreversion
+
+
 Source: "iCubProductionTestSuite\img\mtb4\MTB4.jpg"; DestDir: "{app}\img\mtb4"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mtb4\MTB4_can.jpg"; DestDir: "{app}\img\mtb4"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mtb4\MTB4_gpio.jpg"; DestDir: "{app}\img\mtb4"; Flags: ignoreversion
