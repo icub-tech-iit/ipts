@@ -672,8 +672,25 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 		</interfaces>
 
 		<test id="1" name="Test Assorbimento" stopOnFail="true">
-			<operation type="okDialog" text="Collegare la scheda al cavo di alimentazione del setup ed al programmatore ST-LINK come in figura. Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4plus-cshape.jpg" />
-			<operation type="passFailDialog" text="L'assorbimento é inferiore a 80 mA?" />
+			<operation type="okDialog" text="Collegare la scheda al setup come in figura.
+
+1. Connettere l'ESD CAN-USB (1) e il programmatore ST-LINK (2) alle usb del PC
+2. Connettere l'ESD CAN-USB (1) al connettore P9 della scheda lasciando i 2 pin laterali vuoti 
+3. Connettere il programmatore ST-LINK (2) al connettore P1 della scheda
+4. Connettere il cavo PWR del jig al connettore P7 della scheda
+5. Connettere il cavo CAN del jig al connettore P9 della scheda
+6. Connettere il cavo ETH del jig al connettore P12 della scheda
+7. Connettere il cavo P2 del jig al connettore P2 della scheda
+8. Connettere il cavo P3 del jig al connettore P3 della scheda
+9. Connettere il cavo P4 del jig al connettore P4 della scheda
+10. Connettere il cavo P5 del jig al connettore P5 della scheda
+11. Connettere il cavo SPI1 del jig al connettore P10 della scheda
+12. Connettere il cavo SPI2 del jig al connettore P11 della scheda
+					   
+Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4plus-cshape\mc4plus-cshape.jpg" />
+			<operation type="passFailDialog" text="L'assorbimento é inferiore a 100 mA?" />
+			<operation type="message" text="Impostare l'alimentatore a 24Vdc @3A" />
+
 		</test>
 
 		<test id="2" name="Flash Firmware di test" stopOnFail="true">
@@ -682,13 +699,11 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 		<test id="3" name="Test Fimware Running" stopOnFail="true">
 			<operation type="wait" value="4000" />
-			<operation type="yesNoDialog" text="Scollegare il programmatore ST-LINK 2 e capovolgere la scheda. Il led VERDE DL3 lampeggia?" image="img/mc4plus/fw-running.gif" />
+			<operation type="yesNoDialog" text="Il led VERDE DL3 lampeggia?" image="img/mc4plus-cshape/mc4plus-cshape-app-run.gif" />
 		</test>
 
 
 		<test id="4" name="Test comunicazione CAN" stopOnFail="true">
-			<operation type="okDialog" text="Collegare il cavo CAN dell' ESD CAN/USB al connettore P9 della mc4plus lasciando vuoti i pin laterali" image="img/mc4plus/can-connect.jpg" />
-			<operation type="wait" value="1000" />
 			<operation type="send" interface="CAN" command="23"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
@@ -699,130 +714,123 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 		</test>
 
 		<test id="6" name="Test Leds">
-			<operation type="okDialog" text="Premere OK e verificare che i led DL1, DL2, DL3, DL6 (green, yellow, green, orange) lampeggino per 2 volte in sequenza come da immagine, e che i led DL4, DL5 (blue, orange) siano accesi." image="img/mc4plus/check-leds.gif" />
+			<operation type="okDialog" text="Premere OK e verificare che i led DL1, DL2, DL3, DL6 (green, yellow, green, orange) lampeggino come da immagine, e che i led DL4, DL5 (blue, orange) siano accesi." image="img/mc4plus-cshape/mc4plus-cshape-test-led.gif" />
 			<operation type="send" interface="CAN" command="3" />
 			<operation type="wait" value="6000" />
 			<operation type="passFailDialog" text="i led hanno lampeggiato correttamente?" />
 		</test>
 
-		<test id="7" name="Connessioni Setup">
-			<operation type="okDialog" text="Disalimentare la scheda, posizionarla sul setup e collegare tutti i cavi ai risppettivi connettori come in figura. Alimentare a 24Vdc @3A; quindi premere OK." image="img/mc4plus/connections2.jpg" />
-			<operation type="wait" value="2000" />
-		</test>
-
-		<test id="8" name="Test TVIN">
+		<test id="7" name="Test TVIN">
 			<operation type="send" interface="CAN" command="4" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="9" name="Test TVAUX">
+		<test id="8" name="Test TVAUX">
 			<operation type="send" interface="CAN" command="5" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="10" name="Test Analog Input AN1">
+		<test id="9" name="Test Analog Input AN1">
 			<operation type="send" interface="CAN" command="6" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="11" name="Test Analog Input AN2">
+		<test id="10" name="Test Analog Input AN2">
 			<operation type="send" interface="CAN" command="7" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="12" name="Test Analog Input AN3">
+		<test id="11" name="Test Analog Input AN3">
 			<operation type="send" interface="CAN" command="8" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="13" name="Test Analog Input AN4">
+		<test id="12" name="Test Analog Input AN4">
 			<operation type="send" interface="CAN" command="9" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="14" name="Test Encoder Reading 1 (P2)">
+		<test id="13" name="Test Encoder Reading 1 (P2)">
 			<operation type="okDialog" text="Premere OK quindi premere e rilasciare U2 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u2.gif" />
 			<operation type="send" interface="CAN" command="13" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="15" name="Test Encoder Reading 2 (P3)">
+		<test id="14" name="Test Encoder Reading 2 (P3)">
 			<operation type="okDialog" text="Premere OK quindi premere e rilasciare U1 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u1.gif" />
 			<operation type="send" interface="CAN" command="14" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="16" name="Test Encoder Reading 3 (P4)">
+		<test id="15" name="Test Encoder Reading 3 (P4)">
 			<operation type="okDialog" text="Premere OK quindi premere e rilasciare U3 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u3.gif" />
 			<operation type="send" interface="CAN" command="15" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="17" name="Test Encoder Reading 4 (P5)">
+		<test id="16" name="Test Encoder Reading 4 (P5)">
 			<operation type="okDialog" text="Premere OK quindi premere e rilasciare U4 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u4.gif" />
 			<operation type="send" interface="CAN" command="16" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="18" name="Test PWM 1 (P2)">
+		<test id="17" name="Test PWM 1 (P2)">
 			<operation type="send" interface="CAN" command="17" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="19" name="Test PWM 2 (P3)">
+		<test id="18" name="Test PWM 2 (P3)">
 			<operation type="send" interface="CAN" command="18" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="20" name="Test PWM 3 (P4)">
+		<test id="19" name="Test PWM 3 (P4)">
 			<operation type="send" interface="CAN" command="19" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="21" name="Test PWM 4 (P5)">
+		<test id="20" name="Test PWM 4 (P5)">
 			<operation type="send" interface="CAN" command="20" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="22" name="Test EEprom">
+		<test id="21" name="Test EEprom">
 			<operation type="send" interface="CAN" command="10" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="23" name="Test Micrel">
+		<test id="22" name="Test Micrel">
 			<operation type="send" interface="CAN" command="11" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="24" name="Test SPI">
+		<test id="23" name="Test SPI">
 			<operation type="send" interface="CAN" command="12" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="25" name="Test Fault L">
+		<test id="24" name="Test Fault L">
 			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-1.jpg" />
 			<operation type="send" interface="CAN" command="21" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="26" name="Test Fault H">
+		<test id="25" name="Test Fault H">
 			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-2.jpg" />
 			<operation type="send" interface="CAN" command="22" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
 		</test>
 
-		<test id="27" name="Flash Bootloader/Applicativo">
-			<operation type="okDialog" text="Disalimentare la scheda e collegare il programmatore ST-LINK 2 al connettore P1 della scheda; quindi alimentare nuovamente e premere OK" image="img/mc4plus/flashapp.jpg" />
+		<test id="26" name="Flash Bootloader/Applicativo">
 			<operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_prod.bat" />
 		</test>
 
-		<test id="28" name="Test interefaccia ETH P12">
-			<operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P12' della scheda" image="img/mc4plus/eth-1.jpg" />
+		<test id="27" name="Test interefaccia ETH P12">
 			<operation type="wait" value="2500" />
 			<operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
 		</test>
 
-		<test id="29" name="Test interefaccia ETH P13">
+		<test id="28" name="Test interefaccia ETH P13">
 			<operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P13' della scheda" image="img/mc4plus/eth-2.jpg" />
 			<operation type="wait" value="2500" />
 			<operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />

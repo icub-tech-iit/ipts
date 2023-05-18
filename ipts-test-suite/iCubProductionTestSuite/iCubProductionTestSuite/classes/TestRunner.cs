@@ -163,6 +163,9 @@ namespace iCubProductionTestSuite.classes
                         if (repeated && (o.Log == null || !o.Log.Equals("false"))) logBox.Items.RemoveAt(logBox.Items.Count - 1);
                         if (o.Log == null || !o.Log.Equals("false")) logBox.Items.Add(s);
                         break;
+                    case "message":
+                        MessageBox.Show(o.Text, "", MessageBoxButtons.OK);
+                        break;
 
                     default: break;
                 }
