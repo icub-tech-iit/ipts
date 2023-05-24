@@ -1100,7 +1100,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
      
   </testplan>
 
-	<testplan id="11" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="2">
+	<testplan id="11" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="3">
 
 
 		<test id="1" name="Controllo visivo">
@@ -1123,13 +1123,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 			<operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
 		</test>
 
-		<test id="6" name="Test sensori di hall">
-			<operation type="okDialog" text="Preparazione setup di test..." image="img/brushlessMotors/setup.jpg" />
-			<operation type="okDialog" text="Asemblare statore e rotore con la meccanica di test, collegare quindi i fili al setup." image="img/brushlessMotors/assembly.jpg" />
-			<operation type="yesNoDialog" text="Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Hall Sens. Muovendo a mano il rotore i valori sul display cambiano?" image="img/brushlessMotors/hall.jpg" />
-		</test>
-
-		<test id="7" name="Test motore">
+		<test id="6" name="Test motore">
 			<operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
 	  
 2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.
@@ -1163,8 +1157,6 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		<test id="5" name="Verifica accoppiamento rotore / albero">
 			<operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
 		</test>
-
-
 
 		<test id="6" name="Test motore">
 			<operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
