@@ -1,6 +1,6 @@
 # MC4-PLUS - Test Firmware 
 
-This repo contains the test firmware used by [IPTS](https://github.com/icub-tech-iit/proto/tree/master/proto-utils/ipts-test-suite) test suite.
+This repo contains the test firmware used by `IPTS` test suite.
 
 ![fig.1 Mc4Plus](img/fig_1_mc4plus.png)
 
