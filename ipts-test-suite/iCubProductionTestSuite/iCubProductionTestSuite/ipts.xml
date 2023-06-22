@@ -676,24 +676,24 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 1. Connettere l'ESD CAN-USB (1) e il programmatore ST-LINK (2) alle usb del PC
 2. Connettere l'ESD CAN-USB (1) al connettore P9 della scheda lasciando i 2 pin laterali vuoti 
-3. Connettere il programmatore ST-LINK (2) al connettore P1 della scheda
-4. Connettere il cavo PWR del jig al connettore P7 della scheda
-5. Connettere il cavo CAN del jig al connettore P9 della scheda
-6. Connettere il cavo ETH del jig al connettore P12 della scheda
-7. Connettere il cavo P2 del jig al connettore P2 della scheda
-8. Connettere il cavo P3 del jig al connettore P3 della scheda
-9. Connettere il cavo P4 del jig al connettore P4 della scheda
-10. Connettere il cavo P5 del jig al connettore P5 della scheda
-11. Connettere il cavo SPI1 del jig al connettore P10 della scheda
-12. Connettere il cavo SPI2 del jig al connettore P11 della scheda
-					   
+3. Connettere il cavo PWR del jig al connettore P7 della scheda
+4. Connettere il cavo FLT del jig al connettore P6 della scheda
+5. Connettere il cavo ETH del jig al connettore P12 della scheda
+6. Connettere il cavo P2 del jig al connettore P2 della scheda
+7. Connettere il cavo P3 del jig al connettore P3 della scheda
+8. Connettere il cavo P4 del jig al connettore P4 della scheda
+9. Connettere il cavo P5 del jig al connettore P5 della scheda
+10. Connettere il cavo SPI1 del jig al connettore P10 della scheda
+11. Connettere il cavo SPI2 del jig al connettore P11 della scheda
+12. Connettere il programmatore ST-LINK (2) al connettore P1 della scheda
+				   
 Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4plus-cshape\mc4plus-cshape.jpg" />
 			<operation type="passFailDialog" text="L'assorbimento é inferiore a 100 mA?" />
-			<operation type="message" text="Impostare l'alimentatore a 24Vdc @3A" />
 
 		</test>
 
 		<test id="2" name="Flash Firmware di test" stopOnFail="true">
+			<operation type="message" text="Disalimentare, impostare l'alimentatore a 24Vdc @3A e alimentare la scheda" />
 			<operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_test.bat" />
 		</test>
 
@@ -831,7 +831,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		</test>
 
 		<test id="28" name="Test interefaccia ETH P13">
-			<operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P13' della scheda" image="img/mc4plus/eth-2.jpg" />
+			<operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P13' della scheda" image="img/mc4plus-cshape/eth-2.jpg" />
 			<operation type="wait" value="2500" />
 			<operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
 		</test>
