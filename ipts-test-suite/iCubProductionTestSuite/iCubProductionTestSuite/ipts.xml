@@ -686,6 +686,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 10. Connettere il cavo SPI1 del jig al connettore P10 della scheda
 11. Connettere il cavo SPI2 del jig al connettore P11 della scheda
 12. Connettere il programmatore ST-LINK (2) al connettore P1 della scheda
+13. Connettere il cavo ETH dal PC al connettore ETH_PORT1 del jig
 				   
 Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4plus-cshape\mc4plus-cshape.jpg" />
 			<operation type="passFailDialog" text="L'assorbimento é inferiore a 100 mA?" />
