@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <!--
  /*
  * Copyright (C) 2018 Istituto Italiano di Tecnologia
@@ -824,16 +824,17 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 		<test id="26" name="Flash Bootloader/Applicativo">
 			<operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_prod.bat" />
+            <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_reset.bat" />
 		</test>
 
 		<test id="27" name="Test interefaccia ETH P12">
-			<operation type="wait" value="2500" />
+			<operation type="wait" value="5000" />
 			<operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
 		</test>
 
 		<test id="28" name="Test interefaccia ETH P13">
 			<operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P13' della scheda" image="img/mc4plus-cshape/eth-2.jpg" />
-			<operation type="wait" value="2500" />
+			<operation type="wait" value="1000" />
 			<operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
 		</test>
 
