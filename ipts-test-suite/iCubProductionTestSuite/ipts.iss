@@ -312,6 +312,8 @@ Source: "iCubProductionTestSuite\img\mc4plus-cshape\mc4plus-cshape.jpg"; DestDir
 Source: "iCubProductionTestSuite\img\mc4plus-cshape\mc4plus-cshape-app-run.gif"; DestDir: "{app}\img\mc4plus-cshape"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mc4plus-cshape\mc4plus-cshape-setup.jpg"; DestDir: "{app}\img\mc4plus-cshape"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mc4plus-cshape\mc4plus-cshape-test-led.gif"; DestDir: "{app}\img\mc4plus-cshape"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\mc4plus-cshape\eth-2.jpg"; DestDir: "{app}\img\mc4plus-cshape"; Flags: ignoreversion
+
 
 
 Source: "iCubProductionTestSuite\img\mtb4\MTB4.jpg"; DestDir: "{app}\img\mtb4"; Flags: ignoreversion
