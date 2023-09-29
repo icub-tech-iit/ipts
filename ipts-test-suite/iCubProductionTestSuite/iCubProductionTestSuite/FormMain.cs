@@ -37,7 +37,7 @@ namespace iCubProductionTestSuite
         bool DEBUG = false;
         String LAST_SN = "0";
         String OPERATOR = "";
-        static String SW_VER = "1.4.1 - 24/05/2023"; // refer to svn log searching the revision to see the changes 
+        static String SW_VER = "1.5.0 - 29/09/2023"; // refer to svn log searching the revision to see the changes 
         String RESULT = ""; 
         static String CONFIG_DIR = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
  //     static String CONFIG_DIR = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\IIT\\IPTS";
