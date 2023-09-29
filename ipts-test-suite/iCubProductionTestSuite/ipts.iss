@@ -378,6 +378,8 @@ Source: "iCubProductionTestSuite\tools\boards\rfe\flash\hex\rfe.test.v183.hex"; 
 Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_prod.bat"; DestDir: "{app}\tools\boards\rfe\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_reset.bat"; DestDir: "{app}\tools\boards\rfe\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_test.bat"; DestDir: "{app}\tools\boards\rfe\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\fap5\fap5-setup.jpg"; DestDir: "{app}\img\fap5"; Flags: ignoreversion
+
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}\tools"
