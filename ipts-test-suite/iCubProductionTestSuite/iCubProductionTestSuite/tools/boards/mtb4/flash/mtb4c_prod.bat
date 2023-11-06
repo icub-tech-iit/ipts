@@ -9,10 +9,10 @@ if %OS%==64BIT set PATH=%ProgramFiles(x86)%
 "%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -ME
 echo;
 echo;
-"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c -P "hex\mtb4c.bootloader.v190.hex"
+"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c -P "..\..\icub-firmware-build\CAN\mtb4c\mtb4c.bootloader.hex"
 echo;
 echo;
-"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c -P "hex\mtb4c.v190.hex"
+"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c -P "..\..\icub-firmware-build\CAN\mtb4c\mtb4c.hex"
 echo;
 echo;
 IF %errorlevel% NEQ 0 GOTO :error

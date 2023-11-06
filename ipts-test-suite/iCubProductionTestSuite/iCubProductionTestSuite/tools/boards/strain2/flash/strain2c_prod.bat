@@ -9,7 +9,9 @@ if %OS%==64BIT set PATH=%ProgramFiles(x86)%
 "%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -ME
 echo;
 echo;
-"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c -P "hex\strain2c.v1B0.bootloader.hex"
+"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c -P "..\..\icub-firmware-build\CAN\strain2c\strain2c.bootloader.hex"
+echo;
+"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c -P "..\..\icub-firmware-build\CAN\strain2c\strain2c.hex"
 echo;
 echo;
 

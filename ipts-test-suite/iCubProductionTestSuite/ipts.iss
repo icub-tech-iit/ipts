@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "IPTS"
-#define MyAppVersion "1.5.0"
+#define MyAppVersion "1.5.1"
 #define MyAppPublisher "Fondazione Istituto Italiano di Tecnologia"
 #define MyAppURL "http://www.iit.it/"
 #define MyAppExeName "iCubProductionTestSuite.exe"
@@ -354,11 +354,8 @@ Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\mtb4c_prod.bat"; DestDi
 Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\mtb4c_test.bat"; DestDir: "{app}\tools\boards\mtb4\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\hex\mtb4_revB_test_v190.hex"; DestDir: "{app}\tools\boards\mtb4\flash\hex"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\hex\mtb4_revC_test_v190.hex"; DestDir: "{app}\tools\boards\mtb4\flash\hex"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\hex\mtb4c.v190.hex"; DestDir: "{app}\tools\boards\mtb4\flash\hex"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\hex\mtb4c.bootloader.v190.hex"; DestDir: "{app}\tools\boards\mtb4\flash\hex"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\strain2\flash\hex\strain2_revB_test_v190.hex"; DestDir: "{app}\tools\boards\strain2\flash\hex"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\strain2\flash\hex\strain2_revC_test_v1B0.hex"; DestDir: "{app}\tools\boards\strain2\flash\hex"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\strain2\flash\hex\strain2c.v1B0.bootloader.hex"; DestDir: "{app}\tools\boards\strain2\flash\hex"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2c_prod.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2c_test.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\rfe\rfe-bottom.png"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
