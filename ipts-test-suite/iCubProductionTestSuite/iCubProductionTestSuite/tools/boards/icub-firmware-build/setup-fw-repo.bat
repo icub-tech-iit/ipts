@@ -8,7 +8,7 @@ git init .
 git remote add -f origin https://github.com/robotology/icub-firmware-build.git
 git config core.sparseCheckout true
 echo CAN/mtb4 > .git/info/sparse-checkout
-echo CAN/mtb4c > .git/info/sparse-checkout
+echo CAN/mtb4c >> .git/info/sparse-checkout
 echo CAN/strain2 >> .git/info/sparse-checkout
 echo CAN/strain2c >> .git/info/sparse-checkout
 echo CAN/rfe >> .git/info/sparse-checkout
