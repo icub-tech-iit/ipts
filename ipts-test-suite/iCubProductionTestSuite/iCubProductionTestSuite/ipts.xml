@@ -856,7 +856,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		<test id="1" name="Connessioni Setup">
 			<operation type="okDialog" text="Collegare il setup di test come in figura
 
-1. Impostare l'alimentatore a 12V @1A
+1. Impostare l'alimentatore a 12V @0.8A
 
 2. Connettere il cavo di alimentazione (1) al connettore J5 della RFE (2)
 
@@ -1002,6 +1002,46 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		</test>
 				
 	</testplan>
+
+	<!-- **************************************************************************************************
+  
+		TESTPLAN FOR AMC-BLDC 
+  
+       **************************************************************************************************-->
+
+	<testplan id="8" board="AMC-BLDC" iitcode="14962.D" reportsDir="amc-bldc" rev="1">
+
+		<interfaces>
+			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+		</interfaces>
+
+		<test id="1" name="Connessioni Setup">
+			<operation type="okDialog" text="Collegare il setup di test come in figura
+
+1. Connect the Power Cable (1) to the J7 AMC-BLDC's connector (2)
+2. Connect the USB/CAN's interface (3) to the J5 AMC-BLDC's connector (4) and to the PC
+4. Connect the ST-LINK programmer (5) to the J3 DGBADP 's connector (6)
+5. Connect the DGBADP flying connector (7) to the J1 AMC-BLDC's connector
+6. Connect the Hall enconder jig cable (A) to the J3 AMC-BLDC's connector
+7. Connect the ABZ enconder jig cable (B) to the J2 AMC-BLDC's connector
+5. Swotch ON the poer supply
+6. Hit ENTER at the end of programming"
+
+					   image="img/amc-bldc/amc-bldc_setup.jpg" />
+			<operation type="wait" value="2000" />
+		</test>
+
+		<test id="2" name="Flash Firmware di test" stopOnFail="true">
+			<operation type="batch" batchDir="tools\boards\amc-bldc\flash" batchFile="amc-bldc_test.bat" />
+		</test>
+
+		<test id="3" name="Test comunicazione CAN" stopOnFail="true">
+			<operation type="send" interface="CAN" command="0"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+		</test>
+
+
+	</testplan>
 	
     <!-- **************************************************************************************************
   
@@ -1009,7 +1049,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
   
        **************************************************************************************************-->
 	   
-   <testplan id="8" board="DC MOTORS" iitcode="2694" reportsDir="dcMotors" rev="1">
+   <testplan id="9" board="DC MOTORS" iitcode="2694" reportsDir="dcMotors" rev="1">
 
     <test id="1" name="Connessioni Setup">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
@@ -1033,7 +1073,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
      
   </testplan>
 
-   <testplan id="9" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
+   <testplan id="10" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
 
     <test id="1" name="Connessioni Setup">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
@@ -1059,7 +1099,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
   
        **************************************************************************************************-->
 	   
-   <testplan id="10" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
+   <testplan id="11" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
 
 
     <test id="1" name="Controllo visivo">
@@ -1100,7 +1140,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
      
   </testplan>
   
-   <testplan id="11" board="BRUSHLESS MOTORS" iitcode="10350" reportsDir="brushlessMotors" rev="2">
+   <testplan id="12" board="BRUSHLESS MOTORS" iitcode="10350" reportsDir="brushlessMotors" rev="2">
 
 
     <test id="1" name="Controllo visivo">
@@ -1141,7 +1181,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
      
   </testplan>
 
-	<testplan id="12" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="3">
+	<testplan id="13" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="3">
 
 
 		<test id="1" name="Controllo visivo">
@@ -1176,7 +1216,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 	</testplan>
 
-	<testplan id="13" board="BRUSHLESS MOTORS" iitcode="7116" reportsDir="brushlessMotors" rev="2">
+	<testplan id="14" board="BRUSHLESS MOTORS" iitcode="7116" reportsDir="brushlessMotors" rev="2">
 
 
 		<test id="1" name="Controllo visivo">
@@ -1211,7 +1251,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 	</testplan>
 
-	<testplan id="14" board="BRUSHLESS MOTORS" iitcode="10182" reportsDir="brushlessMotors" rev="2">
+	<testplan id="15" board="BRUSHLESS MOTORS" iitcode="10182" reportsDir="brushlessMotors" rev="2">
 
 
 		<test id="1" name="Controllo visivo">
