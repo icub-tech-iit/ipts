@@ -6,10 +6,6 @@
  * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  */
 -->
-<iptsSettings lastSel="1" operator="michelini">
-  <setting testplan="0" serial="0" />
-  <setting testplan="1" serial="1" />
-  <setting testplan="2" serial="1" />
-  <setting testplan="3" serial="1" />
-  <setting testplan="4" serial="1" />
+<iptsSettings lastSel="9" operator="user">
+  <setting testplan="9" serial="1" />
 </iptsSettings>
