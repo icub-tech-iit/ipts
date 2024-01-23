@@ -1020,12 +1020,12 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 1. Connect the Power Cable (1) to the J7 AMC-BLDC's connector (2)
 2. Connect the USB/CAN's interface (3) to the J5 AMC-BLDC's connector (4) and to the PC
-4. Connect the ST-LINK programmer (5) to the J3 DGBADP 's connector (6)
-5. Connect the DGBADP flying connector (7) to the J1 AMC-BLDC's connector
-6. Connect the Hall/ABZ enconder jig cable (A) to the J3 AMC-BLDC's connector
-7. Connect the I2C/Break jig cable (B) to the J2 AMC-BLDC's connector
-5. Swotch ON the poer supply
-6. Hit ENTER at the end of programming"
+3. Connect the ST-LINK programmer (5) to the J3 DGBADP 's connector (6)
+4. Connect the DGBADP flying connector (7) to the J1 AMC-BLDC's connector
+5. Connect the Hall/ABZ enconder jig cable (A) to the J3 AMC-BLDC's connector
+6. Connect the I2C/Break jig cable (B) to the J2 AMC-BLDC's connector
+7. Swotch ON the poer supply
+8. Hit ENTER at the end of programming"
 
 					   image="img/amc-bldc/amc-bldc_setup.jpg" />
 			<operation type="wait" value="2000" />
