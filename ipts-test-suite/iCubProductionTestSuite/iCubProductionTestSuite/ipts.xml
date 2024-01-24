@@ -1040,7 +1040,62 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 
+		<test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
+			<operation type="send" interface="CAN" command="1" />
+			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="1" />
+		</test>
 
+		<test id="5" name="Test Leds OFF">
+			<operation type="send" interface="CAN" command="2" />
+			<operation type="yesNoDialog" text="I led rosso e vedre sono spenti?" image="img/amc-bldc/amc-bldc_LED_OFF.jpg" />
+		</test>
+
+		<test id="6" name="Test Leds ON">
+			<operation type="send" interface="CAN" command="3" />
+			<operation type="yesNoDialog" text="I led rosso e vedre sono accesi?" image="img/amc-bldc/amc-bldc_LED_ON.jpg" />
+		</test>
+
+		<test id="7" name="Verifica Device ID microcontrollore">
+			<operation type="send" interface="CAN" command="4" />
+			<operation type="receivePassFail" interface="CAN" valPass="0x20 0x03 0x04 0x69" logMess="1" />
+		</test>
+
+		<test id="8" name="Test VIN" stopOnFail="true">
+			<operation type="send" interface="CAN" command="5"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+		</test>
+
+		<test id="9" name="Test CIN">
+			<operation type="send" interface="CAN" command="6"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+		</test>
+
+		<test id="10" name="Test VAUXOK">
+			<operation type="send" interface="CAN" command="7"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+		</test>
+
+		<test id="11" name="Test VCCOK">
+			<operation type="send" interface="CAN" command="8"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+		</test>
+
+		<test id="12" name="Test FAULT OFF">
+			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_LED_OFF.jpg" />
+			<operation type="send" interface="CAN" command="9" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+		</test>
+
+		<test id="13" name="Test FAULT ON">
+			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_LED_ON.jpg" />
+			<operation type="send" interface="CAN" command="10" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+		</test>
+
+		<test id="14" name="Test I2C">
+			<operation type="send" interface="CAN" command="11"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+		</test>
 	</testplan>
 	
     <!-- **************************************************************************************************

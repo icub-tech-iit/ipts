@@ -12,6 +12,7 @@ echo CAN/mtb4c >> .git/info/sparse-checkout
 echo CAN/strain2 >> .git/info/sparse-checkout
 echo CAN/strain2c >> .git/info/sparse-checkout
 echo CAN/rfe >> .git/info/sparse-checkout
+echo CAN/amcbldc >> .git/info/sparse-checkout
 echo ETH/MC4PLUS/bin >> .git/info/sparse-checkout
 git pull origin master
 
