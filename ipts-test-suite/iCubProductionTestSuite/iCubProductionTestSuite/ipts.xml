@@ -1096,7 +1096,28 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 			<operation type="send" interface="CAN" command="11"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
+
+		<test id="15" name="Test Hall sensors">
+			<operation type="okDialog" text="Premere OK quindi ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_encoders.gif" />
+			<operation type="send" interface="CAN" command="12" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+		</test>
+
+		<test id="16" name="Test Incremental Encoder">
+			<operation type="okDialog" text="Premere OK quindi ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_encoders.gif" />
+			<operation type="send" interface="CAN" command="13" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+		</test>
+		
+		<test id="17" name="Flash Bootloader/Applicativo">
+			<operation type="batch" batchDir="tools\boards\amc-bldc\flash" batchFile="amc-bldc_prod.bat" />
+		</test>
+	    
 	</testplan>
+	
+	
+	
+	
 	
     <!-- **************************************************************************************************
   
