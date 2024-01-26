@@ -1084,13 +1084,13 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		<test id="12" name="Test FAULT OFF">
 			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_OFF.jpg" />
 			<operation type="send" interface="CAN" command="9" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 
 		<test id="13" name="Test FAULT ON">
 			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_ON.jpg" />
 			<operation type="send" interface="CAN" command="10" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 
 		<test id="14" name="Test I2C">
@@ -1101,13 +1101,13 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		<test id="15" name="Test Hall sensors">
 			<operation type="okDialog" text="Premere OK quindi ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_encoders.gif" />
 			<operation type="send" interface="CAN" command="12" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 
 		<test id="16" name="Test Incremental Encoder">
 			<operation type="okDialog" text="Premere OK quindi ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_encoders.gif" />
 			<operation type="send" interface="CAN" command="13" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 		
 		<test id="17" name="Flash Bootloader/Applicativo">

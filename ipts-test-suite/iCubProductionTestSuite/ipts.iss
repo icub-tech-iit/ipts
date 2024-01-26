@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "IPTS"
-#define MyAppVersion "1.5.1"
+#define MyAppVersion "1.5.2"
 #define MyAppPublisher "Fondazione Istituto Italiano di Tecnologia"
 #define MyAppURL "http://www.iit.it/"
 #define MyAppExeName "iCubProductionTestSuite.exe"
@@ -376,25 +376,19 @@ Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_prod.bat"; DestDir: 
 Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_reset.bat"; DestDir: "{app}\tools\boards\rfe\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_test.bat"; DestDir: "{app}\tools\boards\rfe\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\fap5\fap5-setup.jpg"; DestDir: "{app}\img\fap5"; Flags: ignoreversion
-
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_encoders.gif"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_FAULT_OFF.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_FAULT_ON.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_LED_OFF.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_LED_ON.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_setup.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\amc-bldc_prod.bat"; DestDir: "{app}\tools\boards\amc-bldc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\amc-bldc_test.bat"; DestDir: "{app}\tools\boards\amc-bldc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\hex\amcbldc.test.hex"; DestDir: "{app}\tools\boards\amc-bldc\flash\hex"; Flags: ignoreversion
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}\tools"
 Type: filesandordirs; Name: "{app}\img"
 Type: filesandordirs; Name: "{app}\bin"
+Type: filesandordirs; Name: "{app}\TestReports"
 Type: files; Name: "{app}\*.*"
-
-[Dirs]
-Name: "{app}\tools\boards"
-Name: "{app}\tools\boards\icub-firmware-build"
-Name: "{app}\tools\boards\mc4plus"
-Name: "{app}\tools\boards\mc4plus\eth"
-Name: "{app}\tools\boards\mc4plus\flash"
-Name: "{app}\tools\boards\mc4plus\flash\hex"
-Name: "{app}\tools\boards\mtb4"
-Name: "{app}\tools\boards\mtb4\flash"
-Name: "{app}\tools\boards\mtb4\flash\hex"
-Name: "{app}\tools\boards\strain2"
-Name: "{app}\tools\boards\strain2\flash"
-Name: "{app}\tools\boards\strain2\flash\hex"
-
