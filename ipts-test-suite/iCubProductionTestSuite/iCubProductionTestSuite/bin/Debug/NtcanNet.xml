@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NtcanNet</name>
+    </assembly>
+    <members>
+        <member name="T:Esd.IO.Ntcan.CanBitRateMode">
+            <summary>
+            Specifies the bit rate mode of a <see cref="T:Esd.IO.Ntcan.CanBitRate"/> object.
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateMode.EsdCiaTable">
+            <summary>
+            Bit rate value according to ESD table (superset of CiA table).
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateMode.DirectBtr">
+            <summary>
+            Bit rate value is directly programmed into CAN controller BTR register.
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateMode.NumericalValue">
+            <summary>
+            Optimal values for the CAN controller BTR register are calculated based
+            on the given numerical value in Bit/s.
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateMode.CanonicalBtr">
+            <summary>
+            Bit rate value given as canonical BTR register values.
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateMode.None">
+            <summary>
+            No bit rate configuration.
+            </summary>
+        </member>
+        <member name="T:Esd.IO.Ntcan.CanControllerMode">
+            <summary>
+            Specifies the operation mode of the CAN controller.
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanControllerMode.Connected">
+            <summary>
+            CAN controller operates normally (Tx active, Rx active) in the Classical CAN mode with
+            the configured nominal bit rate and is connected to the CAN bus.
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanControllerMode.ListenOnly">
+            <summary>
+            CAN controller operates in listen only mode (Tx passive, Rx active) in the Classical CAN
+            operation mode with with the configured nominal bit rate.
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanControllerMode.AutoBaudrate">
+            <summary>
+            CAN controller operates in bit rate detection mode (Tx passive, Rx active).
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanControllerMode.Disconnected">
+            <summary>
+            The CAN controller is not connected to the CAN bus (Tx passive, Rx passive)
+            </summary>
+        </member>
+        <member name="T:Esd.IO.Ntcan.CanBitRateTable">
+            <summary>
+            Common CAN bit rates.
+            </summary>
+            <remarks>
+            This enumeration is a superset of the bit rates defined by the CAN in Automation (CiA).
+            The CiA bit rates are marked with a prefixed 'Cia'.
+            </remarks>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia1000KBit">
+            <summary>
+            Bit timing of 1000 KBit/s according to CiA specification
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Esd666666Bit">
+            <summary>
+            Bit timing of 666.66 KBit/s
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia500KBit">
+            <summary>
+            Bit timing of 500 KBit/s according to CiA specification
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Esd333333Bit">
+            <summary>
+            Bit timing of 333.33 KBit/s
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia250KBit">
+            <summary>
+            Bit timing of 250 KBit/s according to CiA specification
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Esd166666Bit">
+            <summary>
+            Bit timing of 166.66 KBit/s
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia125KBit">
+            <summary>
+            Bit timing of 125 KBit/s according to CiA specification
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia100KBit">
+            <summary>
+            Bit timing of 100 KBit/s according to CiA specification
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Esd66666Bit">
+            <summary>
+            Bit timing of 66.66 KBit/s
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia50KBit">
+            <summary>
+            Bit timing of 50 KBit/s according to CiA specification
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Esd33333Bit">
+            <summary>
+            Bit timing of 33.33 KBit/s
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia20KBit">
+            <summary>
+            Bit timing of 20 KBit/s according to CiA specification
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Esd12500Bit">
+            <summary>
+            Bit timing of 12.5 KBit/s
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia10KBit">
+            <summary>
+            Bit timing of 10 KBit/s according to CiA specification
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia800KBit">
+            <summary>
+            Bit timing of 800 KBit/s according to CiA specification
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Esd83300Bit">
+            <summary>
+            Bit timing of 83.3 KBit/s
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia2000KBit">
+            <summary>
+            Bit timing of 2000 KBit/s (CAN FD data phase)
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia4000KBit">
+            <summary>
+            Bit timing of 4000 KBit/s (CAN FD data phase)
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia5000KBit">
+            <summary>
+            Bit timing of 5000 KBit/s (CAN FD data phase)
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia8000KBit">
+            <summary>
+            Bit timing of 8000 KBit/s (CAN FD data phase)
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.Cia10000KBit">
+            <summary>
+            Bit timing of 10000 KBit/s (CAN FD data phase)
+            </summary>
+        </member>
+        <member name="F:Esd.IO.Ntcan.CanBitRateTable.None">
+            <summary>
+            No table based bit rate
+            </summary>
+        </member>
+        <member name="T:Esd.IO.Ntcan.CanBitRateDetails">
+            <summary>
+            Detailed bit rate register configuration of a CAN controller.
+            </summary>
+        </member>
+        <member name="P:Esd.IO.Ntcan.CanBitRateDetails.IsValid">
+            <summary>
+            Gets a value indicating if the instance data is valid.
+            </summary>
+            <value><c>true</c> if the data is valid; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Esd.IO.Ntcan.CanBitRateDetails.BitRate">
+            <summary>
+            Configured (nominal) CAN bit rate in Bit/s.
+            </summary>
+        </member>
+        <member name="P:Esd.IO.Ntcan.CanBitRateDetails.Clock">
+            <summary>
+            Clock frequency of the CAN controller.
+            </summary>
+        </member>
+        <member name="P:Esd.IO.Ntcan.CanBitRateDetails.Error">
+            <summary>
+            Actual deviation of configured bit rate in (% * 
