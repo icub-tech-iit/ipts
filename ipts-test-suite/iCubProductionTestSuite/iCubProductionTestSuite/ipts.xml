@@ -1019,12 +1019,19 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 			<operation type="okDialog" text="Collegare il setup di test come in figura
 
 1. Collega il cavo di alimentazione (1) al connettore J7 della AMC-BLDC (2)
+
 2. Collega l'interfaccia USB/CAN (3) al connettore J5 della AMC-BLDC (4) e al PC
+
 3. Collega il programmatore ST-LINK (5) al connettore J3 della DGBADP (6)
+
 4. Collega il connettore volante della DGBADP (7) al connettore J1 della AMC-BLDC
+
 5. Collega il cavo dei sensori Hall/ABZ del jig (A) al connettore J3 della AMC-BLDC
+
 6. Collega il cavo I2C/Break del jig (B) al connettore J2 della AMC-BLDC
+
 7. Accendi l' alimentatore settato a 12Vdc @ 0.8A
+
 8. Premi ENTER a programmazione terminata per proseguire"  image="img/amc-bldc/amc-bldc_setup.jpg" />
 			<operation type="wait" value="2000" />
 		</test>
