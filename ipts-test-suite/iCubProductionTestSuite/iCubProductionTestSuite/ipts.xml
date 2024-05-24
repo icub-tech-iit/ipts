@@ -1018,16 +1018,21 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		<test id="1" name="Connessioni Setup">
 			<operation type="okDialog" text="Collegare il setup di test come in figura
 
-1. Connect the Power Cable (1) to the J7 AMC-BLDC's connector (2)
-2. Connect the USB/CAN's interface (3) to the J5 AMC-BLDC's connector (4) and to the PC
-3. Connect the ST-LINK programmer (5) to the J3 DGBADP 's connector (6)
-4. Connect the DGBADP flying connector (7) to the J1 AMC-BLDC's connector
-5. Connect the Hall/ABZ enconder jig cable (A) to the J3 AMC-BLDC's connector
-6. Connect the I2C/Break jig cable (B) to the J2 AMC-BLDC's connector
-7. Swotch ON the poer supply
-8. Hit ENTER at the end of programming"
+1. Collega il cavo di alimentazione (1) al connettore J7 della AMC-BLDC (2)
 
-					   image="img/amc-bldc/amc-bldc_setup.jpg" />
+2. Collega l'interfaccia USB/CAN (3) al connettore J5 della AMC-BLDC (4) e al PC
+
+3. Collega il programmatore ST-LINK (5) al connettore J3 della DGBADP (6)
+
+4. Collega il connettore volante della DGBADP (7) al connettore J1 della AMC-BLDC
+
+5. Collega il cavo dei sensori Hall/ABZ del jig (A) al connettore J3 della AMC-BLDC
+
+6. Collega il cavo I2C/Break del jig (B) al connettore J2 della AMC-BLDC
+
+7. Accendi l' alimentatore settato a 12Vdc @ 0.8A
+
+8. Premi ENTER a programmazione terminata per proseguire"  image="img/amc-bldc/amc-bldc_setup.jpg" />
 			<operation type="wait" value="2000" />
 		</test>
 
@@ -1053,12 +1058,12 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 		<test id="6" name="Test Leds OFF">
 			<operation type="send" interface="CAN" command="2" />
-			<operation type="yesNoDialog" text="I led rosso e vedre sono spenti?" image="img/amc-bldc/amc-bldc_LED_OFF.jpg" />
+			<operation type="yesNoDialog" text="I led rosso e verde sono spenti?" image="img/amc-bldc/amc-bldc_LED_OFF.jpg" />
 		</test>
 
 		<test id="7" name="Test Leds ON">
 			<operation type="send" interface="CAN" command="3" />
-			<operation type="yesNoDialog" text="I led rosso e vedre sono accesi?" image="img/amc-bldc/amc-bldc_LED_ON.jpg" />
+			<operation type="yesNoDialog" text="I led rosso e verde sono accesi?" image="img/amc-bldc/amc-bldc_LED_ON.jpg" />
 		</test>
 
 		<test id="8" name="Test VIN" stopOnFail="true">
