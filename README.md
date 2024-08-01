@@ -33,7 +33,7 @@ You can install **IPTS** on a Windows 10 machine.
 :warning:
   **If the installer is required by suppliers or, in general, by external parties from IIT please refer to the installer attached in the provided release and DO NOT USE the link below**
   
-- Download the [installer](https://github.com/icub-tech-iit/ipts/releases)
+- Download the installer from the [releases page](https://github.com/icub-tech-iit/ipts/releases)
 - Run it and follow the wizard
 
 ### 1.2 Installing ESD CAN-USB drivers
@@ -92,8 +92,7 @@ Follow the steps below:
 
 ## 2 Run IPTS
 
-- Launch the ``iCubProductionTestSuite.exe`` either from start menu, Desktop shortcut or installation folder with ***Administrator privileges***MC4-PLUS, IIT - Electronic board with cortex M4, Ethernet and power driver for 4 DC motors, SPI interface, 2 analog channels, 12-32V supply voltage, low brightness 
-
+- Launch the ``iCubProductionTestSuite.exe`` either from start menu, Desktop shortcut or installation folder with ***Administrator privileges***
 - Enter the full operator’s name
 
 ![Select Operator](assets/fig_5_operator.png)
