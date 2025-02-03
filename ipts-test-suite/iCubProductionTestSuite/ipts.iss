@@ -39,10 +39,12 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\bin\Release\{#MyAppExeNam
 
 [Run]
 Filename: "{app}\tools\STM32 ST-LINK Utility v4.5.0.exe"
+Filename: "{app}\tools\SetupSTM32CubeProgrammer_win64.exe"
 Filename: "{app}\tools\Git-2.31.1-64-bit.exe"
 
 [Files]
 Source: "iCubProductionTestSuite\tools\STM32 ST-LINK Utility v4.5.0.exe"; DestDir: "{app}\tools"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\SetupSTM32CubeProgrammer_win64.exe"; DestDir: "{app}\tools"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\drivers_can\Win32\C200\canc200.cat"; DestDir: "{app}\tools\drivers_can\Win32\C200"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\drivers_can\Win32\C200\canc200.inf"; DestDir: "{app}\tools\drivers_can\Win32\C200"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\drivers_can\Win32\C200\relnotes.html"; DestDir: "{app}\tools\drivers_can\Win32\C200"; Flags: ignoreversion
@@ -276,6 +278,7 @@ Source: "iCubProductionTestSuite\img\LOGO.png"; DestDir: "{app}\img"; Flags: ign
 Source: "iCubProductionTestSuite\img\play-button.png"; DestDir: "{app}\img"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\stop-button.png"; DestDir: "{app}\img"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\user.png"; DestDir: "{app}\img"; Flags: ignoreversion
+
 Source: "iCubProductionTestSuite\img\brushlessMotors\assembly.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\brushlessMotors\avvolgimenti.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\brushlessMotors\fasatura.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
@@ -284,6 +287,7 @@ Source: "iCubProductionTestSuite\img\brushlessMotors\motor.jpg"; DestDir: "{app}
 Source: "iCubProductionTestSuite\img\brushlessMotors\setup.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\brushlessMotors\valori.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\brushlessMotors\allineamento-albero-rotore.png"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
+
 Source: "iCubProductionTestSuite\img\dcMotors\encoderWaveForm.jpg"; DestDir: "{app}\img\dcMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\dcMotors\label1.jpg"; DestDir: "{app}\img\dcMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\dcMotors\label2.jpg"; DestDir: "{app}\img\dcMotors"; Flags: ignoreversion
@@ -292,6 +296,7 @@ Source: "iCubProductionTestSuite\img\dcMotors\probes.jpg"; DestDir: "{app}\img\d
 Source: "iCubProductionTestSuite\img\dcMotors\pws.jpg"; DestDir: "{app}\img\dcMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\dcMotors\setup.jpg"; DestDir: "{app}\img\dcMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\dcMotors\yesEncoder.jpg"; DestDir: "{app}\img\dcMotors"; Flags: ignoreversion
+
 Source: "iCubProductionTestSuite\img\mc4plus\can-connect.jpg"; DestDir: "{app}\img\mc4plus"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mc4plus\check-leds.gif"; DestDir: "{app}\img\mc4plus"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mc4plus\connections1.jpg"; DestDir: "{app}\img\mc4plus"; Flags: ignoreversion
@@ -314,8 +319,6 @@ Source: "iCubProductionTestSuite\img\mc4plus-cshape\mc4plus-cshape-setup.jpg"; D
 Source: "iCubProductionTestSuite\img\mc4plus-cshape\mc4plus-cshape-test-led.gif"; DestDir: "{app}\img\mc4plus-cshape"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mc4plus-cshape\eth-2.jpg"; DestDir: "{app}\img\mc4plus-cshape"; Flags: ignoreversion
 
-
-
 Source: "iCubProductionTestSuite\img\mtb4\MTB4.jpg"; DestDir: "{app}\img\mtb4"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mtb4\MTB4_can.jpg"; DestDir: "{app}\img\mtb4"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mtb4\MTB4_gpio.jpg"; DestDir: "{app}\img\mtb4"; Flags: ignoreversion
@@ -323,41 +326,13 @@ Source: "iCubProductionTestSuite\img\mtb4\MTB4_ledoff.jpg"; DestDir: "{app}\img\
 Source: "iCubProductionTestSuite\img\mtb4\MTB4_ledon.jpg"; DestDir: "{app}\img\mtb4"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mtb4\MTB4_setup.jpg"; DestDir: "{app}\img\mtb4"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\mtb4\MTB4_short.jpg"; DestDir: "{app}\img\mtb4"; Flags: ignoreversion
+
 Source: "iCubProductionTestSuite\img\strain2\strain2_ledOFF.jpg"; DestDir: "{app}\img\strain2"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\strain2\strain2_ledON.jpg"; DestDir: "{app}\img\strain2"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\strain2\strain2_setup1.jpg"; DestDir: "{app}\img\strain2"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\strain2\strain2_setup2.jpg"; DestDir: "{app}\img\strain2"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\strain2\strain2_short.jpg"; DestDir: "{app}\img\strain2"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\ipts.xml"; DestDir: "{app}"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\settings.xml"; DestDir: "{app}"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\bin\Release\iCubProductionTestSuite.exe"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\bin\Release\iCubProductionTestSuite.exe.config"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\bin\Release\iCubProductionTestSuite.pdb"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\bin\Release\NtcanNet.dll"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\bin\Release\NtcanNet.xml"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\icub-firmware-build\setup-fw-repo.bat"; DestDir: "{app}\tools\boards\icub-firmware-build"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\icub-firmware-build\udpdate-fw-repo.bat"; DestDir: "{app}\tools\boards\icub-firmware-build"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mc4plus\eth\test_eth.bat"; DestDir: "{app}\tools\boards\mc4plus\eth"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mc4plus\flash\mc4plus_prod.bat"; DestDir: "{app}\tools\boards\mc4plus\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mc4plus\flash\mc4plus_reset.bat"; DestDir: "{app}\tools\boards\mc4plus\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mc4plus\flash\mc4plus_test.bat"; DestDir: "{app}\tools\boards\mc4plus\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mc4plus\flash\hex\mc4plus_test.hex"; DestDir: "{app}\tools\boards\mc4plus\flash\hex"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\mtb4_prod.bat"; DestDir: "{app}\tools\boards\mtb4\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\mtb4_test.bat"; DestDir: "{app}\tools\boards\mtb4\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\hex\mtb4_test.hex"; DestDir: "{app}\tools\boards\mtb4\flash\hex"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2_prod.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2_reset.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2_test.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\strain2\flash\hex\strain2_test.hex"; DestDir: "{app}\tools\boards\strain2\flash\hex"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\Git-2.31.1-64-bit.exe"; DestDir: "{app}\tools"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\mtb4c_prod.bat"; DestDir: "{app}\tools\boards\mtb4\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\mtb4c_test.bat"; DestDir: "{app}\tools\boards\mtb4\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\hex\mtb4_revB_test_v190.hex"; DestDir: "{app}\tools\boards\mtb4\flash\hex"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\hex\mtb4_revC_test_v190.hex"; DestDir: "{app}\tools\boards\mtb4\flash\hex"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\strain2\flash\hex\strain2_revB_test_v190.hex"; DestDir: "{app}\tools\boards\strain2\flash\hex"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\strain2\flash\hex\strain2_revC_test_v1B0.hex"; DestDir: "{app}\tools\boards\strain2\flash\hex"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2c_prod.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2c_test.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
+
 Source: "iCubProductionTestSuite\img\rfe\rfe-bottom.png"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\rfe\rfe-j1.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\rfe\rfe-j2.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
@@ -371,17 +346,63 @@ Source: "iCubProductionTestSuite\img\rfe\rfe-ledOFF.jpg"; DestDir: "{app}\img\rf
 Source: "iCubProductionTestSuite\img\rfe\rfe-ledON.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\rfe\rfe-setup.jpg"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\rfe\rfe-top.png"; DestDir: "{app}\img\rfe"; Flags: ignoreversion
+
+Source: "iCubProductionTestSuite\img\fap5\fap5-setup.jpg"; DestDir: "{app}\img\fap5"; Flags: ignoreversion
+
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_abz_encoders.gif"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_current_probes.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_FAULT_OFF.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_FAULT_ON.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_HALL_encoders.gif"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_LED_OFF.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_LED_ON.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_LED_PWM_1.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_LED_PWM_2.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_LED_PWM_3.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_setup.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+
+Source: "iCubProductionTestSuite\ipts.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\settings.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\bin\Release\iCubProductionTestSuite.exe"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\bin\Release\iCubProductionTestSuite.exe.config"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\bin\Release\iCubProductionTestSuite.pdb"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\bin\Release\NtcanNet.dll"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\bin\Release\NtcanNet.xml"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
+
+Source: "iCubProductionTestSuite\tools\Git-2.31.1-64-bit.exe"; DestDir: "{app}\tools"; Flags: ignoreversion
+
+Source: "iCubProductionTestSuite\tools\boards\icub-firmware-build\setup-fw-repo.bat"; DestDir: "{app}\tools\boards\icub-firmware-build"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\icub-firmware-build\udpdate-fw-repo.bat"; DestDir: "{app}\tools\boards\icub-firmware-build"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\mc4plus\eth\test_eth.bat"; DestDir: "{app}\tools\boards\mc4plus\eth"; Flags: ignoreversion
+
+Source: "iCubProductionTestSuite\tools\boards\mc4plus\flash\mc4plus_prod.bat"; DestDir: "{app}\tools\boards\mc4plus\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\mc4plus\flash\mc4plus_reset.bat"; DestDir: "{app}\tools\boards\mc4plus\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\mc4plus\flash\mc4plus_test.bat"; DestDir: "{app}\tools\boards\mc4plus\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\mc4plus\flash\hex\mc4plus_test.hex"; DestDir: "{app}\tools\boards\mc4plus\flash\hex"; Flags: ignoreversion
+
+Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\mtb4_prod.bat"; DestDir: "{app}\tools\boards\mtb4\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\mtb4_test.bat"; DestDir: "{app}\tools\boards\mtb4\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\hex\mtb4_test.hex"; DestDir: "{app}\tools\boards\mtb4\flash\hex"; Flags: ignoreversion
+
+Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2_prod.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2_reset.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2_test.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\strain2\flash\hex\strain2_test.hex"; DestDir: "{app}\tools\boards\strain2\flash\hex"; Flags: ignoreversion
+
+Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\mtb4c_prod.bat"; DestDir: "{app}\tools\boards\mtb4\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\mtb4c_test.bat"; DestDir: "{app}\tools\boards\mtb4\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\hex\mtb4_revB_test_v190.hex"; DestDir: "{app}\tools\boards\mtb4\flash\hex"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\mtb4\flash\hex\mtb4_revC_test_v190.hex"; DestDir: "{app}\tools\boards\mtb4\flash\hex"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\strain2\flash\hex\strain2_revB_test_v190.hex"; DestDir: "{app}\tools\boards\strain2\flash\hex"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\strain2\flash\hex\strain2_revC_test_v1B0.hex"; DestDir: "{app}\tools\boards\strain2\flash\hex"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2c_prod.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\strain2\flash\strain2c_test.bat"; DestDir: "{app}\tools\boards\strain2\flash"; Flags: ignoreversion
+
 Source: "iCubProductionTestSuite\tools\boards\rfe\flash\hex\rfe.test.v183.hex"; DestDir: "{app}\tools\boards\rfe\flash\hex"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_prod.bat"; DestDir: "{app}\tools\boards\rfe\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_reset.bat"; DestDir: "{app}\tools\boards\rfe\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\rfe\flash\rfe_test.bat"; DestDir: "{app}\tools\boards\rfe\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\fap5\fap5-setup.jpg"; DestDir: "{app}\img\fap5"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_encoders.gif"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_FAULT_OFF.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_FAULT_ON.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_LED_OFF.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_LED_ON.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_setup.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
+
 Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\amc-bldc_prod.bat"; DestDir: "{app}\tools\boards\amc-bldc\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\amc-bldc_test.bat"; DestDir: "{app}\tools\boards\amc-bldc\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\hex\amcbldc.test.hex"; DestDir: "{app}\tools\boards\amc-bldc\flash\hex"; Flags: ignoreversion

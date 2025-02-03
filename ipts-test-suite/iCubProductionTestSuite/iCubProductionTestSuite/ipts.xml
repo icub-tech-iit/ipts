@@ -1018,19 +1018,23 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		<test id="1" name="Connessioni Setup">
 			<operation type="okDialog" text="Collegare il setup di test come in figura
 
-1. Collega il cavo di alimentazione (1) al connettore J7 della AMC-BLDC (2)
+1. Collega il cavo di alimentazione (1) al connettore J7 del JIG (2) e questo al connettore J7 della AMC-BLDC (2A)
 
-2. Collega l'interfaccia USB/CAN (3) al connettore J5 della AMC-BLDC (4) e al PC
+2. Collega l'interfaccia USB/CAN (3) al connettore J10 del JIG (4) e al PC
 
-3. Collega il programmatore ST-LINK (5) al connettore J3 della DGBADP (6)
+3. Collega il cavo CAN2 fornito con il JIG tra il connettore J8 del JIG (4A) e il connettore J5 della AMC-BLDC (4B)
 
-4. Collega il connettore volante della DGBADP (7) al connettore J1 della AMC-BLDC
+4. Per chiudere il circuito e permettere la comunicazione CAN posiziona un jumper da 2 PIN sul JP1 del JIG
 
-5. Collega il cavo dei sensori Hall/ABZ del jig (A) al connettore J3 della AMC-BLDC
+3. Collega il programmatore ST-LINK (5) al connettore J3 della DGBADP (6A)
 
-6. Collega il cavo I2C/Break del jig (B) al connettore J2 della AMC-BLDC
+4. Collega il connettore volante della DGBADP al connettore J1 della AMC-BLDC (6B)
 
-7. Accendi l' alimentatore settato a 12Vdc @ 0.8A
+5. Collega i cavi dei sensori Hall/ABZ del JIG in corrispondenza dei connettori specifici J19 per BLDC-HALL (8A) e J32 BLDC-ABZ (8B) del JIG al connettore J3 della AMC-BLDC (8)
+
+6. Collega il cavo I2C/Fault (BLDC J2 CH1) del JIG tra il connettore J22 AMC-BLDC_CH1 (7A) e il connettore J2 della AMC-BLDC (7C). Collega poi il fault dello stesso connettore al J1 del JIG (7B) 
+
+7. Accendi l' alimentatore settato a 12Vdc @ 0.5A (± 5%)
 
 8. Premi ENTER a programmazione terminata per proseguire"  image="img/amc-bldc/amc-bldc_setup.jpg" />
 			<operation type="wait" value="2000" />
@@ -1048,7 +1052,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 		<test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
 			<operation type="send" interface="CAN" command="1" />
-			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="1" />
+			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x01" logMess="1" />
 		</test>
 
 		<test id="5" name="Verifica Device ID microcontrollore">
@@ -1068,12 +1072,12 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 		<test id="8" name="Test VIN" stopOnFail="true">
 			<operation type="send" interface="CAN" command="5"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
 		</test>
 
 		<test id="9" name="Test CIN">
 			<operation type="send" interface="CAN" command="6"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
 		</test>
 
 		<test id="10" name="Test VAUXOK">
@@ -1104,21 +1108,55 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		</test>
 
 		<test id="15" name="Test Hall sensors">
-			<operation type="okDialog" text="Premere OK quindi ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_encoders.gif" />
+			<operation type="okDialog" text="Premere OK quindi ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_HALL_encoders.gif" />
 			<operation type="send" interface="CAN" command="12" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 
 		<test id="16" name="Test Incremental Encoder">
-			<operation type="okDialog" text="Premere OK quindi ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_encoders.gif" />
+			<operation type="okDialog" text="Premere OK quindi ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_abz_encoders.gif" />
 			<operation type="send" interface="CAN" command="13" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
+	    
+		<test id="17" name="Test Option Bytes">
+			<operation type="send" interface="CAN" command="14" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" />
+		</test>
+
+		<test id="18" name="Preparazione setup per test su PWM">
+			<operation type="okDialog" text="Prima di procedere è necessario preparare il setup come in figura:
+					   
+1. Setta l'alimentatore a 24Vdc (±0.5) e limitare l'assorbimento di corrente a 0.5A.
+
+2. Collega il cavo delle fasi del motore tra il connettore J6 del JIG (1) e il connettore J4 della AMC-BLDC (2).
+
+3. Si fa notare che le fasi alimentate dalla PWM possono essere controllate dai test-points A, B, C rispettivamente correlati alle fasi 1, 2, 3 come indicato in fogura." image="img/amc-bldc/amc-bldc_current_probes.jpg" />
+			<operation type="wait" value="2000" />
+		</test>
 		
-		<test id="17" name="Flash Bootloader/Applicativo">
+		<test id="19" name="Test PWM Phase 1">
+			<operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: GREEN, OFF, GREEN come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_1.jpg" />
+			<operation type="send" interface="CAN" command="15" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+		</test>
+
+		<test id="20" name="Test PWM Phase 2">
+			<operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: RED, GREEN, OFF come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_2.jpg" />
+			<operation type="send" interface="CAN" command="16" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+		</test>
+
+		<test id="21" name="Test PWM Phase 3">
+			<operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: OFF, RED, RED come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_3.jpg" />
+			<operation type="send" interface="CAN" command="17" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+		</test>
+
+		<test id="22" name="Flash Bootloader/Applicativo">
 			<operation type="batch" batchDir="tools\boards\amc-bldc\flash" batchFile="amc-bldc_prod.bat" />
 		</test>
-	    
+		
 	</testplan>
 	
 	
