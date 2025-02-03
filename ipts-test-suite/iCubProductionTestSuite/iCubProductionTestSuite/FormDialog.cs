@@ -31,7 +31,8 @@ namespace iCubProductionTestSuite
             buttonNo.Visible = false;
             buttonYes.Visible = false;
             this.AcceptButton = buttonOk;
-            
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+
         }
 
         public FormDialog(String text, String imgpath, bool yn)
@@ -42,6 +43,7 @@ namespace iCubProductionTestSuite
             textBox1.Text = this.text;
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox1.Image = Image.FromFile(@"../../" + this.imgpath);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             buttonOk.Visible = false;
             this.AcceptButton = buttonYes;
         }
@@ -69,6 +71,16 @@ namespace iCubProductionTestSuite
         {
             this.yn = false;
             this.Hide();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void buttonOk_Click(object sender, EventArgs e)

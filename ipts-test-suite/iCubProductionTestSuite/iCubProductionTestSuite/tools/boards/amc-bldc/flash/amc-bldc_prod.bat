@@ -1,23 +1,22 @@
 :start
 @echo off
 
-reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
+set PATH=C:\Program Files
 
-if %OS%==32BIT set PATH=%ProgramFiles%
-if %OS%==64BIT set PATH=%ProgramFiles(x86)%
-
-"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -ME
+"%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD freq=8000 ap=0 reset=SWrst
 echo;
+"%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD -d "..\..\icub-firmware-build\CAN\amcbldc\amcbldc.hex" 0x08000000 --verify
 echo;
-"%PATH%\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c -P "..\..\icub-firmware-build\CAN\amcbldc\amcbldc.hex"
+"%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD -Rst -Run
+echo "PRESS ENTER TO CONTINUE"
 echo;
-echo;
-
 IF %errorlevel% NEQ 0 GOTO :error
 GOTO :end
 :error
 echo There was an error.
+PAUSE
 EXIT 1
 :end
 echo End.
+PAUSE
 EXIT 0
