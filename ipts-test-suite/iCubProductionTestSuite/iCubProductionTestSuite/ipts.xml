@@ -665,7 +665,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 	
   </testplan>
 
-	<testplan id="5" board="MC4-PLUS C-SHAPE" iitcode="10004.B" reportsDir="mc4plus-c-shape" rev="1">
+	<testplan id="6" board="MC4-PLUS C-SHAPE" iitcode="10004.B" reportsDir="mc4plus-c-shape" rev="1">
 
 		<interfaces>
 			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
@@ -846,7 +846,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
   
        **************************************************************************************************-->
 
-	<testplan id="6" board="RFE_MASTER_MPCA" iitcode="12024.C" reportsDir="rfe" rev="1">
+	<testplan id="7" board="RFE_MASTER_MPCA" iitcode="12024.C" reportsDir="rfe" rev="1">
 
 		<interfaces>
 			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
@@ -968,7 +968,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
   
        **************************************************************************************************-->
 
-	<testplan id="7" board="FAP5" iitcode="15423.A" reportsDir="fap5" rev="1">
+	<testplan id="8" board="FAP5" iitcode="15423.A" reportsDir="fap5" rev="1">
 
 		<interfaces>
 			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
@@ -1009,7 +1009,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
   
        **************************************************************************************************-->
 
-	<testplan id="8" board="AMC-BLDC" iitcode="14962.D" reportsDir="amc-bldc" rev="1">
+	<testplan id="9" board="AMC-BLDC" iitcode="14962.D" reportsDir="amc-bldc" rev="1">
 
 		<interfaces>
 			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
@@ -1160,116 +1160,113 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 	</testplan>
 	
 
-	<!-- **************************************************************************************************
+	<!--**************************************************************************************************
   
 		TESTPLAN FOR AMC
   
-       **************************************************************************************************-->
+		**************************************************************************************************-->
 
-    <testplan id="9" board="AMC" iitcode="14962.D" reportsDir="amc" rev="1">
+    <testplan id="10" board="AMC" iitcode="15070.E" reportsDir="amc" rev="1">
 
         <interfaces>
             <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
         </interfaces>
 
-        <!-- <test id="1" name="Connessioni Setup">
-            <operation type="okDialog" text="Collegare il setup di test come in figura
+		<test id="1" name="Connessioni Setup">
+			<operation type="okDialog" text="Collegare il setup di test come in figura
 
-1. Collega il cavo di alimentazione (1) al connettore J7 del JIG (2) e questo al connettore J7 della AMC-BLDC (2A)
+				1. Collega il cavo di alimentazione (1) al connettore J7 del JIG (2) e questo al connettore J7 della AMC-BLDC (2A)
 
-2. Collega l'interfaccia USB/CAN (3) al connettore J10 del JIG (4) e al PC
+				2. Collega l'interfaccia USB/CAN (3) al connettore J10 del JIG (4) e al PC
 
-3. Collega il cavo CAN2 fornito con il JIG tra il connettore J8 del JIG (4A) e il connettore J5 della AMC-BLDC (4B)
+				3. Collega il cavo CAN2 fornito con il JIG tra il connettore J8 del JIG (4A) e il connettore J5 della AMC-BLDC (4B)
 
-4. Per chiudere il circuito e permettere la comunicazione CAN posiziona un jumper da 2 PIN sul JP1 del JIG
+				4. Per chiudere il circuito e permettere la comunicazione CAN posiziona un jumper da 2 PIN sul JP1 del JIG
 
-3. Collega il programmatore ST-LINK (5) al connettore J3 della DGBADP (6A)
+				3. Collega il programmatore ST-LINK (5) al connettore J3 della DGBADP (6A)
 
-4. Collega il connettore volante della DGBADP al connettore J1 della AMC-BLDC (6B)
+				4. Collega il connettore volante della DGBADP al connettore J1 della AMC-BLDC (6B)
 
-5. Collega i cavi dei sensori Hall/ABZ del JIG in corrispondenza dei connettori specifici J19 per BLDC-HALL (8A) e J32 BLDC-ABZ (8B) del JIG al connettore J3 della AMC-BLDC (8)
+				5. Collega i cavi dei sensori Hall/ABZ del JIG in corrispondenza dei connettori specifici J19 per BLDC-HALL (8A) e J32 BLDC-ABZ (8B) del JIG al connettore J3 della AMC-BLDC (8)
 
-6. Collega il cavo I2C/Fault (BLDC J2 CH1) del JIG tra il connettore J22 AMC-BLDC_CH1 (7A) e il connettore J2 della AMC-BLDC (7C). Collega poi il fault dello stesso connettore al J1 del JIG (7B) 
+				6. Collega il cavo I2C/Fault (BLDC J2 CH1) del JIG tra il connettore J22 AMC-BLDC_CH1 (7A) e il connettore J2 della AMC-BLDC (7C). Collega poi il fault dello stesso connettore al J1 del JIG (7B) 
 
-7. Accendi l' alimentatore settato a 12Vdc @ 0.5A (± 5%)
+				7. Accendi l' alimentatore settato a 12Vdc @ 0.5A (± 5%)
 
-8. Premi ENTER a programmazione terminata per proseguire"  image="img/amc-bldc/amc-bldc_setup.jpg" />
+				8. Premi ENTER a programmazione terminata per proseguire"  image="img/amc-bldc/amc-bldc_setup.jpg" />
             <operation type="wait" value="2000" />
-        </test>
+		</test>
 
         <test id="2" name="Flash Firmware di test" stopOnFail="true">
             <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_test.bat" />
-        </test> -->
+        </test> 
 
-        <test id="1" name="Test comunicazione CAN" stopOnFail="true">
+        <test id="3" name="Test comunicazione CAN" stopOnFail="true">
             <operation type="wait" value="500" />
             <operation type="send" interface="CAN" command="0"/>
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
         </test>
 
-         <test id="2" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
+         <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
             <operation type="send" interface="CAN" command="1" />
             <operation type="receivePassFail" interface="CAN" valPass="0x01 0x00 0x00" logMess="1" />
         </test> 
 
-        <test id="3" name="Verifica Device ID microcontrollore">
+        <test id="5" name="Verifica Device ID microcontrollore">
             <operation type="send" interface="CAN" command="4" />
             <operation type="receivePassFail" interface="CAN" valPass="0x20 0x03 0x64 0x50" logMess="1" />
         </test>
 
-		<test id="4" name="Test Leds OFF">
+		<test id="6" name="Test Leds OFF">
 			<operation type="send" interface="CAN" command="2" />
 			<operation type="yesNoDialog" text="I led rosso e verde sono spenti?" image="img/amc-bldc/amc-bldc_LED_OFF.jpg" />
 		</test>
 
-		<test id="5" name="Test Leds ON">
+		<test id="7" name="Test Leds ON">
 			<operation type="send" interface="CAN" command="3" />
 			<operation type="yesNoDialog" text="I led rosso e verde sono accesi?" image="img/amc-bldc/amc-bldc_LED_ON.jpg" />
 		</test>
 
-		<test id="6" name="Test VIN" stopOnFail="true">
+		<test id="8" name="Test VIN" stopOnFail="true">
 			<operation type="send" interface="CAN" command="5"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
 		</test>
 
-		<test id="7" name="Test CIN">
+		<test id="9" name="Test CIN">
 			<operation type="send" interface="CAN" command="6"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
 		</test>
 	
-		<test id="8" name="Test FAULT OFF">
+		<test id="10" name="Test FAULT OFF">
 			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_OFF.jpg" />
 			<operation type="send" interface="CAN" command="9" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 
-		<test id="9" name="Test FAULT ON">
+		<test id="11" name="Test FAULT ON">
 			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_ON.jpg" />
 			<operation type="send" interface="CAN" command="10" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 	
-		<test id="10" name="Test Comunicazione ETH" stopOnFail="true">
+		<test id="12" name="Test Comunicazione ETH" stopOnFail="true">
 			<operation type="wait" value="500" />
             <operation type="send" interface="CAN" command="14"/>
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 	
-		<test id="11" name="Test VAUXOK">
+		<test id="13" name="Test VAUXOK">
 			<operation type="send" interface="CAN" command="7"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 	
-		<test id="12" name="Test SPI Encoders">
+		<test id="14" name="Test SPI Encoders">
 			<operation type="send" interface="CAN" command="15"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 	
     </testplan>
 	
-		
-        
-        
         
     <!-- **************************************************************************************************
   
@@ -1277,7 +1274,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
   
        **************************************************************************************************-->
 	   
-   <testplan id="10" board="DC MOTORS" iitcode="2694" reportsDir="dcMotors" rev="1">
+   <testplan id="11" board="DC MOTORS" iitcode="2694" reportsDir="dcMotors" rev="1">
 
     <test id="1" name="Connessioni Setup">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
@@ -1301,7 +1298,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
      
   </testplan>
 
-   <testplan id="11" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
+   <testplan id="12" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
 
     <test id="1" name="Connessioni Setup">
 	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
@@ -1327,7 +1324,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
   
        **************************************************************************************************-->
 	   
-   <testplan id="12" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
+    <testplan id="13" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
 
 
     <test id="1" name="Controllo visivo">
@@ -1368,7 +1365,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
      
   </testplan>
   
-   <testplan id="13" board="BRUSHLESS MOTORS" iitcode="10350" reportsDir="brushlessMotors" rev="2">
+    <testplan id="14" board="BRUSHLESS MOTORS" iitcode="10350" reportsDir="brushlessMotors" rev="2">
 
 
     <test id="1" name="Controllo visivo">
@@ -1409,7 +1406,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
      
   </testplan>
 
-	<testplan id="14" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="3">
+	<testplan id="15" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="3">
 
 
 		<test id="1" name="Controllo visivo">
@@ -1444,7 +1441,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 	</testplan>
 
-	<testplan id="15" board="BRUSHLESS MOTORS" iitcode="7116" reportsDir="brushlessMotors" rev="2">
+	<testplan id="16" board="BRUSHLESS MOTORS" iitcode="7116" reportsDir="brushlessMotors" rev="2">
 
 
 		<test id="1" name="Controllo visivo">
@@ -1479,7 +1476,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 	</testplan>
 
-	<testplan id="16" board="BRUSHLESS MOTORS" iitcode="10182" reportsDir="brushlessMotors" rev="2">
+	<testplan id="17" board="BRUSHLESS MOTORS" iitcode="10182" reportsDir="brushlessMotors" rev="2">
 
 
 		<test id="1" name="Controllo visivo">
