@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="ASCII" ?>
+<testfiledefinition version="1.0">
+
+<test name="LED arancione 1 toggle">
+
+  <operation type="flush"></operation>
+  <operation type="okdialog">Il led verde verra' ora ACCESO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x01</operation>
+  <operation type="okdialog">Il led verde verra' ora SPENTO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x00</operation>
+</test>
+
+
+
+<test name="LED verde 1 toggle">
+  <operation type="flush"></operation>
+  <operation type="okdialog">Il led verde verra' ora ACCESO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x02</operation>
+  <operation type="okdialog">Il led verde verra' ora SPENTO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x00</operation>
+</test>
+
+<test name="LED arancione 2 toggle">
+
+  <operation type="flush"></operation>
+  <operation type="okdialog">Il led verde verra' ora ACCESO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x01</operation>
+  <operation type="okdialog">Il led verde verra' ora SPENTO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x00</operation>
+</test>
+
+
+
+<test name="LED verde 2 toggle">
+  <operation type="flush"></operation>
+  <operation type="okdialog">Il led verde verra' ora ACCESO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x02</operation>
+  <operation type="okdialog">Il led verde verra' ora SPENTO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x00</operation>
+</test>
+
+
+
+<test name="Open GULP">
+
+  <operation type="batch" wait="1" winroot="1">system32\cmd.exe,/c gulp.bat</operation>
+  <operation type="batch" wait="0" winroot="0">graph.exe, -g -s</operation>   
+</test>
+
+<test name="Open CanReal">
+
+  
+  <operation type="batch" wait="0" winroot="0">canreal.exe, canreal.cspini</operation>   
+</test>
+
+<test name="Run PWM X CH1">
+
+
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x01 0x00</operation>
+  <operation type="okdialog">PWM ora attiva. Premere OK per fermare</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x00 0x00</operation>
+   
+</test>
+
+<test name="Run PWM Y CH1">
+
+
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x02 0x00</operation>
+<operation type="okdialog">PWM ora attiva. Premere OK per fermare</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x00 0x00</operation>
+   
+</test>
+
+<test name="Run PWM Z CH1">
+
+
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x04 0x00</operation>
+<operation type="okdialog">PWM ora attiva. Premere OK per fermare</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x00 0x00</operation>
+   
+</test>
+
+<test name="Run PWM X CH2">
+
+
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x01 0x00</operation>
+<operation type="okdialog">PWM ora attiva. Premere OK per fermare</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x00 0x00</operation>
+   
+</test>
+
+<test name="Run PWM Y CH2">
+
+
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x02 0x00</operation>
+<operation type="okdialog">PWM ora attiva. Premere OK per fermare</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x00 0x00</operation>
+   
+</test>
+
+<test name="Run PWM Z CH2">
+
+
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x04 0x00</operation>
+<operation type="okdialog">PWM ora attiva. Premere OK per fermare</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x00 0x00</operation>
+   
+</test>
+
+
+<sequence name="2FOC (fase 2)">
+
+<operation type="intdialog" reportfmt="DUT SN: %s." id="sn"> Inserire il numero di serie della scheda
+</operation>    
+
+<test name="Preparazione scheda">
+<operation type = "okdialog" imagefile="jig-phase2.bmp">
+Accertarsi che gli aghi suj jig siano montati come in figura (montare solo i 2 nel cerchio rosso)
+</operation>
+<operation type="okdialog" imagefile="load.bmp">
+  Collegare i carichi ed il cavo di alimentazione alla scheda
+</operation>
+
+<operation type="okdialog" imagefile="can-connector-j1-phase2.bmp">
+Collegare i cavi CAN etichettati con P3 e P4 ai rispettivi connettori molex P3 e P4 sulla scheda e ai CAN-OUT del JIG. 
+Collegare il CAN-IN del JIG al cavo CAN dell'ESD come mostrato in figura.
+Se la scheda 2FOC sotto test e' in versione 3336.D o successiva (NON ha montate le terminazioni CAN R63 e R64 - resistenze tra CAN-H e CAN-L) 
+accertarsi che JP1 sul JIG sia CHIUSO (jumper che chiude entrambe le alette su JP1) 
+altrimenti mantenere il jumper JP1 APERTO (posizionato solo su una delle alette mantenendo il circuito aperto).
+</operation>
+
+<operation type = "okdialog" imagefile="jig-board-configuration-phase2.bmp">
+Collegare il Pickit4/Pickit3 al JIG e questo al PC.
+Il collegamento verso il PC deve essere fatto tramite il cavo micro-USB del Pickit4/Pickit3 
+o un equivalente con lo stesso standard micro-USB.
+In figura viene mostrato il cablaggio completo di scheda e JIG al termine della fase di preparazione.
+</operation>
+
+</test> 
+
+<test name="Test assorbimento">
+<operation type = "passfaildialog" >Regolare l'alimentatore a 21.5V 220mA
+e accenderelo.
+l'assorbimento deve essere inferiore a 120mA
+
+La misura e' corretta ?</operation>
+</test>
+
+<test name="FLASH test bootloader canale 2">
+
+<operation type = "okdialog" imagefile="jtag1.bmp">
+Posizionare SW1 a sinistra.
+Assicurarsi che il JIG sia collegato all' Pickit4 e che questo sia a sua volta collegato al PC
+</operation>
+
+<operation  type="batch" wait="1" winroot='0' failenv='0'>bootloader_PK4_test2.bat</operation>
+
+</test>
+
+<test name="FLASH test bootloader canale 1">
+
+<operation type = "okdialog" imagefile="jtag2.bmp">
+Posizionare SW1 a destra.
+Assicurarsi che il JIG sia collegato all' Pickit4 e che questo sia a sua volta collegato al PC
+</operation>
+
+<operation type="batch" wait="1" winroot='0' failenv='0'>bootloader_PK4_test1.bat</operation>
+
+</test>
+
+<test name="Manual Reset 1">
+
+<operation type="okdialog">Spegnere l'alimentatore, riaccendere ed attendere 5 secondi; quindi dare OK </operation>
+</test>
+
+
+
+<test name="FW collaudo CAN update canale 1">
+<operation type="sleep">1000</operation>
+<operation type="batch" wait="1" winroot='0' failenv='0'>canload1.bat</operation>
+</test>
+
+<test name="FW collaudo CAN update canale 2">
+<operation type="batch" wait="1" winroot='0' failenv='0'>canload2.bat</operation>        
+<operation type="sleep">1000</operation>
+</test>
+
+<test name="Manual Reset 2">
+
+<operation type="okdialog">Spegnere l'alimentatore, riaccendere ed attendere 5 secondi; quindi dare OK </operation>
+</test>
+
+<test name="Verifica FW collaudo canale 1">
+  <operation type="sleep">6000</operation>
+  <operation type="flush"></operation>
+  
+ <operation type="send" hex='1'>0x14 0xFF 0xFF 0x1c 0x00</operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x32 0x2e 0x30</operation>
+</test>
+
+
+<test name="Verifica versione HW canale 1">
+
+  <operation type="flush"></operation>
+  <operation type="send" hex='1'>0x15 0xFF 0xFF 0x1c 0x00</operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x34 0x2e 0x30</operation>
+</test>
+
+
+
+<test name="Verifica revisione silicio canale 1">
+
+  <operation type="flush"></operation>
+  
+ <operation type="send" hex='1'>0x16 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x4 0x30</operation>
+</test>
+
+  <test name="Verifica FW collaudo canale 2">
+ 
+ 
+<operation type="flush"></operation>
+  
+ <operation type="send" hex='1'>0x14 0xFF 0xFF 0x1d 0x00</operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x32 0x2e 0x30</operation>
+</test>
+
+
+<test name="Verifica versione HW canale 2">
+
+  <operation type="flush"></operation>
+  <operation type="send" hex='1'>0x15 0xFF 0xFF 0x1d 0x00</operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x34 0x2e 0x30</operation>
+</test>
+
+<test name="Verifica revisione silicio canale 2">
+ 
+  <operation type="flush"></operation>
+  
+ <operation type="send" hex='1'>0x16 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x4 0x30</operation>
+</test>
+
+ 
+ <test name="test fault a riposo su CH 1">
+  <operation type="okdialog">Se acceso spegnere l'alimentatore, regolarlo a 21.5V 2.2A e 
+    riaccendere aspettando ~5 sec cosi che la board possa eseguire correttamente il boot.
+    Quindi premere OK per continuare
+  </operation>
+  <operation type = "sleep">6000</operation>
+  <operation type="flush"></operation>
+
+  <operation type="send" hex='1'>0x33 0xFF 0xFF 0x1c 0x01</operation>
+  <operation type="sleep">150</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x1</operation>
+
+ 
+ </test>
+ 
+ 
+<test name="test lettura ADC fase 1 CH 1">
+ 
+  <operation type="flush"></operation>
+ 
+  <operation type="send" hex='1'>0x35 0xFF 0xFF 0x1c 0x01</operation>
+  <operation type="sleep">150</operation>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="140" min="140" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+  
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="612" min="412" reportfail="1" reportpass="1" reportfmt="ADC1: %s." >tmp</operation>
+
+  
+     
+ </test>
+
+<test name="test lettura ADC fase 2 CH 1">
+ 
+  <operation type="flush"></operation>
+
+  <operation type="send" hex='1'>0x35 0xFF 0xFF 0x1c 0x01</operation>
+  <operation type="sleep">150</operation>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="140" min="140" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+  
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="tmp">adctmp</operation>
+  
+  <operation type="buffrange" max="612" min="412" reportfail="1" reportpass="1" reportfmt="ADC2: %s." >tmp</operation>
+  
+  
+ </test>
+
+  <test name="test pull-down PWM CH 1">
+ 
+  <operation type="flush"></operation>
+
+  <operation type="send" hex='1'>0x36 0xFF 0xFF 0x1c 0x01</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x00</operation>
+  
+  
+ </test>
+ 
+ 
+ <test name="test short ponte CH 1 fase X">
+ 
+  <operation type="flush"></operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x01 0x01</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x01 0x01 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x01 0x00</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x01 0x00 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x00 0x00</operation>
+ 
+ </test>
+ 
+ <test name="test short ponte CH 1 fase Y">
+ 
+  <operation type="flush"></operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x02 0x01</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x02 0x01 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x02 0x00</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x02 0x00 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x00 0x00</operation>
+ 
+ </test>
+ 
+ <test name="test short ponte CH 1 fase Z">
+ 
+  <operation type="flush"></operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x04 0x01</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x04 0x01 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x04 0x00</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x04 0x00 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x00 0x00</operation>
+ 
+ </test>
+ 
+
+ <test name="test I su ponte CH 1">
+   
+  <operation type="flush"></operation>
+  
+  <c>  parm1 is t-high parm2 is t-low . Current must be divided by 0.76277 in S16LE format</c>
+  <c>  Consider measured mean current is 15.8 A (pick on the ADC is 31A) introducing 10% tolerance </c>
+  <c>  then th = 17.6 and tl = 14.2 </c>
+  <c>  th = 17698 -> 4522    tl = 14290 ->  37d2   </c>
+  <c>  Note: when running this test, it might be that the ADC is takes a while to stabilize, so the test might fail. If this happens, just repeat the test.</c>
+  <c>  If the test fails, it is possible to increase slightly the current on the power supply, e.g 0.5/0.8 A more.</c>
+  
+  <operation type="send" hex='1'>0x40 0xFF 0xFF 0x1c 0x22 0x45 0xd2 0x37 </operation> 
+   <operation type="sleep">120</operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x00 0x00</operation>
+  
+ </test>
+
+  <test name="test fault a riposo su CH 2">
+ 
+  <operation type="flush"></operation>
+
+  <operation type="send" hex='1'>0x33 0xFF 0xFF 0x1d 0x01</operation>
+  <operation type="sleep">150</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x1</operation>
+
+ 
+ </test>
+ 
+ <test name="test lettura ADC fase 1 CH 2">
+ 
+  <operation type="flush"></operation>
+
+  <operation type="send" hex='1'>0x35 0xFF 0xFF 0x1d 0x01</operation>
+  <operation type="sleep">150</operation>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="141" min="141" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+  
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="612" min="412" reportfail="1" reportpass="1" reportfmt="ADC1: %s." >tmp</operation>
+
+ </test>
+
+<test name="test lettura ADC fase 2 CH 2">
+ 
+  <operation type="flush"></operation>
+
+  <operation type="send" hex='1'>0x35 0xFF 0xFF 0x1d 0x01</operation>
+  <operation type="sleep">150</operation>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="141" min="141" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+  
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="tmp">adctmp</operation>
+  
+  <operation type="buffrange" max="612" min="412" reportfail="1" reportpass="1" reportfmt="ADC2: %s." >tmp</operation>
+
+ </test>
+ 
+  <test name="test pull-down PWM CH 2">
+ 
+  <operation type="flush"></operation>
+
+  <operation type="send" hex='1'>0x36 0xFF 0xFF 0x1d 0x01</operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x00</operation>
+  
+  
+ </test>
+ 
+ <test name="test short ponte CH 2 fase X">
+  
+  <operation type="flush"></operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x01 0x01</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x01 0x01 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x01 0x00</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x01 0x00 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x00 0x00</operation>
+ 
+ </test>
+ 
+ <test name="test short ponte CH 2 fase Y">
+ 
+  <operation type="flush"></operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x02 0x01</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x02 0x01 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x02 0x00</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x02 0x00 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x00 0x00</operation>
+ 
+ </test>
+ 
+ <test name="test short ponte CH 2 fase Z">
+ 
+  <operation type="flush"></operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x04 0x01</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x04 0x01 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x04 0x00</operation>
+  <operation type="sleep">500</operation>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x04 0x00 0x00</operation>
+  
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x00 0x00</operation>
+ 
+ </test>
+ 
+  <test name="test I su ponte CH 2">
+ 
+  <operation type="flush"></operation>
+  <c>  parm1 is t-high parm2 is t-low . Current must be divided by 0.76277 in S16LE format</c>
+  <c>  Consider measured mean current is 15.8 A (pick on the ADC is 31A) introducing 10% tolerance </c>
+  <c>  then th = 17.6 and tl = 14.2 </c>
+  <c>  th = 17698 -> 4522    tl = 14290 ->  37d2   </c>
+  <c>  Note: when running this test, it might be that the ADC is takes a while to stabilize, so the test might fail. If this happens, just repeat the test.</c>
+  <c>  If the test fails, it is possible to increase slightly the current on the power supply, e.g 0.5/0.8 A more.</c>
+  
+  <operation type="send" hex='1'>0x40 0xFF 0xFF 0x1d 0x22 0x45 0xd2 0x37 </operation> 
+  <operation type="sleep">120</operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x00 0x00</operation>
+
+ </test>
+ 
+  <test name="test protezione di corrente su CH 1">
+ 
+  <operation type="flush"></operation>
+  <operation type="okdialog">Regolare l'alimentatore a 60V mantenendo la stessa corrente</operation>
+  <operation type = "sleep">6000</operation>
+  <operation type="send" hex='1'>0x39 0xFF 0xFF 0xc</operation> 
+  <operation type="sleep">1000</operation>
+  <operation type="send" hex='1'>0x39 0xFF 0xFF 0x1c</operation> 
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x01</operation>
+  
+ </test>
+
+ <test name="test protezione di corrente su CH 2">
+
+  <operation type="flush"></operation>
+  <operation type="send" hex='1'>0x39 0xFF 0xFF 0xd</operation> 
+  <operation type="sleep">1000</operation>
+  <operation type="send" hex='1'>0x39 0xFF 0xFF 0x1d</operation> 
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x01</operation>
+   <operation type="okdialog">Regolare l'alimentatore a 45V mantenendo la stessa corrente</operation>
+
+ </test>
+
+ 	<test name="Update firmware repo">
+		
+		<operation type="batch" wait="1" winroot='0' failenv='0'>icub-firmware-build\setup-repo.bat</operation>
+
+	</test>
+
+ <test name="FLASH bootloader canale 1">
+
+  <operation type = "okdialog" imagefile="jtag1.bmp">
+  Posizionare SW1 a destra.
+  Assicurarsi che il JIG sia collegato al Pickit4 e che questo sia a sua volta collegato al PC
+  </operation>
+    
+	<operation type="batch" wait="1" winroot='0' failenv='0'>bootloader_PK4.bat</operation>
+	<operation type="sleep">1000</operation>
+	<operation type="batch" wait="1" winroot='0' failenv='0'>change-canid-1.bat</operation>
+  
+ </test>
+
+ <test name="FLASH bootloader canale 2">
+
+  <operation type = "okdialog" imagefile="jtag2.bmp">
+  Posizionare SW1 a sinistra.
+  Assicurarsi che il JIG sia collegato al Pickit4 e che questo sia a sua volta collegato al PC
+  </operation>
+    
+	<operation type="batch" wait="1" winroot='0' failenv='0'>bootloader_PK4.bat</operation>
+	<operation type="sleep">1000</operation>
+	<operation type="batch" wait="1" winroot='0' failenv='0'>change-canid-2.bat</operation>
+  
+ </test>
+
+<test name="FLASH firmware canale 1">
+		
+  <operation type="batch" wait="1" winroot='0' failenv='0'>firmware-1.bat</operation>
+
+</test>
+
+<test name="FLASH firmware canale 2">
+		
+  <operation type="batch" wait="1" winroot='0' failenv='0'>firmware-2.bat</operation>
+
+</test>	
+ 
+<test name="Etichettatura">
+  <operation type="okdialog" imagefile='etichetta.bmp' > Apporre l'etichetta come illustrato </operation>
+</test>
+
+    <report fnameprefix="2FOC sn" fnameid="sn" fnamesuffix="" fnameseq="1" fnamets="1" >Report di collaudo scheda 2FOC</report>
+</sequence>
+<interface baud="1000" hhhfilter="0x87fffffe" hhhmask="0xfffffffe">
+  esdcan
+</interface>
+
+</testfiledefinition>

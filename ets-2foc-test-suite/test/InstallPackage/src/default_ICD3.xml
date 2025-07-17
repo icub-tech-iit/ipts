@@ -1,0 +1,1340 @@
+<?xml version="1.0" encoding="ASCII" ?>
+<testfiledefinition version="1.0">
+
+<test name="reset via ICD3">
+<operation type="batch" wait="1" progroot='1' failenv = "0">Microchip\MPLAB IDE\Programmer Utilities\ICD3\ICD3CMD.exe,-P33FJ128MC802 -H</operation>
+<operation type="batch" wait="1" progroot='1' failenv = "0">Microchip\MPLAB IDE\Programmer Utilities\ICD3\ICD3CMD.exe,-P33FJ128MC802 -L</operation>
+</test>
+
+<test name="LED arancione 1 toggle">
+
+  <operation type="flush"></operation>
+  <operation type="okdialog">Il led arancione verra' ora ACCESO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x01</operation>
+  <operation type="okdialog">Il led arancione verra' ora SPENTO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x00</operation>
+</test>
+
+
+
+<test name="LED verde 1 toggle">
+  <operation type="flush"></operation>
+  <operation type="okdialog">Il led verde verra' ora ACCESO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x02</operation>
+  <operation type="okdialog">Il led verde verra' ora SPENTO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x00</operation>
+</test>
+
+<test name="LED arancione 2 toggle">
+
+  <operation type="flush"></operation>
+  <operation type="okdialog">Il led verde verra' ora ACCESO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x01</operation>
+  <operation type="okdialog">Il led verde verra' ora SPENTO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x00</operation>
+</test>
+
+
+
+<test name="LED verde 2 toggle">
+  <operation type="flush"></operation>
+  <operation type="okdialog">Il led arancione verra' ora ACCESO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x02</operation>
+  <operation type="okdialog">Il led arancione verra' ora SPENTO </operation>
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x00</operation>
+</test>
+
+
+
+<test name="Open GULP">
+
+  <operation type="batch" wait="1" winroot="1">system32\cmd.exe,/c gulp.bat</operation>
+  <operation type="batch" wait="0" winroot="0">graph.exe, -g -s</operation>   
+</test>
+
+<test name="Open CanReal">
+
+  
+  <operation type="batch" wait="0" winroot="0">canreal.exe, canreal.cspini</operation>   
+</test>
+
+
+
+
+<sequence name="2FOC (jig)">
+
+<operation type="intdialog" reportfmt="DUT SN: %s." id="sn"> Inserire il numero di serie della scheda
+</operation>    
+
+
+<test name="preparazione scheda">
+<operation type = "okdialog">
+Assicurarsi che il JIG sia collegato al PC tramite 
+il cavo CAN e l'adattatore ESD USB
+</operation>
+<operation type = "okdialog" imagefile="jig.bmp">
+Inserire la scheda 2FOC nel JIG di collaudo
+</operation>
+<operation type = "okdialog" imagefile="switches.bmp">
+Collegare i due interruttori ai 4 connettori laterali della scheda 2foc come illustrato in figura
+</operation>
+<operation type = "okdialog" imagefile="jigcan.bmp">
+Assicurarsi che entrambi i canali CAN siano collegati al jig
+</operation>
+<operation type = "okdialog" imagefile="cantermjump.bmp">
+Se la scheda sotto test e' in versione 3336.C (ha montate le terminazioni CAN R63 e R64) accertarsi che JP1 sul JIG sia APERTO
+Se la scheda sotto test e' in versione 3336.D (NON ha montate le terminazioni CAN R63 e R64) accertarsi che JP1 sul JIG sia CHIUSO
+
+NON Collegare il cavo al CAN_in,diversamente da quanto illustrato in figura.    
+</operation>
+   <operation type = "okdialog" imagefile="jtag1.bmp">
+ Posizionare SW1 a sinistra (necessario per non falsare la misura di assorbimento).
+  </operation>
+
+
+</test>
+
+<test name="Terminazione CAN" >
+<operation type = "okdialog" imagefile="can.bmp">Impostare il multimetro su 200ohm fondo scala.
+Collegare i puntali ai test point "CAN-H" e "CAN-L" </operation>
+
+<operation type = "passfaildialog" >Se la versione e' 3336.C Il multimetro legge 60 Ohm +/- 10% ?
+Se la versione e' 3336.D Il multimetro legge 120 Ohm +/- 10% ? 
+
+Al termine della misura collegare il cavo CAN su CAN_in </operation>
+
+
+</test>
+
+<test name="Test assorbimento">
+<operation type = "passfaildialog" >Regolare l'alimentatore a 18V 200mA
+e accenderelo.
+Se il DUT NON e' mai stato precedentemente programmato 
+l'assorbimento deve essere inferiore a 60mA.
+Se il DUT e' gia stato precedentemento programmato
+l'assorbimento deve essere inferiore a 120mA
+
+La misura e' corretta ?</operation>
+</test>
+
+
+<test name="Test presenza 5V su connettori laterali">
+<operation type = "passfaildialog" imagefile="led5vspi.bmp">Controllare i quattro LED collegati a P1 P2 P5 e P6
+Sono tutti accesi ?</operation>
+</test>
+
+<test name="Test presenza 5V CAN">
+<operation type = "passfaildialog" imagefile="led5vcan.bmp">Controllare i led LED_5V_CAN1 e LED_5V_CAN2 sul jig di collaudo.
+Sono entrambi ACCESI?</operation>
+</test>
+
+
+<test name = "test MCLR">
+<operation type="okdialog" imagefile="mclr.bmp"> Misurare la tensione sui testpoint MCLR1 e MCLR2 rispetto a GND con un multimetro digitale</operation>
+<operation type = "passfaildialog" >I due segnali sono stabili a 3.3V tolleranza 10%</operation>
+
+
+</test>
+
+<test name="Test tensioni di alimentazione">
+<operation type="passfaildialog" imagefile="ledv.bmp"> I sei led LED1-LED6 sono tutti accesi?</operation>
+<operation type = "okdialog">Verra' ora richiesto di verificare la presenza delle alimentazioni
+sui testpoint presenti sul JIG. A tal fine e' necessario un multimetro impostato su VDC</operation>
+<operation type="passfaildialog" imagefile="tpv3.bmp">Su TP 3_3V1, TP 3_3VA1, TP 3_3V2, TP 3_3VA2  
+e presente tensione DC a 3.3V (con tolleranza 5%) ?</operation>
+<operation type="passfaildialog" imagefile="tpv5.bmp">Su TP +5V  
+e presente tensione DC a 5V (con tolleranza 5%) ?</operation>
+<operation type="passfaildialog" imagefile="tpv12.bmp">Su TP +12V  
+e presente tensione DC a 12V (con tolleranza 5%) ?</operation>
+
+
+</test>
+
+<test name="Test DC/DC 12V">
+<operation type = "okdialog" imagefile="12v_dcdc.bmp" > Posizionare la sonda dell'oscilloscopio sul catodo di D5 come visibile in figura. Collegare la clip di massa a GND2</operation>
+<operation type="passfaildialog" imagefile="12v_dcdc_signal.bmp"> Il segnale deve avere ampiezza circa uguale all'alimentazione fornita (18V) e la frequenza degli impulsi positivi deve essere circa 1Mhz.
+La forma d'onda e' corretta? </operation>
+</test>
+
+<test name="Test DC/DC 5V">
+<operation type = "okdialog" imagefile="5v_dcdc.bmp" > Posizionare la sonda dell'oscilloscopio sul catodo di D3 come visibile in figura. Collegare la clip di massa a GND2</operation>
+<operation type="passfaildialog" imagefile="5v_dcdc_signal.bmp"> Il segnale deve essere un onda quadra con ampiezza di circa 12V e frequenza di circa 1.3Mhz.
+La forma d'onda e' corretta? </operation>
+</test>
+
+<test name="Test oscillatore" >
+<operation type = "okdialog" imagefile="clk.bmp">Per la verifica del segnale di clock e' necessario un oscilloscopio con banda passante >100Mhz, collegato come in figura</operation>
+<operation type="passfaildialog">Viene rilevato un segnale ad onda quadra con
+Ampiezza 3.3Vpp (tolleranza 15%)
+Frequenza 10Mhz (tolleranza 1%) ?</operation>
+
+</test>
+  <test name="FLASH bootloader canale 2">
+
+  <operation type = "okdialog" imagefile="jtag1.bmp">
+ Posizionare SW1 a sinistra.
+ Assicurarsi che il JIG sia collegato all' ICD3 e che questo sia a sua volta collegato al PC
+  </operation>
+  
+  <operation type="batch" wait="1" progroot='1' failenv='0'>Microchip\MPLAB IDE\Programmer Utilities\ICD3\ICD3CMD.exe,-P33FJ128MC802 -E -M -Fbootloader2.hex</operation>
+  <operation type="batch" wait="1" progroot='1' failenv='0'>Microchip\MPLAB IDE\Programmer Utilities\ICD3\ICD3CMD.exe,-P33FJ128MC802 -L</operation>
+  
+</test>
+<test name="FLASH bootloader canale 1">
+  
+  <operation type = "okdialog" imagefile="jtag2.bmp">
+ Posizionare SW1 a destra.
+ Assicurarsi che il JIG sia collegato all' ICD3 e che questo sia a sua volta collegato al PC
+  </operation>
+  
+  <operation type="batch" wait="1" progroot='1' failenv='0'>Microchip\MPLAB IDE\Programmer Utilities\ICD3\ICD3CMD.exe,-P33FJ128MC802 -E -M -Fbootloader1.hex</operation>
+  <operation type="batch" wait="1" progroot='1' failenv='0'>Microchip\MPLAB IDE\Programmer Utilities\ICD3\ICD3CMD.exe,-P33FJ128MC802 -L</operation>
+  
+</test>
+
+<test name="Manual Reset">
+  
+  <operation type="okdialog">Spegnere l'alimentatore, riaccendere ed attendere 5 secondi; quindi dare OK </operation>
+</test>
+
+
+
+<test name="FW CAN update canale 1">
+  <operation type="sleep">1000</operation>
+  <operation type="batch" wait="1" winroot='0' failenv='0'>canload1.bat</operation>
+</test>
+
+<test name="FW CAN update canale 2">
+  <operation type="batch" wait="1" winroot='0' failenv='0'>canload2.bat</operation>        
+  <operation type="sleep">1000</operation>
+</test>
+
+<test name="Verifica FW collaudo canale 1">
+
+  <operation type="flush"></operation>
+  
+ <operation type="send" hex='1'>0x14 0xFF 0xFF 0x1c 0x00</operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x32 0x2e 0x30</operation>
+</test>
+
+
+<test name="Verifica FW collaudo canale 2">
+
+  <operation type="flush"></operation>
+  
+ <operation type="send" hex='1'>0x14 0xFF 0xFF 0x1d 0x00</operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x32 0x2e 0x30</operation>
+</test>
+
+
+
+<test name="Verifica versione HW canale 1">
+
+  <operation type="flush"></operation>
+  <operation type="send" hex='1'>0x15 0xFF 0xFF 0x1c 0x00</operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x34 0x2e 0x30</operation>
+</test>
+
+<test name="Verifica versione HW canale 2">
+
+  <operation type="flush"></operation>
+  <operation type="send" hex='1'>0x15 0xFF 0xFF 0x1d 0x00</operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x34 0x2e 0x30</operation>
+</test>
+
+<test name="Verifica revisione silicio canale 1">
+
+  <operation type="flush"></operation>
+  
+ <operation type="send" hex='1'>0x16 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x4 0x30</operation>
+</test>
+
+<test name="Verifica revisione silicio canale 2">
+ 
+  <operation type="flush"></operation>
+  
+ <operation type="send" hex='1'>0x16 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1" reportpass="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x4 0x30</operation>
+</test>
+          
+<test name="test lettura ADC VDC 18V CH 1">
+                              
+ 
+  <operation type="flush"></operation>
+
+  <c> Send command to read ADC </c>
+  <operation type="send" hex='1'>0x34 0xFF 0xFF 0x1c 0x01</operation>
+  <operation type="sleep">150</operation>
+  
+  <c> Read back answ. Skip 3 bytes and extract last byte of ID to check it and the two 16 bit ADC read vals. the first is ADC status, the second is the val read.</c>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <c> take the first extracted val (id) anch compare with 140</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="140" min="140" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+  
+  <c> throw away ID from the string</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <c> put the first val in tmp</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+  <c> put the 2nd val in tmp</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="190" min="170" reportfail="1" reportpass="1" reportfmt="ADC vdc: %s." >tmp</operation>
+  
+  
+ </test>
+ 
+ <test name="test lettura ADC VDC 18V CH 2">
+ 
+ 
+  <operation type="flush"></operation>
+
+  <c> Send command to read ADC </c>
+  <operation type="send" hex='1'>0x34 0xFF 0xFF 0x1d 0x01</operation>
+  <operation type="sleep">150</operation>
+  
+  <c> Read back answ. Skip 3 bytes and extract last byte of ID to check it and the two 16 bit ADC read vals. the first is ADC status, the second is the val read.</c>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <c> take the first extracted val (id) anch compare with 141</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="141" min="141" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+   
+  <c> throw away ID from the string</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <c> put the first val in tmp</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+  <c> put the 2nd val in tmp</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="190" min="170" reportfail="1" reportpass="1" reportfmt="ADC vdc: %s." >tmp</operation>
+  
+ </test>
+ 
+ 
+ <test name="test lettura ADC VDC 36V CH 1">
+ 
+  <operation type = "okdialog" >Impostare l'alimentatore a 36V</operation>
+  <operation type = "sleep">6000</operation>
+  <operation type="flush"></operation>
+   
+  <c> Send command to read ADC </c> 
+  <operation type="send" hex='1'>0x34 0xFF 0xFF 0x1c 0x01</operation>
+  <operation type="sleep">150</operation>
+  
+  <c> Read back answ. Skip 3 bytes and extract last byte of ID to check it and the two 16 bit ADC read vals. the first is ADC status, the second is the val read.</c>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <c> take the first extracted val (id) anch compare with 140</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="140" min="140" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+  
+  <c> throw away ID from the string</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <c> put the first val in tmp</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+  <c> put the 2nd val in tmp</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="370" min="350" reportfail="1" reportpass="1" reportfmt="ADC vdc: %s." >tmp</operation>
+  
+  
+ </test>
+ 
+ <test name="test lettura ADC VDC 36V CH 2">
+ 
+ 
+  <operation type="flush"></operation>
+
+  <c> Send command to read ADC </c> 
+  <operation type="send" hex='1'>0x34 0xFF 0xFF 0x1d 0x01</operation>
+  <operation type="sleep">150</operation>
+  
+  <c> Read back answ. Skip 3 bytes and extract last byte of ID to check it and the two 16 bit ADC read vals. the first is ADC status, the second is the val read.</c>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <c> take the first extracted val (id) anch compare with 141</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="141" min="141" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+  
+  <c> throw away ID from the string</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <c> put the first val in tmp</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+  <c> put the 2nd val in tmp</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="370" min="350" reportfail="1" reportpass="1" reportfmt="ADC vdc: %s." >tmp</operation>
+  
+ </test>
+
+
+
+<test name="TEST LED canale 1">
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x00</operation>
+  <operation type="flush"></operation>
+  <operation type="passfaildialog" imagefile = "led_off_ch1.bmp">I due led indicati in figura sono spenti?</operation>
+  
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x01</operation>
+  <operation type="passfaildialog" imagefile = "led_ar_ch1.bmp">Controllare i due led indicati in figura
+Il led arancione deve essere acceso
+l'adiacente led verde deve essere spento
+ E' corretto?</operation>
+  
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x02</operation>
+  <operation type="passfaildialog" imagefile = "led_ve_ch1.bmp">Controllare nuovamente i due led indicati in figura
+Il led arancione deve essere spento
+l'adiacente led verde deve essere acceso
+  E' corretto?</operation>
+  
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xc 0x00</operation>
+</test>
+
+
+<test name="TEST LED canale 2">
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x00</operation>
+  <operation type="flush"></operation>
+  <operation type="passfaildialog" imagefile = "led_off_ch2.bmp">I due led a sinistra CH 2 sono spenti?</operation>
+  
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x01</operation>
+   <operation type="passfaildialog" imagefile = "led_ar_ch2.bmp">Controllare i due led indicati in figura
+Il led arancione deve essere acceso
+l'adiacente led verde deve essere spento
+  E' corretto?</operation>
+     
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x02</operation>
+  <operation type="passfaildialog"  imagefile = "led_ve_ch2.bmp">Controllare nuovamente i due led in figura
+Il led arancione deve essere spento
+l'adiacente led verde deve essere acceso
+  E' corretto?</operation>
+  
+  <operation type="send" hex='1'>0x32 0xFF 0xFF 0xd 0x00</operation>
+</test>
+
+
+
+  <test name="TEST corto su segnali P1 CH 1" >
+  
+  <c> ATTENZIONE per il firmware P1 e P6 sono la stessa cosa. cambia ID CAN</c>
+    <operation type = "okdialog" imagefile="test_corto.bmp">Spostare gli interruttori in posizione "1"</operation>
+  <operation type="flush"></operation>
+  
+  
+  <c>  verifica su P6 - setta pin 3 come out a 0V. setta gli altri pin di P6 su input e verifica che siano a 1 (pup) </c>
+  
+  <c> GPIO dir P6 pin 3 is out </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x03 0x00 </operation>
+  
+  <c> GPIO dir P6 pin 4 is in </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x04 0x01 </operation>
+  
+  <c> GPIO dir P6 pin 5 is in </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x05 0x01 </operation>
+  
+  <c> GPIO dir P6 pin 6 is in </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x06 0x01 </operation>
+  
+  <c> GPIO P6 pin 3 drive 0 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x06 0x03 0x00 </operation>
+  <operation type="sleep">150</operation>
+
+  <c> read GPIO  P6 pin 6</c>  
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x06</operation>
+  <c> GPIO read val must be 1 </c>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 6 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  <c> read GPIO  P6 pin 5</c>  
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x05</operation>
+  <c> GPIO read val must be 1 </c>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 5 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+    
+  <c> read GPIO  P6 pin 4</c>  
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x04</operation>
+  <c> GPIO read val must be 1 </c>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 4 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  
+  <c>  verifica su P6 - setta pin 4 come out a 0V. setta gli altri pin di P6 su input e verifica che siano a 1 (pup) </c>
+   
+  <c> gpio dir p6 pin3 in </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x03 0x01 </operation>
+  
+  <c> gpio dir p6 pin4 out </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x04 0x00 </operation>
+  
+  <c> gpio dir p6 pin5 in </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x05 0x01 </operation>
+  
+  <c> gpio dir p6 pin6 in </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x06 0x01 </operation>
+  
+  <c> gpio p6 pin4 drive 0 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x06 0x04 0x00 </operation>
+  <operation type="sleep">150</operation>
+  
+  <c> verifica p6 pin6 a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x06</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 6 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  <c> verifica p6 pin5 a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x05</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 5 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  <c> verifica p6 pin3 a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x03</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 3 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  
+  
+  <c> setta p6 pin 5 a 0 e verifica che gli altri ingressi siano a 1 (PUP)</c>
+  
+  <c> gpio dir p6 pin3 input</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x03 0x01 </operation>
+  
+  <c> gpio dir p6 pin4 input</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x04 0x01 </operation>
+  
+  <c> gpio dir p6 pin5 out</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x05 0x00 </operation>
+  
+  <c> gpio dir p6 pin6 input</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x06 0x01 </operation>
+  
+  <c> gpio p6 pin5 drive to 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x06 0x05 0x00 </operation>
+  <operation type="sleep">150</operation>
+  
+    
+  <c> legge pin3 controlla che sia a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x03</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 3 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  <c> legge pin4 controlla che sia a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x04</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 4 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  <c> legge pin6 controlla che sia a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x06</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 6 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  
+  <c> setta P6 pin 6 a 0 e controlla che gli altri ingressi siano a 1 (PUP) </c>
+   
+  <c> gpio dir P6 pin 3 input </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x03 0x01 </operation>
+  
+  <c> gpio dir P6 pin 4 input </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x04 0x01 </operation>
+  
+  <c> gpio dir P6 pin 5 input </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x05 0x01 </operation>
+  
+  <c> gpio dir P6 pin 6 out </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x06 0x00 </operation>
+  
+  <c>gpio P6 pin6 drive 0  </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x06 0x06 0x00 </operation>
+  <operation type="sleep">150</operation>
+  
+    
+    <c> controlla Pin3 a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x03</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 3 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  
+  <c> controlla pin4 a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x04</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 4 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  <c> controlla pin 5 a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x05</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 5 in corto?">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  
+  
+  
+  </test>
+  
+  
+  
+  
+  <test name="TEST corto su segnali P2 CH 1">
+  <operation type="flush"></operation>
+
+  <c> ATTENZIONE per il firmware p2 e p5 son la stessa cosa </c>
+   
+  <c> GPIO dir P5 pin4 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x05 0x04 0x01 </operation>
+  <c> GPIO dir P5 pin5 out</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x05 0x05 0x00 </operation>
+  <c> GPIO dir P5 pin6 out</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x05 0x06 0x00 </operation>
+  
+  <c> GPIO  P5 pin5 drive 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x05 0x05 0x00 </operation>
+  
+  <c> GPIO  P5 pin6 drive 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x05 0x06 0x00 </operation>
+  
+  <operation type="sleep">150</operation>
+  
+  <c> controlla che GPIO P5 pin4 sia a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x05 0x04</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 4 in corto? %s">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  
+  </test>
+  
+<test name="TEST corto su segnali P6 CH 2">
+  <operation type="flush"></operation>
+
+
+  <c> gpio dir P6 pin3 out </c>   
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x03 0x00 </operation>
+  <c> gpio dir P6 pin4 in </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x04 0x01 </operation>
+  <c> gpio dir P6 pin5 in </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x05 0x01 </operation>
+  <c> gpio dir P6 pin6 in </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x06 0x01 </operation>
+
+  <c> gpio P6 pin 3 drive 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x06 0x03 0x00 </operation>
+  <operation type="sleep">50</operation>
+  
+  <c> controlla P6 pin6 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x06</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 6 in corto?" >0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  <c> controlla P6 pin5 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x05</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 5 in corto?">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  <c> controlla P6 pin4 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x04</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 4 in corto?">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+   
+  <c> gpio dir P6 pin4 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x03 0x01 </operation>
+  
+  <c> gpio dir P6 pin4 out</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x04 0x00 </operation>
+  
+  <c> gpio dir P6 pin5 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x05 0x01 </operation>
+  
+  <c> gpio dir P6 pin6 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x06 0x01 </operation>
+  
+  <c> gpio P6 pin4 out</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x06 0x04 0x00 </operation>
+  <operation type="sleep">50</operation>
+  
+  <c> controlla P6 pin6 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x06</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 6 in corto?">0xfe 0xff 0xff 0x8d 0x1</operation>
+   
+  <c> controlla P6 pin5 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x05</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 5 in corto?">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  <c> controlla P6 pin3 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x03</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 3 in corto?">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  
+  
+  <c> gpio dir P6 pin3 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x03 0x01 </operation>
+  <c> gpio dir P6 pin4 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x04 0x01 </operation>
+  <c> gpio dir P6 pin5 out</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x05 0x00 </operation>
+  <c> gpio dir P6 pin6 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x06 0x01 </operation>
+  <c> gpio dir P6 pin5 in</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x06 0x05 0x01 </operation>
+  <operation type="sleep">50</operation>
+  
+  <c> controlla P6 pin3 a 1</c>  
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x03</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 3 in corto?">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  <c> controlla P6 pin4 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x04</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 4 in corto?">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  <c> controlla P6 pin6 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x06</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 6 in corto?">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  
+  
+  <c> gpio dir P6 pin3 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x03 0x01 </operation>
+  <c> gpio dir P6 pin4 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x04 0x01 </operation>
+  <c> gpio dir P6 pin5 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x05 0x01 </operation>
+  <c> gpio dir P6 pin6 out</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x06 0x00 </operation>
+  <c> gpio P6 pin 6 drive 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x06 0x06 0x01 </operation>
+  <operation type="sleep">50</operation>
+  
+  <c> controlla P6 pin 3 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x03</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 3 in corto?">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  <c> controlla P6 pin 4 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x04</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 4 in corto?">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  <c> controlla P6 pin 5 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x05</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 5 in corto?">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  
+  
+  
+  
+  
+  </test>
+  
+  
+  
+  
+  <test name="TEST corto su segnali P5 CH 2">
+  <operation type="flush"></operation>
+
+  <c> gpio dir P5 pin4 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x05 0x04 0x01 </operation>
+  <c> gpio dir P5 pin5 out</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x05 0x05 0x00 </operation>
+  <c> gpio dir P5 pin6 out</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x05 0x06 0x00 </operation>
+  
+  <c> P5 pin5 drive 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x05 0x05 0x00 </operation>
+  
+  <c> P5 pin6 drive 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x05 0x06 0x00 </operation>
+  
+  <operation type="sleep">150</operation>
+  
+  <c> controlla P5 pin4 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x05 0x04</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1" reportfmt="PIN 4 in corto? %s">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  
+  
+  </test>
+  
+  
+  <test name="TEST loop su segnali P1 CH 1">
+  <operation type="flush"></operation>
+
+  <c> ATTENZIONE per il firmware P1 e P6 sono la stessa cosa. Cambia ID CAN</c>
+  <operation type = "okdialog" imagefile="test_loop.bmp">Spostare gli interruttori in posizione "2"</operation>
+  
+  <c> gpio dir P6 pin3 out</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x03 0x00 </operation>
+  <c> gpio dir P6 pin4 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x04 0x01 </operation>
+  <c> gpio dir P6 pin5 out</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x05 0x00 </operation>
+  <c> gpio dir P6 pin6 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x06 0x06 0x01 </operation>
+
+  <c> gpio P6 pin3 drive 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x06 0x03 0x00 </operation>
+  
+  <c> gpio P6 pin6 drive 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x06 0x05 0x00 </operation>
+  
+  <operation type="sleep">150</operation>
+  
+  <c> verifica P6 pin6 a 0</c>
+  
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x06</operation>
+  <operation type="recvpassfail" reportfmt="loop1 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x0</operation>
+  
+  <c> verifica P6 pin 4 a 0 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x04</operation>
+  <operation type="recvpassfail" reportfmt="loop2 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x0</operation>
+  
+  <c> drive P6 pin3 a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x06 0x03 0x01 </operation>
+  <operation type="sleep">150</operation>
+  
+  
+  <c> controlla P6 pin4 che sia a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x04</operation>
+  <operation type="recvpassfail" reportfmt="loop3 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  <c> controlla P6 pin6 che sia a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x06</operation>
+  <operation type="recvpassfail" reportfmt="loop4 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x0</operation>
+  
+  
+  <c> setta P6 pin5 a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x06 0x05 0x01 </operation>
+  <c> setta P6 pin3 a 0 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x06 0x03 0x00 </operation>
+  <operation type="sleep">150</operation>
+  
+  <c> controlla P6 pin4 a 0 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x04</operation>
+  <operation type="recvpassfail" reportfmt="loop5 failed" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x0</operation>
+  
+  <c> controlla P6 pin6 a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x06 0x06</operation>
+  <operation type="recvpassfail" reportfmt="loop6 failed" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x01</operation>
+  
+
+  </test>     
+  
+  
+       
+  <test name="TEST loop su segnali P2 CH 1">
+  <operation type="flush"></operation>
+
+  <c> ATTENZIONE per il firmware P2 e P5 son la stessa cosa . cambia ID CAN</c>
+
+
+  
+  <c> gpio dir P5 pin4 out </c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x05 0x04 0x00 </operation>
+  
+  <c> gpio dir P5 pin5 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xc 0x05 0x05 0x01 </operation>
+
+  <c> gpio  P5 pin4 drive 0 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x05 0x04 0x00 </operation>
+    
+  <operation type="sleep">150</operation>
+  
+  <c> controlla che P5 pin5 sia a 0 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x05 0x05</operation>
+  <operation type="recvpassfail" reportfmt="loop1 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x0</operation>
+  
+  <c> imposta gpio P5 pin4 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xc 0x05 0x04 0x01 </operation>
+  <operation type="sleep">150</operation>
+  
+  <c> controlla che P5 pin5 sia a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1c 0x05 0x05</operation>
+  <operation type="recvpassfail" reportfmt="loop3 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x1</operation>
+  
+  </test>
+  
+  
+  
+  
+   <test name="TEST loop su segnali P6 CH 2">
+  <operation type="flush"></operation>
+
+  
+  <c> gpio dir P6 pin3 a 0</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x03 0x00 </operation>
+  <c> gpio dir P6 pin4 a 1</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x04 0x01 </operation>
+  <c> gpio dir P6 pin5 a 0</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x05 0x00 </operation>
+  <c> gpio dir P6 pin6 a 1</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x06 0x06 0x01 </operation>
+
+  <c> gpio P6 pin3  drive 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x06 0x03 0x00 </operation>
+  
+  <c> gpio P6 pin5 drive 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x06 0x05 0x00 </operation>
+  
+  <operation type="sleep">150</operation>
+  
+  <c> controlla P6 pin6 a 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x06</operation>    
+  <operation type="recvpassfail" reportfmt="loop1 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x0</operation>
+  
+  <c> controlla P6 pin4 a 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x04</operation>
+  <operation type="recvpassfail" reportfmt="loop2 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x0</operation>
+  
+  <c>  P6 pin3 drive 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x06 0x03 0x01 </operation>
+  <operation type="sleep">150</operation>
+  
+  <c> controlla P6 pin4 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x04</operation>
+  <operation type="recvpassfail" reportfmt="loop3 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  <c> controlla P6 pin6 a 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x06</operation>
+  <operation type="recvpassfail" reportfmt="loop4 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x0</operation>
+  
+  <c> controlla P6 pin5 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x06 0x05 0x01 </operation>
+  
+  <c> controlla P6 pin3 a 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x06 0x03 0x00 </operation>
+  <operation type="sleep">150</operation>
+  
+  <c> controlla P6 pin4 a 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x04</operation>
+  <operation type="recvpassfail" reportfmt="loop5 failed" hex="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x0</operation>
+  
+  <c> controlla P6 pin6 a 1</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x06 0x06</operation>
+  <operation type="recvpassfail" reportfmt="loop6 failed" hex="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x01</operation>
+
+ </test>
+
+
+  
+  <test name="TEST loop su segnali P5 CH 2">
+  <operation type="flush"></operation>
+
+  
+  <c> gpio dir P5 pin4 out</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x05 0x04 0x00 </operation>
+  
+  <c> gpio dir P5 pin5 in</c>
+  <operation type="send" hex='1'>0x31 0xFF 0xFF 0xd 0x05 0x05 0x01 </operation>
+
+  <c> gpio P5 pin 4 drive 0 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x05 0x04 0x00 </operation>
+    
+  <operation type="sleep">150</operation>
+  
+  <c> controlla p5 pin 5 a 0</c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x05 0x05</operation>
+  <operation type="recvpassfail" reportfmt="loop1 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x0</operation>
+  
+  <c> P5 pin 4 drive 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0xd 0x05 0x04 0x01 </operation>
+  <operation type="sleep">150</operation>
+  
+  <c> controlla p5 pin 5 a 1 </c>
+  <operation type="send" hex='1'>0x30 0xFF 0xFF 0x1d 0x05 0x05</operation>
+  <operation type="recvpassfail" reportfmt="loop3 failed: %s" hex="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x1</operation>
+  
+  </test>
+  
+ 
+   
+  
+ 
+ 
+ <test name="test fault a riposo su CH 1">
+ 
+  <operation type="flush"></operation>
+
+  
+  <operation type="send" hex='1'>0x33 0xFF 0xFF 0x1c 0x01</operation>
+  <operation type="sleep">150</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x1</operation>
+
+ 
+ </test>
+ 
+  <test name="test fault a riposo su CH 2">
+ 
+  <operation type="flush"></operation>
+
+  <operation type="send" hex='1'>0x33 0xFF 0xFF 0x1d 0x01</operation>
+  <operation type="sleep">150</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1">0xfe 0xff 0xff 0x8d 0x1</operation>
+
+ 
+ </test>
+ 
+ 
+
+<test name="test lettura ADC fase 1 CH 1">
+ 
+  <operation type="flush"></operation>
+
+  <c> read AD</c>
+  <operation type="send" hex='1'>0x35 0xFF 0xFF 0x1c 0x01</operation>
+  <operation type="sleep">150</operation>
+  
+  <c> skip the first 3 bytes. Extract last CANID byte, the AD status and the two I read</c>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <c> extract first val from string (ID) and compare with 140</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="140" min="140" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+  
+  <c> throw away ID</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <c> check AD status</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+
+  <c> throw away AD status </c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <c> check for I1 in range </c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="612" min="412" reportfail="1" reportpass="1" reportfmt="ADC1: %s." >tmp</operation>
+
+  
+  
+  
+ </test>
+
+<test name="test lettura ADC fase 2 CH 1">
+ 
+  <operation type="flush"></operation>
+  
+  <c> read AD </c>
+  <operation type="send" hex='1'>0x35 0xFF 0xFF 0x1c 0x01</operation>
+  <operation type="sleep">150</operation>
+  
+  <c> skip the first 3 bytes. Extract last CANID byte, the AD status and the two I read</c>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <c> extract first val from string (ID) and compare with 140</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="140" min="140" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+  
+  <c> throw away ID</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <c> check AD status</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+  <c> throw away AD status  and I1</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="tmp">adctmp</operation>
+  <c> check for I2 in range </c>
+  <operation type="buffrange" max="612" min="412" reportfail="1" reportpass="1" reportfmt="ADC2: %s." >tmp</operation>
+  
+  
+ </test>
+ 
+ <test name="test lettura ADC fase 1 CH 2">
+ 
+  <operation type="flush"></operation>
+
+   <c> read AD </c>
+  <operation type="send" hex='1'>0x35 0xFF 0xFF 0x1d 0x01</operation>
+  <operation type="sleep">150</operation>
+  
+  <c> skip the first 3 bytes. Extract last CANID byte, the AD status and the two I read</c>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <c> extract first val from string (ID) and compare with 141</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="141" min="141" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+   
+  <c> throw away ID</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <c> check AD status</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+   <c> throw away AD status </c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <c> check for I1 in range </c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="612" min="412" reportfail="1" reportpass="1" reportfmt="ADC1: %s." >tmp</operation>
+
+  
+  
+  
+ </test>
+
+<test name="test lettura ADC fase 2 CH 2">
+ 
+  <operation type="flush"></operation>
+
+  <c> read AD </c>
+  <operation type="send" hex='1'>0x35 0xFF 0xFF 0x1d 0x01</operation>
+  <operation type="sleep">150</operation>
+  
+  <c> skip the first 3 bytes. Extract last CANID byte, the AD status and the two I read</c>
+  <operation type="recvlog" reportfail="1" ascii="skip(3), U8, S16LE, S16LE, S16LE" buffer="adctmp" ></operation>
+  
+  <c> extract first val from string (ID) and compare with 141</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="141" min="141" reportfail="1" reportpass="0" reportfmt="Wrong id: %s." >tmp</operation>
+  
+  <c> throw away ID</c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  
+  <c> check AD status</c>
+  <operation type="bufmanipulate" mtype="beforefirst" elem=" " buffer="tmp">adctmp</operation>
+  <operation type="buffrange" max="0" min="0" reportfail="1" reportpass="0" reportfmt="ADC INTERNAL ERROR: %s." >tmp</operation>
+
+  <c> throw away AD status and I2 </c>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="adctmp">adctmp</operation>
+  <operation type="bufmanipulate" mtype="afterfirst" elem=" " buffer="tmp">adctmp</operation>
+  
+  <c> check for I1 in range </c>
+  <operation type="buffrange" max="612" min="412" reportfail="1" reportpass="1" reportfmt="ADC2: %s." >tmp</operation>
+  
+  
+ </test>
+ 
+ 
+ <test name="test pull-down PWM CH 1">
+ 
+  <operation type="flush"></operation>
+
+  <operation type="send" hex='1'>0x36 0xFF 0xFF 0x1c 0x01</operation>
+  <operation type="recvpassfail" hex="1" reportfail="1">0xfe 0xff 0xff 0x8c 0x00</operation>
+  
+  
+ </test>
+ 
+  <test name="test pull-down PWM CH 2">
+ 
+  <operation type="flush"></operation>
+
+  <operation type="send" hex='1'>0x36 0xFF 0xFF 0x1d 0x01</operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x00</operation>
+  
+  
+ </test>
+ 
+ 
+ <test name="test short ponte CH 1 fase X">
+ 
+  <operation type="flush"></operation>
+  <operation type="okdialog" >Impostare l'alimentazione a 36V 2A</operation>
+  <operation type="okdialog" imagefile="jpopen1.bmp">Controllare che JP5 JP6 e JP7 sul jig NON siano presenti</operation>
+  <operation type = "sleep">6000</operation>
+  
+  <c> start I check for low side only</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x01 0x01</operation>
+  <operation type="sleep">500</operation>
+  
+  <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x01 0x01 0x00</operation>
+  
+   <c> start I check for low and high side</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x01 0x00</operation>
+  <operation type="sleep">500</operation>
+  
+  <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x01 0x00 0x00</operation>
+  
+  <c> turn off pwm</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x00 0x00</operation>
+ 
+ </test>
+ 
+ <test name="test short ponte CH 1 fase Y">
+ 
+  <operation type="flush"></operation>
+  
+  <c> start I check for low side only</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x02 0x01</operation>
+  <operation type="sleep">500</operation>
+  
+  <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x02 0x01 0x00</operation>
+  
+  <c> start I check for low and high side</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x02 0x00</operation>
+  <operation type="sleep">500</operation>
+  
+  <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x02 0x00 0x00</operation>
+  
+  <c> turn off pwm</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x00 0x00</operation>
+ 
+ </test>
+ 
+ <test name="test short ponte CH 1 fase Z">
+ 
+  <operation type="flush"></operation>
+  
+  <c> start I check for low side only</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x04 0x01</operation>
+  <operation type="sleep">500</operation>
+  
+  <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x04 0x01 0x00</operation>
+  
+  <c> start I check for low and high side</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x04 0x00</operation>
+  <operation type="sleep">500</operation>
+  
+  <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1c </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x04 0x00 0x00</operation>
+  
+   <c> turn off pwm</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x00 0x00</operation>
+ 
+ </test>
+ 
+ <test name="test short ponte CH 2 fase X">
+ 
+  <operation type="okdialog"  imagefile="jpopen2.bmp">Controllare che JP2 JP3 e JP4 sul jig NON siano presenti
+  L'alimentazione deve essere impostata a 36V 2A</operation>
+  <operation type="flush"></operation>
+  
+  <c> start I check for low side only</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x01 0x01</operation>
+  <operation type="sleep">500</operation>
+  
+   <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x01 0x01 0x00</operation>
+  
+   <c> start I check for low and high side</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x01 0x00</operation>
+  <operation type="sleep">500</operation>
+  
+   <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x01 0x00 0x00</operation>
+  
+  <c> turn off pwm</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x00 0x00</operation>
+ 
+ </test>
+ 
+ <test name="test short ponte CH 2 fase Y">
+ 
+  <operation type="flush"></operation>
+  
+  <c> start I check for low side only</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x02 0x01</operation>
+  <operation type="sleep">500</operation>
+  
+  <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x02 0x01 0x00</operation>
+  
+  <c> start I check for low and high side</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x02 0x00</operation>
+  <operation type="sleep">500</operation>
+  
+  <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x02 0x00 0x00</operation>
+  
+  <c> turn off pwm</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x00 0x00</operation>
+ 
+ </test>
+ 
+ <test name="test short ponte CH 2 fase Z">
+ 
+  <operation type="flush"></operation>
+  
+   <c> start I check for low side only</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x04 0x01</operation>  
+  <operation type="sleep">500</operation>
+  
+  <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x04 0x01 0x00</operation>
+  
+  <c> start I check for low and high side</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xd 0x04 0x00</operation>
+  <operation type="sleep">500</operation>
+  
+  <c> get back result and check it </c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0x1d </operation>
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x04 0x00 0x00</operation>
+  
+  <c> turn off pwm</c>
+  <operation type="send" hex='1'>0x37 0xFF 0xFF 0xc 0x00 0x00</operation>
+ 
+ </test>
+ 
+ 
+  <test name="test I su ponte CH 1">
+ 
+  <operation type="flush"></operation>        
+  
+  <c>  parm1 is th parm 2 is tl . current must be divided by 0.76277 in S16LE format</c>
+  <c> nominal R is (22||22) + (22||22) = 22 ohm . with 36V VDC I = 1.63 Amps </c>
+  <c> consider some drop on FOC shunt, mosfet RdsON, and probes and springs . Consider 1.6A</c> 
+  <c>  th = 2622->0xA3E tl = 1573->0x625 for  curr in range 1.200-2.000A </c>
+  <operation type="send" hex='1'>0x38 0xFF 0xFF 0x1c 0x3e 0x0A 0x25 0x06</operation> 
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x00 0x00</operation>
+  
+ </test>
+ 
+  <test name="test I su ponte CH 2">
+ 
+  <operation type="flush"></operation>
+  
+  <c>  parm1 is th parm 2 is tl . current must be divided by 0.76277 in S16LE format</c>
+  <c> nominal R is (22||22) + (22||22) = 22 ohm . with 36V VDC I = 1.63 Amps </c>
+    <c> consider some drop on FOC shunt, mosfet RdsON, and probes and springs . Consider 1.6A</c> 
+  <c>  th = 2622->0xA3E tl = 1573->0x625 for  curr in range 1.200-2.000A </c>
+  <operation type="send" hex='1'>0x38 0xFF 0xFF 0x1d 0x3e 0x0A 0x25 0x06</operation> 
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x00 0x00</operation>
+  
+ 
+ </test>
+ 
+ <test name="test protezione di corrente su CH 1">
+ 
+  <operation type="flush"></operation>
+  <operation type="okdialog">Regolare l'alimentatore a 45V 2A </operation>
+  <operation type="okdialog"  imagefile="jp3_jp4.bmp">Inserire JP3 e JP4 nel jig</operation>
+  <operation type = "sleep">6000</operation>
+  <operation type="send" hex='1'>0x39 0xFF 0xFF 0xc</operation> 
+  <operation type="sleep">1000</operation>
+  <operation type="send" hex='1'>0x39 0xFF 0xFF 0x1c</operation> 
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8c 0x01</operation>
+  
+ </test>
+ 
+ <test name="test protezione di corrente su CH 2">
+
+    <operation type="okdialog" imagefile="jp6_jp7.bmp">Inserire JP6 e JP7 nel jig
+    L'alimentazione deve essere regolata a 45V 2A</operation>
+  <operation type="flush"></operation>
+  <operation type="send" hex='1'>0x39 0xFF 0xFF 0xd</operation> 
+  <operation type="sleep">1000</operation>
+  <operation type="send" hex='1'>0x39 0xFF 0xFF 0x1d</operation> 
+  <operation type="recvpassfail" hex="1"  reportfail="1">0xfe 0xff 0xff 0x8d 0x01</operation>
+  
+ </test>
+
+ <test name="fase 2 con componenti TH">
+    <operation type="okdialog"> La prima fase del collaudo (collaudo con JIG) e' terminata.
+Dopo aver montato i componenti TH sulla scheda (mosfet e morsettiere)
+caricare il file "fase2.xml" per completare il collaudo</operation>
+ </test>
+ 
+
+
+    <report fnameprefix="2FOC sn" fnameid="sn" fnamesuffix="" fnameseq="1" fnamets="1" >Report di collaudo scheda 6SG</report>
+</sequence>
+<interface baud="1000" hhhfilter="0x87fffffe" hhhmask="0xfffffffe">
+  esdcan
+</interface>
+
+</testfiledefinition>

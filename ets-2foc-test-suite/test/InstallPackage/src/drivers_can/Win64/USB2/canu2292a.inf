@@ -1,0 +1,219 @@
+;
+;      Driver Installation file for CAN-USB/2, CAN-AIR/2 and CBX-AIR/2
+;
+;            WDM driver for Windows XP/Vista/2008/7 (64-bit)
+;
+;        Copyright (c) 2001 - 2011, esd electronic system design gmbh.
+;                             All rights reserved
+;
+
+[Version]
+Signature=$WINDOWS NT$
+Class=CanInterface
+ClassGuid={42EEB68D-02B1-406c-B4F6-902F240EF58D}
+Provider=%MFGNAME%
+DriverPackageDisplayName="CAN-USB/2 Device Driver"
+DriverPackageType=PlugAndPlay
+DriverVer=02/16/2012,6.1.2602.0
+CatalogFile=canu2292a.cat
+
+[Manufacturer]
+%MFGNAME%=DeviceList, NTAMD64
+
+[DestinationDirs]
+DefaultDestDir          = 12                       ; DIRID_DRIVER
+Canui64CopyFiles        = 11                       ; DIRID_SYSTEM
+Common.AMD64.CopyFiles  = 11                       ; DIRID_SYSTEM
+Common.CopyFiles.WOW64  = 10,SysWOW64              ; DIRID_SYSTEM
+
+[SourceDisksFiles]
+ntcan.dll        = 1,\x86
+calcan32.dll     = 1,\x86
+
+[SourceDisksFiles.AMD64]
+usb2292a.sys     = 1,\amd64
+canui64.dll      = 1,\amd64
+ntcan64.dll      = 1,\amd64
+calcan64.dll     = 1,\amd64
+
+[SourceDisksNames]
+1=%INSTDISK%
+
+[DeviceList.NTAMD64]; This section will only be installed by Windows XP 64-bit
+; DisplayName          Section        DeviceID
+; -----------          -------        --------
+%U2292_DESCRIPTION%   =U2292.AMD64,   USB\VID_0AB4&PID_0010                     ; CAN USB/2
+%CANAIR_DESCRIPTION%  =CANAIR.AMD64,  USB\VID_0AB4&PID_0018                     ; CAN-AIR/2
+%CBXAIR_DESCRIPTION%  =CBXAIR.AMD64,  USB\VID_0AB4&PID_0019                     ; CBX-AIR/2
+
+;------------------------------------------------------------------------------
+;   Class Install Section Windows XP / Vista / 7 (64-Bit)
+;------------------------------------------------------------------------------
+
+[ClassInstall32.NTAMD64]
+AddReg=Canui64AddReg
+CopyFiles=Canui64CopyFiles
+
+[Canui64AddReg]
+HKR,,,0,%CLASSNAME%
+HKR,,EnumPropPages32,,"canui64.dll,EnumPropPages"
+HKR,,Icon,,"100"
+
+[Canui64CopyFiles]
+canui64.dll,,,0x62
+
+;------------------------------------------------------------------------------
+;  CAN-USB/2 Installation Section for Windows XP / Vista / 7 (64-Bit)
+;------------------------------------------------------------------------------
+[U2292.AMD64]
+CopyFiles   = U2292.AMD64.CopyFiles,Common.AMD64.CopyFiles, Common.CopyFiles.WOW64
+AddReg      = U2292.AMD64.MakeFriendlyName.AddReg
+
+[U2292.AMD64.CopyFiles]
+usb2292a.sys,,,2
+
+[U2292.AMD64.Services]
+AddService=usb2292,2,U2292.AMD64.AddService,U2292.AMD64.AddEventLog
+
+[U2292.AMD64.AddService]
+ServiceType   = 1		;SERVICE_KERNEL_DRIVER
+StartType     = 3		;SERVICE_DEMAND_START
+ErrorControl  = 1		;SERVICE_ERROR_NORMAL
+ServiceBinary = %12%\usb2292a.sys
+AddReg=CommonAddReg
+
+[U2292.AMD64.AddEventLog]
+AddReg = U2292.AMD64.AddEventLog.Reg
+
+[U2292.AMD64.AddEventLog.Reg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\usb2292a.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[U2292.AMD64.HW]
+AddReg=U2292.AMD64.RegHW
+
+[U2292.AMD64.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_USB%
+HKR,,FriendlyName,,%U2292_DESCRIPTION%
+
+[U2292.AMD64.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,U2292FriendlyName,,"rundll32 canui64,CreateCanDeviceName ""CAN USB/2"" ""CAN-USB/2 (%d)"""
+
+[U2292.AMD64.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  CAN-AIR/2 Installation Section for Windows XP / Vista / 7 (64-Bit)
+;------------------------------------------------------------------------------
+[CANAIR.AMD64]
+CopyFiles=U2292.AMD64.CopyFiles,Common.AMD64.CopyFiles
+AddReg=CANAIR.AMD64.MakeFriendlyName.AddReg
+
+[CANAIR.AMD64.Services]
+AddService=usb2292,2,U2292.AMD64.AddService,U2292.AMD64.AddEventLog
+
+[CANAIR.AMD64.HW]
+AddReg=CANAIR.AMD64.RegHW
+
+[CANAIR.AMD64.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_USB%
+HKR,,FriendlyName,,%CANAIR_DESCRIPTION%
+
+[CANAIR.AMD64.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,CANAIRFriendlyName,,"rundll32 canui64,CreateCanDeviceName ""CAN AIR/2"" ""CAN-AIR/2 (%d)"""
+
+[CANAIR.AMD64.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  CBX-AIR/2 Installation Section for Windows XP / Vista / 7 (64-Bit)
+;------------------------------------------------------------------------------
+[CBXAIR.AMD64]
+CopyFiles=U2292.AMD64.CopyFiles,Common.AMD64.CopyFiles
+AddReg=CBXAIR.AMD64.MakeFriendlyName.AddReg
+
+[CBXAIR.AMD64.Services]
+AddService=usb2292,2,U2292.AMD64.AddService,U2292.AMD64.AddEventLog
+
+[CBXAIR.AMD64.HW]
+AddReg=CBXAIR.AMD64.RegHW
+
+[CBXAIR.AMD64.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_USB%
+HKR,,FriendlyName,,%CBXAIR_DESCRIPTION%
+
+[CBXAIR.AMD64.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,CBXAIRFriendlyName,,"rundll32 canui64,CreateCanDeviceName ""CBX AIR/2"" ""CBX-AIR/2 (%d)"""
+
+[CBXAIR.AMD64.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  Common Installation Section
+;------------------------------------------------------------------------------
+
+[Common.AMD64.CopyFiles]
+ntcan.dll,ntcan64.dll,,2
+calcan64.dll,,,2
+canui64.dll,,,2
+
+[Common.CopyFiles.WOW64]
+ntcan.dll,,,2
+calcan32.dll,,,2
+
+[CommonAddReg]
+HKR, "Parameters", "NET0", 0x00010001, 0x00000100
+HKR, "Parameters", "NET1", 0x00010001, 0x00000302
+HKR, "Parameters", "NET2", 0x00010001, 0x00000504
+HKR, "Parameters", "NET3", 0x00010001, 0x00000706
+HKR, "Parameters", "NET4", 0x00010001, 0x00000908
+HKR, "Parameters", "BAUD0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+
+;------------------------------------------------------------------------------
+;  Common WMI security descriptor
+;------------------------------------------------------------------------------
+[WMIGuidSecurity_RoAu]
+security="O:BAG:BAD:(A;;GR;;;AU)"
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+[Strings]
+
+; -------------------------- Non-Localizable Strings -------------------
+
+REG_SZ          = 0x00000000
+REG_MULTI_SZ    = 0x00010000
+REG_EXPAND_SZ   = 0x00020000
+REG_BINARY      = 0x00000001
+REG_DWORD       = 0x00010001
+BUS_TYPE_ID     = "BusTypeID"
+BUS_TYPE_PCI    = 0x00000000
+BUS_TYPE_ISA    = 0x00000001
+BUS_TYPE_LPT    = 0x00000002
+BUS_TYPE_USB    = 0x00000003
+BUS_TYPE_PCIE   = 0x00000004
+BUS_TYPE_PCI104 = 0x00000005
+BUS_TYPE_PMC    = 0x00000006
+RUNONCEKEYNAME = "Software\Microsoft\Windows\CurrentVersion\RunOnce"
+
+; -------------------------- Localizable Strings -----------------------
+
+MFGNAME             = "esd gmbh"
+INSTDISK            = "ESD GmbH CAN Driver Installation Disc"
+U2292_DESCRIPTION   = "CAN USB/2"
+CANAIR_DESCRIPTION  = "CAN AIR/2"
+CBXAIR_DESCRIPTION  = "CBX AIR/2"
+CLASSNAME           = "CAN Interface"

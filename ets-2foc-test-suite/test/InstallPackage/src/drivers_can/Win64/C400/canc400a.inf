@@ -1,0 +1,265 @@
+;
+;                         Driver Installation file for
+;          CAN-PCI/400, CAN-PCIe/400, CPCI-CAN/400 and PMC-CAN/400
+;
+;           WDM driver for Windows XP/2003/Vista/2008/7 (64 bit)
+;
+;        Copyright (c) 2001 - 2011, esd electronic system design gmbh.
+;                             All rights reserved
+;
+
+[Version]
+Signature=$WINDOWS NT$
+Class=CanInterface
+ClassGuid={42EEB68D-02B1-406c-B4F6-902F240EF58D}
+Provider=%MFGNAME%
+DriverPackageDisplayName="CAN 400 Family Device Driver"
+DriverPackageType=PlugAndPlay
+CatalogFile=canc400a.cat
+DriverVer=03/14/2012,6.1.3970.0
+
+[Manufacturer]
+%MFGNAME%=DeviceList, NTAMD64
+
+[DestinationDirs]
+DefaultDestDir          = 12                       ; DIRID_DRIVER
+Canui64CopyFiles        = 11                       ; DIRID_SYSTEM
+Common.AMD64.CopyFiles  = 11                       ; DIRID_SYSTEM
+Common.CopyFiles.WOW64  = 10,SysWOW64              ; DIRID_SYSTEM
+
+[SourceDisksFiles]
+ntcan.dll        = 1,\x86
+calcan32.dll     = 1,\x86
+
+[SourceDisksFiles.AMD64]
+c400a.sys        = 1,\amd64
+canui64.dll      = 1,\amd64
+ntcan64.dll      = 1,\amd64
+calcan64.dll     = 1,\amd64
+
+[SourceDisksNames]
+1=%INSTDISK%
+
+;------------------------------------------------------------------------------
+;  Driver Install section
+;------------------------------------------------------------------------------
+
+[DeviceList.NTAMD64];
+; DisplayName          Section        DeviceID
+; -----------          -------        --------
+%C400_DESCRIPTION%    = C400.AMD64,  PCI\VEN_10B5&DEV_9056&SUBSYS_002112FE     ; CAN-PCI/400-2
+%C400_DESCRIPTION%    = C400.AMD64,  PCI\VEN_10B5&DEV_9056&SUBSYS_002212FE     ; CAN-PCI/400-4
+%CP400_DESCRIPTION%   = CP400.AMD64, PCI\VEN_10B5&DEV_9056&SUBSYS_014112FE     ; CPCI-CAN/400-2
+%CP400_DESCRIPTION%   = CP400.AMD64, PCI\VEN_10B5&DEV_9056&SUBSYS_014212FE     ; CPCI-CAN/400-4
+%CP400_DESCRIPTION%   = CP400.AMD64, PCI\VEN_10B5&DEV_9056&SUBSYS_014312FE     ; CPCI-CAN/400-4I
+%P400_DESCRIPTION%    = P400.AMD64,  PCI\VEN_10B5&DEV_9056&SUBSYS_04C212FE     ; PMC-CAN/400-4
+%P400_DESCRIPTION%    = P400.AMD64,  PCI\VEN_10B5&DEV_9056&SUBSYS_04C312FE     ; PMC-CAN400-4I
+%C400E_DESCRIPTION%   = C400E.AMD64, PCI\VEN_10B5&DEV_9056&SUBSYS_020112FE     ; CAN-PCIe/400-2
+%C400E_DESCRIPTION%   = C400E.AMD64, PCI\VEN_10B5&DEV_9056&SUBSYS_020212FE     ; CAN-PCIe/400-4
+
+;------------------------------------------------------------------------------
+;  Class Install Section Windows XP / Vista / 7 (64 Bit) 
+;------------------------------------------------------------------------------
+
+[ClassInstall32.NTAMD64]
+AddReg=Canui64AddReg
+CopyFiles=Canui64CopyFiles
+
+[Canui64AddReg]
+HKR,,,0,%CLASSNAME%
+HKR,,EnumPropPages32,,"canui64.dll,EnumPropPages"
+HKR,,Icon,,"100"
+
+[Canui64CopyFiles]
+canui64.dll,,,0x62
+
+;------------------------------------------------------------------------------
+;  CAN-PCI/400 Installation Section for Windows XP / Vista / 7 (64 Bit) 
+;------------------------------------------------------------------------------
+
+[C400.AMD64]
+CopyFiles     = C400.AMD64.CopyFiles, Common.AMD64.CopyFiles, Common.CopyFiles.WOW64
+AddReg        = C400.AMD64.MakeFriendlyName.AddReg
+
+[C400.AMD64.Services]
+AddService    = c400,2,C400.AMD64.AddService,C400.AMD64.AddEventLog
+
+[C400.AMD64.AddService]
+ServiceType   = 1		;SERVICE_KERNEL_DRIVER
+StartType     = 3		;SERVICE_DEMAND_START
+ErrorControl  = 1		;SERVICE_ERROR_NORMAL
+ServiceBinary = %10%\system32\drivers\c400a.sys
+AddReg        = CommonAddReg
+
+[C400.AMD64.AddEventLog]
+AddReg        = C400.AMD64.AddEventLog.Reg
+
+[C400.AMD64.AddEventLog.Reg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\c400a.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[C400.AMD64.HW]
+AddReg        = C400.AMD64.RegHW
+
+[C400.AMD64.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PCI%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%C400_DESCRIPTION%
+
+[C400.AMD64.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,C400FriendlyName,,"rundll32 canui64,CreateCanDeviceName ""CAN-PCI/400"" ""CAN-PCI/400 (%d)"""
+
+[C400.AMD64.CopyFiles]
+c400a.sys,,,2
+
+[C400.AMD64.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  CAN-PCIe/400 Installation Section for Windows XP / Vista / 7 (64 Bit) 
+;------------------------------------------------------------------------------
+
+[C400E.AMD64]
+CopyFiles=C400.AMD64.CopyFiles,Common.AMD64.CopyFiles, Common.CopyFiles.WOW64
+AddReg=C400E.AMD64.MakeFriendlyName.AddReg
+
+[C400E.AMD64.Services]
+AddService=c400,2,C400.AMD64.AddService,C400.AMD64.AddEventLog
+
+[C400E.AMD64.HW]
+AddReg=C400E.AMD64.RegHW
+
+[C400E.AMD64.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PCIE%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%C400E_DESCRIPTION%
+
+[C400E.AMD64.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,C400E_FriendlyName,,"rundll32 canui64,CreateCanDeviceName ""CAN-PCIe/400"" ""CAN-PCIe/400 (%d)"""
+
+[C400E.AMD64.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  CPCI-CAN/400 Installation Section for Windows XP / Vista / 7 (64 Bit) 
+;------------------------------------------------------------------------------
+
+[CP400.AMD64]
+CopyFiles=C400.AMD64.CopyFiles,Common.AMD64.CopyFiles, Common.CopyFiles.WOW64
+AddReg=CP400.AMD64.MakeFriendlyName.AddReg
+
+[CP400.AMD64.Services]
+AddService=c400,2,C400.AMD64.AddService,C400.AMD64.AddEventLog
+
+[CP400.AMD64.HW]
+AddReg=CP400.AMD64.RegHW
+
+[CP400.AMD64.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PCI%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%CP400_DESCRIPTION%
+
+[CP400.AMD64.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,CP400FriendlyName,,"rundll32 canui64,CreateCanDeviceName ""CPCI-CAN/400"" ""CPCI-CAN/400 (%d)"""
+
+[CP400.AMD64.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  PMC-CAN/400 Installation Section for Windows XP / Vista / 7 (64 Bit)
+;------------------------------------------------------------------------------
+
+[P400.AMD64]
+CopyFiles=C400.AMD64.CopyFiles,Common.AMD64.CopyFiles, Common.CopyFiles.WOW64
+AddReg=P400.AMD64.MakeFriendlyName.AddReg
+
+[P400.AMD64.Services]
+AddService=c400,2,C400.AMD64.AddService,C400.AMD64.AddEventLog
+
+[P400.AMD64.HW]
+AddReg=P400.AMD64.RegHW
+
+[P400.AMD64.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PMC%
+HKR,,%AFFINITY%,%REG_DWORD%,0xFFFFFFFF
+HKR,,FriendlyName,,%P400_DESCRIPTION%
+
+
+[P400.AMD64.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,P400FriendlyName,,"rundll32 canui64,CreateCanDeviceName ""PMC-CAN/400"" ""PMC-CAN/400 (%d)"""
+
+[P400.AMD64.WMI]
+WMIInterface = {BDFC71DE-8B9A-4ffb-B360-6390BE39A60E},1,WMIGuidSecurity_RoAu
+WMIInterface = {BD268C3D-A03D-4f93-B1F4-DBEC5C4519EB},1,WMIGuidSecurity_RoAu
+
+;------------------------------------------------------------------------------
+;  Common Installation Section
+;------------------------------------------------------------------------------
+[Common.AMD64.CopyFiles]
+ntcan.dll,ntcan64.dll,,2
+calcan64.dll,,,2
+canui64.dll,,,2
+
+[Common.CopyFiles.WOW64]
+ntcan.dll,,,2
+calcan32.dll,,,2
+
+[CommonAddReg]
+HKR, "Parameters", "NET0", 0x00010001, 0x00000100
+HKR, "Parameters", "NET1", 0x00010001, 0x00000302
+HKR, "Parameters", "NET2", 0x00010001, 0x00000504
+HKR, "Parameters", "NET3", 0x00010001, 0x00000706
+HKR, "Parameters", "NET4", 0x00010001, 0x00000908
+HKR, "Parameters", "BAUD0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+
+;------------------------------------------------------------------------------
+;  Common WMI security descriptor
+;------------------------------------------------------------------------------
+[WMIGuidSecurity_RoAu]
+security="O:BAG:BAD:(A;;GR;;;AU)"
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+[Strings]
+
+; -------------------------- Non-Localizable Strings -------------------
+
+REG_SZ                 = 0x00000000
+REG_MULTI_SZ           = 0x00010000
+REG_EXPAND_SZ          = 0x00020000
+REG_BINARY             = 0x00000001
+REG_DWORD              = 0x00010001
+BUS_TYPE_ID            = "BusTypeID"
+BUS_TYPE_PCI           = 0x00000000
+BUS_TYPE_ISA           = 0x00000001
+BUS_TYPE_LPT           = 0x00000002
+BUS_TYPE_USB           = 0x00000003
+BUS_TYPE_PCIE          = 0x00000004
+BUS_TYPE_PCI104        = 0x00000005
+BUS_TYPE_PMC           = 0x00000006
+AFFINITY               = "Affinity"
+RUNONCEKEYNAME         = "Software\Microsoft\Windows\CurrentVersion\RunOnce"
+C400_DESCRIPTION       = "CAN-PCI/400"
+CP400_DESCRIPTION      = "CPCI-CAN/400"
+P400_DESCRIPTION       = "PMC-CAN/400"
+C400E_DESCRIPTION      = "CAN-PCIe/400"
+MFGNAME                = "esd gmbh"
+
+; -------------------------- Localizable Strings -----------------------
+
+INSTDISK               = "ESD GmbH CAN Driver Installation Disc"
+CLASSNAME              = "CAN Interface"
+
