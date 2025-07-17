@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>CAN Driver Release Notes</title><style type="text/css">
+body {
+font-family: verdana,arial,sans-serif;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+font-size: small;
+line-height: normal;
+font-size-adjust: none;
+font-stretch: normal;
+color: black;
+background-color: white;
+}
+a:link {
+color: #264b99;
+background-color: white;
+}
+a:visited {
+color: #5e85d7;
+background-color: white;
+}
+a:active {
+color: #7799dd;
+background-color: white;
+}
+tt {
+font-family: "courier new",monospace;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+font-size: small;
+line-height: normal;
+font-size-adjust: none;
+font-stretch: normal;
+}
+li {
+margin-top: 0.15em;
+margin-bottom: 0.15em;
+list-style-type: square;
+}
+div.bluehead {
+padding: 5px;
+text-align: center;
+color: white;
+font-weight: bold;
+background-color: #0080ff;
+}
+.head1 {
+font-size: x-large;
+color: #3333ff;
+}
+.head2 {
+font-size: large;
+}
+.ver {
+font-size: large;
+font-weight: bold;
+}
+.date {
+font-size: x-small;
+font-weight: bold;
+}
+</style></head>
+<body><div class="bluehead"><span class="head1">CAN
+Driver&nbsp;for Windows 2000/XP/2003/Vista</span><br><span class="head2"><br>(c) 1997 - 2007 esd electronic
+system design gmbh<br><br><br>Release Notes</span></div>
+<br><br>These are the release notes for the CAN driver
+supporting
+Windows 2000/XP/2003/Vista (32-bit) and Windows XP/2003/Vista (64-bit).
+The driver releases are organized as packages. A package contains the
+driver itself, driver related libraries and&nbsp;files for driver
+configuration. The package release
+version is loosely coupled with the driver versions of the package but
+a complete package may contain drivers with higher or lower version
+numbers. A summary of which file versions are distributed in which
+package and what hardware is supported by a particular driver can be
+found at the end of this document.<br><br><br><span =""><span class="head1">Revision history</span><br></span><br>Listed below are the&nbsp;the improvements, changes
+and fixes between different package releases in
+reverse chronological order.<br><br><span class="ver">Driver Package&nbsp;2.5.1</span><br><hr style="width: 100%; height: 2px;"><div style="text-align: right;"><span class="date">2007-07-11</span></div><ul><li><strong>Support
+for new&nbsp;devices:</strong> PMC-CAN/266.</li><li><strong>All
+drivers/devices</strong>: Support for setting bitrates numerically.</li><li><strong>All
+drivers/devices</strong>: Improved error information in event log in case of driver initialization problems.</li><li><strong>All
+drivers/devices</strong><strong>:</strong> Support for&nbsp;baudrate change event with 4 data bytes.</li><li><strong>CAN-PCI104/200:</strong> Fixed bug driver start failed with&nbsp;invalid&nbsp;hardware revision if EEPROM is programmed with default factory data.</li><li><strong>CAN-USB/2:</strong> Fixed bug IDs are disabled on device if first application disables an ID.</li><li><strong>CAN-USB/Mini:</strong> Resetting device is repeated if first reset failed during driver startup.</li><li><strong>CAN-PCI/405:</strong> Fixed cleanup problem of TX scheduling.</li><li><strong>CAN-PCI/405:</strong> Fixed initial start is marked as failed in device manager because arbitrary node number is assigned.</li><li><strong>Installation:</strong>
+Every driver gets an own INF file for 32- and 64-bit installations as
+otherwise Windows Vista doesn't install the driver if any of
+the&nbsp;driver files which are listed in the common INF file are
+missing. </li><li><strong>Configuration:</strong>
+PMC indicated as separate bus type.</li></ul><br><span class="ver">Driver Package&nbsp;2.5.0</span><br><hr style="width: 100%; height: 2px;"><div style="text-align: right;"><span class="date">2007-05-02</span></div><ul><li><strong>Support
+for new&nbsp;devices:</strong> CAN-PCIe/200, CAN-USB/2 and
+CAN-PCI104/200.</li><li><strong>All
+drivers</strong>: Support for Windows Vista (32-bit and 64-bit
+version).</li><li><strong>All drivers</strong>:
+All drivers, libraries and executables of the driver package are
+digitally signed by esd electronic system design gmbh using Microsoft
+Authenticode technology so the end user can&nbsp;verify at any time
+the publisher and the code integrity of these files. In addition the
+complete 64-bit driver package complies with the kernel-mode code
+signing requirements of the x64-based versions of Windows Vista.</li><li><span style="font-weight: bold;">All drivers/devices:</span>
+Support for capturing timestamp of incoming CAN message.
+If&nbsp;timestamping isn't supported by the CAN hardware the CAN
+message is timestamped by the interrupt handler in software.</li><li><span style="font-weight: bold;">All drivers/devices:&nbsp;</span>Support
+to abort blocked receive/transmit operations without forcing a close
+handle operation. To distinguish both situations an aborted operation
+returns with <span style="font-family: Courier New,Courier,monospace;">NTCAN_OPERATION_ABORTED</span>
+and a closed handle with <span style="font-family: Courier New,Courier,monospace;">NTCAN_HANDLE_FORCED_CLOSE</span>.</li><li><strong>All
+drivers/devices:</strong> CAN messages received in object mode
+are marked again&nbsp;invalid, as soon as the data isn't updated
+any more.</li><li><strong>All active devices:</strong>
+Improved speed of firmware update.</li><li><strong>CAN-PCI/200,
+CAN-PCI/266, CPCI-CAN/200, CAN-PCIe/200, CAN-PCI104/200, CAN-USB/Mini,
+CAN-USB/2</strong>: Support for <em>Listen Only</em>
+mode where the CAN controller is receiving CAN messages but stays
+passive on the&nbsp;bus.</li><li><strong>CAN-PCI/200,
+CAN-PCI/266, CPCI-CAN/200, CAN-PCIe/200, CAN-PCI104/200, CAN-USB/Mini,
+CAN-USB/2</strong>: Support for <em>Smart Disconnect</em>
+mode where the CAN controller becomes passive on the&nbsp;bus as
+soon as the last handle is closed.</li><li><strong>CAN-PCI/200,
+CAN-PCI/266, CPCI-CAN/200, CAN-PCIe/200, CAN-PCI104/200</strong>:
+Support for auto-baudrate detection.</li><li><strong>CAN-PCI/266</strong>:
+Fixed device failed returning from low power state.</li><li><strong>CAN-PCI/331</strong>:
+Reduced occurrence of retries on PCI bus in case of high CAN bus load.</li><li><strong>CAN-PCI/331
+and CAN-PCI/360:</strong> Reduced driver initialization time.</li><li><strong>CAN-PCI/405:</strong>
+Major change because of implicit update to&nbsp;new bootloader on
+PCI405 board which improves latency returning hardware timestamp.</li><li><strong>All
+drivers/devices:</strong> The <em>Version</em> tab
+of the driver's property sheet now lists all&nbsp;CAN devices which
+are supported by the driver.</li><li><strong>Installation:</strong>
+Using separate installer files <span style="font-style: italic;">canesd32.inf</span>
+and <span style="font-style: italic;">canesd64.inf</span>
+for 32-bit and 64-bit Windows versions instead of common <span style="font-style: italic;">canesd2k.inf</span>.
+64-bit driver package is signed.</li><li><strong>Installation:</strong>
+64-bit version of NTCAN library is installed as ntcan.dll instead of
+ntcan64.dll as in previous releases for 64-bit Windows.</li><li><strong>Installation:</strong>
+Adapted all device display names in cases they differ from the names
+printed in catalog.</li><li><strong>Configuration:</strong>
+The&nbsp;<em>Settings</em> tab of the CAN device's
+property sheet&nbsp;in the device manager is extended to indicate
+the new device capabilities <em>Timestamp</em>, <em>Listen
+Olny</em> and <em>Smart Disconnect</em> as well as
+the timestamp frequency and type.</li><li><strong>Configuration:</strong>
+PCIe and PCI-104 are
+indicated as separate bus types.</li><li><strong>Configuration:</strong>
+The <em>Smart Disconnect</em>
+feature can be enabled/disabled (default: disabled). </li><li><strong>Configuration:</strong>
+The icon is
+updated and changed to a Vista compatible version.</li></ul><span class="ver"><br>Driver Package&nbsp;2.4.3</span><br><hr style="width: 100%; height: 2px;"><div style="text-align: right;"><span class="date">2006-03-02</span></div><ul><li><strong>Support
+for new&nbsp;devices:</strong>&nbsp;CPCI-CAN/200</li><li><strong>CAN-PCI/405:</strong>&nbsp;Support for auto-baudrate detection.</li><li><strong>CAN-PCI/405:</strong>&nbsp;Support for numerical setting of baudrate.</li><li><strong>CAN-PCI/405:</strong>&nbsp;Support to purge receive FIFO.</li></ul><span class="ver"><br>Driver Package&nbsp;2.4.2</span><br><hr style="width: 100%; height: 2px;"><div style="text-align: right;"><span class="date">2005-09-19</span></div><br><ul><li><span style="font-weight: bold;">All drivers/devices:&nbsp;</span>Initial
+support for Windows XP x64 Edition and Windows Server 2003 x64 with
+64-bit driver and device mananger support and libraries
+supporting&nbsp;32-bit and 64-bit applications.</li><li><strong>CAN-PCI/200 and
+CAN-PCI/266</strong>: Fixed several issues with CAN
+messages with DLC is &gt; 8.</li><li><strong>CAN-USB/Mini:</strong>
+Fixed event log pollution during FW update introduced with
+previous release.</li><li><strong>CAN-PCI/405:</strong>&nbsp;Support for handle specific
+29-bit filter mask.</li><li><strong>Configuration:</strong>
+Search in SysWow64 directory on 64-bit Windows for libraries, too.</li></ul><span class="ver"><br>Driver Package&nbsp;2.4.1</span><br><hr style="width: 100%; height: 2px;"><div style="text-align: right;"><span class="date">2004-10-15</span></div><ul><li><strong>Support
+for new&nbsp;devices:</strong> CAN-PCI/405<strong></strong></li><li><strong>CAN-USB/Mini:</strong>
+Fixed bug with stalled Tx operations with firmware &gt;= 0.C.44.
+The issue is indicated in the system event log.</li></ul><span class="ver"><br>Driver Package&nbsp;2.4.0</span><br><hr style="width: 100%; height: 2px;"><div style="text-align: right;"><span class="date">2003-01-17</span></div><ul><li><strong>CAN-PCI/200,&nbsp;
+CAN-PCI/331, CAN-PCI/360,&nbsp;CPCI-CAN/360:</strong>
+Initial release as WDM driver with Plug'n'Play, Power Management and
+WMI support.</li><li><strong>Support
+for new&nbsp;devices:</strong> CAN-PCI/266 and
+PMC-CAN/331.</li><li><strong>All
+drivers/devices:</strong>
+Updating firmware is only possible if no other handle is open and
+opening handle while updating firmware isn't possible any more.</li><li><strong>All
+drivers/devices:&nbsp;</strong>Handle situations where host
+PC overruns CAN device&nbsp;FIFO with&nbsp;canIdAdd(),
+canIdDelete()&nbsp;and canClose().</li><li><strong>All
+drivers/devices:&nbsp;</strong>Support for handle specific
+29-bit filter mask.</li><li><strong>All
+drivers/devices:&nbsp;</strong>Support to purge receive FIFO.</li><li><strong>All
+drivers/devices:&nbsp;</strong>Support to return serial
+number of CAN device.</li><li><strong>All
+drivers/devices:&nbsp;</strong>Support to return number of
+available receive messages in receive FIFO.</li><li><strong>CAN-PCI/200,
+CAN-PCI/266:</strong> Support for new baudrate table
+indices for 800 KBit/s, 1,6 MBit/s and 83,3 KBit/s.</li><li><strong>CAN-PCI/331:</strong>
+Fixed several issues restoring device context after returning from
+lower power state.</li><li><strong>CAN-USB/Mini:</strong>
+Support for new baudrate table indices for 800 KBit/s, 1,6 MBit/s and
+83,3 KBit/s for firmware revision &gt;= 0.C.49</li><li><strong>CAN-USB/Mini:</strong>&nbsp;Fixed
+bug with stalled Tx operations with firmware &lt; 0.C.44.</li><li><strong>Installation:</strong>
+DeviceNet support library (dnet.dll) no longer installed with driver as
+all driver related dependencies are removed.</li><li><strong>Configuration:</strong>
+Fixed&nbsp;<em>Settings</em> tab of the CAN device's
+property sheet&nbsp;is also displayed in the class property sheet
+with junk data.</li><li><strong>Configuration:</strong>&nbsp;Libraries
+which aren't present on the system are no longer displayed.</li><li><strong>Configuration:</strong>
+Show device's serial if supported.</li></ul><span class="ver"><br>Driver Package&nbsp;2.3.0</span><br><hr style="width: 100%; height: 2px;"><div style="text-align: right;"><span class="date">2002-07-03</span></div><ul><li><strong>Support
+for new&nbsp;devices:</strong><strong></strong>
+CAN-USB/Mini WDM driver&nbsp;with Plug'n'Play, Power Management and
+WMI support.</li><li><span style="font-weight: bold;">All
+drivers/devices:</span>
+Support for Rx object mode.</li></ul><span class="ver"><br>Driver
+Package&nbsp;2.2.0</span><br><hr style="width: 100%; height: 2px;"><div style="text-align: right;"><span class="date">2001-09-03</span></div><ul><li><strong>CAN-PCI/200,
+CAN-PCI/331, CAN-PCI/360, CPCI-CAN/331, CPCI-CAN/360:</strong>
+Initial release with Windows NT based driver.</li><li><strong>Installation:</strong>
+Installed via hardware wizzard based on INF file canesd2k.inf.</li><li><strong>Configuration:</strong>
+Configured via&nbsp;<em>Settings</em> tab of a CAN
+device's
+property sheet&nbsp;in the device manager.</li></ul><span =""><span class="head1"><br>Package
+content</span><br><br>The
+following table gives an overview which version of the binaries is
+distributed in a driver package.<br><br><table style="width: 878px; text-align: left; margin-left: auto; margin-right: auto;" border="1" cellpadding="2" cellspacing="2"><tbody><tr><th style="width: 114px;">Package/ File<br></th><th style="width: 60px;">2.2.0</th><th style="width: 60px;">2.3.0</th><th style="width: 60px;">2.4.0</th><th style="width: 60px;">2.4.1</th><th style="width: 60px;">2.4.2</th><th style="width: 60px;">2.4.3</th><th style="width: 60px;">2.5.0</th><td style="width: 60px;"><span style="font-weight: bold;">2.5.1</span></td><th style="width: 200px;">Description</th></tr><tr><td style="width: 114px;">c200.sys</td><td style="width: 60px;">2.2.0</td><td style="width: 60px;">2.3.0</td><td style="width: 60px;">2.4.0</td><td style="width: 60px;">2.4.0</td><td style="width: 60px;">2.4.2</td><td style="width: 60px;">2.4.3</td><td style="width: 60px;">2.5.0</td><td style="width: 60px;">2.5.1</td><td style="width: 200px;">CAN-PCI/200 driver (32-bit)</td></tr><tr><td style="width: 114px;">c331.sys</td><td style="width: 60px;">2.2.0</td><td style="width: 60px;">2.3.0</td><td style="width: 60px;">2.4.0</td><td style="width: 60px;">2.4.0</td><td style="width: 60px;">2.4.2</td><td style="width: 60px;">2.4.2</td><td style="width: 60px;">2.5.0</td><td style="width: 60px;">2.5.1</td><td style="width: 200px;">CAN-PCI/331 driver (32-bit)</td></tr><tr><td style="width: 114px;">c360.sys</td><td style="width: 60px;">2.2.0</td><td style="width: 60px;">2.3.0</td><td style="width: 60px;">2.4.0</td><td style="width: 60px;">2.4.0</td><td style="width: 60px;">2.4.2</td><td style="width: 60px;">2.4.2</td><td style="width: 60px;">2.5.0</td><td style="width: 60px;">2.5.1</td><td style="width: 200px;">CAN-PCI/360 driver (32-bit)</td></tr><tr><td style="width: 114px;">pci405.sys</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">3.6.2</td><td style="width: 60px;">3.6.3</td><td style="width: 60px;">3.6.4</td><td style="width: 60px;">3.7.4</td><td style="width: 60px;">3.7.5</td><td style="width: 200px;">CAN-PCI/405 driver (32-bit)</td></tr><tr><td style="width: 114px;">usb331.sys</td><td style="width: 60px;">-</td><td style="width: 60px;">2.3.0</td><td style="width: 60px;">2.4.0</td><td style="width: 60px;">2.4.1</td><td style="width: 60px;">2.4.2</td><td style="width: 60px;">2.4.2</td><td style="width: 60px;">2.5.0</td><td style="width: 60px;">2.5.1</td><td style="width: 200px;">CAN-USB/Mini driver (32-bit)</td></tr><tr><td style="width: 114px;">usb2292.sys</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">2.5.0</td><td style="width: 60px;">2.5.1</td><td style="width: 200px;">CAN-USB/2 driver (32-bit)</td></tr><tr><td>c200a.sys</td><td>-</td><td>-</td><td>-</td><td>-</td><td>2.4.2</td><td>2.4.3</td><td>2.5.0</td><td style="width: 60px;">2.5.1</td><td style="width: 200px;">CAN-PCI/200
+driver (64-bit)</td></tr><tr><td>c331a.sys</td><td>-</td><td>-</td><td>-</td><td>-</td><td>2.4.2</td><td>2.4.2</td><td>2.5.0</td><td style="width: 60px;">2.5.1</td><td style="width: 200px;">CAN-PCI/331
+driver (64-bit)</td></tr><tr><td>c360a.sys</td><td>-</td><td>-</td><td>-</td><td>-</td><td>2.4.2</td><td>2.4.2</td><td>2.5.0</td><td style="width: 60px;">2.5.1</td><td style="width: 200px;">CAN-PCI/360
+driver (64-bit)</td></tr><tr><td>usb331a.sys</td><td>-</td><td>-</td><td>-</td><td>-</td><td>2.4.2</td><td>2.4.2</td><td>2.5.0</td><td style="width: 60px;">2.5.1</td><td style="width: 200px;">CAN-USB/Mini
+driver (64-bit)</td></tr><tr><td>usb2292a.sys</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>2.5.0</td><td style="width: 60px;">2.5.1</td><td style="width: 200px;">CAN-USB/2
+driver (64-bit)</td></tr><tr><td style="width: 114px;">ntcan.dll</td><td style="width: 60px;">2.0.1</td><td style="width: 60px;">2.3.1</td><td style="width: 60px;">3.1.0</td><td style="width: 60px;">3.1.0</td><td style="width: 60px;">3.1.1</td><td style="width: 60px;">3.1.1</td><td style="width: 60px;">4.1.1</td><td style="width: 60px;">4.1.1</td><td style="width: 200px;">NTCAN&nbsp;library (32 and 64-bit)</td></tr><tr><td style="width: 114px;">canui32.dll</td><td style="width: 60px;">1.0.0</td><td style="width: 60px;">1.0.1</td><td style="width: 60px;">1.0.2</td><td style="width: 60px;">1.0.2</td><td style="width: 60px;">1.0.3</td><td style="width: 60px;">1.0.3</td><td style="width: 60px;">1.2.1</td><td style="width: 60px;">1.2.2</td><td style="width: 200px;">Property sheet (32-bit)</td></tr><tr><td style="width: 114px;">calcan32.dll</td><td style="width: 60px;">1.6.2</td><td style="width: 60px;">1.6.3</td><td style="width: 60px;">2.0.4</td><td style="width: 60px;">2.0.4</td><td style="width: 60px;">2.2.2</td><td style="width: 60px;">2.2.2</td><td style="width: 60px;">2.3.2</td><td style="width: 60px;">2.3.2</td><td style="width: 200px;">CALCAN&nbsp;library (32-bit)</td></tr><tr><td style="width: 114px;">dnet.dll</td><td style="width: 60px;">1.1.3</td><td style="width: 60px;">1.1.3</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 200px;">DeviceNet
+library (32-bit)</td></tr><tr><td style="width: 114px;">canui64.dll</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">1.0.3</td><td style="width: 60px;">1.0.3</td><td style="width: 60px;">1.2.1</td><td style="width: 60px;">1.2.2</td><td style="width: 200px;">Property sheet (64-bit)</td></tr><tr><td style="width: 114px;">calcan64.dll</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">-</td><td style="width: 60px;">2.2.2</td><td style="width: 60px;">2.2.2</td><td style="width: 60px;">2.3.2</td><td style="width: 60px;">4.1.1</td><td style="width: 200px;">CALCAN library (64-bit)</td></tr></tbody></table></span><br><br><span =""><span class="head1">Supported CAN hardware</span><br><br>Serveral driver support more than one can hardware device. The
+following table gives an overview which CAN hardware is supported with the latest release of each driver binary.<br><br></span><table style="width: 885px; text-align: left; margin-left: auto; margin-right: auto;" border="1" cellpadding="2" cellspacing="2"><tbody><tr><th style="width: 125px;">Driver</th><th style="width: 117px;">c200.sys</th><th style="width: 114px; vertical-align: top;">c331.sys</th><th style="width: 114px;">c360.sys</th><th style="width: 113px;">c405.sys</th><th style="width: 108px;">usb331.sys</th><th style="width: 99px;">usb2292.sys</th></tr><tr><td style="text-align: center; width: 125px;">Supported<br>CAN hardware</td><td style="width: 117px;">CAN-PCI/200<br>CAN-PCI/266<br>CPCI-CAN/200<br>CAN-PCIe/200<br>CAN-PCI104/200<br>PMC-CAN/266</td><td style="width: 114px; vertical-align: top;">CAN-PCI/331<br>CPCI-CAN/331<br>PMC-CAN/331</td><td style="width: 114px; vertical-align: top;">CAN-PCI/360<br>CPCI-CAN/360</td><td style="width: 113px; vertical-align: top;">CAN-PCI/405</td><td style="width: 108px; vertical-align: top;">CAN-USB/Mini</td><td style="vertical-align: top; width: 99px;">CAN-USB/2</td></tr></tbody></table><span =""></span>
+</body></html>

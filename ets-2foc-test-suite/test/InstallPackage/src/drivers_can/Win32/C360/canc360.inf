@@ -1,0 +1,146 @@
+;
+;     Driver Installation file for CAN-PCI/360 and CPCI-CAN/360
+;
+;            WDM driver for Windows 2000/XP/Server 2003/Vista (32 bit)
+;
+;        Copyright (c) 2001 - 2007, esd electronic system design gmbh.
+;                             All rights reserved
+;
+
+[Version]
+Signature=$WINDOWS NT$
+Class=CanInterface
+ClassGuid={42EEB68D-02B1-406c-B4F6-902F240EF58D}
+Provider=%MFGNAME%
+DriverVer=07/11/2007,6.0.2501.0
+
+[DestinationDirs]
+DefaultDestDir          = 10,System32\Drivers
+Canui32CopyFiles        = 11                       ; DIRID_SYSTEM
+Common.CopyFiles        = 11                       ; DIRID_SYSTEM
+
+[SourceDisksFiles]
+c360.sys         = 1,\x86
+canui32.dll      = 1,\x86
+ntcan.dll        = 1,\x86
+calcan32.dll     = 1,\x86
+
+[SourceDisksNames]
+1=%INSTDISK%,disk1
+
+;------------------------------------------------------------------------------
+;  Driver Install section
+;------------------------------------------------------------------------------
+
+[Manufacturer]
+%MFGNAME%=DeviceList
+
+[DeviceList]
+; DisplayName          Section        DeviceID
+; -----------          -------        --------
+%C360_DESCRIPTION%    =C360,          PCI\VEN_10E3&DEV_0860&SUBSYS_000012FE     ; CAN-PCI/360
+
+;------------------------------------------------------------------------------
+;  Class Install Section Windows 2000, XP, 2003 Server, Vista (32 Bit)
+;------------------------------------------------------------------------------
+
+[ClassInstall32.NT]
+AddReg=Canui32AddReg
+CopyFiles=Canui32CopyFiles
+
+[Canui32AddReg]
+HKR,,,0,%CLASSNAME%
+HKR,,EnumPropPages32,,"canui32.dll,EnumPropPages"
+HKR,,Icon,,"100"
+
+[Canui32CopyFiles]
+canui32.dll,,,0x62
+
+;------------------------------------------------------------------------------
+;  PCI/360 Installation Section
+;------------------------------------------------------------------------------
+[C360]
+CopyFiles=C360.CopyFiles,Common.CopyFiles
+AddReg=C360.MakeFriendlyName.AddReg
+
+[C360.CopyFiles]
+c360.sys,,,2
+
+[C360.Services]
+AddService=c360,2,C360.AddService,C360.AddEventLog
+
+[C360.AddService]
+ServiceType   = 1		;SERVICE_KERNEL_DRIVER
+StartType     = 3		;SERVICE_DEMAND_START
+ErrorControl  = 1		;SERVICE_ERROR_NORMAL
+ServiceBinary = %12%\c360.sys
+AddReg=CommonAddReg
+
+[C360.AddEventLog]
+AddReg = C360.AddEventLog.Reg
+
+[C360.AddEventLog.Reg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\c360.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[C360.HW]
+AddReg=C360.RegHW
+
+[C360.RegHW]
+HKR,,%BUS_TYPE_ID%,%REG_DWORD%,%BUS_TYPE_PCI%
+
+[C360.MakeFriendlyName.AddReg]
+HKLM,%RUNONCEKEYNAME%,C360FriendlyName,,"rundll32 canui32,CreateCanDeviceName ""CAN PCI/360"" ""CAN-PCI/360 (%d)"""
+
+;------------------------------------------------------------------------------
+;  Common Installation Section
+;------------------------------------------------------------------------------
+[Common.CopyFiles]
+ntcan.dll,,,2
+calcan32.dll,,,2
+
+[CommonAddReg]
+HKR, "Parameters", "NET0", 0x00010001, 0x00000100
+HKR, "Parameters", "NET1", 0x00010001, 0x00000302
+HKR, "Parameters", "NET2", 0x00010001, 0x00000504
+HKR, "Parameters", "NET3", 0x00010001, 0x00000706
+HKR, "Parameters", "NET4", 0x00010001, 0x00000908
+HKR, "Parameters", "BAUD0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "BAUD4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK0",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK1",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK2",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK3",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+HKR, "Parameters", "MASK4",0x00000001, 7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF,7F,FF,FF,FF
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+[Strings]
+
+; -------------------------- Non-Localizable Strings -------------------
+
+REG_SZ          = 0x00000000
+REG_MULTI_SZ    = 0x00010000
+REG_EXPAND_SZ   = 0x00020000
+REG_BINARY      = 0x00000001
+REG_DWORD       = 0x00010001
+BUS_TYPE_ID     = "BusTypeID"
+BUS_TYPE_PCI    = 0x00000000
+BUS_TYPE_ISA    = 0x00000001
+BUS_TYPE_LPT    = 0x00000002
+BUS_TYPE_USB    = 0x00000003
+BUS_TYPE_PCIE   = 0x00000004
+BUS_TYPE_PCI104 = 0x00000005
+BUS_TYPE_PMC    = 0x00000006
+RUNONCEKEYNAME = "Software\Microsoft\Windows\CurrentVersion\RunOnce"
+
+; -------------------------- Localizable Strings -----------------------
+
+MFGNAME             = "esd electronic system design gmbh"
+INSTDISK            = "ESD GmbH CAN Driver Installation Disc"
+C360_DESCRIPTION    = "CAN PCI/360"
+CLASSNAME           = "CAN Interface"

@@ -1,0 +1,515 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Release Notes</title>
+</head>
+
+<body>
+
+<h1 align="center">Release Notes</h1>
+<h1 align="center">for</h1>
+<h1 align="center">CAN Interface Device Drivers for Windows 95/98/ME</h1>
+<p align="center">The latest release is for VxD driver is <b>1.3.0</b> (Mar 15,
+2002)<br>
+The latest release is for WDM driver is <b>2.3.0</b> (Mar 15, 2002)<br>
+</p>
+<p align="center">© 1997 - 2002 electronic system design gmbh, Hanover, Germany<br>
+</p>
+<p align="center">mailto: <a href="mailto:support@www.esd-electronics.com">support@www.esd-electronics.com</a></p>
+<p align="center"><a href="http://www.esd-electronics.com">www.esd-electronics.com</a></p>
+<p align="center"><i><font size="-1">Last modified: Mar 15, 2002</font></i></p>
+<hr>
+<h2>Table of Contents</h2>
+<ol>
+  <li><a href="#common">Changes concerning all drivers</a></li>
+  <li><a href="#pci200">Changes for CAN-PCI/200</a></li>
+  <li><a href="#pci331">Changes for </a><a href="#emacs20-3">CAN-PCI/331 and
+    CAN-CPCI/331</a></li>
+  <li><a href="#isa331">Changes for CAN-ISA/331 and CAN-PC104/331</a></li>
+  <li><a href="#pci360">Changes for CAN-PCI/360 and CAN-CPCI/360</a></li>
+  <li><a href="#isa200">Changes for CAN-ISA/200 and PC104/200</a></li>
+  <li><a href="#cpcc">Changes for CAN-PPC</a></li>
+  <li><a href="#usb331">Changes for CAN-USB/331</a></li>
+  <li><a href="#restrictions">Restrictions of the drivers</a></li>
+  <li><a href="#pci331bug">Known bugs for PCI/331 and PCI/200 with Windows 98</a></li>
+  <li><a href="#usb331issue">Known problems with CAN-USB/331 drivers</a></li>
+  <li><a href="#nr_of_networks">Wrong number of available CAN ports for active
+    CAN interfaces</a></li>
+  <li><a href="#isa200_can20b">Active CAN 2.0B support for CAN-ISA/200 and
+    CAN-PC104/200</a></li>
+  <li><a href="#reducing_virtual_memory">Reducing virtual memory used by CAN-PCI/360</a></li>
+  <li><a href="#nr_of_networks">Updating the local firmware</a></li>
+</ol>
+<hr>
+<h3><a name="common">Changes concering all drivers</a>&nbsp;</h3>
+<p><u>Revision 1.3.0</u></p>
+<ul>
+  <li>Driver support for <i>Rx object mode</i>.</li>
+  <li>New version of canui.dll (Rev. 1.5.1) with support for CAN-USB/331 and
+    indication if <i>Rx object mode</i> is supported by driver.</li>
+  <li>New version of ntcan.dll with support for VxD and WDM driver (Rev. 2.3.0)</li>
+</ul>
+<p><u>Revision 1.2.2</u></p>
+<ul>
+  <li>New version of calcan32.dll (Rev. 1.6.3)</li>
+</ul>
+<p><u>Revision 1.2.0</u></p>
+<ul>
+  <li>Necessary internal change of TX queue structure for new CAN-PCI/200
+    support.</li>
+  <li>Improved installation script to support factory settings for ISA
+    interfaces.</li>
+  <li>Improved installation script to support subvendor/subsystem ID for PCI
+    interfaces to allow coexistance of CAN-PCI/331 and CAN-PCI/200 and to
+    prevent conflicts with other vendors using the same PCI bridges as used on
+    esd gmbh CAN interfaces.</li>
+</ul>
+<p><u>Revision 1.1.1</u></p>
+<ul>
+  <li>Minor fixes</li>
+  <li>New version of dnet.dll (Rev. 1.1.1)</li>
+  <li>New version of calcan32.dll (Rev. 1.6.0)</li>
+</ul>
+<p><u>Revision 1.1.0</u></p>
+<ul>
+  <li>Support for up to 5 CAN interfaces by each driver (except CAN-PCC)</li>
+  <li>Tested with Windows ME</li>
+  <li>New version of canui.dll (Rev 1.4.0) that indicates if CAN 2.0B is enabled
+    and allows configuration of PCI/360 memory size that is mapped to virtual
+    memory.</li>
+</ul>
+<p><u>Revision 1.0.10</u></p>
+<ul>
+  <li>File version resource set to real driver version instead always using the
+    default Windows version</li>
+</ul>
+<p><u>Revision 1.0.9</u></p>
+<ul>
+  <li>Basic support for CAN 2.0B.</li>
+</ul>
+<p><u>Revision 1.0.8</u></p>
+<ul>
+  <li>Support for flash update of firmware for all active CAN interfaces.</li>
+  <li>Support for CAN interfaces with DeviceNet firmware.</li>
+  <li>Fixed behaviour that in the device manager property sheet
+    &quot;Status&quot; the boot status is set to successfully started even if
+    the device is disabled in this hardware profile or was not found after a
+    hardware/software configuration change for this device.</li>
+  <li>Many minor changes and optimizations.</li>
+  <li>Driver distribution now contains dnet.dll (Rev. 1.1.0) for DeviceNet CAN
+    interface support.</li>
+  <li>New version of calcan32.dll (Rev. 1.5.0)</li>
+  <li>New version of ntcan.dll (Rev. 1.5.0) with new API call canGetBaudrate.</li>
+  <li>New version of canui.dll (Rev 1.3.2) without any german error messages and
+    version information displayed in hexadecimal to work similar to other esd
+    gmbh tools from CAN SDK.</li>
+</ul>
+<p><u>Revision 1.0.7</u></p>
+<ul>
+  <li>Bugfixed version of calcan32.dll (Rev. 1.4.2)</li>
+  <li>New version of canui.dll (Rev 1.3.1) with support for new CAN/PCC driver
+    options</li>
+</ul>
+<p><u>Revision 1.0.6</u></p>
+<ul>
+  <li>Support for RTR autoanswer in device driver for higher layer CAN protocols</li>
+  <li>Fixed bug with Windows 9x monitor for CPU load is always 100 % if thread
+    is blocked in CAN I/O</li>
+  <li>Improved error messages if driver initialization fails in property sheet
+    of device manager</li>
+  <li>Fixed bug in canReadEvent() API call</li>
+  <li>The DLL calcan32.dll that is needed for higher layer CAN protocols as
+    CANopen is now always installed with the device driver</li>
+</ul>
+<hr>
+<h3><a name="pci200">Changes for CAN-PCI/200</a>&nbsp;</h3>
+<p><u>Revision 1.3.0</u></p>
+<ul>
+  <li>Fixed problem that driver properties were not initialized correctly.</li>
+</ul>
+<p><u>Revision 1.2.0</u></p>
+<ul>
+  <li>Initial release with CAN 2.0B and performance monitor support.</li>
+</ul>
+<hr>
+<h3><a name="pci331">Changes for CAN-PCI/331 and CAN-CPCI/331</a>&nbsp;</h3>
+<p><u>Revision 1.3.0</u></p>
+<ul>
+  <li>Improved accuracy of Rx/Tx timeout.</li>
+</ul>
+<p><u>Revision 1.1.1</u></p>
+<ul>
+  <li>Different proceeding to map physical to virtual addresses so every virtual
+    address room is returned to system if device is disabled in hardware
+    manager.</li>
+  <li>Device description in INF file now contains subvendor and subsystem id to
+    prevent driver being installed for another PCI interface using the same PCI
+    bridge device.&nbsp;</li>
+</ul>
+<p><u>Revision 1.1.0</u></p>
+<ul>
+  <li>Support for new board message format with check if firmware selftest
+    failed.</li>
+  <li>Fixed problem that firmware returned too fast for all timeouts &lt;=
+    100ms.</li>
+  <li>New version of firmware update utility <i>updc331</i> that supports
+    switching between active and passive CAN 2.0B support. See <a href="#firmware_update">Updating
+    the local firmware</a> for more details.</li>
+</ul>
+<p><u>Revision 1.0.10</u></p>
+<ul>
+  <li>Improved pointer validation during initialization.</li>
+</ul>
+<p><u>Revision 1.0.9</u></p>
+<ul>
+  <li>CAN 2.0B support.</li>
+</ul>
+<p><u>Revision 1.0.8</u></p>
+<ul>
+  <li>Fixed problem that the interface with DeviceNet firmware is not recognized
+    as the timeout period to wait for interface boot message was too short.</li>
+  <li>Fixed bug in driver startup with newer firmware that could in rare cases
+    crash the system.</li>
+</ul>
+<p><u>Revision 1.0.7</u></p>
+<ul>
+  <li>Support for firmware optimizations.</li>
+</ul>
+<p><u>Revision 1.0.6</u></p>
+<ul>
+  <li>Support for interrupt sharing</li>
+</ul>
+<hr>
+<h3><a name="pci360">Changes for CAN-PCI/360 and CAN-CPCI/360</a>&nbsp;</h3>
+<p><u>Revision 1.3.0</u></p>
+<ul>
+  <li>Improved accuracy of Rx/Tx timeout.</li>
+</ul>
+<p><u>Revision 1.2.2</u></p>
+<ul>
+  <li>Custom specific extensions for using cyclic auto transmit support in
+    firmware and special RTR handling in driver.</li>
+</ul>
+<p><u>Revision 1.1.1</u></p>
+<ul>
+  <li>Different proceeding to map physical to virtual addresses so every virtual
+    address room is returned to system if device is disabled in hardware
+    manager.</li>
+  <li>New version of firmware update utility <i>updc360</i> that supports
+    switching between active and passive CAN 2.0B support. See <a href="#firmware_update">Updating
+    the local firmware</a> for more details.</li>
+  <li>Device description in INF file now contains subvendor and subsystem id to
+    prevent driver being installed for another PCI interface using the same PCI
+    bridge device.</li>
+</ul>
+<p><u>Revision 1.1.0</u></p>
+<ul>
+  <li>Support for new board message format with check if firmware selftest
+    failed</li>
+  <li>Fixed problem that firmware returned too fast for all timeouts &lt;= 100ms</li>
+  <li>Size of virtaul memory that is mapped can be configured from 1 MB - 128 MB</li>
+</ul>
+<p><u>Revision 1.0.10</u></p>
+<ul>
+  <li>Improved pointer validation during initialization.</li>
+</ul>
+<p><u>Revision 1.0.9</u></p>
+<ul>
+  <li>Not released</li>
+</ul>
+<p><u>Revision 1.0.8</u></p>
+<ul>
+  <li>Fixed problem that the interface with DeviceNet firmware is not recognized
+    as the timeout period to wait for interface boot message was too short.</li>
+  <li>Fixed bug in driver startup with newer firmware that could in rare cases
+    crash the system.</li>
+</ul>
+<p><u>Revision 1.0.7</u></p>
+<ul>
+  <li>Fixed bug in interface initialization</li>
+</ul>
+<p><u>Revision 1.0.6</u></p>
+<ul>
+  <li>Initial release</li>
+</ul>
+
+<hr>
+<h3></a><a name="isa331">Changes for CAN-ISA/331 and CAN-PC104/331</a></h3>
+<p><u>Revision 1.3.0</u></p>
+<ul>
+  <li>Improved accuracy of Rx/Tx timeout.</li>
+</ul>
+<p><u>Revision 1.1.1</u></p>
+<ul>
+  <li>No driver specific changes.</li>
+</ul>
+<p><u>Revision 1.1.0</u></p>
+<ul>
+  <li>Support for new board message format with check if firmware selftest
+    failed</li>
+  <li>Fixed problem that firmware returned too fast for all timeouts &lt;= 100ms</li>
+  <li>Support of firmware optimizations.</li>
+  <li>New version of firmware update utility <i>updc331i</i> that supports
+    switching between active and passive CAN 2.0B support. See <a href="#firmware_update">Updating
+    the local firmware</a> for more details.</li>
+</ul>
+<p><u>Revision 1.0.10</u></p>
+<ul>
+  <li>No device specific changes</li>
+</ul>
+<p><u>Revision 1.0.9</u></p>
+<ul>
+  <li>Not released</li>
+</ul>
+<p><u>Revision 1.0.8</u></p>
+<ul>
+  <li>Fixed problem that the interface with DeviceNet firmware is not recognized
+    as the timeout period to wait for interface boot message was too short.</li>
+  <li>Fixed bug in driver startup with newer firmware that could in rare cases
+    crash the system.</li>
+</ul>
+<p><u>Revision 1.0.7</u></p>
+<ul>
+  <li>No device specific changes</li>
+</ul>
+<p><u>Revision 1.0.6</u></p>
+<ul>
+  <li>No device specific changes</li>
+</ul>
+
+<hr>
+
+<h3><a name="isa200">Changes for CAN-ISA/200 and CAN-PC104/200</a></h3>
+<p><u>Revision 1.3.0</u></p>
+<ul>
+  <li>Fixed problem that driver properties were not initialized correctly.</li>
+</ul>
+<p><u>Revision 1.2.0</u></p>
+<ul>
+  <li>Choice between active and passive CAN 2.0B support during installation.
+    Check installation details and hardware preconditions <a href="#isa200_can20b">here</a>.</li>
+  <li>Performnace monitor support.</li>
+</ul>
+<p><u>Revision 1.1.1</u></p>
+<ul>
+  <li>No driver specific changes.</li>
+</ul>
+<p><u>Revision 1.1.0</u></p>
+<ul>
+  <li>Fixed problem that configured Tx timeout was used as transaction timeout
+    so driver returned with error for packet sizes which transmission time
+    exceeds configured timeout.</li>
+  <li>Driver returning TX_ERROR instead of TX_TIMEOUT for a Tx timeout situation
+    fixed.</li>
+</ul>
+<p><u>Revision 1.0.10</u></p>
+<ul>
+  <li>No device specific changes</li>
+</ul>
+<p><u>Revision 1.0.9</u></p>
+<ul>
+  <li>Not released</li>
+</ul>
+<p><u>Revision 1.0.9</u></p>
+<ul>
+  <li>Not released</li>
+</ul>
+<p><u>Revision 1.0.7</u></p>
+<ul>
+  <li>Enabled missing AUTO_RTR feature of revision 1.0.6</li>
+</ul>
+<p><u>Revision 1.0.6</u></p>
+<ul>
+  <li>User defined bitrates other than the predefined values by esd are
+    supported by calling canSetBaudrate() with the MSB set for the second
+    parameter <em>baudrate</em>. In this case the bit 0 -7 of <em>baudrate</em>
+    are stored in the BT1 register of the CAN controller and bit 8-15 are stored
+    in the BT0 register of the CAN controller. E.g. a parameter <em>baudrate</em>
+    of 0x8000001C would set the BT0 register to 0x00 and the BT1 register to
+    0x1C.</li>
+</ul>
+<h3><a name="cpcc">Changes for CAN-PCC</a></h3>
+<p><u>Revision 1.3.0</u></p>
+<ul>
+  <li>Fixed problem that driver properties were not initialized correctly.</li>
+</ul>
+<p><u>Revision 1.2.0</u></p>
+<ul>
+  <li>Fixed problem that Tx error timeout is not working in certain situations
+    for bitrates &lt; 50 KBit/s.</li>
+</ul>
+<p><u>Revision 1.1.1</u></p>
+<ul>
+  <li>Fixed problem that in rare cases the last byte of a Tx CAN frame is
+    corrupted if Rx bus load is very high.</li>
+</ul>
+<p><u>Revision 1.1.0</u></p>
+<ul>
+  <li>Fixed problem that configured Tx timeout was used as transaction timeout
+    so driver returned with error for packet sizes which transmission time
+    exceeds configured timeout.</li>
+  <li>Driver returning TX_ERROR instead of TX_TIMEOUT for a Tx timeout situation
+    fixed.</li>
+</ul>
+<p><u>Revision 1.0.10</u></p>
+<ul>
+  <li>No device specific changes</li>
+</ul>
+<p><u>Revision 1.0.9</u></p>
+<ul>
+  <li>Not release</li>
+</ul>
+<p><u>Revision 1.0.8</u></p>
+<ul>
+  <li>User defined bitrates other than the predefined values by esd are
+    supported by calling canSetBaudrate() with the MSB set for the second
+    parameter <em>baudrate</em>. In this case the bit 0 -7 of <em>baudrate</em>
+    are stored in the BT1 register of the CAN controller and bit 8-15 are stored
+    in the BT0 register of the CAN controller. E.g. a parameter <em>baudrate</em>
+    of 0x8000001C would set the BT0 register to 0x00 and the BT1 register to
+    0x1C.&nbsp;</li>
+</ul>
+<p><u>Revision 1.0.7</u></p>
+<ul>
+  <li>The LPT mode (Bidirectional or ECP) can be forced by the user in the
+    device manager if automatic detection failed.</li>
+</ul>
+<p><u>Revision 1.0.6</u></p>
+<ul>
+  <li>Other than stated in the current version of the hardware and software
+    manual configuring the parallel port to ECP in the mainboard BIOS is
+    possible and supported by the driver. In this case the driver automatically
+    detect that the port is in ECP mode and enables the bidirectional emulation
+    mode. In many cases this can solve problems if the interface does not work
+    properly if the LPT port is configured to standard bidirectional by the
+    BIOS.</li>
+</ul>
+
+<hr>
+
+<h3><a name="usb331">Changes for CAN-</a><a name="cpcc">USB/331</a></h3>
+<p><u>Revision 2.3.0</u></p>
+<ul>
+  <li>Initial release of WDM driver for Windows 98/98SE and ME.</li>
+</ul>
+<hr>
+<h3><a name="restrictions">Restrictions of the drivers</a></h3>
+<ul>
+  <li>All restrictions of the 1.0.x version removed.</li>
+</ul>
+
+<hr>
+
+<h3><a name="pci331bug">Known bugs for PCI/331 and PCI/200 with Windows 98 /
+Windows 98 SE</a></h3>
+<p><strong>Problem Description</strong>: During the OS loading of Windows 98 the
+interrupt line that was assigned by the host BIOS to the PCI/331 or PCI/200 CAN
+interface is zeroed out so the interrupt capability is disabled. In the device
+manager page for resources no interrupt is assigned and the driver could not
+start successfully. Only CAN-PCI/331 and CAN-PCI/200 interfaces with a <strong>PLX9052
+PCI bridge in combination with Windows 98</strong> are affected.</p>
+<p><strong>Solution</strong>: On your device driver disk you will find a file
+that is called PLX9052.REG. Right click this file in your explorer and choose
+the topic <em>Merge </em>in the context menu. Reboot the computer and the device
+should work properly.</p>
+
+<hr>
+
+<h3><a name="usb331issue">Known problems with CAN-USB/331 driver</a></h3>
+<ul>
+  <li>All Windows versions prior to Windows 98 are not supported.</li>
+  <li>The <i>CAN 2.0B</i> and <i>Rx object mode</i> indication in device manager
+    does not reflect the driver/device capabilities correctly.</li>
+  <li>Longer periods of 100 percent CAN-busload above 666,6 KBit/s (8 byte
+    frames) or 500 KBit/s (4 byte frames) can lead to
+    lost frames if all received CAN frames have to be send to the USB host and
+    can not be ignored by the device because of a the current configuration of
+    the software and/or hardware acceptance filter. This is indicated correctly by the error event.</li>
+</ul>
+
+<hr>
+
+<h3><a name="nr_of_networks">Wrong number of available CAN port</a><a name="firmware_update">s
+for active interfaces</a>&nbsp;</h3>
+<p>For active CAN interfaces (CAN-PCI/331, CAN-PCI/360, CAN-ISA/331 and
+CAN-PC104/331) with a firmware version prior to 0.C.0F or a driver version prior
+to 1.1.0 the number of logical CAN ports in the system may differ from the
+physically present CAN ports if your device doesn't have the maximum number of
+CAN ports that is available for this device (e.g. if you have a PCI/331 with
+only one CAN port).</p>
+
+<hr>
+
+<h3><a name="isa200_can20b">Active CAN 2.0B support for CAN-ISA/200 and
+CAN-PC104/200</a>&nbsp;</h3>
+<p>Since revision 1.2.0 of the CAN-ISA/200 driver you can choose between a
+driver with or without active CAN 2.0B (extended frame format) support. The
+driver with CAN 2.0B support is slightly slower even if you only receive or
+transmit CAN messages in standard frame format as more accesses to the CAN
+controller are necessary in this mode.</p>
+<div align="center">
+  <center>
+  <table border="3" width="75%" cellspacing="1">
+    <tr>
+      <td width="100%">
+        <p align="center">Early hardware versions of the CAN-ISA/200 and
+        CAN-PC104/200 interface using a CAN controller without CAN 2.0B support.
+        The CAN controller on these interfaces has the inscription PCA82C200.
+        The driver with CAN 2.0B support will *NOT* working for these
+        interfaces. If the CAN controller has the inscription SJA1000 you can
+        choose between one of these drivers.&nbsp;</td>
+    </tr>
+  </table>
+  </center>
+</div>
+
+<hr>
+
+<h3><a name="reducing_virtual_memory">Reducing virtual memory used by CAN-PCI/360</a>&nbsp;</h3>
+<p>Driver versions prior to 1.1.x always mapped 128 MB which is the size that is
+configured in the PCI bridge EEPROM. This may lead to problems in versions of
+Windows 95 in combination with AGP graphic adapters and/or much of system
+memory. To prevent this problem you can configure the size of the memory that
+should be mapped by the driver in the 'Configuration Manager' since driver
+version 1.1.x.</p>
+
+<hr>
+
+<h3><a name="firmware_update">Updating the local firmware</a></h3>
+<p>If there is a newer firmware for your CAN interface available or if there are
+different firmwares available they are provided as executable console
+application on the installation disk and will not be installed with the driver.
+The user has to make sure that during the update procedure no other application
+is using the CAN interface. After successfull update you can either restart
+Windows or you can first disable the device in the device manager and then
+re-enable it to perform the necessary reset of the CAN interface</p>
+<p>It is possible with the update utility for the CAN-PCI/331, CAN-ISA/331 and
+CAN-PCI/360 to switch between a firmware version with active CAN 2.0B support
+and a&nbsp; firmware version with passive CAN 2.0B support that is optimized for
+CAN 2.0A. The latter version is the default of each CAN interface. To switch
+between the two versions you can call <i>updc331</i>, <i>updc331i</i> or <i>updc360</i>
+with the command line option -tb to switch to active CAN 2.0B support or with
+the command line option -ta to switch to passive CAN 2.0B support. The new
+version will become active with the next reboot.</p>
+<div align="center">
+  <center>
+  <table border="3" width="50%" cellspacing="1">
+    <tr>
+      <td width="100%">
+        <p align="center">To switch from one firmware version to another you
+        have to perform a hardware reset (cold boot).</td>
+    </tr>
+  </table>
+  </center>
+</div>
+<p align="left">You can check which version of the firmware is active on the
+property page Setup that is related to the CAN interface in the device manager.</p>
+<p align="left">The utility to update the local firmware is not installed
+together with the driver but can be found on your driver disk or CD-ROM.</p>
+
+</body>
+
+</html>
