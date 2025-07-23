@@ -1052,7 +1052,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 		<test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
 			<operation type="send" interface="CAN" command="1" />
-			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x01" logMess="1" />
+			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x02 0x0" logMess="1" />
 		</test>
 
 		<test id="5" name="Verifica Device ID microcontrollore">
