@@ -1052,7 +1052,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 		<test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
 			<operation type="send" interface="CAN" command="1" />
-			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x01" logMess="1" />
+			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x02 0x0" logMess="1" />
 		</test>
 
 		<test id="5" name="Verifica Device ID microcontrollore">
@@ -1114,7 +1114,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		</test>
 
 		<test id="16" name="Test Incremental Encoder">
-			<operation type="okDialog" text="Premere OK quindi ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_abz_encoders.gif" />
+			<operation type="okDialog" text="Premere OK quindi premi e ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_abz_encoders.gif" />
 			<operation type="send" interface="CAN" command="13" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
@@ -1259,11 +1259,18 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 			<operation type="send" interface="CAN" command="7"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
-	
-		<test id="14" name="Test SPI Encoders">
+
+		<test id="14" name="Test PWRnFAIL">
+			<operation type="send" interface="CAN" command="8"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+		</test>
+		
+		<test id="15" name="Test SPI Encoders">
 			<operation type="send" interface="CAN" command="15"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
+
+		
 	
     </testplan>
 	
