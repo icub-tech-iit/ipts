@@ -1179,21 +1179,21 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		<test id="1" name="Connessioni Setup">
 			<operation type="okDialog" text="Collegare il setup di test come in figura
 
-				1. Collega il cavo di alimentazione (1) al connettore J7 del JIG (2) e questo al connettore J7 della AMC-BLDC (2A)
+				1. Collega il cavo di alimentazione (1) al connettore J7 del JIG (2) e questo al connettore J7 della AMC (2A)
 
 				2. Collega l'interfaccia USB/CAN (3) al connettore J10 del JIG (4) e al PC
 
-				3. Collega il cavo CAN2 fornito con il JIG tra il connettore J8 del JIG (4A) e il connettore J5 della AMC-BLDC (4B)
+				3. Collega il cavo CAN2 fornito con il JIG tra il connettore J8 del JIG (4A) e il connettore J5 della AMC (4B)
 
 				4. Per chiudere il circuito e permettere la comunicazione CAN posiziona un jumper da 2 PIN sul JP1 del JIG
 
 				3. Collega il programmatore ST-LINK (5) al connettore J3 della DGBADP (6A)
 
-				4. Collega il connettore volante della DGBADP al connettore J1 della AMC-BLDC (6B)
+				4. Collega il connettore volante della DGBADP al connettore J1 della AMC (6B)
 
-				5. Collega i cavi dei sensori Hall/ABZ del JIG in corrispondenza dei connettori specifici J19 per BLDC-HALL (8A) e J32 BLDC-ABZ (8B) del JIG al connettore J3 della AMC-BLDC (8)
+				5. Collega i cavi dei sensori Hall/ABZ del JIG in corrispondenza dei connettori specifici J19 per BLDC-HALL (8A) e J32 BLDC-ABZ (8B) del JIG al connettore J3 della AMC (8)
 
-				6. Collega il cavo I2C/Fault (BLDC J2 CH1) del JIG tra il connettore J22 AMC-BLDC_CH1 (7A) e il connettore J2 della AMC-BLDC (7C). Collega poi il fault dello stesso connettore al J1 del JIG (7B) 
+				6. Collega il cavo Fault (BLDC J2 CH1) del JIG tra il connettore J22 AMC_CH1 (7A) e il connettore J2 della AMC (7C). Collega poi il fault dello stesso connettore al J1 del JIG (7B) 
 
 				7. Accendi l' alimentatore settato a 12Vdc @ 0.5A (± 5%)
 
@@ -1268,13 +1268,45 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 			<operation type="send" interface="CAN" command="8"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
+	
+		<test id="14" name="Prepare SPI switch">
+			<operation type="passFailDialog" text="Lo switch è stato spostato su SPI" />
+		</test>
 		
 		<test id="15" name="Test SPI Encoders">
 			<operation type="send" interface="CAN" command="15"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA 0xAA 0xAA"/>
+		</test>
+		
+		<test id="16" name="Prepare I2C switch">
+			<operation type="passFailDialog" text="Lo switch è stato spostato su I2C" />
+		</test>
+		
+		<test id="17" name="Test I2C Channels">
+			<operation type="send" interface="CAN" command="11"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA 0xAA 0xAA"/>
+		</test>
+		
+		<!--<test id="18" name="Test PWM Channel A">
+			--><!--<operation type="inputValue" text="Inserire il canale pwm da testare" var="channel" varType="num" />
+			<operation type="send" interface="CAN" command="16" appendVar="channel" />--><!--
+			--><!--<operation type="send" interface="CAN" command="16"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>--><!--
 		</test>
 
-		
+		<test id="19" name="Test PWM Channel B">
+			--><!--<operation type="inputValue" text="Inserire il canale pwm da testare" var="channel" varType="num" />
+			<operation type="send" interface="CAN" command="16" appendVar="channel" />--><!--
+			--><!--<operation type="send" interface="CAN" command="17" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>--><!--
+		</test>
+
+		<test id="20" name="Test PWM Channel C">
+			--><!--<operation type="inputValue" text="Inserire il canale pwm da testare" var="channel" varType="num" />
+			<operation type="send" interface="CAN" command="16" appendVar="channel" />--><!--
+			--><!--<operation type="send" interface="CAN" command="18" />
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>--><!--
+		</test>-->
 	
     </testplan>
 	
