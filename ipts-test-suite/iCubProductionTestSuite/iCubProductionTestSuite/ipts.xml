@@ -1177,27 +1177,33 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
         </interfaces>
 
 		<test id="1" name="Connessioni Setup">
-			<operation type="okDialog" text="Collegare il setup di test come in figura
+			<operation type="okDialog" text="
+Collegare il setup di test come in figura
 
-				1. Collega il cavo di alimentazione (1) al connettore J7 del JIG (2) e questo al connettore J7 della AMC (2A)
+1. Collega il cavo di alimentazione (1) al connettore J7 del JIG (2) e questo al connettore J15 della AMC (2A)
 
-				2. Collega l'interfaccia USB/CAN (3) al connettore J10 del JIG (4) e al PC
+2. Collega l'interfaccia USB/CAN (3) al connettore J11 del JIG (4) e al PC
 
-				3. Collega il cavo CAN2 fornito con il JIG tra il connettore J8 del JIG (4A) e il connettore J5 della AMC (4B)
+3. Collega il cavo CAN1 fornito con il JIG tra il connettore J9 del JIG (4A) e il connettore J11 (CAN1) della AMC (4B)
 
-				4. Per chiudere il circuito e permettere la comunicazione CAN posiziona un jumper da 2 PIN sul JP1 del JIG
+4. Per chiudere il circuito e permettere la comunicazione CAN posiziona un jumper da 2 PIN sul JP2 del JIG (4C)
 
-				3. Collega il programmatore ST-LINK (5) al connettore J3 della DGBADP (6A)
+3. Collega il programmatore ST-LINK (5) al connettore J3 della DGBADP (6A)
 
-				4. Collega il connettore volante della DGBADP al connettore J1 della AMC (6B)
+4. Collega il connettore volante della DGBADP al connettore J16 della AMC (6B)
 
-				5. Collega i cavi dei sensori Hall/ABZ del JIG in corrispondenza dei connettori specifici J19 per BLDC-HALL (8A) e J32 BLDC-ABZ (8B) del JIG al connettore J3 della AMC (8)
+5. Collega i cavi dei sensori Hall/ABZ del JIG in corrispondenza dei connettori specifici J33 per AMC-HALL (8A) e J20 AMC-ABZ (8B) del JIG al connettore J8 della AMC (8)
 
-				6. Collega il cavo Fault (BLDC J2 CH1) del JIG tra il connettore J22 AMC_CH1 (7A) e il connettore J2 della AMC (7C). Collega poi il fault dello stesso connettore al J1 del JIG (7B) 
+6. Collega il cavo Fault al connettore J1 (7) del JIG. Questo si trova cablato con i cavi di I2C/SPI del connettore J5 della AMC.
+				
+7. Collega i cavi dei canali SPI/I2C del JIG in corrispondenza dei connettori specifici per i 3 canali J12 (9A), J13 (9B) e J14 (9C) del JIG al connettore J5 della AMC (9)
+				
+8. Collega il cavo ETH1 fornito con il JIG tra il connettore J4 del JIG (10A) e il connettore J6 della AMC (10B). Collega poi un cavo LAN alla porta ETH (J23) del JIG (10) e questo al PC 
 
-				7. Accendi l' alimentatore settato a 12Vdc @ 0.5A (± 5%)
+9. Accendi l' alimentatore settato a 18Vdc @ 0.5A (± 5%)
 
-				8. Premi ENTER a programmazione terminata per proseguire"  image="img/amc-bldc/amc-bldc_setup.jpg" />
+10. Premi ENTER a programmazione terminata per proseguire"  
+			image="img/amc/amc-setup.png" />
             <operation type="wait" value="2000" />
 		</test>
 
@@ -1223,12 +1229,12 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 		<test id="6" name="Test Leds OFF">
 			<operation type="send" interface="CAN" command="2" />
-			<operation type="yesNoDialog" text="I led rosso e verde sono spenti?" image="img/amc-bldc/amc-bldc_LED_OFF.jpg" />
+			<operation type="yesNoDialog" text="I led rosso e verde sono spenti?" image="img/amc/amc_LED_OFF.jpg" />
 		</test>
 
 		<test id="7" name="Test Leds ON">
 			<operation type="send" interface="CAN" command="3" />
-			<operation type="yesNoDialog" text="I led rosso e verde sono accesi?" image="img/amc-bldc/amc-bldc_LED_ON.jpg" />
+			<operation type="yesNoDialog" text="I led rosso e verde sono accesi?" image="img/amc/amc_LED_ON.jpg" />
 		</test>
 
 		<test id="8" name="Test VIN" stopOnFail="true">
@@ -1242,13 +1248,13 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		</test>
 	
 		<test id="10" name="Test FAULT OFF">
-			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_OFF.jpg" />
+			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc/amc_FAULT_OFF.jpg" />
 			<operation type="send" interface="CAN" command="9" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 
 		<test id="11" name="Test FAULT ON">
-			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_ON.jpg" />
+			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc/amc_FAULT_ON.jpg" />
 			<operation type="send" interface="CAN" command="10" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
@@ -1270,7 +1276,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		</test>
 	
 		<test id="14" name="Prepare SPI switch">
-			<operation type="passFailDialog" text="Lo switch è stato spostato su SPI" />
+			<operation type="okDialog" text="Posizionare lo switch sul setup verso SPI_EN come in figura" image="img/amc/amc_SWITCH_SPI_EN.jpg" />
 		</test>
 		
 		<test id="15" name="Test SPI Encoders">
@@ -1279,7 +1285,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		</test>
 		
 		<test id="16" name="Prepare I2C switch">
-			<operation type="passFailDialog" text="Lo switch è stato spostato su I2C" />
+			<operation type="okDialog" text="Posizionare lo switch sul setup verso I2C_EN come in figura" image="img/amc/amc_SWITCH_I2C_EN.jpg" />
 		</test>
 		
 		<test id="17" name="Test I2C Channels">
