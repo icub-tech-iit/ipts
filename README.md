@@ -10,10 +10,11 @@ Here is the list of the codes tested with the `IPTS` suite
 IIT Code | Revisions | Description
 -------- | ----------|----------
 12008    | B,C       | MTB4, IIT - Electronic board for tactile sensor, with 3 axis accelerometers Vin 5Vcc
-11996    | B,C      | STRAIN2, IIT - Electronic board, 6 channels strain gauges variable gain interface board with CAN/UART, Temperature sensor, IMU, STM32L4
+11996    | B,C       | STRAIN2, IIT - Electronic board, 6 channels strain gauges variable gain interface board with CAN/UART, Temperature sensor, IMU, STM32L4
 5443     | D,E       | MC4-PLUS, IIT - Electronic board with cortex M4, Ethernet and power driver for 4 DC motors, SPI interface, 2 analog channels, 12-32V supply voltage, low brightness	
 10004    | B         | MC4-PLUS_CSHAPE , IIT - Electronic Board
 12024    | C         | RFE_MASTER, IIT - Electronic Board, Robot Face Expression Master board
+14962    | D         | AMC_BLDC, IIT - Electronic board, single motor driver BLDC 12V-52V, 1 Arms, Hall sensors, incremental encoder, CAN/FD interface
 2694     |           | 2224U012SR+IE2-512+2082 Faulhaber - Brush motor, encoder with 500mm cable lenght	
 12264    |           | FAULHABER MOTOR 1016M012GK380+GEARBOX 10/1 i=16	
 10347    |           | BLDC motor assembly, OD 49.2, ID 9.54, L 20.7, stack length 5.7, airgap diam 29.5	
@@ -28,7 +29,7 @@ IIT Code | Revisions | Description
 
 ### 1.1 Installing the test suite
 
-You can install **IPTS** on a Windows 10 machine.
+You can install **IPTS** on a Windows 10/11 machine.
 
 :warning:
   **If the installer is required by suppliers or, in general, by external parties from IIT please refer to the installer attached in the provided release and DO NOT USE the link below**
