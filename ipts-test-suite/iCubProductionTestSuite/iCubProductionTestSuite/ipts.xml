@@ -7,39 +7,34 @@
  */
 -->
 <iCubProductionTestSuite>
-
-	<startup  type="batch" batchDir="tools\boards\icub-firmware-build" batchFile="setup-fw-repo.bat" noFail="true" /> 
+    <startup  type="batch" batchDir="tools\boards\icub-firmware-build" batchFile="setup-fw-repo.bat" noFail="true" />
 	<startup  type="batch" batchDir="tools\boards\icub-firmware-build" batchFile="udpdate-fw-repo.bat" errorMessage="Impossibile aggiornare la repository del firmware, assicurarsi di eseguire IPTS come amministratore o controllare la connessione internet" />
 
-
-  <!-- **************************************************************************************************
-  
+	<!-- **************************************************************************************************
+	
 		TESTPLAN FOR MTB4 rev B and C
-  
-       **************************************************************************************************-->
-	   
-  <testplan id="0" board="MTB4" iitcode="12008.B" reportsDir="mtb4" rev="5">
-
-    <interfaces>
-      <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-    </interfaces>
-
-    <test id="1" name="Test Assenza corto 5V-GND" stopOnFail="true">
-      <operation type="okDialog" text="Verificare che i pin 1 e 4 del connettore J1 non siano in corto." image="img/mtb4/MTB4_short.jpg" />
-      <operation type="passFailDialog" text="I pin NON SONO in corto?" />
-    </test>
-
-	  <test id="2" name="Flash Firmware di test" stopOnFail="true">
-		  <operation type="okDialog" text="Collegamenti setup:
+	
+	**************************************************************************************************-->
+	
+	<testplan id="0" board="MTB4" iitcode="12008.B" reportsDir="mtb4" rev="5">
+		<interfaces>
+			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+		</interfaces>
+		<test id="1" name="Test Assenza corto 5V-GND" stopOnFail="true">
+			<operation type="okDialog" text="Verificare che i pin 1 e 4 del connettore J1 non siano in corto." image="img/mtb4/MTB4_short.jpg" />
+			<operation type="passFailDialog" text="I pin NON SONO in corto?" />
+		</test>
+		<test id="2" name="Flash Firmware di test" stopOnFail="true">
+			<operation type="okDialog" text="Collegamenti setup:
 
 1. Connettere l' ESD CAN-USB (2) ed il ST-Link (3) alle USB del PC (1)
 
-2. Connettere l' ESD CAN-USB (2) alla MTB4 (MTB4-J1) 
+2. Connettere l' ESD CAN-USB (2) alla MTB4 (MTB4-J1)
 
-3. Connettere la “ADC_MTB_LED” (6) alla MTB4 (MTB4-J3) 
+3. Connettere la “ADC_MTB_LED” (6) alla MTB4 (MTB4-J3)
 
 4. Premere Invio a programmazione terminata
-					
+				
 UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 					   
 					 image="img/mtb4/MTB4_setup.jpg" />
@@ -180,18 +175,18 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
   
 		TESTPLAN FOR STRAIN2 rev B and C
   
-       **************************************************************************************************-->
+	   **************************************************************************************************-->
 
   <testplan id="2" board="STRAIN2" iitcode="11996.B" reportsDir="strain2" rev="5">
 
-    <interfaces>
-      <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-    </interfaces>
+	<interfaces>
+	  <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+	</interfaces>
 
-    <test id="1" name="Test Assenza corto VIN-GND" stopOnFail="true">
-      <operation type="okDialog" text="Verificare con il multimetro che i pad 1 e 4 NON siano in corto." image="img/strain2/strain2_short.jpg" />
-      <operation type="passFailDialog" text="I pin NON SONO in corto?" />
-    </test>
+	<test id="1" name="Test Assenza corto VIN-GND" stopOnFail="true">
+	  <operation type="okDialog" text="Verificare con il multimetro che i pad 1 e 4 NON siano in corto." image="img/strain2/strain2_short.jpg" />
+	  <operation type="passFailDialog" text="I pin NON SONO in corto?" />
+	</test>
 
 	  <test id="2" name="Flash Firmware di test" stopOnFail="true">
 		  <operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura
@@ -1275,39 +1270,39 @@ Collegare il setup di test come in figura
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 	
-		<test id="14" name="Prepare SPI switch">
+		<test id="15" name="Prepare SPI switch">
 			<operation type="okDialog" text="Posizionare lo switch sul setup verso SPI_EN come in figura" image="img/amc/amc_SWITCH_SPI_EN.jpg" />
 		</test>
 		
-		<test id="15" name="Test SPI Encoders">
+		<test id="16" name="Test SPI Encoders">
 			<operation type="send" interface="CAN" command="15"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA 0xAA 0xAA"/>
 		</test>
 		
-		<test id="16" name="Prepare I2C switch">
+		<test id="17" name="Prepare I2C switch">
 			<operation type="okDialog" text="Posizionare lo switch sul setup verso I2C_EN come in figura" image="img/amc/amc_SWITCH_I2C_EN.jpg" />
 		</test>
 		
-		<test id="17" name="Test I2C Channels">
+		<test id="18" name="Test I2C Channels">
 			<operation type="send" interface="CAN" command="11"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA 0xAA 0xAA"/>
 		</test>
 		
-		<!--<test id="18" name="Test PWM Channel A">
+		<!--<test id="19" name="Test PWM Channel A">
 			--><!--<operation type="inputValue" text="Inserire il canale pwm da testare" var="channel" varType="num" />
 			<operation type="send" interface="CAN" command="16" appendVar="channel" />--><!--
 			--><!--<operation type="send" interface="CAN" command="16"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>--><!--
 		</test>
 
-		<test id="19" name="Test PWM Channel B">
+		<test id="20" name="Test PWM Channel B">
 			--><!--<operation type="inputValue" text="Inserire il canale pwm da testare" var="channel" varType="num" />
 			<operation type="send" interface="CAN" command="16" appendVar="channel" />--><!--
 			--><!--<operation type="send" interface="CAN" command="17" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>--><!--
 		</test>
 
-		<test id="20" name="Test PWM Channel C">
+		<test id="21" name="Test PWM Channel C">
 			--><!--<operation type="inputValue" text="Inserire il canale pwm da testare" var="channel" varType="num" />
 			<operation type="send" interface="CAN" command="16" appendVar="channel" />--><!--
 			--><!--<operation type="send" interface="CAN" command="18" />
