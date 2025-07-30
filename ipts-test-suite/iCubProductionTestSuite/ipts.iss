@@ -415,7 +415,8 @@ Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\amc-bldc_prod.bat";
 Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\amc-bldc_test.bat"; DestDir: "{app}\tools\boards\amc-bldc\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\hex\amcbldc.test.hex"; DestDir: "{app}\tools\boards\amc-bldc\flash\hex"; Flags: ignoreversion
 
-Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_prod.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_prod_0.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_prod_1.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_test.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc\flash\hex\amc_test.hex"; DestDir: "{app}\tools\boards\amc\flash\hex"; Flags: ignoreversion
 

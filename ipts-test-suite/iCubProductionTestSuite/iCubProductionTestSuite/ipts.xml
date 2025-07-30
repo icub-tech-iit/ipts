@@ -1183,21 +1183,21 @@ Collegare il setup di test come in figura
 
 4. Per chiudere il circuito e permettere la comunicazione CAN posiziona un jumper da 2 PIN sul JP2 del JIG (4C)
 
-3. Collega il programmatore ST-LINK (5) al connettore J3 della DGBADP (6A)
+5. Collega il programmatore ST-LINK (5) al connettore J3 della DGBADP (6A)
 
-4. Collega il connettore volante della DGBADP al connettore J16 della AMC (6B)
+6. Collega il connettore volante della DGBADP al connettore J16 della AMC (6B)
 
-5. Collega i cavi dei sensori Hall/ABZ del JIG in corrispondenza dei connettori specifici J33 per AMC-HALL (8A) e J20 AMC-ABZ (8B) del JIG al connettore J8 della AMC (8)
+7. Collega i cavi dei sensori Hall/ABZ del JIG in corrispondenza dei connettori specifici J33 per AMC-HALL (8A) e J20 AMC-ABZ (8B) del JIG al connettore J8 della AMC (8)
 
-6. Collega il cavo Fault al connettore J1 (7) del JIG. Questo si trova cablato con i cavi di I2C/SPI del connettore J5 della AMC.
+8. Collega il cavo Fault al connettore J1 (7) del JIG. Questo si trova cablato con i cavi di I2C/SPI del connettore J5 della AMC.
 				
-7. Collega i cavi dei canali SPI/I2C del JIG in corrispondenza dei connettori specifici per i 3 canali J12 (9A), J13 (9B) e J14 (9C) del JIG al connettore J5 della AMC (9)
+9. Collega i cavi dei canali SPI/I2C del JIG in corrispondenza dei connettori specifici per i 3 canali J12 (9A), J13 (9B) e J14 (9C) del JIG al connettore J5 della AMC (9)
 				
-8. Collega il cavo ETH1 fornito con il JIG tra il connettore J4 del JIG (10A) e il connettore J6 della AMC (10B). Collega poi un cavo LAN alla porta ETH (J23) del JIG (10) e questo al PC 
+10. Collega il cavo ETH1 fornito con il JIG tra il connettore J4 del JIG (10A) e il connettore J6 della AMC (10B). Collega poi un cavo LAN alla porta ETH (J23) del JIG (10) e questo al PC 
 
-9. Accendi l' alimentatore settato a 18Vdc @ 0.5A (± 5%)
+11. Accendi l' alimentatore settato a 18Vdc @ 0.5A (± 5%)
 
-10. Premi ENTER a programmazione terminata per proseguire"  
+12. Premi ENTER a programmazione terminata per proseguire"  
 			image="img/amc/amc-setup.png" />
             <operation type="wait" value="2000" />
 		</test>
@@ -1287,27 +1287,6 @@ Collegare il setup di test come in figura
 			<operation type="send" interface="CAN" command="11"/>
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA 0xAA 0xAA"/>
 		</test>
-		
-		<!--<test id="19" name="Test PWM Channel A">
-			--><!--<operation type="inputValue" text="Inserire il canale pwm da testare" var="channel" varType="num" />
-			<operation type="send" interface="CAN" command="16" appendVar="channel" />--><!--
-			--><!--<operation type="send" interface="CAN" command="16"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>--><!--
-		</test>
-
-		<test id="20" name="Test PWM Channel B">
-			--><!--<operation type="inputValue" text="Inserire il canale pwm da testare" var="channel" varType="num" />
-			<operation type="send" interface="CAN" command="16" appendVar="channel" />--><!--
-			--><!--<operation type="send" interface="CAN" command="17" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>--><!--
-		</test>
-
-		<test id="21" name="Test PWM Channel C">
-			--><!--<operation type="inputValue" text="Inserire il canale pwm da testare" var="channel" varType="num" />
-			<operation type="send" interface="CAN" command="16" appendVar="channel" />--><!--
-			--><!--<operation type="send" interface="CAN" command="18" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>--><!--
-		</test>-->
 	
     </testplan>
 	
