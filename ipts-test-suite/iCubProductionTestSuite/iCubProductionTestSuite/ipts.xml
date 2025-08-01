@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!--
  /*
- * Copyright (C) 2018 Istituto Italiano di Tecnologia
- * Authors: davide.tome@iit.it
+ * Copyright (C) 2025 Istituto Italiano di Tecnologia
+ * Authors: davide.tome@iit.it, jacopo.losi@iit.it
  * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  */
 -->
@@ -1016,7 +1016,8 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		</interfaces>
 
 		<test id="1" name="Connessioni Setup">
-			<operation type="okDialog" text="Collegare il setup di test come in figura
+			<operation type="okDialog" text=
+"Collegare il setup di test come in figura
 
 1. Collega il cavo di alimentazione (1) al connettore J7 del JIG (2) e questo al connettore J7 della AMC-BLDC (2A)
 
@@ -1036,7 +1037,8 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
 7. Accendi l' alimentatore settato a 12Vdc @ 0.5A (± 5%)
 
-8. Premi ENTER a programmazione terminata per proseguire"  image="img/amc-bldc/amc-bldc_setup.jpg" />
+8. Premi ENTER a programmazione terminata per proseguire"  
+				image="img/amc-bldc/amc-bldc_setup.jpg" />
 			<operation type="wait" value="2000" />
 		</test>
 
@@ -1125,13 +1127,15 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 		</test>
 
 		<test id="18" name="Preparazione setup per test su PWM">
-			<operation type="okDialog" text="Prima di procedere è necessario preparare il setup come in figura:
+			<operation type="okDialog" text=
+"Prima di procedere è necessario preparare il setup come in figura:
 					   
 1. Setta l'alimentatore a 24Vdc (±0.5) e limitare l'assorbimento di corrente a 0.5A.
 
 2. Collega il cavo delle fasi del motore tra il connettore J6 del JIG (1) e il connettore J4 della AMC-BLDC (2).
 
-3. Si fa notare che le fasi alimentate dalla PWM possono essere controllate dai test-points A, B, C rispettivamente correlati alle fasi 1, 2, 3 come indicato in fogura." image="img/amc-bldc/amc-bldc_current_probes.jpg" />
+3. Si fa notare che le fasi alimentate dalla PWM possono essere controllate dai test-points A, B, C rispettivamente correlati alle fasi 1, 2, 3 come indicato in fogura."
+				image="img/amc-bldc/amc-bldc_current_probes.jpg" />
 			<operation type="wait" value="2000" />
 		</test>
 		

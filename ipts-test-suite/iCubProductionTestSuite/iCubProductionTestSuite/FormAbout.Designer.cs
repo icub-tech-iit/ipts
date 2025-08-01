@@ -53,18 +53,19 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(24, 199);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(238, 13);
+            this.label2.Size = new System.Drawing.Size(232, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Copyright (C) 20018 Istituto Italiano di Tecnologia";
+            this.label2.Text = "Copyright (C) 2025 Istituto Italiano di Tecnologia";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(88, 221);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
+            this.label3.Size = new System.Drawing.Size(83, 13);
             this.label3.TabIndex = 2;
-            this.label3.Text = "davide.tome@iit.it";
+            this.label3.Text = "jacopo.losi@iit.it";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
             // 
