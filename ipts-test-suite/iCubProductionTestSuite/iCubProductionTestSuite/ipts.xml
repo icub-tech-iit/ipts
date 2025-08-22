@@ -1362,19 +1362,19 @@ Dopo circa 1-2 giri premi nuovamente e ruota nella direzione opposta" image="img
 		</test>
 		
         <test id="28" name="Test PWM Phase 1" stopOnFail="false">
-            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: GREEN, OFF, GREEN come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_1.jpg" />
+            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: GREEN, OFF, GREEN come mostrato in figura" image="img/amc/amc_LED_PWM_1.jpg" />
             <operation type="send" interface="CAN" command="16" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
         </test>
 
         <test id="29" name="Test PWM Phase 2" stopOnFail="false">
-            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: RED, GREEN, OFF come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_2.jpg" />
+            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: RED, GREEN, OFF come mostrato in figura" image="img/amc/amc_LED_PWM_2.jpg" />
             <operation type="send" interface="CAN" command="17" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
         </test>
 
         <test id="30" name="Test PWM Phase 3" stopOnFail="false">
-            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: OFF, RED, RED come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_3.jpg" />
+            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: OFF, RED, RED come mostrato in figura" image="img/amc/amc_LED_PWM_3.jpg" />
             <operation type="send" interface="CAN" command="18" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
 			<operation type="wait" value="2000" />

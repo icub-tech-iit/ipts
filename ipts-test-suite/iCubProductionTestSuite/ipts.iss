@@ -365,6 +365,9 @@ Source: "iCubProductionTestSuite\img\amc\amc-setup.png"; DestDir: "{app}\img\amc
 Source: "iCubProductionTestSuite\img\amc\amc_SWITCH_SPI_EN.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\amc\amc_SWITCH_I2C_EN.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\amc\amc_PWM_setup.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_LED_PWM_3.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_LED_PWM_2.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_LED_PWM_1.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\amc\amc_LED_ON.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\amc\amc_LED_OFF.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\amc\amc_HALL_sensor.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
