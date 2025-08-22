@@ -1,31 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!--
- /*
- * Copyright (C) 2025 Istituto Italiano di Tecnologia
- * Authors: davide.tome@iit.it, jacopo.losi@iit.it
- * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
- */
+    /*
+    * Copyright (C) 2025 Istituto Italiano di Tecnologia
+    * Authors: davide.tome@iit.it, jacopo.losi@iit.it
+    * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
+    */
 -->
 <iCubProductionTestSuite>
     <startup  type="batch" batchDir="tools\boards\icub-firmware-build" batchFile="setup-fw-repo.bat" noFail="true" />
-	<startup  type="batch" batchDir="tools\boards\icub-firmware-build" batchFile="udpdate-fw-repo.bat" errorMessage="Impossibile aggiornare la repository del firmware, assicurarsi di eseguire IPTS come amministratore o controllare la connessione internet" />
+    <startup  type="batch" batchDir="tools\boards\icub-firmware-build" batchFile="udpdate-fw-repo.bat" errorMessage="Impossibile aggiornare la repository del firmware, assicurarsi di eseguire IPTS come amministratore o controllare la connessione internet" />
 
-	<!-- **************************************************************************************************
-	
-		TESTPLAN FOR MTB4 rev B and C
-	
-	**************************************************************************************************-->
-	
-	<testplan id="0" board="MTB4" iitcode="12008.B" reportsDir="mtb4" rev="5">
-		<interfaces>
-			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-		</interfaces>
-		<test id="1" name="Test Assenza corto 5V-GND" stopOnFail="true">
-			<operation type="okDialog" text="Verificare che i pin 1 e 4 del connettore J1 non siano in corto." image="img/mtb4/MTB4_short.jpg" />
-			<operation type="passFailDialog" text="I pin NON SONO in corto?" />
-		</test>
-		<test id="2" name="Flash Firmware di test" stopOnFail="true">
-			<operation type="okDialog" text="Collegamenti setup:
+    <!-- **************************************************************************************************
+    
+            TESTPLAN FOR MTB4 rev B and C
+    
+    **************************************************************************************************-->
+
+    <testplan id="0" board="MTB4" iitcode="12008.B" reportsDir="mtb4" rev="5">
+        <interfaces>
+            <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+        </interfaces>
+        <test id="1" name="Test Assenza corto 5V-GND" stopOnFail="true">
+            <operation type="okDialog" text="Verificare che i pin 1 e 4 del connettore J1 non siano in corto." image="img/mtb4/MTB4_short.jpg" />
+            <operation type="passFailDialog" text="I pin NON SONO in corto?" />
+        </test>
+        <test id="2" name="Flash Firmware di test" stopOnFail="true">
+            <operation type="okDialog" text="Collegamenti setup:
 
 1. Connettere l' ESD CAN-USB (2) ed il ST-Link (3) alle USB del PC (1)
 
@@ -34,78 +34,69 @@
 3. Connettere la “ADC_MTB_LED” (6) alla MTB4 (MTB4-J3)
 
 4. Premere Invio a programmazione terminata
-				
+        
 UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
-					   
-					 image="img/mtb4/MTB4_setup.jpg" />
-		  <operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4_test.bat" />
-	  </test>
 
-    <test id="3" name="Test comunicazione CAN" stopOnFail="true">
-      <operation type="send" interface="CAN" command="06"/>
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-    </test>
+            image="img/mtb4/MTB4_setup.jpg" />
+            <operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4_test.bat" />
+        </test>
+        <test id="3" name="Test comunicazione CAN" stopOnFail="true">
+            <operation type="send" interface="CAN" command="06"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
+        <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
+            <operation type="send" interface="CAN" command="00" />
+            <operation type="receivePassFail" interface="CAN" valPass="0x03 0x00" logMess="1" />
+        </test>
+        <test id="5" name="Test Led OFF">
+            <operation type="send" interface="CAN" command="01" />
+            <operation type="yesNoDialog" text="I led rosso e blu sono spenti?" image="img/mtb4/MTB4_ledoff.jpg" />
+        </test>
+        <test id="6" name="Test Led ON">
+            <operation type="send" interface="CAN" command="02" />
+            <operation type="yesNoDialog" text="I led rosso e blu sono accesi?" image="img/mtb4/MTB4_ledon.jpg" />
+        </test>
+        <test id="7" name="Test Temperatura">
+            <operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
+            <operation type="send" interface="CAN" command="03" appendVar="tempIn" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+        <test id="8" name="Test GPIO">
+            <operation type="okDialog" text="Verificare che i sei led della scheda ADC_MTB4_LED_12660_A si accendano in sequenza..." image="img/mtb4/MTB4_gpio.jpg" />
+            <operation type="send" interface="CAN" command="05" />
+            <operation type="wait" value="4000" />
+            <operation type="passFailDialog" text="i 6 led si sono accesi in sequenza?" />
+        </test>
+        <test id="9" name="Test IMU">
+            <operation type="send" interface="CAN" command="04" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
+        </test>
+        <test id="10" name="Test secondo CAN">
+            <operation type="okDialog" text="Connettere il cavo CAN al secondo connettore (J2) e premere ok" image="img/mtb4/MTB4_can.jpg" />
+            <operation type="wait" value="1000" />
+            <operation type="send" interface="CAN" command="06" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" />
+        </test>
+        <test id="11" name="Flash Bootloader/Applicativo">
+            <operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4_prod.bat" />
+        </test>
+    </testplan>
+
+
+    <testplan id="1" board="MTB4C" iitcode="12008.C" reportsDir="mtb4c" rev="1">
+
+        <interfaces>
+                <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+        </interfaces>
+
     
-    <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
-      <operation type="send" interface="CAN" command="00" />
-      <operation type="receivePassFail" interface="CAN" valPass="0x03 0x00" logMess="1" />
-    </test>
+        <test id="1" name="Test Assenza corto 5V-GND" stopOnFail="true">
+                <operation type="okDialog" text="Verificare che i pin 1 e 4 del connettore J1 non siano in corto." image="img/mtb4/MTB4_short.jpg" />
+                <operation type="passFailDialog" text="I pin NON SONO in corto?" />
+        </test>
 
-    <test id="5" name="Test Led OFF">
-      <operation type="send" interface="CAN" command="01" />
-      <operation type="yesNoDialog" text="I led rosso e blu sono spenti?" image="img/mtb4/MTB4_ledoff.jpg" />
-    </test>
-
-    <test id="6" name="Test Led ON">
-      <operation type="send" interface="CAN" command="02" />
-      <operation type="yesNoDialog" text="I led rosso e blu sono accesi?" image="img/mtb4/MTB4_ledon.jpg" />
-    </test>
-
-    <test id="7" name="Test Temperatura">
-      <operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
-      <operation type="send" interface="CAN" command="03" appendVar="tempIn" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-
-    <test id="8" name="Test GPIO">
-      <operation type="okDialog" text="Verificare che i sei led della scheda ADC_MTB4_LED_12660_A si accendano in sequenza..." image="img/mtb4/MTB4_gpio.jpg" />
-      <operation type="send" interface="CAN" command="05" />
-      <operation type="wait" value="4000" />
-      <operation type="passFailDialog" text="i 6 led si sono accesi in sequenza?" />
-    </test>
-
-    <test id="9" name="Test IMU">
-      <operation type="send" interface="CAN" command="04" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
-    </test>
-
-    <test id="10" name="Test secondo CAN">
-      <operation type="okDialog" text="Connettere il cavo CAN al secondo connettore (J2) e premere ok" image="img/mtb4/MTB4_can.jpg" />
-      <operation type="wait" value="1000" />
-      <operation type="send" interface="CAN" command="06" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" />
-    </test>
-
-    <test id="11" name="Flash Bootloader/Applicativo">
-      <operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4_prod.bat" />
-    </test>
-  </testplan>
-
-
-	<testplan id="1" board="MTB4C" iitcode="12008.C" reportsDir="mtb4c" rev="1">
-
-		<interfaces>
-			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-		</interfaces>
-
-		
-		<test id="1" name="Test Assenza corto 5V-GND" stopOnFail="true">
-			<operation type="okDialog" text="Verificare che i pin 1 e 4 del connettore J1 non siano in corto." image="img/mtb4/MTB4_short.jpg" />
-			<operation type="passFailDialog" text="I pin NON SONO in corto?" />
-		</test>
-
-		<test id="2" name="Flash Firmware di test" stopOnFail="true">
-			<operation type="okDialog" text="Collegamenti setup:
+        <test id="2" name="Flash Firmware di test" stopOnFail="true">
+            <operation type="okDialog" text="Collegamenti setup:
 
 1. Connettere l' ESD CAN-USB (2) ed il ST-Link (3) alle USB del PC (1)
 
@@ -114,84 +105,84 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 3. Connettere la “ADC_MTB_LED” (6) alla MTB4 (MTB4-J3) 
 
 4. Premere Invio a programmazione terminata
-					
+        
 UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
-					   
-					   image="img/mtb4/MTB4_setup.jpg" />
-			<operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4c_test.bat" />
-		</test>
+        
+            image="img/mtb4/MTB4_setup.jpg" />
+            <operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4c_test.bat" />
+        </test>
 
-		<test id="3" name="Test comunicazione CAN" stopOnFail="true">
-			<operation type="send" interface="CAN" command="06"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="3" name="Test comunicazione CAN" stopOnFail="true">
+            <operation type="send" interface="CAN" command="06"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
-			<operation type="send" interface="CAN" command="00" />
-			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="1" />
-		</test>
+        <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
+            <operation type="send" interface="CAN" command="00" />
+            <operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="1" />
+        </test>
 
-		<test id="5" name="Test Led OFF">
-			<operation type="send" interface="CAN" command="01" />
-			<operation type="yesNoDialog" text="I led rosso e blu sono spenti?" image="img/mtb4/MTB4_ledoff.jpg" />
-		</test>
+        <test id="5" name="Test Led OFF">
+            <operation type="send" interface="CAN" command="01" />
+            <operation type="yesNoDialog" text="I led rosso e blu sono spenti?" image="img/mtb4/MTB4_ledoff.jpg" />
+        </test>
 
-		<test id="6" name="Test Led ON">
-			<operation type="send" interface="CAN" command="02" />
-			<operation type="yesNoDialog" text="I led rosso e blu sono accesi?" image="img/mtb4/MTB4_ledon.jpg" />
-		</test>
+        <test id="6" name="Test Led ON">
+            <operation type="send" interface="CAN" command="02" />
+            <operation type="yesNoDialog" text="I led rosso e blu sono accesi?" image="img/mtb4/MTB4_ledon.jpg" />
+        </test>
 
-		<test id="7" name="Test Temperatura">
-			<operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
-			<operation type="send" interface="CAN" command="03" appendVar="tempIn" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="7" name="Test Temperatura">
+            <operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
+            <operation type="send" interface="CAN" command="03" appendVar="tempIn" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="8" name="Test GPIO">
-			<operation type="okDialog" text="Verificare che i sei led della scheda ADC_MTB4_LED_12660_A si accendano in sequenza..." image="img/mtb4/MTB4_gpio.jpg" />
-			<operation type="send" interface="CAN" command="05" />
-			<operation type="wait" value="4000" />
-			<operation type="passFailDialog" text="i 6 led si sono accesi in sequenza?" />
-		</test>
+        <test id="8" name="Test GPIO">
+            <operation type="okDialog" text="Verificare che i sei led della scheda ADC_MTB4_LED_12660_A si accendano in sequenza..." image="img/mtb4/MTB4_gpio.jpg" />
+            <operation type="send" interface="CAN" command="05" />
+            <operation type="wait" value="4000" />
+            <operation type="passFailDialog" text="i 6 led si sono accesi in sequenza?" />
+        </test>
 
-		<test id="9" name="Test IMU">
-			<operation type="send" interface="CAN" command="04" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
-		</test>
+        <test id="9" name="Test IMU">
+            <operation type="send" interface="CAN" command="04" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
+        </test>
 
-		<test id="10" name="Test secondo CAN">
-			<operation type="okDialog" text="Connettere il cavo CAN al secondo connettore (J2) e premere ok" image="img/mtb4/MTB4_can.jpg" />
-			<operation type="wait" value="1000" />
-			<operation type="send" interface="CAN" command="06" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" />
-		</test>
+        <test id="10" name="Test secondo CAN">
+            <operation type="okDialog" text="Connettere il cavo CAN al secondo connettore (J2) e premere ok" image="img/mtb4/MTB4_can.jpg" />
+            <operation type="wait" value="1000" />
+            <operation type="send" interface="CAN" command="06" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" />
+        </test>
 
-		<test id="11" name="Flash Bootloader/Applicativo">
-			<operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4c_prod.bat" />
-		</test>
-	</testplan>
+        <test id="11" name="Flash Bootloader/Applicativo">
+            <operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4c_prod.bat" />
+        </test>
+    </testplan>
 
   <!-- **************************************************************************************************
   
-		TESTPLAN FOR STRAIN2 rev B and C
+            TESTPLAN FOR STRAIN2 rev B and C
   
-	   **************************************************************************************************-->
+        **************************************************************************************************-->
 
-  <testplan id="2" board="STRAIN2" iitcode="11996.B" reportsDir="strain2" rev="5">
+    <testplan id="2" board="STRAIN2" iitcode="11996.B" reportsDir="strain2" rev="5">
 
-	<interfaces>
-	  <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-	</interfaces>
+        <interfaces>
+            <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+        </interfaces>
 
-	<test id="1" name="Test Assenza corto VIN-GND" stopOnFail="true">
-	  <operation type="okDialog" text="Verificare con il multimetro che i pad 1 e 4 NON siano in corto." image="img/strain2/strain2_short.jpg" />
-	  <operation type="passFailDialog" text="I pin NON SONO in corto?" />
-	</test>
+        <test id="1" name="Test Assenza corto VIN-GND" stopOnFail="true">
+            <operation type="okDialog" text="Verificare con il multimetro che i pad 1 e 4 NON siano in corto." image="img/strain2/strain2_short.jpg" />
+            <operation type="passFailDialog" text="I pin NON SONO in corto?" />
+        </test>
 
-	  <test id="2" name="Flash Firmware di test" stopOnFail="true">
-		  <operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura
-										Assicurarsi che gli switch siano nella corretta posizione." image="img/strain2/strain2_setup1.jpg" />
-		  <operation type="okDialog" text="Collegare il setup di test come in figura
+        <test id="2" name="Flash Firmware di test" stopOnFail="true">
+            <operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura
+                                                                        Assicurarsi che gli switch siano nella corretta posizione." image="img/strain2/strain2_setup1.jpg" />
+            <operation type="okDialog" text="Collegare il setup di test come in figura
 
 1. Connettere l'ESD CAN-USB (2) e il programmatore ST-LINK (3) alle usb del PC
 
@@ -201,71 +192,71 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 4. Premere Invio a programmazione terminata"
 
-					 image="img/strain2/strain2_setup2.jpg" />
-		  <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2_test.bat" />
-	  </test>
+            image="img/strain2/strain2_setup2.jpg" />
+            <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2_test.bat" />
+        </test>
 
-    <test id="3" name="Test comunicazione CAN" stopOnFail="true">
-      <operation type="send" interface="CAN" command="06"/>
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-    </test>
+        <test id="3" name="Test comunicazione CAN" stopOnFail="true">
+            <operation type="send" interface="CAN" command="06"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
         
-    <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
-      <operation type="send" interface="CAN" command="00" />
-      <operation type="receivePassFail" interface="CAN" valPass="0x03 0x00" logMess="1" />
-    </test>
+        <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
+            <operation type="send" interface="CAN" command="00" />
+            <operation type="receivePassFail" interface="CAN" valPass="0x03 0x00" logMess="1" />
+        </test>
 
-    <test id="5" name="Test Led OFF">
-      <operation type="send" interface="CAN" command="01" />
-      <operation type="yesNoDialog" text="Il led blu é spento?" image="img/strain2/strain2_ledOFF.jpg" />
-    </test>
+        <test id="5" name="Test Led OFF">
+            <operation type="send" interface="CAN" command="01" />
+            <operation type="yesNoDialog" text="Il led blu é spento?" image="img/strain2/strain2_ledOFF.jpg" />
+        </test>
 
-    <test id="6" name="Test Led ON">
-      <operation type="send" interface="CAN" command="02" />
-      <operation type="yesNoDialog" text="Il led blu é acceso?" image="img/strain2/strain2_ledON.jpg" />
-    </test>
+        <test id="6" name="Test Led ON">
+            <operation type="send" interface="CAN" command="02" />
+            <operation type="yesNoDialog" text="Il led blu é acceso?" image="img/strain2/strain2_ledON.jpg" />
+        </test>
 
-    <test id="7" name="Test sensori di temperatura (top+bottom)">
-      <operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
-      <operation type="send" interface="CAN" command="03" appendVar="tempIn" />
-      <operation type="wait" value="500" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
-    </test>
+        <test id="7" name="Test sensori di temperatura (top+bottom)">
+            <operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
+            <operation type="send" interface="CAN" command="03" appendVar="tempIn" />
+            <operation type="wait" value="500" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
 
-	  <test id="8" name="Test IMU">
-		  <operation type="wait" value="500" />
-		  <operation type="send" interface="CAN" command="04" />
-		  <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
-	  </test>
+        <test id="8" name="Test IMU">
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="04" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
+        </test>
 
-	  <test id="9" name="Test dei 6 canali analogici">
-		  <operation type="send" interface="CAN" command="05"/>
-		  <operation type="wait" value="500" />
-		  <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="3" />
-	  </test>
-
-
-	  <test id="10" name="Flash Bootloader/Applicativo">
-      <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2_prod.bat" />
-    </test>
-  </testplan>
+        <test id="9" name="Test dei 6 canali analogici">
+            <operation type="send" interface="CAN" command="05"/>
+            <operation type="wait" value="500" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="3" />
+        </test>
 
 
-	<testplan id="3" board="STRAIN2C" iitcode="11996.C" reportsDir="strain2c" rev="1">
+        <test id="10" name="Flash Bootloader/Applicativo">
+            <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2_prod.bat" />
+        </test>
+    </testplan>
 
-		<interfaces>
-			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-		</interfaces>
 
-		<test id="1" name="Test Assenza corto VIN-GND" stopOnFail="true">
-			<operation type="okDialog" text="Verificare con il multimetro che i pad 1 e 4 NON siano in corto." image="img/strain2/strain2_short.jpg" />
-			<operation type="passFailDialog" text="I pin NON SONO in corto?" />
-		</test>
+    <testplan id="3" board="STRAIN2C" iitcode="11996.C" reportsDir="strain2c" rev="1">
 
-		<test id="2" name="Flash Firmware di test" stopOnFail="true">
-			<operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura
-										Assicurarsi che gli switch siano nella corretta posizione." image="img/strain2/strain2_setup1.jpg" />
-			<operation type="okDialog" text="Collegare il setup di test come in figura
+        <interfaces>
+            <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+        </interfaces>
+
+        <test id="1" name="Test Assenza corto VIN-GND" stopOnFail="true">
+            <operation type="okDialog" text="Verificare con il multimetro che i pad 1 e 4 NON siano in corto." image="img/strain2/strain2_short.jpg" />
+            <operation type="passFailDialog" text="I pin NON SONO in corto?" />
+        </test>
+
+        <test id="2" name="Flash Firmware di test" stopOnFail="true">
+            <operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura
+                Assicurarsi che gli switch siano nella corretta posizione." image="img/strain2/strain2_setup1.jpg" />
+            <operation type="okDialog" text="Collegare il setup di test come in figura
 
 1. Connettere l'ESD CAN-USB (2) e il programmatore ST-LINK (3) alle usb del PC
 
@@ -275,399 +266,399 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 4. Premere Invio a programmazione terminata"
 
-					   image="img/strain2/strain2_setup2.jpg" />
-			<operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2c_test.bat" />
-		</test>
+            image="img/strain2/strain2_setup2.jpg" />
+            <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2c_test.bat" />
+        </test>
 
-		<test id="3" name="Test comunicazione CAN" stopOnFail="true">
-			<operation type="send" interface="CAN" command="06"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="3" name="Test comunicazione CAN" stopOnFail="true">
+            <operation type="send" interface="CAN" command="06"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
-			<operation type="send" interface="CAN" command="00" />
-			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="1" />
-		</test>
+        <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
+            <operation type="send" interface="CAN" command="00" />
+            <operation type="receivePassFail" interface="CAN" valPass="0x01 0x00" logMess="1" />
+        </test>
 
-		<test id="5" name="Test Led OFF">
-			<operation type="send" interface="CAN" command="01" />
-			<operation type="yesNoDialog" text="Il led blu é spento?" image="img/strain2/strain2_ledOFF.jpg" />
-		</test>
+        <test id="5" name="Test Led OFF">
+            <operation type="send" interface="CAN" command="01" />
+            <operation type="yesNoDialog" text="Il led blu é spento?" image="img/strain2/strain2_ledOFF.jpg" />
+        </test>
 
-		<test id="6" name="Test Led ON">
-			<operation type="send" interface="CAN" command="02" />
-			<operation type="yesNoDialog" text="Il led blu é acceso?" image="img/strain2/strain2_ledON.jpg" />
-		</test>
+        <test id="6" name="Test Led ON">
+            <operation type="send" interface="CAN" command="02" />
+            <operation type="yesNoDialog" text="Il led blu é acceso?" image="img/strain2/strain2_ledON.jpg" />
+        </test>
 
-		<test id="7" name="Test sensori di temperatura (top+bottom)">
-			<operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
-			<operation type="send" interface="CAN" command="03" appendVar="tempIn" />
-			<operation type="wait" value="500" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
-		</test>
+        <test id="7" name="Test sensori di temperatura (top+bottom)">
+            <operation type="inputValue" text="Inserire il valore della temperatura ambiente" var="tempIn" varType="num" />
+            <operation type="send" interface="CAN" command="03" appendVar="tempIn" />
+            <operation type="wait" value="500" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
 
-		<test id="8" name="Test IMU">
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="04" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
-		</test>
-		
-		<test id="9" name="Test dei 6 canali analogici">
-			<operation type="send" interface="CAN" command="05"/>
-			<operation type="wait" value="500" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="3" />
-		</test>
-		
-		<test id="10" name="Flash Bootloader/Applicativo">
-			<operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2c_prod.bat" />
-		</test> 
-	</testplan>
+        <test id="8" name="Test IMU">
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="04" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
+        </test>
+
+        <test id="9" name="Test dei 6 canali analogici">
+            <operation type="send" interface="CAN" command="05"/>
+            <operation type="wait" value="500" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="3" />
+        </test>
+
+        <test id="10" name="Flash Bootloader/Applicativo">
+            <operation type="batch" batchDir="tools\boards\strain2\flash" batchFile="strain2c_prod.bat" />
+        </test> 
+    </testplan>
 
 
     <!-- **************************************************************************************************
   
-		TESTPLAN FOR MC4-PLUS
+            TESTPLAN FOR MC4-PLUS
   
        **************************************************************************************************-->
 
-  <testplan id="4" board="MC4-PLUS" iitcode="5443.D" reportsDir="mc4plus" rev="1">
+    <testplan id="4" board="MC4-PLUS" iitcode="5443.D" reportsDir="mc4plus" rev="1">
 
-    <interfaces>
-      <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-    </interfaces>
-	
-	<test id="1" name="Test Assorbimento" stopOnFail="true">
-	  <operation type="okDialog" text="Collegare la scheda al cavo di alimentazione del setup ed al programmatore ST-LINK come in figura. Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img/mc4plus/connections1.jpg" />
-      <operation type="passFailDialog" text="L'assorbimento é inferiore a 80 mA?" />
-    </test>
-	
-	<test id="2" name="Flash Firmware di test" stopOnFail="true">
-      <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_test.bat" />
-    </test>
-	
-	<test id="3" name="Test Fimware Running" stopOnFail="true">
-	  <operation type="wait" value="4000" />
-      <operation type="yesNoDialog" text="Scollegare il programmatore ST-LINK 2 e capovolgere la scheda. Il led VERDE DL3 lampeggia?" image="img/mc4plus/fw-running.gif" />
-    </test>
-	
-		
-	<test id="4" name="Test comunicazione CAN" stopOnFail="true">
-  	  <operation type="okDialog" text="Collegare il cavo CAN dell' ESD CAN/USB al connettore P9 della mc4plus lasciando vuoti i pin laterali" image="img/mc4plus/can-connect.jpg" />
-  	  <operation type="wait" value="1000" />
-      <operation type="send" interface="CAN" command="23"/>
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-    </test>
-	
-	<test id="5" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
-      <operation type="send" interface="CAN" command="0" />
-      <operation type="receivePassFail" interface="CAN" valPass="0x02 0x00" logMess="1" />
-    </test>
-	
-	<test id="6" name="Test Leds">
-	  <operation type="okDialog" text="Premere OK e verificare che i led DL1, DL2, DL3, DL6 (green, yellow, green, orange) lampeggino per 2 volte in sequenza come da immagine, e che i led DL4, DL5 (blue, orange) siano accesi." image="img/mc4plus/check-leds.gif" />
-      <operation type="send" interface="CAN" command="3" />
-      <operation type="wait" value="6000" />
-      <operation type="passFailDialog" text="i led hanno lampeggiato correttamente?" />
-    </test>
+        <interfaces>
+            <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+        </interfaces>
 
-    <test id="7" name="Connessioni Setup">
-	  <operation type="okDialog" text="Disalimentare la scheda, posizionarla sul setup e collegare tutti i cavi ai risppettivi connettori come in figura. Alimentare a 24Vdc @3A; quindi premere OK." image="img/mc4plus/connections2.jpg" />
-	  <operation type="wait" value="2000" />
-   </test>
-	
-	<test id="8" name="Test TVIN">
-      <operation type="send" interface="CAN" command="4" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="9" name="Test TVAUX">
-      <operation type="send" interface="CAN" command="5" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="10" name="Test Analog Input AN1">
-      <operation type="send" interface="CAN" command="6" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="11" name="Test Analog Input AN2">
-      <operation type="send" interface="CAN" command="7" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="12" name="Test Analog Input AN3">
-      <operation type="send" interface="CAN" command="8" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="13" name="Test Analog Input AN4">
-      <operation type="send" interface="CAN" command="9" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="14" name="Test Encoder Reading 1 (P2)">
-	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U2 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u2.gif" />
-      <operation type="send" interface="CAN" command="13" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="15" name="Test Encoder Reading 2 (P3)">
-	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U1 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u1.gif" />
-      <operation type="send" interface="CAN" command="14" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="16" name="Test Encoder Reading 3 (P4)">
-      <operation type="okDialog" text="Premere OK quindi premere e rilasciare U3 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u3.gif" />     
-	  <operation type="send" interface="CAN" command="15" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="17" name="Test Encoder Reading 4 (P5)">
-	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U4 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u4.gif" />
-      <operation type="send" interface="CAN" command="16" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="18" name="Test PWM 1 (P2)">
-      <operation type="send" interface="CAN" command="17" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="19" name="Test PWM 2 (P3)">
-      <operation type="send" interface="CAN" command="18" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="20" name="Test PWM 3 (P4)">
-      <operation type="send" interface="CAN" command="19" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="21" name="Test PWM 4 (P5)">
-      <operation type="send" interface="CAN" command="20" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="22" name="Test EEprom">
-      <operation type="send" interface="CAN" command="10" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="23" name="Test Micrel">
-      <operation type="send" interface="CAN" command="11" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="24" name="Test SPI">
-      <operation type="send" interface="CAN" command="12" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="25" name="Test Fault L">
-	  <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-1.jpg" />
-      <operation type="send" interface="CAN" command="21" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="26" name="Test Fault H">
-	  <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-2.jpg" />
-      <operation type="send" interface="CAN" command="22" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-    <test id="27" name="Flash Bootloader/Applicativo">
-	  <operation type="okDialog" text="Disalimentare la scheda e collegare il programmatore ST-LINK 2 al connettore P1 della scheda; quindi alimentare nuovamente e premere OK. Premere invio a programmazione terminata" image="img/mc4plus/flashapp.jpg" />
-      <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_prod.bat" />
-    </test>
-	
-	<test id="28" name="Test interefaccia ETH P12">
-  	  <operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P12' della scheda" image="img/mc4plus/eth-1.jpg" />
-	  <operation type="wait" value="2500" />
-      <operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
-    </test>
-	
-	<test id="29" name="Test interefaccia ETH P13">
-	  <operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P13' della scheda" image="img/mc4plus/eth-2.jpg" />
-	  <operation type="wait" value="2500" />
-      <operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
-    </test>
-	
-  </testplan>
+        <test id="1" name="Test Assorbimento" stopOnFail="true">
+            <operation type="okDialog" text="Collegare la scheda al cavo di alimentazione del setup ed al programmatore ST-LINK come in figura. Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img/mc4plus/connections1.jpg" />
+            <operation type="passFailDialog" text="L'assorbimento é inferiore a 80 mA?" />
+        </test>
 
-  <testplan id="5" board="MC4-PLUS" iitcode="5443.E" reportsDir="mc4plus" rev="1">
+        <test id="2" name="Flash Firmware di test" stopOnFail="true">
+            <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_test.bat" />
+        </test>
 
-    <interfaces>
-      <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-    </interfaces>
-	
-	<test id="1" name="Test Assorbimento" stopOnFail="true">
-	  <operation type="okDialog" text="Collegare la scheda al cavo di alimentazione del setup ed al programmatore ST-LINK come in figura. Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img/mc4plus/connections1.jpg" />
-      <operation type="passFailDialog" text="L'assorbimento é inferiore a 80 mA?" />
-    </test>
-	
-	<test id="2" name="Flash Firmware di test" stopOnFail="true">
-      <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_test.bat" />
-    </test>
-	
-	<test id="3" name="Test Fimware Running" stopOnFail="true">
-	  <operation type="wait" value="4000" />
-      <operation type="yesNoDialog" text="Scollegare il programmatore ST-LINK 2 e capovolgere la scheda. Il led VERDE DL3 lampeggia?" image="img/mc4plus/fw-running.gif" />
-    </test>
-	
-		
-	<test id="4" name="Test comunicazione CAN" stopOnFail="true">
-  	  <operation type="okDialog" text="Collegare il cavo CAN dell' ESD CAN/USB al connettore P9 della mc4plus lasciando vuoti i pin laterali" image="img/mc4plus/can-connect.jpg" />
-  	  <operation type="wait" value="1000" />
-      <operation type="send" interface="CAN" command="23"/>
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-    </test>
-	
-	<test id="5" name="Verifica Revisione Firmmware di Test">
-      <operation type="send" interface="CAN" command="0" />
-      <operation type="receivePassFail" interface="CAN" valPass="0x02 0x00" logMess="1" />
-    </test>
-	
-	<test id="6" name="Test Leds">
-	  <operation type="okDialog" text="Premere OK e verificare che i led DL1, DL2, DL3, DL6 (green, yellow, green, orange) lampeggino per 2 volte in sequenza come da immagine, e che i led DL4, DL5 (blue, orange) siano accesi." image="img/mc4plus/check-leds.gif" />
-      <operation type="send" interface="CAN" command="3" />
-      <operation type="wait" value="6000" />
-      <operation type="passFailDialog" text="i led hanno lampeggiato correttamente?" />
-    </test>
+        <test id="3" name="Test Fimware Running" stopOnFail="true">
+            <operation type="wait" value="4000" />
+            <operation type="yesNoDialog" text="Scollegare il programmatore ST-LINK 2 e capovolgere la scheda. Il led VERDE DL3 lampeggia?" image="img/mc4plus/fw-running.gif" />
+        </test>
 
-    <test id="7" name="Connessioni Setup">
-	  <operation type="okDialog" text="Disalimentare la scheda, posizionarla sul setup e collegare tutti i cavi ai risppettivi connettori come in figura. Alimentare a 24Vdc @3A; quindi premere OK." image="img/mc4plus/connections2.jpg" />
-	  <operation type="wait" value="2000" />
-   </test>
-	
-	<test id="8" name="Test TVIN">
-      <operation type="send" interface="CAN" command="4" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="9" name="Test TVAUX">
-      <operation type="send" interface="CAN" command="5" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="10" name="Test Analog Input AN1">
-      <operation type="send" interface="CAN" command="6" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="11" name="Test Analog Input AN2">
-      <operation type="send" interface="CAN" command="7" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="12" name="Test Analog Input AN3">
-      <operation type="send" interface="CAN" command="8" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="13" name="Test Analog Input AN4">
-      <operation type="send" interface="CAN" command="9" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="14" name="Test Encoder Reading 1 (P2)">
-	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U2 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u2.gif" />
-      <operation type="send" interface="CAN" command="13" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="15" name="Test Encoder Reading 2 (P3)">
-	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U1 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u1.gif" />
-      <operation type="send" interface="CAN" command="14" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="16" name="Test Encoder Reading 3 (P4)">
-      <operation type="okDialog" text="Premere OK quindi premere e rilasciare U3 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u3.gif" />     
-	  <operation type="send" interface="CAN" command="15" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="17" name="Test Encoder Reading 4 (P5)">
-	  <operation type="okDialog" text="Premere OK quindi premere e rilasciare U4 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u4.gif" />
-      <operation type="send" interface="CAN" command="16" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="18" name="Test PWM 1 (P2)">
-      <operation type="send" interface="CAN" command="17" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="19" name="Test PWM 2 (P3)">
-      <operation type="send" interface="CAN" command="18" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="20" name="Test PWM 3 (P4)">
-      <operation type="send" interface="CAN" command="19" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="21" name="Test PWM 4 (P5)">
-      <operation type="send" interface="CAN" command="20" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="22" name="Test EEprom">
-      <operation type="send" interface="CAN" command="10" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="23" name="Test Micrel">
-      <operation type="send" interface="CAN" command="11" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="24" name="Test SPI">
-      <operation type="send" interface="CAN" command="12" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="25" name="Test Fault L">
-	  <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-1.jpg" />
-      <operation type="send" interface="CAN" command="21" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-	<test id="26" name="Test Fault H">
-	  <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-2.jpg" />
-      <operation type="send" interface="CAN" command="22" />
-      <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-    </test>
-	
-    <test id="27" name="Flash Bootloader/Applicativo">
-	  <operation type="okDialog" text="Disalimentare la scheda e collegare il programmatore ST-LINK 2 al connettore P1 della scheda; quindi alimentare nuovamente e premere OK" image="img/mc4plus/flashapp.jpg" />
-      <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_prod.bat" />
-    </test>
-	
-	<test id="28" name="Test interefaccia ETH P12">
-  	  <operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P12' della scheda" image="img/mc4plus/eth-1.jpg" />
-	  <operation type="wait" value="2500" />
-      <operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
-    </test>
-	
-	<test id="29" name="Test interefaccia ETH P13">
-	  <operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P13' della scheda" image="img/mc4plus/eth-2.jpg" />
-	  <operation type="wait" value="2500" />
-      <operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
-    </test>
-	
-  </testplan>
 
-	<testplan id="6" board="MC4-PLUS C-SHAPE" iitcode="10004.B" reportsDir="mc4plus-c-shape" rev="1">
+        <test id="4" name="Test comunicazione CAN" stopOnFail="true">
+            <operation type="okDialog" text="Collegare il cavo CAN dell' ESD CAN/USB al connettore P9 della mc4plus lasciando vuoti i pin laterali" image="img/mc4plus/can-connect.jpg" />
+            <operation type="wait" value="1000" />
+            <operation type="send" interface="CAN" command="23"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<interfaces>
-			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-		</interfaces>
+        <test id="5" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
+            <operation type="send" interface="CAN" command="0" />
+            <operation type="receivePassFail" interface="CAN" valPass="0x02 0x00" logMess="1" />
+        </test>
 
-		<test id="1" name="Test Assorbimento" stopOnFail="true">
-			<operation type="okDialog" text="Collegare la scheda al setup come in figura.
+        <test id="6" name="Test Leds">
+            <operation type="okDialog" text="Premere OK e verificare che i led DL1, DL2, DL3, DL6 (green, yellow, green, orange) lampeggino per 2 volte in sequenza come da immagine, e che i led DL4, DL5 (blue, orange) siano accesi." image="img/mc4plus/check-leds.gif" />
+            <operation type="send" interface="CAN" command="3" />
+            <operation type="wait" value="6000" />
+            <operation type="passFailDialog" text="i led hanno lampeggiato correttamente?" />
+        </test>
+
+        <test id="7" name="Connessioni Setup">
+            <operation type="okDialog" text="Disalimentare la scheda, posizionarla sul setup e collegare tutti i cavi ai risppettivi connettori come in figura. Alimentare a 24Vdc @3A; quindi premere OK." image="img/mc4plus/connections2.jpg" />
+            <operation type="wait" value="2000" />
+        </test>
+
+        <test id="8" name="Test TVIN">
+            <operation type="send" interface="CAN" command="4" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="9" name="Test TVAUX">
+            <operation type="send" interface="CAN" command="5" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="10" name="Test Analog Input AN1">
+            <operation type="send" interface="CAN" command="6" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="11" name="Test Analog Input AN2">
+            <operation type="send" interface="CAN" command="7" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="12" name="Test Analog Input AN3">
+            <operation type="send" interface="CAN" command="8" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="13" name="Test Analog Input AN4">
+            <operation type="send" interface="CAN" command="9" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="14" name="Test Encoder Reading 1 (P2)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U2 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u2.gif" />
+            <operation type="send" interface="CAN" command="13" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="15" name="Test Encoder Reading 2 (P3)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U1 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u1.gif" />
+            <operation type="send" interface="CAN" command="14" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="16" name="Test Encoder Reading 3 (P4)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U3 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u3.gif" />     
+            <operation type="send" interface="CAN" command="15" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="17" name="Test Encoder Reading 4 (P5)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U4 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u4.gif" />
+            <operation type="send" interface="CAN" command="16" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="18" name="Test PWM 1 (P2)">
+            <operation type="send" interface="CAN" command="17" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="19" name="Test PWM 2 (P3)">
+            <operation type="send" interface="CAN" command="18" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="20" name="Test PWM 3 (P4)">
+            <operation type="send" interface="CAN" command="19" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="21" name="Test PWM 4 (P5)">
+            <operation type="send" interface="CAN" command="20" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="22" name="Test EEprom">
+            <operation type="send" interface="CAN" command="10" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="23" name="Test Micrel">
+            <operation type="send" interface="CAN" command="11" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="24" name="Test SPI">
+            <operation type="send" interface="CAN" command="12" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="25" name="Test Fault L">
+            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-1.jpg" />
+            <operation type="send" interface="CAN" command="21" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="26" name="Test Fault H">
+            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-2.jpg" />
+            <operation type="send" interface="CAN" command="22" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="27" name="Flash Bootloader/Applicativo">
+            <operation type="okDialog" text="Disalimentare la scheda e collegare il programmatore ST-LINK 2 al connettore P1 della scheda; quindi alimentare nuovamente e premere OK. Premere invio a programmazione terminata" image="img/mc4plus/flashapp.jpg" />
+            <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_prod.bat" />
+        </test>
+
+        <test id="28" name="Test interefaccia ETH P12">
+            <operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P12' della scheda" image="img/mc4plus/eth-1.jpg" />
+            <operation type="wait" value="2500" />
+            <operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
+        </test>
+
+        <test id="29" name="Test interefaccia ETH P13">
+            <operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P13' della scheda" image="img/mc4plus/eth-2.jpg" />
+            <operation type="wait" value="2500" />
+            <operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
+        </test>
+
+    </testplan>
+
+    <testplan id="5" board="MC4-PLUS" iitcode="5443.E" reportsDir="mc4plus" rev="1">
+
+        <interfaces>
+            <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+        </interfaces>
+
+        <test id="1" name="Test Assorbimento" stopOnFail="true">
+            <operation type="okDialog" text="Collegare la scheda al cavo di alimentazione del setup ed al programmatore ST-LINK come in figura. Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img/mc4plus/connections1.jpg" />
+            <operation type="passFailDialog" text="L'assorbimento é inferiore a 80 mA?" />
+        </test>
+
+        <test id="2" name="Flash Firmware di test" stopOnFail="true">
+            <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_test.bat" />
+        </test>
+
+        <test id="3" name="Test Fimware Running" stopOnFail="true">
+            <operation type="wait" value="4000" />
+            <operation type="yesNoDialog" text="Scollegare il programmatore ST-LINK 2 e capovolgere la scheda. Il led VERDE DL3 lampeggia?" image="img/mc4plus/fw-running.gif" />
+        </test>
+
+
+        <test id="4" name="Test comunicazione CAN" stopOnFail="true">
+            <operation type="okDialog" text="Collegare il cavo CAN dell' ESD CAN/USB al connettore P9 della mc4plus lasciando vuoti i pin laterali" image="img/mc4plus/can-connect.jpg" />
+            <operation type="wait" value="1000" />
+            <operation type="send" interface="CAN" command="23"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
+
+        <test id="5" name="Verifica Revisione Firmmware di Test">
+            <operation type="send" interface="CAN" command="0" />
+            <operation type="receivePassFail" interface="CAN" valPass="0x02 0x00" logMess="1" />
+        </test>
+
+        <test id="6" name="Test Leds">
+            <operation type="okDialog" text="Premere OK e verificare che i led DL1, DL2, DL3, DL6 (green, yellow, green, orange) lampeggino per 2 volte in sequenza come da immagine, e che i led DL4, DL5 (blue, orange) siano accesi." image="img/mc4plus/check-leds.gif" />
+            <operation type="send" interface="CAN" command="3" />
+            <operation type="wait" value="6000" />
+            <operation type="passFailDialog" text="i led hanno lampeggiato correttamente?" />
+        </test>
+
+        <test id="7" name="Connessioni Setup">
+            <operation type="okDialog" text="Disalimentare la scheda, posizionarla sul setup e collegare tutti i cavi ai risppettivi connettori come in figura. Alimentare a 24Vdc @3A; quindi premere OK." image="img/mc4plus/connections2.jpg" />
+            <operation type="wait" value="2000" />
+        </test>
+
+        <test id="8" name="Test TVIN">
+            <operation type="send" interface="CAN" command="4" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="9" name="Test TVAUX">
+            <operation type="send" interface="CAN" command="5" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="10" name="Test Analog Input AN1">
+            <operation type="send" interface="CAN" command="6" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="11" name="Test Analog Input AN2">
+            <operation type="send" interface="CAN" command="7" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="12" name="Test Analog Input AN3">
+            <operation type="send" interface="CAN" command="8" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="13" name="Test Analog Input AN4">
+            <operation type="send" interface="CAN" command="9" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="14" name="Test Encoder Reading 1 (P2)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U2 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u2.gif" />
+            <operation type="send" interface="CAN" command="13" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="15" name="Test Encoder Reading 2 (P3)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U1 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u1.gif" />
+            <operation type="send" interface="CAN" command="14" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="16" name="Test Encoder Reading 3 (P4)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U3 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u3.gif" />     
+            <operation type="send" interface="CAN" command="15" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="17" name="Test Encoder Reading 4 (P5)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U4 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u4.gif" />
+            <operation type="send" interface="CAN" command="16" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="18" name="Test PWM 1 (P2)">
+            <operation type="send" interface="CAN" command="17" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="19" name="Test PWM 2 (P3)">
+            <operation type="send" interface="CAN" command="18" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="20" name="Test PWM 3 (P4)">
+            <operation type="send" interface="CAN" command="19" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="21" name="Test PWM 4 (P5)">
+            <operation type="send" interface="CAN" command="20" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="22" name="Test EEprom">
+            <operation type="send" interface="CAN" command="10" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="23" name="Test Micrel">
+            <operation type="send" interface="CAN" command="11" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="24" name="Test SPI">
+            <operation type="send" interface="CAN" command="12" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="25" name="Test Fault L">
+            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-1.jpg" />
+            <operation type="send" interface="CAN" command="21" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="26" name="Test Fault H">
+            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-2.jpg" />
+            <operation type="send" interface="CAN" command="22" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
+
+        <test id="27" name="Flash Bootloader/Applicativo">
+            <operation type="okDialog" text="Disalimentare la scheda e collegare il programmatore ST-LINK 2 al connettore P1 della scheda; quindi alimentare nuovamente e premere OK" image="img/mc4plus/flashapp.jpg" />
+            <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_prod.bat" />
+        </test>
+
+        <test id="28" name="Test interefaccia ETH P12">
+            <operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P12' della scheda" image="img/mc4plus/eth-1.jpg" />
+            <operation type="wait" value="2500" />
+            <operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
+        </test>
+
+        <test id="29" name="Test interefaccia ETH P13">
+            <operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P13' della scheda" image="img/mc4plus/eth-2.jpg" />
+            <operation type="wait" value="2500" />
+            <operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
+        </test>
+
+    </testplan>
+
+    <testplan id="6" board="MC4-PLUS C-SHAPE" iitcode="10004.B" reportsDir="mc4plus-c-shape" rev="1">
+
+        <interfaces>
+            <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+        </interfaces>
+
+        <test id="1" name="Test Assorbimento" stopOnFail="true">
+            <operation type="okDialog" text="Collegare la scheda al setup come in figura.
 
 1. Connettere l'ESD CAN-USB (1) e il programmatore ST-LINK (2) alle usb del PC
 2. Connettere l'ESD CAN-USB (1) al connettore P9 della scheda lasciando i 2 pin laterali vuoti 
@@ -682,174 +673,174 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 11. Connettere il cavo SPI2 del jig al connettore P11 della scheda
 12. Connettere il programmatore ST-LINK (2) al connettore P1 della scheda
 13. Connettere il cavo ETH dal PC al connettore ETH_PORT1 del jig
-				   
+        
 Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4plus-cshape\mc4plus-cshape.jpg" />
-			<operation type="passFailDialog" text="L'assorbimento é inferiore a 100 mA?" />
+            <operation type="passFailDialog" text="L'assorbimento é inferiore a 100 mA?" />
 
-		</test>
+        </test>
 
-		<test id="2" name="Flash Firmware di test" stopOnFail="true">
-			<operation type="message" text="Disalimentare, impostare l'alimentatore a 24Vdc @3A e alimentare la scheda" />
-			<operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_test.bat" />
-		</test>
+        <test id="2" name="Flash Firmware di test" stopOnFail="true">
+            <operation type="message" text="Disalimentare, impostare l'alimentatore a 24Vdc @3A e alimentare la scheda" />
+            <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_test.bat" />
+        </test>
 
-		<test id="3" name="Test Fimware Running" stopOnFail="true">
-			<operation type="wait" value="4000" />
-			<operation type="yesNoDialog" text="Il led VERDE DL3 lampeggia?" image="img/mc4plus-cshape/mc4plus-cshape-app-run.gif" />
-		</test>
+        <test id="3" name="Test Fimware Running" stopOnFail="true">
+            <operation type="wait" value="4000" />
+            <operation type="yesNoDialog" text="Il led VERDE DL3 lampeggia?" image="img/mc4plus-cshape/mc4plus-cshape-app-run.gif" />
+        </test>
 
 
-		<test id="4" name="Test comunicazione CAN" stopOnFail="true">
-			<operation type="send" interface="CAN" command="23"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="4" name="Test comunicazione CAN" stopOnFail="true">
+            <operation type="send" interface="CAN" command="23"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="5" name="Verifica Revisione Firmmware di Test">
-			<operation type="send" interface="CAN" command="0" />
-			<operation type="receivePassFail" interface="CAN" valPass="0x02 0x00" logMess="1" />
-		</test>
+        <test id="5" name="Verifica Revisione Firmmware di Test">
+            <operation type="send" interface="CAN" command="0" />
+            <operation type="receivePassFail" interface="CAN" valPass="0x02 0x00" logMess="1" />
+        </test>
 
-		<test id="6" name="Test Leds">
-			<operation type="okDialog" text="Premere OK e verificare che i led DL1, DL2, DL3, DL6 (green, yellow, green, orange) lampeggino come da immagine, e che i led DL4, DL5 (blue, orange) siano accesi." image="img/mc4plus-cshape/mc4plus-cshape-test-led.gif" />
-			<operation type="send" interface="CAN" command="3" />
-			<operation type="wait" value="6000" />
-			<operation type="passFailDialog" text="i led hanno lampeggiato correttamente?" />
-		</test>
+        <test id="6" name="Test Leds">
+            <operation type="okDialog" text="Premere OK e verificare che i led DL1, DL2, DL3, DL6 (green, yellow, green, orange) lampeggino come da immagine, e che i led DL4, DL5 (blue, orange) siano accesi." image="img/mc4plus-cshape/mc4plus-cshape-test-led.gif" />
+            <operation type="send" interface="CAN" command="3" />
+            <operation type="wait" value="6000" />
+            <operation type="passFailDialog" text="i led hanno lampeggiato correttamente?" />
+        </test>
 
-		<test id="7" name="Test TVIN">
-			<operation type="send" interface="CAN" command="4" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="7" name="Test TVIN">
+            <operation type="send" interface="CAN" command="4" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="8" name="Test TVAUX">
-			<operation type="send" interface="CAN" command="5" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="8" name="Test TVAUX">
+            <operation type="send" interface="CAN" command="5" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="9" name="Test Analog Input AN1">
-			<operation type="send" interface="CAN" command="6" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="9" name="Test Analog Input AN1">
+            <operation type="send" interface="CAN" command="6" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="10" name="Test Analog Input AN2">
-			<operation type="send" interface="CAN" command="7" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="10" name="Test Analog Input AN2">
+            <operation type="send" interface="CAN" command="7" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="11" name="Test Analog Input AN3">
-			<operation type="send" interface="CAN" command="8" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="11" name="Test Analog Input AN3">
+            <operation type="send" interface="CAN" command="8" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="12" name="Test Analog Input AN4">
-			<operation type="send" interface="CAN" command="9" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="12" name="Test Analog Input AN4">
+            <operation type="send" interface="CAN" command="9" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="13" name="Test Encoder Reading 1 (P2)">
-			<operation type="okDialog" text="Premere OK quindi premere e rilasciare U2 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u2.gif" />
-			<operation type="send" interface="CAN" command="13" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="13" name="Test Encoder Reading 1 (P2)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U2 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u2.gif" />
+            <operation type="send" interface="CAN" command="13" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="14" name="Test Encoder Reading 2 (P3)">
-			<operation type="okDialog" text="Premere OK quindi premere e rilasciare U1 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u1.gif" />
-			<operation type="send" interface="CAN" command="14" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="14" name="Test Encoder Reading 2 (P3)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U1 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u1.gif" />
+            <operation type="send" interface="CAN" command="14" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="15" name="Test Encoder Reading 3 (P4)">
-			<operation type="okDialog" text="Premere OK quindi premere e rilasciare U3 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u3.gif" />
-			<operation type="send" interface="CAN" command="15" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="15" name="Test Encoder Reading 3 (P4)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U3 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u3.gif" />
+            <operation type="send" interface="CAN" command="15" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="16" name="Test Encoder Reading 4 (P5)">
-			<operation type="okDialog" text="Premere OK quindi premere e rilasciare U4 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u4.gif" />
-			<operation type="send" interface="CAN" command="16" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="16" name="Test Encoder Reading 4 (P5)">
+            <operation type="okDialog" text="Premere OK quindi premere e rilasciare U4 sul setup di test, infine ruotarlo di almeno 90 gradi" image="img/mc4plus/encoder-u4.gif" />
+            <operation type="send" interface="CAN" command="16" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="17" name="Test PWM 1 (P2)">
-			<operation type="send" interface="CAN" command="17" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="17" name="Test PWM 1 (P2)">
+            <operation type="send" interface="CAN" command="17" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="18" name="Test PWM 2 (P3)">
-			<operation type="send" interface="CAN" command="18" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="18" name="Test PWM 2 (P3)">
+            <operation type="send" interface="CAN" command="18" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="19" name="Test PWM 3 (P4)">
-			<operation type="send" interface="CAN" command="19" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="19" name="Test PWM 3 (P4)">
+            <operation type="send" interface="CAN" command="19" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="20" name="Test PWM 4 (P5)">
-			<operation type="send" interface="CAN" command="20" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="20" name="Test PWM 4 (P5)">
+            <operation type="send" interface="CAN" command="20" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="21" name="Test EEprom">
-			<operation type="send" interface="CAN" command="10" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="21" name="Test EEprom">
+            <operation type="send" interface="CAN" command="10" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="22" name="Test Micrel">
-			<operation type="send" interface="CAN" command="11" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="22" name="Test Micrel">
+            <operation type="send" interface="CAN" command="11" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="23" name="Test SPI">
-			<operation type="send" interface="CAN" command="12" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="23" name="Test SPI">
+            <operation type="send" interface="CAN" command="12" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="24" name="Test Fault L">
-			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-1.jpg" />
-			<operation type="send" interface="CAN" command="21" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="24" name="Test Fault L">
+            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-1.jpg" />
+            <operation type="send" interface="CAN" command="21" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="25" name="Test Fault H">
-			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-2.jpg" />
-			<operation type="send" interface="CAN" command="22" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
-		</test>
+        <test id="25" name="Test Fault H">
+            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/mc4plus/fault-2.jpg" />
+            <operation type="send" interface="CAN" command="22" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1" />
+        </test>
 
-		<test id="26" name="Flash Bootloader/Applicativo">
-			<operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_prod.bat" />
+        <test id="26" name="Flash Bootloader/Applicativo">
+            <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_prod.bat" />
             <operation type="batch" batchDir="tools\boards\mc4plus\flash" batchFile="mc4plus_reset.bat" />
-		</test>
+        </test>
 
-		<test id="27" name="Test interefaccia ETH P12">
-			<operation type="wait" value="5000" />
-			<operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
-		</test>
+        <test id="27" name="Test interefaccia ETH P12">
+            <operation type="wait" value="5000" />
+            <operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
+        </test>
 
-		<test id="28" name="Test interefaccia ETH P13">
-			<operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P13' della scheda" image="img/mc4plus-cshape/eth-2.jpg" />
-			<operation type="wait" value="1000" />
-			<operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
-		</test>
+        <test id="28" name="Test interefaccia ETH P13">
+            <operation type="okDialog" text="Connettere il cavo Ethernet del setup 'ETH' al connettore 'P13' della scheda" image="img/mc4plus-cshape/eth-2.jpg" />
+            <operation type="wait" value="1000" />
+            <operation type="batch" batchDir="tools\boards\mc4plus\eth" batchFile="test_eth.bat" />
+        </test>
 
-	</testplan>
+    </testplan>
   
-	<!-- **************************************************************************************************
+    <!-- **************************************************************************************************
   
-		TESTPLAN FOR RFE 
+            TESTPLAN FOR RFE 
   
        **************************************************************************************************-->
 
-	<testplan id="7" board="RFE_MASTER_MPCA" iitcode="12024.C" reportsDir="rfe" rev="1">
+    <testplan id="7" board="RFE_MASTER_MPCA" iitcode="12024.C" reportsDir="rfe" rev="1">
 
-		<interfaces>
-			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-			<interface name="SERIAL" netPort="COM4" bitrate="9600" />
-		</interfaces>
+        <interfaces>
+            <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+            <interface name="SERIAL" netPort="COM4" bitrate="9600" />
+        </interfaces>
 
-		<test id="1" name="Connessioni Setup">
-			<operation type="okDialog" text="Collegare il setup di test come in figura
+    <test id="1" name="Connessioni Setup">
+            <operation type="okDialog" text="Collegare il setup di test come in figura
 
 1. Impostare l'alimentatore a 12V @0.8A
 
@@ -862,156 +853,156 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 5. Connettere il cavo USBC al connettore J9 della RFE (7)
 
 6. Premere Invio a programmazione terminata"
-					   image="img/rfe/rfe-setup.jpg" />
-			<operation type="wait" value="2000" />
-		</test>
-		
-		<test id="2" name="Flash Firmware di test" stopOnFail="true">
-			<operation type="batch" batchDir="tools\boards\rfe\flash" batchFile="rfe_test.bat" />
-		</test>
+            image="img/rfe/rfe-setup.jpg" />
+            <operation type="wait" value="2000" />
+        </test>
 
-		<test id="3" name="Test comunicazione CAN" stopOnFail="true">
-			<operation type="send" interface="CAN" command="0"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="2" name="Flash Firmware di test" stopOnFail="true">
+            <operation type="batch" batchDir="tools\boards\rfe\flash" batchFile="rfe_test.bat" />
+        </test>
 
-		<test id="4" name="Test comunicazione Seriale" stopOnFail="false">
-			<operation type="send" interface="SERIAL" command="test"/>
-			<operation type="wait" value="1000" />
-			<operation type="receivePassFail" interface="SERIAL" valPass="  OK"/>
-		</test>
+        <test id="3" name="Test comunicazione CAN" stopOnFail="true">
+            <operation type="send" interface="CAN" command="0"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="5" name="Test Led Blue OFF">
-			<operation type="send" interface="CAN" command="02" />
-			<operation type="yesNoDialog" text="Il led blu é spento?" image="img/rfe/rfe-ledOFF.jpg" />
-		</test>
+        <test id="4" name="Test comunicazione Seriale" stopOnFail="false">
+            <operation type="send" interface="SERIAL" command="test"/>
+            <operation type="wait" value="1000" />
+            <operation type="receivePassFail" interface="SERIAL" valPass="  OK"/>
+        </test>
 
-		<test id="6" name="Test Led Blue ON">
-			<operation type="send" interface="CAN" command="03" />
-			<operation type="yesNoDialog" text="Il led blu é acceso?" image="img/rfe/rfe-ledON.jpg" />
-		</test>
+        <test id="5" name="Test Led Blue OFF">
+            <operation type="send" interface="CAN" command="02" />
+            <operation type="yesNoDialog" text="Il led blu é spento?" image="img/rfe/rfe-ledOFF.jpg" />
+        </test>
 
-		<test id="7" name="Test Connector J10 (i2c1)">
-			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J10 come in figura" image="img/rfe/rfe-j10.jpg" />
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="08" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
-		</test>
+        <test id="6" name="Test Led Blue ON">
+            <operation type="send" interface="CAN" command="03" />
+            <operation type="yesNoDialog" text="Il led blu é acceso?" image="img/rfe/rfe-ledON.jpg" />
+        </test>
 
-		<test id="8" name="Test Connector J11 (i2c2)">
-			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J11 come in figura" image="img/rfe/rfe-j11.jpg" />
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="09" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
-		</test>
+        <test id="7" name="Test Connector J10 (i2c1)">
+            <operation type="okDialog" text="Collegare apposito connettore esterno al connettore J10 come in figura" image="img/rfe/rfe-j10.jpg" />
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="08" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+        </test>
 
-		<test id="9" name="Test Connector J12 (i2c3)">
-			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J12 come in figura" image="img/rfe/rfe-j12.jpg" />
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="10" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
-		</test>
+        <test id="8" name="Test Connector J11 (i2c2)">
+            <operation type="okDialog" text="Collegare apposito connettore esterno al connettore J11 come in figura" image="img/rfe/rfe-j11.jpg" />
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="09" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+        </test>
 
-		<test id="10" name="Test Connector J13 (i2c4)">
-			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J13 come in figura" image="img/rfe/rfe-j13.jpg" />
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="11" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
-		</test>
+        <test id="9" name="Test Connector J12 (i2c3)">
+            <operation type="okDialog" text="Collegare apposito connettore esterno al connettore J12 come in figura" image="img/rfe/rfe-j12.jpg" />
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="10" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+        </test>
 
-		<test id="11" name="Test Connector J1 (spi1)">
-			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J1 come in figura" image="img/rfe/rfe-j1.jpg" />
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="12" />
-			<operation type="passFailDialog" text="I led sulla scheda esterna sono accesi?" />
-		</test>
+        <test id="10" name="Test Connector J13 (i2c4)">
+            <operation type="okDialog" text="Collegare apposito connettore esterno al connettore J13 come in figura" image="img/rfe/rfe-j13.jpg" />
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="11" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+        </test>
 
-		<test id="12" name="Test IMU BOSCH">
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="05" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
-		</test>
+        <test id="11" name="Test Connector J1 (spi1)">
+            <operation type="okDialog" text="Collegare apposito connettore esterno al connettore J1 come in figura" image="img/rfe/rfe-j1.jpg" />
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="12" />
+            <operation type="passFailDialog" text="I led sulla scheda esterna sono accesi?" />
+        </test>
 
-		<test id="13" name="Test IMU MPU-9250">
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="06" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
-		</test>
+        <test id="12" name="Test IMU BOSCH">
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="05" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
+        </test>
 
-		<test id="14" name="Test Connector J2 (servo)">
-			<operation type="okDialog" text="Collegare apposito connettore esterno al connettore J2 come in figura" image="img/rfe/rfe-j2.jpg" />
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="07" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
-		</test>
+        <test id="13" name="Test IMU MPU-9250">
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="06" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+        </test>
 
-		<test id="15" name="Test J5 (12V)">
-			<operation type="okDialog" text="Accendere alimentatore esterno 12V " image="img/rfe/rfe-j5.jpg"/>
-			<operation type="send" interface="CAN" command="04" />
-			<operation type="wait" value="500" />			
-			<operation type="passFailDialog" text="Scollegare il cavo USB, Il led Blue é sempre acceso?"  image="img/rfe/rfe-j5_2jpg"/>
-		</test>
-		
-		<test id="16" name="Flash Bootloader/Applicativo">
-			<operation type="batch" batchDir="tools\boards\rfe\flash" batchFile="rfe_prod.bat" />
-		</test>
-		
-	</testplan>
+        <test id="14" name="Test Connector J2 (servo)">
+            <operation type="okDialog" text="Collegare apposito connettore esterno al connettore J2 come in figura" image="img/rfe/rfe-j2.jpg" />
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="07" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+        </test>
+
+        <test id="15" name="Test J5 (12V)">
+            <operation type="okDialog" text="Accendere alimentatore esterno 12V " image="img/rfe/rfe-j5.jpg"/>
+            <operation type="send" interface="CAN" command="04" />
+            <operation type="wait" value="500" />                       
+            <operation type="passFailDialog" text="Scollegare il cavo USB, Il led Blue é sempre acceso?"  image="img/rfe/rfe-j5_2jpg"/>
+        </test>
+
+        <test id="16" name="Flash Bootloader/Applicativo">
+            <operation type="batch" batchDir="tools\boards\rfe\flash" batchFile="rfe_prod.bat" />
+        </test>
+    
+    </testplan>
 <!-- **************************************************************************************************
   
-		TESTPLAN FOR FAP5 
+            TESTPLAN FOR FAP5 
   
        **************************************************************************************************-->
 
-	<testplan id="8" board="FAP5" iitcode="15423.A" reportsDir="fap5" rev="1">
+    <testplan id="8" board="FAP5" iitcode="15423.A" reportsDir="fap5" rev="1">
 
-		<interfaces>
-			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-		</interfaces>
+        <interfaces>
+            <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+        </interfaces>
 
-		<test id="1" name="Connessioni Setup">
-			<operation type="okDialog" text="Collegare il setup di test come in figura
+        <test id="1" name="Connessioni Setup">
+            <operation type="okDialog" text="Collegare il setup di test come in figura
 
 1. Connect the ST-LINK's debugger (1) to the J8 RFE's connector (2) an to the PC
 2. Connect the USB/CAN's interface (3) to the J4 RFE's connector (4) and to the PC
 3. Connect the FAP5 (5) to be tested to J10 rfe connector (6)"
 
-					   image="img/fap5/fap5-setup.jpg" />
-			<operation type="wait" value="2000" />
-		</test>
-		
-		<test id="2" name="Flash Firmware di test" stopOnFail="true">
-			<operation type="batch" batchDir="tools\boards\rfe\flash" batchFile="rfe_test.bat" />
-		</test>
+            image="img/fap5/fap5-setup.jpg" />
+            <operation type="wait" value="2000" />
+        </test>
 
-		<test id="3" name="Test comunicazione CAN" stopOnFail="true">
-			<operation type="send" interface="CAN" command="0"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="2" name="Flash Firmware di test" stopOnFail="true">
+            <operation type="batch" batchDir="tools\boards\rfe\flash" batchFile="rfe_test.bat" />
+        </test>
 
-		<test id="4" name="Test FAP J10 (i2c1)">
-			<operation type="okDialog" text="Collegare la FAP5 da testare al connettore J10 come in figura" image="img/rfe/rfe-j10.jpg" />
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="08" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
-		</test>
-				
-	</testplan>
+        <test id="3" name="Test comunicazione CAN" stopOnFail="true">
+            <operation type="send" interface="CAN" command="0"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-	<!-- **************************************************************************************************
+        <test id="4" name="Test FAP J10 (i2c1)">
+            <operation type="okDialog" text="Collegare la FAP5 da testare al connettore J10 come in figura" image="img/rfe/rfe-j10.jpg" />
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="08" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
+        </test>
+    
+    </testplan>
+
+    <!-- **************************************************************************************************
   
-		TESTPLAN FOR AMC-BLDC 
+            TESTPLAN FOR AMC-BLDC 
   
        **************************************************************************************************-->
 
-	<testplan id="9" board="AMC-BLDC" iitcode="14962.D" reportsDir="amc-bldc" rev="1">
+    <testplan id="9" board="AMC-BLDC" iitcode="14962.D" reportsDir="amc-bldc" rev="1">
 
-		<interfaces>
-			<interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
-		</interfaces>
+        <interfaces>
+            <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
+        </interfaces>
 
-		<test id="1" name="Connessioni Setup">
-			<operation type="okDialog" text=
+        <test id="1" name="Connessioni Setup">
+            <operation type="okDialog" text=
 "Collegare il setup di test come in figura
 
 1. Collega il cavo di alimentazione (1) al connettore J7 del JIG (2) e questo al connettore J7 della AMC-BLDC (2A)
@@ -1033,137 +1024,137 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 7. Accendi l' alimentatore settato a 12Vdc @ 0.5A (± 5%)
 
 8. Premi ENTER a programmazione terminata per proseguire"  
-				image="img/amc-bldc/amc-bldc_setup.jpg" />
-			<operation type="wait" value="2000" />
-		</test>
+            image="img/amc-bldc/amc-bldc_setup.jpg" />
+            <operation type="wait" value="2000" />
+        </test>
 
-		<test id="2" name="Flash Firmware di test" stopOnFail="true">
-			<operation type="batch" batchDir="tools\boards\amc-bldc\flash" batchFile="amc-bldc_test.bat" />
-		</test>
+        <test id="2" name="Flash Firmware di test" stopOnFail="true">
+            <operation type="batch" batchDir="tools\boards\amc-bldc\flash" batchFile="amc-bldc_test.bat" />
+        </test>
 
-		<test id="3" name="Test comunicazione CAN" stopOnFail="true">
-			<operation type="wait" value="500" />
-			<operation type="send" interface="CAN" command="0"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="3" name="Test comunicazione CAN" stopOnFail="true">
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="0"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
-			<operation type="send" interface="CAN" command="1" />
-			<operation type="receivePassFail" interface="CAN" valPass="0x01 0x02 0x0" logMess="1" />
-		</test>
+        <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
+            <operation type="send" interface="CAN" command="1" />
+            <operation type="receivePassFail" interface="CAN" valPass="0x01 0x02 0x0" logMess="1" />
+        </test>
 
-		<test id="5" name="Verifica Device ID microcontrollore">
-			<operation type="send" interface="CAN" command="4" />
-			<operation type="receivePassFail" interface="CAN" valPass="0x20 0x03 0x04 0x69" logMess="1" />
-		</test>
+        <test id="5" name="Verifica Device ID microcontrollore">
+            <operation type="send" interface="CAN" command="4" />
+            <operation type="receivePassFail" interface="CAN" valPass="0x20 0x03 0x04 0x69" logMess="1" />
+        </test>
 
-		<test id="6" name="Test Leds OFF">
-			<operation type="send" interface="CAN" command="2" />
-			<operation type="yesNoDialog" text="I led rosso e verde sono spenti?" image="img/amc-bldc/amc-bldc_LED_OFF.jpg" />
-		</test>
+        <test id="6" name="Test Leds OFF">
+            <operation type="send" interface="CAN" command="2" />
+            <operation type="yesNoDialog" text="I led rosso e verde sono spenti?" image="img/amc-bldc/amc-bldc_LED_OFF.jpg" />
+        </test>
 
-		<test id="7" name="Test Leds ON">
-			<operation type="send" interface="CAN" command="3" />
-			<operation type="yesNoDialog" text="I led rosso e verde sono accesi?" image="img/amc-bldc/amc-bldc_LED_ON.jpg" />
-		</test>
+        <test id="7" name="Test Leds ON">
+            <operation type="send" interface="CAN" command="3" />
+            <operation type="yesNoDialog" text="I led rosso e verde sono accesi?" image="img/amc-bldc/amc-bldc_LED_ON.jpg" />
+        </test>
 
-		<test id="8" name="Test VIN" stopOnFail="true">
-			<operation type="send" interface="CAN" command="5"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
-		</test>
+        <test id="8" name="Test VIN" stopOnFail="true">
+            <operation type="send" interface="CAN" command="5"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
 
-		<test id="9" name="Test CIN">
-			<operation type="send" interface="CAN" command="6"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
-		</test>
+        <test id="9" name="Test CIN">
+            <operation type="send" interface="CAN" command="6"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
 
-		<test id="10" name="Test VAUXOK">
-			<operation type="send" interface="CAN" command="7"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="10" name="Test VAUXOK">
+            <operation type="send" interface="CAN" command="7"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="11" name="Test VCCOK">
-			<operation type="send" interface="CAN" command="8"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="11" name="Test VCCOK">
+            <operation type="send" interface="CAN" command="8"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="12" name="Test FAULT OFF">
-			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_OFF.jpg" />
-			<operation type="send" interface="CAN" command="9" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="12" name="Test FAULT OFF">
+            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_OFF.jpg" />
+            <operation type="send" interface="CAN" command="9" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="13" name="Test FAULT ON">
-			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_ON.jpg" />
-			<operation type="send" interface="CAN" command="10" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="13" name="Test FAULT ON">
+            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_ON.jpg" />
+            <operation type="send" interface="CAN" command="10" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="14" name="Test I2C">
-			<operation type="send" interface="CAN" command="11"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="14" name="Test I2C">
+            <operation type="send" interface="CAN" command="11"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="15" name="Test Hall sensors">
-			<operation type="okDialog" text="Premere OK quindi ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_HALL_encoders.gif" />
-			<operation type="send" interface="CAN" command="12" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+        <test id="15" name="Test Hall sensors">
+            <operation type="okDialog" text="Premere OK quindi ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_HALL_encoders.gif" />
+            <operation type="send" interface="CAN" command="12" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="16" name="Test Incremental Encoder">
-			<operation type="okDialog" text="Premere OK quindi premi e ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_abz_encoders.gif" />
-			<operation type="send" interface="CAN" command="13" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
-	    
-		<test id="17" name="Test Option Bytes">
-			<operation type="send" interface="CAN" command="14" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" />
-		</test>
+        <test id="16" name="Test Incremental Encoder">
+            <operation type="okDialog" text="Premere OK quindi premi e ruota il rotore a mano come in figura" image="img/amc-bldc/amc-bldc_abz_encoders.gif" />
+            <operation type="send" interface="CAN" command="13" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
 
-		<test id="18" name="Preparazione setup per test su PWM">
-			<operation type="okDialog" text=
+        <test id="17" name="Test Option Bytes">
+            <operation type="send" interface="CAN" command="14" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" />
+        </test>
+
+        <test id="18" name="Preparazione setup per test su PWM">
+            <operation type="okDialog" text=
 "Prima di procedere è necessario preparare il setup come in figura:
-					   
+        
 1. Setta l'alimentatore a 24Vdc (±0.5) e limitare l'assorbimento di corrente a 0.5A.
 
 2. Collega il cavo delle fasi del motore tra il connettore J6 del JIG (1) e il connettore J4 della AMC-BLDC (2).
 
 3. Si fa notare che le fasi alimentate dalla PWM possono essere controllate dai test-points A, B, C rispettivamente correlati alle fasi 1, 2, 3 come indicato in fogura."
-				image="img/amc-bldc/amc-bldc_current_probes.jpg" />
-			<operation type="wait" value="2000" />
-		</test>
-		
-		<test id="19" name="Test PWM Phase 1">
-			<operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: GREEN, OFF, GREEN come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_1.jpg" />
-			<operation type="send" interface="CAN" command="15" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
-		</test>
+            image="img/amc-bldc/amc-bldc_current_probes.jpg" />
+            <operation type="wait" value="2000" />
+        </test>
 
-		<test id="20" name="Test PWM Phase 2">
-			<operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: RED, GREEN, OFF come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_2.jpg" />
-			<operation type="send" interface="CAN" command="16" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
-		</test>
+        <test id="19" name="Test PWM Phase 1">
+            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: GREEN, OFF, GREEN come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_1.jpg" />
+            <operation type="send" interface="CAN" command="15" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
 
-		<test id="21" name="Test PWM Phase 3">
-			<operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: OFF, RED, RED come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_3.jpg" />
-			<operation type="send" interface="CAN" command="17" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
-		</test>
+        <test id="20" name="Test PWM Phase 2">
+            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: RED, GREEN, OFF come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_2.jpg" />
+            <operation type="send" interface="CAN" command="16" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
 
-		<test id="22" name="Flash Bootloader/Applicativo">
-			<operation type="batch" batchDir="tools\boards\amc-bldc\flash" batchFile="amc-bldc_prod.bat" />
-		</test>
-		
-	</testplan>
-	
+        <test id="21" name="Test PWM Phase 3">
+            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: OFF, RED, RED come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_3.jpg" />
+            <operation type="send" interface="CAN" command="17" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
 
-	<!--**************************************************************************************************
+        <test id="22" name="Flash Bootloader/Applicativo">
+            <operation type="batch" batchDir="tools\boards\amc-bldc\flash" batchFile="amc-bldc_prod.bat" />
+        </test>
+    
+    </testplan>
+
+
+    <!--**************************************************************************************************
   
-		TESTPLAN FOR AMC
+            TESTPLAN FOR AMC
   
-		**************************************************************************************************-->
+            **************************************************************************************************-->
 
     <testplan id="10" board="AMC" iitcode="15070.E" reportsDir="amc" rev="1">
 
@@ -1171,8 +1162,8 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
             <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
         </interfaces>
 
-		<test id="1" name="Connessioni Setup">
-			<operation type="okDialog" text="
+        <test id="1" name="Connessioni Setup">
+            <operation type="okDialog" text="
 Collegare il setup di test come in figura
 
 1. Collega il cavo di alimentazione (1) al connettore J7 del JIG (2) e questo al connettore J15 della AMC (2A)
@@ -1190,349 +1181,457 @@ Collegare il setup di test come in figura
 7. Collega i cavi dei sensori Hall/ABZ del JIG in corrispondenza dei connettori specifici J33 per AMC-HALL (8A) e J20 AMC-ABZ (8B) del JIG al connettore J8 della AMC (8)
 
 8. Collega il cavo Fault al connettore J1 (7) del JIG. Questo si trova cablato con i cavi di I2C/SPI del connettore J5 della AMC.
-				
+        
 9. Collega i cavi dei canali SPI/I2C del JIG in corrispondenza dei connettori specifici per i 3 canali J12 (9A), J13 (9B) e J14 (9C) del JIG al connettore J5 della AMC (9)
-				
+        
 10. Collega il cavo ETH1 fornito con il JIG tra il connettore J4 del JIG (10A) e il connettore J6 della AMC (10B). Collega poi un cavo LAN alla porta ETH (J23) del JIG (10) e questo al PC 
 
-11. Accendi l' alimentatore settato a 18Vdc @ 0.5A (± 5%)
+11. Per ora NON collegare il cavo etichettato con MOT al connettore J1 della AMC (sarà utillizato in seguito per i test sulla PWM)
 
-12. Premi ENTER a programmazione terminata per proseguire"  
-			image="img/amc/amc-setup.png" />
+12. Accendi l' alimentatore settato a 18Vdc @ 0.5A (± 5%)
+
+13. Premi ENTER a programmazione terminata per proseguire"  
+            image="img/amc/amc-setup.png" />
             <operation type="wait" value="2000" />
-		</test>
+        </test>
 
-        <test id="2" name="Flash Firmware di test" stopOnFail="true">
-            <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_test.bat" />
+        <test id="2" name="Test Setup for CM7 core">
+            <operation type="okDialog" text=
+"Per comunicare correttamente i vari comandi di test al core CM7 della board AMC seguire i seguenti passaggi e fare i collegamenti come mostrato in figura:
+
+1. Collegare il cavo CAN del device ESD CAN-USB al connettore J11 della JIG
+2. Collegare il cavo CAN etichettato come CAN1 tra il connettore J9 della JIG e il connettore J11 della AMC
+3. Chiudere il jumper JP2
+4. Non connettere il cavo etichettato come CAN2 alla AMC"
+            image="img/amc/amc_CAN1-connection-CM7-test.jpg "/>
+			<operation type="wait" value="2000" />
+        </test>
+        
+        <test id="3" name="Pretest Flash eLoader" stopOnFail="true">
+            <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_eloader.bat"/>
+			<operation type="wait" value="2000" />
+        </test>
+
+        <test id="4" name="Pretest Flash eUpdater" stopOnFail="true">
+            <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_eupdater.bat"/>
+			<operation type="wait" value="2000" />
+        </test>
+
+        <test id="5" name="Flash Firmware di test CM7" stopOnFail="true">
+            <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_test_cm7.bat" />
+			<operation type="wait" value="2000" />
         </test> 
 
-        <test id="3" name="Test comunicazione CAN" stopOnFail="true">
+        <test id="6" name="Test comunicazione CAN 1" stopOnFail="true">
             <operation type="wait" value="500" />
             <operation type="send" interface="CAN" command="0"/>
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
         </test>
 
-         <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
+        <test id="7" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
             <operation type="send" interface="CAN" command="1" />
-            <operation type="receivePassFail" interface="CAN" valPass="0x01 0x00 0x00" logMess="1" />
+            <operation type="receivePassFail" interface="CAN" valPass="0x01 0x01 0x00" logMess="1" />
         </test> 
 
-        <test id="5" name="Verifica Device ID microcontrollore">
+        <test id="8" name="Verifica Device ID microcontrollore">
             <operation type="send" interface="CAN" command="4" />
             <operation type="receivePassFail" interface="CAN" valPass="0x20 0x03 0x64 0x50" logMess="1" />
         </test>
 
-		<test id="6" name="Test Leds OFF">
+        <test id="9" name="Test Leds OFF" stopOnFail="true">
+			<operation type="wait" value="500" />
 			<operation type="send" interface="CAN" command="2" />
-			<operation type="yesNoDialog" text="I led rosso e verde sono spenti?" image="img/amc/amc_LED_OFF.jpg" />
+            <operation type="yesNoDialog" text="I led rosso e verde sono spenti?" image="img/amc/amc_LED_OFF.jpg" />
+        </test>
+
+        <test id="10" name="Test Leds ON" stopOnFail="true">
+			<operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="3" />
+            <operation type="yesNoDialog" text="I led rosso e verde sono accesi?" image="img/amc/amc_LED_ON.jpg" />
+        </test>
+
+        <test id="11" name="Test Comunicazione ETH" stopOnFail="false">
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="14"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
+
+        <test id="12" name="Test VAUXOK" stopOnFail="true">
+			<operation type="wait" value="1000" />
+            <operation type="send" interface="CAN" command="7"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
+
+        <test id="13" name="Test PWRnFAIL" stopOnFail="true">
+			<operation type="wait" value="1000" />
+            <operation type="send" interface="CAN" command="8"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
+
+        <test id="14" name="Prepare SPI switch">
+            <operation type="okDialog" text="Posizionare lo switch sul setup verso SPI_EN come in figura" image="img/amc/amc_SWITCH_SPI_EN.jpg" />
+			<operation type="wait" value="2000" />
+        </test>
+
+        <test id="15" name="Test SPI Encoders" stopOnFail="false">
+            <operation type="send" interface="CAN" command="15"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA 0xAA 0xAA"/>
+        </test>
+
+        <test id="16" name="Prepare I2C switch">
+            <operation type="okDialog" text="Posizionare lo switch sul setup verso I2C_EN come in figura" image="img/amc/amc_SWITCH_I2C_EN.jpg" />
+			<operation type="wait" value="2000" />
 		</test>
 
-		<test id="7" name="Test Leds ON">
-			<operation type="send" interface="CAN" command="3" />
-			<operation type="yesNoDialog" text="I led rosso e verde sono accesi?" image="img/amc/amc_LED_ON.jpg" />
-		</test>
+        <test id="17" name="Test I2C Channels" stopOnFail="false">
+            <operation type="send" interface="CAN" command="11"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA 0xAA 0xAA"/>
+        </test>
 
-		<test id="8" name="Test VIN" stopOnFail="true">
-			<operation type="send" interface="CAN" command="5"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
-		</test>
+        <test id="18" name="Test Setup for CM4 core">
+			<operation type="okDialog" text=
+"Per comunicare correttamente i vari comandi di test al core CM4 della board AMC seguire i seguenti passaggi e fare i collegamenti come mostrato in figura:
 
-		<test id="9" name="Test CIN">
-			<operation type="send" interface="CAN" command="6"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
-		</test>
-	
-		<test id="10" name="Test FAULT OFF">
-			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc/amc_FAULT_OFF.jpg" />
-			<operation type="send" interface="CAN" command="9" />
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
+1. Collegare il cavo CAN del device ESD CAN-USB al connettore J10 della JIG
+2. Collegare il cavo CAN etichettato come CAN2 tra il connettore J8 della JIG e il connettore J12 della AMC
+3. Chiudere il jumper JP1
+4. Non connettere il cavo etichettato come CAN1 alla AMC"
+image="img/amc/amc_CAN2-connection-CM4-test.jpg "/>
+			<operation type="wait" value="2000" />
+        </test>
 
-		<test id="11" name="Test FAULT ON">
+        <test id="19" name="Flash Firmware di test CM4" stopOnFail="true">
+            <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_test_cm4.bat" />
+			<operation type="wait" value="2000" />
+        </test> 
+    
+        <test id="20" name="Test comunicazione CAN 2" stopOnFail="true">
+            <operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="0"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
+
+        <test id="21" name="Test VIN" stopOnFail="true">
+			<operation type="wait" value="2000" />
+            <operation type="send" interface="CAN" command="5"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
+
+        <test id="22" name="Test CIN" stopOnFail="true">
+			<operation type="wait" value="500" />
+            <operation type="send" interface="CAN" command="6"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
+
+		<test id="23" name="Test FAULT ON" stopOnFail="true">
 			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc/amc_FAULT_ON.jpg" />
 			<operation type="send" interface="CAN" command="10" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
-	
-		<test id="12" name="Test Comunicazione ETH" stopOnFail="true">
-			<operation type="wait" value="500" />
-            <operation type="send" interface="CAN" command="14"/>
-            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
-	
-		<test id="13" name="Test VAUXOK">
-			<operation type="send" interface="CAN" command="7"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
 
-		<test id="14" name="Test PWRnFAIL">
-			<operation type="send" interface="CAN" command="8"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
-		</test>
-	
-		<test id="15" name="Prepare SPI switch">
-			<operation type="okDialog" text="Posizionare lo switch sul setup verso SPI_EN come in figura" image="img/amc/amc_SWITCH_SPI_EN.jpg" />
+        <test id="24" name="Test FAULT OFF" stopOnFail="true">
+            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc/amc_FAULT_OFF.jpg" />
+            <operation type="send" interface="CAN" command="9" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+        </test>
+
+        <test id="25" name="Test Hall Status" stopOnFail="false">
+			<operation type="okDialog" text="Premere OK quindi ruota a mano il rotore della JIG U22 mostrato in figura in entrambe le direzioni" image="img/amc/amc_HALL_sensor.jpg" />
+            <operation type="send" interface="CAN" command="12"/>
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
+
+        <test id="26" name="Test Incremental Encoder" stopOnFail="false">
+            <operation type="okDialog" text="Premere OK quindi premi e ruota a mano verso una direzione il rotore della JIG U24 mostrato in figura.
+Dopo circa 1-2 giri premi nuovamente e ruota nella direzione opposta" image="img/amc/amc_ABZ_encoder.jpg" />
+            <operation type="send" interface="CAN" command="13" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
+
+		<test id="27" name="Preparazione setup per test su PWM">
+			<operation type="okDialog" text=
+"Prima di procedere è necessario preparare il setup come in figura:
+        
+1. Setta l'alimentatore a 24Vdc (±0.5) e limitare l'assorbimento di corrente a 0.6A (±0.1).
+
+2. Collega il cavo delle fasi del motore tra il connettore J6 del JIG e il connettore J1 della AMC.
+
+3. Si fa notare che le fasi alimentate dalla PWM possono essere controllate dai test-points A, B, C rispettivamente correlati alle fasi 1, 2, 3 come indicato in figura."
+            image="img/amc/amc_PWM_setup.jpg" />
+			<operation type="wait" value="2000" />
 		</test>
 		
-		<test id="16" name="Test SPI Encoders">
-			<operation type="send" interface="CAN" command="15"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA 0xAA 0xAA"/>
-		</test>
+        <test id="28" name="Test PWM Phase 1" stopOnFail="false">
+            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: GREEN, OFF, GREEN come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_1.jpg" />
+            <operation type="send" interface="CAN" command="16" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
+
+        <test id="29" name="Test PWM Phase 2" stopOnFail="false">
+            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: RED, GREEN, OFF come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_2.jpg" />
+            <operation type="send" interface="CAN" command="17" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+        </test>
+
+        <test id="30" name="Test PWM Phase 3" stopOnFail="false">
+            <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: OFF, RED, RED come mostrato in figura" image="img/amc-bldc/amc-bldc_LED_PWM_3.jpg" />
+            <operation type="send" interface="CAN" command="18" />
+            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+			<operation type="wait" value="2000" />
+        </test>
 		
-		<test id="17" name="Prepare I2C switch">
-			<operation type="okDialog" text="Posizionare lo switch sul setup verso I2C_EN come in figura" image="img/amc/amc_SWITCH_I2C_EN.jpg" />
-		</test>
-		
-		<test id="18" name="Test I2C Channels">
-			<operation type="send" interface="CAN" command="11"/>
-			<operation type="receivePassFail" interface="CAN" valPass="0xAA 0xAA 0xAA"/>
-		</test>
-	
+        <test id="31" name="Flash Applicativo Production CM7 (master)" stopOnFail="true">
+            <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_prod_cm7.bat"/>
+			<operation type="wait" value="1000" />
+        </test>
+
+        <test id="32" name="Flash Applicativo Production CM4 (slave)" stopOnFail="true">
+            <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_prod_cm4.bat"/>
+			<operation type="wait" value="1000" />
+        </test>
+    
     </testplan>
-	
+
         
     <!-- **************************************************************************************************
   
-		TESTPLAN FOR DC MOTORS
+            TESTPLAN FOR DC MOTORS
   
        **************************************************************************************************-->
-	   
+
    <testplan id="11" board="DC MOTORS" iitcode="2694" reportsDir="dcMotors" rev="1">
 
-    <test id="1" name="Connessioni Setup">
-	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
-      <operation type="okDialog" text="Collegare ed impostare l'alimentatore come in figura" image="img/dcMotors/pws.jpg" />
-      <operation type="okDialog" text="Collegare le sonde dell'oscilloscopio al jig come in figura" image="img/dcMotors/probes.jpg" />
-      <operation type="okDialog" text="Collegare il motore al jig come in figura" image="img/dcMotors/yesEncoder.jpg" log="true"/>
-    </test>
+        <test id="1" name="Connessioni Setup">
+            <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
+            <operation type="okDialog" text="Collegare ed impostare l'alimentatore come in figura" image="img/dcMotors/pws.jpg" />
+            <operation type="okDialog" text="Collegare le sonde dell'oscilloscopio al jig come in figura" image="img/dcMotors/probes.jpg" />
+            <operation type="okDialog" text="Collegare il motore al jig come in figura" image="img/dcMotors/yesEncoder.jpg" log="true"/>
+        </test>
 
-    <test id="2" name="Test rotazione motore">
-      <operation type="passFailDialog" text="Alimentare il motore, il motore gira in senso orario?" />
-    </test>
-    
-	<test id="3" name="Test lettura encoder">
-      <operation type="yesNoDialog" text="Sull'oscilloscopio viene visualizzata una forma d'onda simile a quella in figura?" image="img/dcMotors/encoderWaveForm.jpg" />
-    </test>
-	
-	<test id="4" name="Etichettatura">
-      <operation type="okDialog" text="Applicare l'etichetta con il serial number sul motore come in figura.." image="img/dcMotors/label1.jpg" />
-      <operation type="okDialog" text="Applicare un sottile strato di colla sotto la piegatura del flat e fissarlo con una fascetta come in figura.." image="img/dcMotors/label2.jpg" />
-    </test>
+        <test id="2" name="Test rotazione motore">
+            <operation type="passFailDialog" text="Alimentare il motore, il motore gira in senso orario?" />
+        </test>
+        
+        <test id="3" name="Test lettura encoder">
+            <operation type="yesNoDialog" text="Sull'oscilloscopio viene visualizzata una forma d'onda simile a quella in figura?" image="img/dcMotors/encoderWaveForm.jpg" />
+        </test>
+
+        <test id="4" name="Etichettatura">
+            <operation type="okDialog" text="Applicare l'etichetta con il serial number sul motore come in figura.." image="img/dcMotors/label1.jpg" />
+            <operation type="okDialog" text="Applicare un sottile strato di colla sotto la piegatura del flat e fissarlo con una fascetta come in figura.." image="img/dcMotors/label2.jpg" />
+        </test>
+        
+    </testplan>
+
+    <testplan id="12" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
+
+        <test id="1" name="Connessioni Setup">
+            <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
+            <operation type="okDialog" text="Collegare ed impostare l'alimentatore come in figura" image="img/dcMotors/pws.jpg" />
+            <operation type="okDialog" text="Collegare il motore al jig come in figura" image="img/dcMotors/noEncoder.jpg" />
+        </test>
+
+        <test id="2" name="Test rotazione motore">
+            <operation type="passFailDialog" text="Alimentare il motore, il motore gira in senso orario?" />
+        </test>
+
+        <test id="3" name="Etichettatura">
+            <operation type="okDialog" text="Applicare l'etichetta con il serial number sul motore come in figura.." image="img/dcMotors/label1.jpg" />
+            <operation type="okDialog" text="Applicare un sottile strato di colla sotto la piegatura del flat e fissarlo con una fascetta come in figura.." image="img/dcMotors/label2.jpg" />
+        </test>
      
   </testplan>
 
-   <testplan id="12" board="DC MOTORS" iitcode="12264" reportsDir="dcMotors" rev="1">
 
-    <test id="1" name="Connessioni Setup">
-	  <operation type="okDialog" text="Preparazione setup di test..." image="img/dcMotors/setup.jpg" />
-      <operation type="okDialog" text="Collegare ed impostare l'alimentatore come in figura" image="img/dcMotors/pws.jpg" />
-      <operation type="okDialog" text="Collegare il motore al jig come in figura" image="img/dcMotors/noEncoder.jpg" />
-    </test>
-
-    <test id="2" name="Test rotazione motore">
-      <operation type="passFailDialog" text="Alimentare il motore, il motore gira in senso orario?" />
-    </test>
-    		
-	<test id="3" name="Etichettatura">
-      <operation type="okDialog" text="Applicare l'etichetta con il serial number sul motore come in figura.." image="img/dcMotors/label1.jpg" />
-      <operation type="okDialog" text="Applicare un sottile strato di colla sotto la piegatura del flat e fissarlo con una fascetta come in figura.." image="img/dcMotors/label2.jpg" />
-    </test>
-     
-  </testplan>
-
-	
       <!-- **************************************************************************************************
   
-		TESTPLAN FOR BRUSHLESS MOTORS
+            TESTPLAN FOR BRUSHLESS MOTORS
   
        **************************************************************************************************-->
-	   
+
     <testplan id="13" board="BRUSHLESS MOTORS" iitcode="10347" reportsDir="brushlessMotors" rev="2">
 
-
-    <test id="1" name="Controllo visivo">
-      <operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
-    </test>
+        <test id="1" name="Controllo visivo">
+            <operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
+        </test>
     
-	<test id="2" name="Controllo assenza cc">
-      <operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
-    </test>
-	
-	<test id="3" name="Verifica valore avvolgimenti">
-      <operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
-    </test>
-	
-	<test id="4" name="Verifica fasatura rotore">
-      <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
-    </test>
-	
-	<test id="5" name="Verifica accoppiamento rotore / albero">
-      <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
-    </test>   
-	
-	<test id="6" name="Test sensori di hall">
-	  <operation type="okDialog" text="Preparazione setup di test..." image="img/brushlessMotors/setup.jpg" />
-      <operation type="okDialog" text="Asemblare statore e rotore con la meccanica di test, collegare quindi i fili al setup." image="img/brushlessMotors/assembly.jpg" />
-      <operation type="yesNoDialog" text="Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Hall Sens. Muovendo a mano il rotore i valori sul display cambiano?" image="img/brushlessMotors/hall.jpg" />
-    </test>
-	
-	<test id="8" name="Test motore">
-      <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
-	  
+        <test id="2" name="Controllo assenza cc">
+            <operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
+        </test>
+
+        <test id="3" name="Verifica valore avvolgimenti">
+            <operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
+        </test>
+
+        <test id="4" name="Verifica fasatura rotore">
+            <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
+        </test>
+
+        <test id="5" name="Verifica accoppiamento rotore / albero">
+            <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
+        </test>   
+
+        <test id="6" name="Test sensori di hall">
+            <operation type="okDialog" text="Preparazione setup di test..." image="img/brushlessMotors/setup.jpg" />
+            <operation type="okDialog" text="Asemblare statore e rotore con la meccanica di test, collegare quindi i fili al setup." image="img/brushlessMotors/assembly.jpg" />
+            <operation type="yesNoDialog" text="Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Hall Sens. Muovendo a mano il rotore i valori sul display cambiano?" image="img/brushlessMotors/hall.jpg" />
+        </test>
+
+        <test id="8" name="Test motore">
+            <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
+    
 2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.
 
 3. Verificare che selezionando V+ -> rotazione in senso antiorario.
 
-4. Verificare che selezionando V- -> rotazione in senso orario." image="img/brushlessMotors/motor.jpg" />
-    </test>
+4. Verificare che selezionando V- -> rotazione in senso orario." 
+            image="img/brushlessMotors/motor.jpg" />
+        </test>
      
-  </testplan>
+    </testplan>
   
     <testplan id="14" board="BRUSHLESS MOTORS" iitcode="10350" reportsDir="brushlessMotors" rev="2">
 
+        <test id="1" name="Controllo visivo">
+            <operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
+        </test>
+        
+        <test id="2" name="Controllo assenza cc">
+            <operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
+        </test>
 
-    <test id="1" name="Controllo visivo">
-      <operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
-    </test>
-    
-	<test id="2" name="Controllo assenza cc">
-      <operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
-    </test>
-	
-	<test id="3" name="Verifica valore avvolgimenti">
-      <operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
-    </test>
-	
-	<test id="4" name="Verifica fasatura rotore">
-      <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
-    </test>
-	   
-	<test id="5" name="Verifica accoppiamento rotore / albero">
-      <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
-    </test> 
+        <test id="3" name="Verifica valore avvolgimenti">
+            <operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
+        </test>
 
-	<test id="6" name="Test sensori di hall">
-	  <operation type="okDialog" text="Preparazione setup di test..." image="img/brushlessMotors/setup.jpg" />
-      <operation type="okDialog" text="Asemblare statore e rotore con la meccanica di test, collegare quindi i fili al setup." image="img/brushlessMotors/assembly.jpg" />
-      <operation type="yesNoDialog" text="Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Hall Sens. Muovendo a mano il rotore i valori sul display cambiano?" image="img/brushlessMotors/hall.jpg" />
-    </test>
-	
-	<test id="7" name="Test motore">
-      <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
-	  
+        <test id="4" name="Verifica fasatura rotore">
+            <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
+        </test>
+
+        <test id="5" name="Verifica accoppiamento rotore / albero">
+            <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
+        </test> 
+
+        <test id="6" name="Test sensori di hall">
+            <operation type="okDialog" text="Preparazione setup di test..." image="img/brushlessMotors/setup.jpg" />
+            <operation type="okDialog" text="Asemblare statore e rotore con la meccanica di test, collegare quindi i fili al setup." image="img/brushlessMotors/assembly.jpg" />
+            <operation type="yesNoDialog" text="Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Hall Sens. Muovendo a mano il rotore i valori sul display cambiano?" image="img/brushlessMotors/hall.jpg" />
+        </test>
+
+        <test id="7" name="Test motore">
+            <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
+      
 2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.
 
 3. Verificare che selezionando V+ -> rotazione in senso antiorario.
 
-4. Verificare che selezionando V- -> rotazione in senso orario." image="img/brushlessMotors/motor.jpg" />
-    </test>
+4. Verificare che selezionando V- -> rotazione in senso orario." 
+            image="img/brushlessMotors/motor.jpg" />
+        </test>
      
-  </testplan>
+    </testplan>
 
-	<testplan id="15" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="3">
+    <testplan id="15" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="3">
 
+        <test id="1" name="Controllo visivo">
+            <operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
+        </test>
 
-		<test id="1" name="Controllo visivo">
-			<operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
-		</test>
+        <test id="2" name="Controllo assenza cc">
+            <operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
+        </test>
 
-		<test id="2" name="Controllo assenza cc">
-			<operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
-		</test>
+        <test id="3" name="Verifica valore avvolgimenti">
+            <operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
+        </test>
 
-		<test id="3" name="Verifica valore avvolgimenti">
-			<operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
-		</test>
+        <test id="4" name="Verifica fasatura rotore">
+            <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
+        </test>
 
-		<test id="4" name="Verifica fasatura rotore">
-			<operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
-		</test>
+        <test id="5" name="Verifica accoppiamento rotore / albero">
+            <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
+        </test>
 
-		<test id="5" name="Verifica accoppiamento rotore / albero">
-			<operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
-		</test>
-
-		<test id="6" name="Test motore">
-			<operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
-	  
+        <test id="6" name="Test motore">
+            <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
+      
 2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.
 
 3. Verificare che selezionando V+ -> rotazione in senso antiorario.
 
 4. Verificare che selezionando V- -> rotazione in senso orario." image="img/brushlessMotors/motor.jpg" />
-		</test>
+        </test>
 
-	</testplan>
+    </testplan>
 
-	<testplan id="16" board="BRUSHLESS MOTORS" iitcode="7116" reportsDir="brushlessMotors" rev="2">
+    <testplan id="16" board="BRUSHLESS MOTORS" iitcode="7116" reportsDir="brushlessMotors" rev="2">
 
+        <test id="1" name="Controllo visivo">
+            <operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
+        </test>
 
-		<test id="1" name="Controllo visivo">
-			<operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
-		</test>
+        <test id="2" name="Controllo assenza cc">
+            <operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
+        </test>
 
-		<test id="2" name="Controllo assenza cc">
-			<operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
-		</test>
+        <test id="3" name="Verifica valore avvolgimenti">
+            <operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
+        </test>
 
-		<test id="3" name="Verifica valore avvolgimenti">
-			<operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
-		</test>
+        <test id="4" name="Verifica fasatura rotore">
+            <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
+        </test>
 
-		<test id="4" name="Verifica fasatura rotore">
-			<operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
-		</test>
+        <test id="5" name="Verifica accoppiamento rotore / albero">
+            <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
+        </test>
 
-		<test id="5" name="Verifica accoppiamento rotore / albero">
-			<operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
-		</test>
-
-		<test id="6" name="Test motore">
-			<operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
-	  
+        <test id="6" name="Test motore">
+            <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
+      
 2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.
 
 3. Verificare che selezionando V+ -> rotazione in senso antiorario.
 
-4. Verificare che selezionando V- -> rotazione in senso orario." image="img/brushlessMotors/motor.jpg" />
-		</test>
+4. Verificare che selezionando V- -> rotazione in senso orario." 
+            image="img/brushlessMotors/motor.jpg" />
+        </test>
 
-	</testplan>
+    </testplan>
 
-	<testplan id="17" board="BRUSHLESS MOTORS" iitcode="10182" reportsDir="brushlessMotors" rev="2">
+    <testplan id="17" board="BRUSHLESS MOTORS" iitcode="10182" reportsDir="brushlessMotors" rev="2">
 
+        <test id="1" name="Controllo visivo">
+            <operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
+        </test>
 
-		<test id="1" name="Controllo visivo">
-			<operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
-		</test>
+        <test id="2" name="Controllo assenza cc">
+            <operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
+        </test>
 
-		<test id="2" name="Controllo assenza cc">
-			<operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
-		</test>
+        <test id="3" name="Verifica valore avvolgimenti">
+            <operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
+        </test>
 
-		<test id="3" name="Verifica valore avvolgimenti">
-			<operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
-		</test>
+        <test id="4" name="Verifica fasatura rotore">
+            <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
+        </test>
 
-		<test id="4" name="Verifica fasatura rotore">
-			<operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
-		</test>
+        <test id="5" name="Verifica accoppiamento rotore / albero">
+            <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
+        </test>
 
-		<test id="5" name="Verifica accoppiamento rotore / albero">
-			<operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
-		</test>
-
-
-
-		<test id="6" name="Test motore">
-			<operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
-	  
+        <test id="6" name="Test motore">
+            <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
+      
 2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.
 
 3. Verificare che selezionando V+ -> rotazione in senso antiorario.
 
-4. Verificare che selezionando V- -> rotazione in senso orario." image="img/brushlessMotors/motor.jpg" />
-		</test>
+4. Verificare che selezionando V- -> rotazione in senso orario." 
+            image="img/brushlessMotors/motor.jpg" />
+        </test>
 
-	</testplan>
+    </testplan>
 </iCubProductionTestSuite>

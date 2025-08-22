@@ -1,6 +1,6 @@
 ﻿ /*
- * Copyright (C) 2018 Istituto Italiano di Tecnologia
- * Authors: davide.tome@iit.it
+ * Copyright (C) 2025 Istituto Italiano di Tecnologia
+ * Authors: davide.tome@iit.it, jacopo.losi@iit.it
  * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  */
 using System.Reflection;
@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("iCubProductionTestSuite")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

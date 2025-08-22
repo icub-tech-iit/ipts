@@ -7,14 +7,17 @@ echo;
 git init .
 git remote add -f origin https://github.com/robotology/icub-firmware-build.git
 git config core.sparseCheckout true
-echo CAN/mtb4 > .git/info/sparse-checkout
+echo CAN/mtb4 >> .git/info/sparse-checkout
 echo CAN/mtb4c >> .git/info/sparse-checkout
 echo CAN/strain2 >> .git/info/sparse-checkout
 echo CAN/strain2c >> .git/info/sparse-checkout
 echo CAN/rfe >> .git/info/sparse-checkout
 echo CAN/amcbldc >> .git/info/sparse-checkout
 echo ETH/MC4PLUS/bin >> .git/info/sparse-checkout
+echo ETH/AMC/ >> .git/info/sparse-checkout
+git fetch origin
 git pull origin master
+git read-tree -mu HEAD
 
 IF %errorlevel% NEQ 0 GOTO :error
 GOTO :end
