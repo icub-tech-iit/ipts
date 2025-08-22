@@ -1257,13 +1257,13 @@ Collegare il setup di test come in figura
         </test>
 
         <test id="12" name="Test VAUXOK" stopOnFail="true">
-			<operation type="wait" value="1000" />
+			<operation type="wait" value="500" />
             <operation type="send" interface="CAN" command="7"/>
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
         </test>
 
         <test id="13" name="Test PWRnFAIL" stopOnFail="true">
-			<operation type="wait" value="1000" />
+			<operation type="wait" value="500" />
             <operation type="send" interface="CAN" command="8"/>
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
         </test>
