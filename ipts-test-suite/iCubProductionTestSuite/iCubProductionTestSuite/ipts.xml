@@ -1288,7 +1288,12 @@ Collegare il setup di test come in figura
             <operation type="receivePassFail" interface="CAN" valPass="0xAA 0xAA 0xAA"/>
         </test>
 
-        <test id="18" name="Test Setup for CM4 core">
+		<test id="18" name="Test EEPROM" stopOnFail="true">
+			<operation type="send" interface="CAN" command="19"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
+		</test>
+
+        <test id="19" name="Test Setup for CM4 core">
 			<operation type="okDialog" text=
 "Per comunicare correttamente i vari comandi di test al core CM4 della board AMC seguire i seguenti passaggi e fare i collegamenti come mostrato in figura:
 
@@ -1300,55 +1305,55 @@ image="img/amc/amc_CAN2-connection-CM4-test.jpg "/>
 			<operation type="wait" value="2000" />
         </test>
 
-        <test id="19" name="Flash Firmware di test CM4" stopOnFail="true">
+        <test id="20" name="Flash Firmware di test CM4" stopOnFail="true">
             <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_test_cm4.bat" />
 			<operation type="wait" value="2000" />
         </test> 
     
-        <test id="20" name="Test comunicazione CAN 2" stopOnFail="true">
+        <test id="21" name="Test comunicazione CAN 2" stopOnFail="true">
             <operation type="wait" value="500" />
             <operation type="send" interface="CAN" command="0"/>
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
         </test>
 
-        <test id="21" name="Test VIN" stopOnFail="true">
+        <test id="22" name="Test VIN" stopOnFail="true">
 			<operation type="wait" value="2000" />
             <operation type="send" interface="CAN" command="5"/>
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
         </test>
 
-        <test id="22" name="Test CIN" stopOnFail="true">
+        <test id="23" name="Test CIN" stopOnFail="true">
 			<operation type="wait" value="500" />
             <operation type="send" interface="CAN" command="6"/>
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
         </test>
 
-		<test id="23" name="Test FAULT ON" stopOnFail="true">
+		<test id="24" name="Test FAULT ON" stopOnFail="true">
 			<operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc/amc_FAULT_ON.jpg" />
 			<operation type="send" interface="CAN" command="10" />
 			<operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
 		</test>
 
-        <test id="24" name="Test FAULT OFF" stopOnFail="true">
+        <test id="25" name="Test FAULT OFF" stopOnFail="true">
             <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc/amc_FAULT_OFF.jpg" />
             <operation type="send" interface="CAN" command="9" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
         </test>
 
-        <test id="25" name="Test Hall Status" stopOnFail="false">
+        <test id="26" name="Test Hall Status" stopOnFail="false">
 			<operation type="okDialog" text="Premere OK quindi ruota a mano il rotore della JIG U22 mostrato in figura in entrambe le direzioni" image="img/amc/amc_HALL_sensor.jpg" />
             <operation type="send" interface="CAN" command="12"/>
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
         </test>
 
-        <test id="26" name="Test Incremental Encoder" stopOnFail="false">
+        <test id="27" name="Test Incremental Encoder" stopOnFail="false">
             <operation type="okDialog" text="Premere OK quindi premi e ruota a mano verso una direzione il rotore della JIG U24 mostrato in figura.
 Dopo circa 1-2 giri premi nuovamente e ruota nella direzione opposta" image="img/amc/amc_ABZ_encoder.jpg" />
             <operation type="send" interface="CAN" command="13" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
         </test>
 
-		<test id="27" name="Preparazione setup per test su PWM">
+		<test id="28" name="Preparazione setup per test su PWM">
 			<operation type="okDialog" text=
 "Prima di procedere è necessario preparare il setup come in figura:
         
@@ -1361,31 +1366,31 @@ Dopo circa 1-2 giri premi nuovamente e ruota nella direzione opposta" image="img
 			<operation type="wait" value="2000" />
 		</test>
 		
-        <test id="28" name="Test PWM Phase 1" stopOnFail="false">
+        <test id="29" name="Test PWM Phase 1" stopOnFail="false">
             <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: GREEN, OFF, GREEN come mostrato in figura" image="img/amc/amc_LED_PWM_1.jpg" />
             <operation type="send" interface="CAN" command="16" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
         </test>
 
-        <test id="29" name="Test PWM Phase 2" stopOnFail="false">
+        <test id="30" name="Test PWM Phase 2" stopOnFail="false">
             <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: RED, GREEN, OFF come mostrato in figura" image="img/amc/amc_LED_PWM_2.jpg" />
             <operation type="send" interface="CAN" command="17" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
         </test>
 
-        <test id="30" name="Test PWM Phase 3" stopOnFail="false">
+        <test id="31" name="Test PWM Phase 3" stopOnFail="false">
             <operation type="okDialog" text="Verificare che durante il test i led in corrispondenza dei test point delle fasi si accendano secondo la sequenza: OFF, RED, RED come mostrato in figura" image="img/amc/amc_LED_PWM_3.jpg" />
             <operation type="send" interface="CAN" command="18" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
 			<operation type="wait" value="2000" />
         </test>
 		
-        <test id="31" name="Flash Applicativo Production CM7 (master)" stopOnFail="true">
+        <test id="32" name="Flash Applicativo Production CM7 (master)" stopOnFail="true">
             <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_prod_cm7.bat"/>
 			<operation type="wait" value="1000" />
         </test>
 
-        <test id="32" name="Flash Applicativo Production CM4 (slave)" stopOnFail="true">
+        <test id="33s" name="Flash Applicativo Production CM4 (slave)" stopOnFail="true">
             <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_prod_cm4.bat"/>
 			<operation type="wait" value="1000" />
         </test>
