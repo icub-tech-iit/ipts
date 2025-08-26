@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "IPTS"
-#define MyAppVersion "1.6.0"
+#define MyAppVersion "1.6.1"
 #define MyAppPublisher "Fondazione Istituto Italiano di Tecnologia"
 #define MyAppURL "http://www.iit.it/"
 #define MyAppExeName "iCubProductionTestSuite.exe"
@@ -362,12 +362,20 @@ Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_LED_PWM_3.jpg"; DestDir: 
 Source: "iCubProductionTestSuite\img\amc-bldc\amc-bldc_setup.jpg"; DestDir: "{app}\img\amc-bldc"; Flags: ignoreversion
 
 Source: "iCubProductionTestSuite\img\amc\amc-setup.png"; DestDir: "{app}\img\amc"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\amc\amc_LED_OFF.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\amc\amc_LED_ON.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\amc\amc_FAULT_OFF.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\amc\amc_FAULT_ON.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\img\amc\amc_SWITCH_I2C_EN.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\amc\amc_SWITCH_SPI_EN.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_SWITCH_I2C_EN.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_PWM_setup.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_LED_PWM_3.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_LED_PWM_2.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_LED_PWM_1.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_LED_ON.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_LED_OFF.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_HALL_sensor.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_FAULT_ON.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_FAULT_OFF.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_CAN2-connection-CM4-test.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_CAN1-connection-CM7-test.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\amc\amc_ABZ_encoder.jpg"; DestDir: "{app}\img\amc"; Flags: ignoreversion
 
 Source: "iCubProductionTestSuite\ipts.xml"; DestDir: "{app}"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\settings.xml"; DestDir: "{app}"; Flags: ignoreversion
@@ -415,10 +423,15 @@ Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\amc-bldc_prod.bat";
 Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\amc-bldc_test.bat"; DestDir: "{app}\tools\boards\amc-bldc\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\hex\amcbldc.test.hex"; DestDir: "{app}\tools\boards\amc-bldc\flash\hex"; Flags: ignoreversion
 
-Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_prod_0.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_prod_1.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_test.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\amc\flash\hex\amc_test.hex"; DestDir: "{app}\tools\boards\amc\flash\hex"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_eloader.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_eupdater.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_prod_cm4.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_prod_cm7.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_test_cm4.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_test_cm7.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\hex\amc_test_cm7_dualcore.hex"; DestDir: "{app}\tools\boards\amc\flash\hex"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\hex\amc_test_cm7_only.hex"; DestDir: "{app}\tools\boards\amc\flash\hex"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\hex\amc2c_test_cm4.hex"; DestDir: "{app}\tools\boards\amc\flash\hex"; Flags: ignoreversion
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}\tools"

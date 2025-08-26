@@ -1,6 +1,6 @@
 ﻿/*
-* Copyright (C) 2018 Istituto Italiano di Tecnologia
-* Authors: davide.tome@iit.it
+* Copyright (C) 2025 Istituto Italiano di Tecnologia
+* Authors: davide.tome@iit.it, jacopo.losi@iit.it
 * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 */
 using System;
@@ -37,7 +37,7 @@ namespace iCubProductionTestSuite
         bool DEBUG = false;
         String LAST_SN = "0";
         String OPERATOR = "";
-        static readonly String SW_VER = "1.6.0 - 01/08/2025"; // refer to  https://github.com/icub-tech-iit/ipts
+        static readonly String SW_VER = "1.6.1 - 22/08/2025"; // refer to  https://github.com/icub-tech-iit/ipts
         String RESULT = ""; 
         static String CONFIG_DIR = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
  //     static String CONFIG_DIR = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\IIT\\IPTS";

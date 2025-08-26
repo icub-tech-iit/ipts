@@ -14,7 +14,10 @@ echo CAN/strain2c >> .git/info/sparse-checkout
 echo CAN/rfe >> .git/info/sparse-checkout
 echo CAN/amcbldc >> .git/info/sparse-checkout
 echo ETH/MC4PLUS/bin >> .git/info/sparse-checkout
+echo ETH/AMC/ >> .git/info/sparse-checkout
+git fetch origin
 git pull origin master
+git read-tree -mu HEAD
 
 IF %errorlevel% NEQ 0 GOTO :error
 GOTO :end

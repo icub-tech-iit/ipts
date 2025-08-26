@@ -3,7 +3,9 @@
 echo Updating firmware binaries...
 echo;
 
+git fetch origin
 git pull origin master
+git read-tree -mu HEAD
 
 IF %errorlevel% NEQ 0 GOTO :error
 GOTO :end
