@@ -60,7 +60,7 @@ namespace iCubProductionTestSuite
             this.buttonSelDeselAllTest.Name = "buttonSelDeselAllTest";
             this.buttonSelDeselAllTest.Size = new System.Drawing.Size(109, 23);
             this.buttonSelDeselAllTest.TabIndex = 1;
-            this.buttonSelDeselAllTest.Text = "Sselect all tests";
+            this.buttonSelDeselAllTest.Text = "Select all tests";
             this.buttonSelDeselAllTest.UseVisualStyleBackColor = true;
             this.buttonSelDeselAllTest.Click += new System.EventHandler(this.buttonSelDeselAllTest_Click);
             // 

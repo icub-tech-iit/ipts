@@ -1222,7 +1222,7 @@ Collegare il setup di test come in figura
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
         </test>
 
-        <test id="6" name="Verifica Revisione Firmmware di Test" stopOnFail="false">
+        <test id="6" name="Verifica Revisione Firmware di Test" stopOnFail="false">
             <operation type="send" interface="CAN" command="1" />
             <operation type="receivePassFail" interface="CAN" valPass="0x01 0x01 0x00" logMess="1" />
         </test> 
