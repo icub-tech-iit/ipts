@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "IPTS"
-#define MyAppVersion "1.6.1"
+#define MyAppVersion "1.6.2"
 #define MyAppPublisher "Fondazione Istituto Italiano di Tecnologia"
 #define MyAppURL "http://www.iit.it/"
 #define MyAppExeName "iCubProductionTestSuite.exe"
@@ -11,7 +11,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{41684992-700A-4A72-A6B2-25DF7939F22B}
+AppId={{D9C7E37E-2E90-4578-B3D6-3EF3B4D0451F}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -423,12 +423,13 @@ Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\amc-bldc_prod.bat";
 Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\amc-bldc_test.bat"; DestDir: "{app}\tools\boards\amc-bldc\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc-bldc\flash\hex\amcbldc.test.hex"; DestDir: "{app}\tools\boards\amc-bldc\flash\hex"; Flags: ignoreversion
 
-Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_eloader.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
-Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_eupdater.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_test_fw_loaders.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_prod_fw_loaders.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_prod_cm4.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_prod_cm7.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_test_cm4.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc\flash\amc_test_cm7.bat"; DestDir: "{app}\tools\boards\amc\flash"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\tools\boards\amc\flash\hex\amc.eloader_test.hex"; DestDir: "{app}\tools\boards\amc\flash\hex"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc\flash\hex\amc_test_cm7_dualcore.hex"; DestDir: "{app}\tools\boards\amc\flash\hex"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc\flash\hex\amc_test_cm7_only.hex"; DestDir: "{app}\tools\boards\amc\flash\hex"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\tools\boards\amc\flash\hex\amc2c_test_cm4.hex"; DestDir: "{app}\tools\boards\amc\flash\hex"; Flags: ignoreversion

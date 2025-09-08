@@ -3,8 +3,6 @@
 
 set PATH=C:\Program Files
 
-echo "Program Option Bytes disabling boot for CM4 and enabling only boot for CM7";
-"%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD -ob BCM4=0x0 BCM7=0x1 -Rst -Run
 echo "Flash firmware for tests on CM7 core";
 "%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD freq=8000 ap=0 reset=SWrst
 echo;
