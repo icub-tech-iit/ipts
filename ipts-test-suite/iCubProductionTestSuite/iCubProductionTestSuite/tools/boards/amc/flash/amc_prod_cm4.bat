@@ -6,7 +6,7 @@ set PATH=C:\Program Files
 echo "PROGRAM FIRST APP CORE1";
 "%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD freq=8000 ap=0 reset=SWrst
 echo;
-"%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD -d "..\..\icub-firmware-build\ETH\AMC\amc2c.hex" 0x08000000 --verify
+"%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD -d "..\..\icub-firmware-build\ETH\AMC\amc.appl.mot.hex" 0x08000000 --verify
 echo;
 "%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD -Rst -Run
 echo "PRESS ENTER TO CONTINUE"
