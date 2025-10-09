@@ -75,26 +75,30 @@ namespace iCubProductionTestSuite.classes
            this.op = op;
         }
 
-        public void send()
+        public bool send()
         {
             List<String> data = new List<string>();
-
             data.Add(op.Command);
-
-            if(op.AppendVar !=  null)
+            Console.WriteLine("Send operation with op.Command {0}", op.Command);
+            if (op.AppendVar != null)
             {
-                foreach(OperationVariable o in opvl)
-                    if(o.Name.Equals(op.AppendVar)) data.Add(o.Value);
+                foreach (OperationVariable o in opvl)
+                    if (o.Name.Equals(op.AppendVar)) 
+                    {
+                        data.Add(o.Value);
+                        Console.WriteLine("Appending variable {0} with value {1} from appendVar {2}", o.Name, o.Value, op.AppendVar);
+                    }
             }
 
+            bool sent = false;
             if (op.Interf.Equals("CAN"))
             {
                 foreach (TestInterface ti in tis)
                 {
-                   if(ti.Name.Equals("CAN"))
+                    if (ti.Name.Equals("CAN"))
                     {
                         cu = new CanUtils(ti);
-                        cu.send(data);
+                        sent = cu.send(data);
                     }
                 }
             }
@@ -106,26 +110,33 @@ namespace iCubProductionTestSuite.classes
                     {
                         su = new SerialUtils(ti);
                         su.send(data);
+                        sent = true;
+                    }
+                }
+            }
+            return sent;
+        }
+
+        public void receivePassFail(Operation prev_send)
+        {
+            List<String> prev_data = new List<string>();
+            prev_data.Add(prev_send.Command);
+            Console.WriteLine("Adding to prev_data the prev_send.Command {0}", prev_send.Command);
+            
+            // Add any appended variables from the previous operation
+            if (prev_send.AppendVar != null)
+            {
+                foreach (OperationVariable o in opvl)
+                {
+                    if (o.Name.Equals(prev_send.AppendVar))
+                    {
+                        Console.WriteLine("Appending variable {0} with value {1} from appendVar {2}", o.Name, o.Value, prev_send.AppendVar);
+                        prev_data.Add(o.Value);
                     }
                 }
             }
 
-            //foreach (TestInterface ti in tis)
-            //{
-            //    switch(ti.Name)
-            //    {
-            //        case "CAN":
-            //            cu = new CanUtils(ti);
-            //            cu.send(data);
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
-        }
 
-        public void receivePassFail()
-        {
             if (tis.Count.Equals(0)) { Pass = false; return; }
 
             int nrMess = Convert.ToInt16(op.LogMess);
@@ -138,17 +149,15 @@ namespace iCubProductionTestSuite.classes
                         if (ti.Name.Equals("CAN"))
                         {
                             cu = new CanUtils(ti);
-                            // Byte c = cu.receive();
-                            if (nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive());
-                            else Cmsg.Add(cu.receive());
-                            //cu.receive();
+                            // Try to receive, with resend if needed (handled in cu.receive)
+                            if (nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive(prev_data));
+                            else Cmsg.Add(cu.receive(prev_data));
                             string[] vpl = op.ValPass.Split(' ');
                             for (int i = 0; i < vpl.Length; i++)
                             {
                                 int b = Cmsg[0][i];
                                 int value = Convert.ToInt32(vpl[i], 16);
                                 if (!b.Equals(value)) Pass = false;
-
                             }
                         }
                     }
@@ -159,43 +168,13 @@ namespace iCubProductionTestSuite.classes
                         if (ti.Name.Equals("SERIAL"))
                         {
                             su = new SerialUtils(ti);
-                            //// Byte c = cu.receive();
-                            //if (nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive());
-                            //else Cmsg.Add(cu.receive());
                             string msg = su.receive();
-                            //string[] vpl = op.ValPass.Split(' ');
                             if (!msg.Equals(op.ValPass)) Pass = false;
                         }
                     }
                     break;
                 default: break;
             }
-
-
-            //foreach (TestInterface ti in tis)
-            //{
-            //    switch (ti.Name)
-            //    {
-            //        case "CAN":
-            //            cu = new CanUtils(ti);
-            //            // Byte c = cu.receive();
-            //            if (nrMess > 0) for (int i = 0; i < nrMess; i++) Cmsg.Add(cu.receive());
-            //            else Cmsg.Add(cu.receive());
-            //            //cu.receive();
-            //            string[] vpl = op.ValPass.Split(' ');
-            //            for (int i = 0; i < vpl.Length; i++)
-            //            {
-            //                int b = Cmsg[0][i];
-            //                int value = Convert.ToInt32(vpl[i], 16);
-            //                if (!b.Equals(value)) Pass = false;
-
-            //            }
-            //            break;
-
-            //        default:
-            //            break;
-            //    }
-            //}
         }
 
         public void passFailDialog(String test)
