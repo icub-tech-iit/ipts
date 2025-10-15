@@ -194,7 +194,7 @@ namespace iCubProductionTestSuite
             tr = new TestRunner(tp);
         }
 
-        protected void StartStop_ButtonStartClick(object sender, EventArgs e)
+        protected async void StartStop_ButtonStartClick(object sender, EventArgs e)
         {
             
             bool view = false;
@@ -229,9 +229,7 @@ namespace iCubProductionTestSuite
             foreach (Test t in tp.TestPlan)
             {
                 //inserisco un ritardo per catturare eventuale stop
-                DateTime Tthen = DateTime.Now;
-                do Application.DoEvents();
-                while (Tthen.AddSeconds(3) > DateTime.Now);
+                await System.Threading.Tasks.Task.Delay(3000);
                 int testid = Convert.ToInt16(t.Id) - 1;
 
                 //se premuto lo stop interrompo esecuzione
@@ -309,7 +307,7 @@ namespace iCubProductionTestSuite
                 if (dialogResult == DialogResult.Yes) view = true;
 
                 Report rep = new Report();
-                rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, view, false, CONFIG_DIR + "\\" + REPORTS_DIR + "\\" + tp.ReportsDir, FW_DIR);
+                rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, view, false, System.IO.Path.Combine(CONFIG_DIR, REPORTS_DIR, tp.ReportsDir), FW_DIR);
 
                 //Aggiorno SN
                 double d;
@@ -443,7 +441,7 @@ namespace iCubProductionTestSuite
         private void buttonSaveLog_Click(object sender, EventArgs e)
         {
             Report rep = new Report();
-            rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, true, true, CONFIG_DIR + "\\" + REPORTS_DIR + "\\" + tp.ReportsDir, FW_DIR);
+            rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, true, true, System.IO.Path.Combine(CONFIG_DIR, REPORTS_DIR, tp.ReportsDir), FW_DIR);
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
