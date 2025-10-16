@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using log4net;
 
 namespace iCubProductionTestSuite
 {
@@ -19,10 +20,12 @@ namespace iCubProductionTestSuite
     {
         private String text, imgpath;
         private bool yn;
+        private static readonly ILog log = LogManager.GetLogger(typeof(FormDialog));
 
         public FormDialog(String text, String imgpath)
         {
             InitializeComponent();
+            log.Info("FormDialog Initialized.");
             this.text = text;
             this.imgpath = imgpath;
             textBox1.Text = this.text;
