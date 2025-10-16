@@ -30,6 +30,7 @@ namespace iCubProductionTestSuite
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.buttonSelDeselAllTest = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -137,7 +138,7 @@ namespace iCubProductionTestSuite
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(644, 72);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 16);
+            this.label1.Size = new System.Drawing.Size(68, 16);
             this.label1.TabIndex = 9;
             this.label1.Text = "Test Log";
             // 
@@ -182,7 +183,7 @@ namespace iCubProductionTestSuite
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(13, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(279, 16);
+            this.label2.Size = new System.Drawing.Size(278, 16);
             this.label2.TabIndex = 16;
             this.label2.Text = "Test Name                                      Status";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -199,7 +200,7 @@ namespace iCubProductionTestSuite
             this.listBoxLog.Location = new System.Drawing.Point(647, 96);
             this.listBoxLog.Name = "listBoxLog";
             this.listBoxLog.ScrollAlwaysVisible = true;
-            this.listBoxLog.Size = new System.Drawing.Size(844, 784);
+            this.listBoxLog.Size = new System.Drawing.Size(844, 739);
             this.listBoxLog.TabIndex = 18;
             // 
             // labelOperator
@@ -209,7 +210,7 @@ namespace iCubProductionTestSuite
             this.labelOperator.AutoSize = true;
             this.labelOperator.Image = global::iCubProductionTestSuite.Properties.Resources.user;
             this.labelOperator.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelOperator.Location = new System.Drawing.Point(644, 898);
+            this.labelOperator.Location = new System.Drawing.Point(644, 859);
             this.labelOperator.Margin = new System.Windows.Forms.Padding(3);
             this.labelOperator.Name = "labelOperator";
             this.labelOperator.Size = new System.Drawing.Size(28, 13);
@@ -278,7 +279,8 @@ namespace iCubProductionTestSuite
             this.Controls.Add(this.panelTestPlan);
             this.Controls.Add(this.buttonSelDeselAllTest);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1200, 800);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IPTS - iCub Production Test Suite";

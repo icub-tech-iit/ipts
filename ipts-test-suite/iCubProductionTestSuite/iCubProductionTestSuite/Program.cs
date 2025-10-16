@@ -17,13 +17,12 @@ namespace iCubProductionTestSuite
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        /// 
+        ///
+        // Initialize log4net
         private static readonly ILog log = LogManager.GetLogger(typeof(Program));
         [STAThread]
         static void Main()
-        {
-            // Initialize log4net 
-            log4net.Config.XmlConfigurator.Configure();
+        { 
             log.Info("Starting iCub Production Test Suite");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

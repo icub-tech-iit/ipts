@@ -4,14 +4,15 @@
  * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  */
 
+using Esd.IO.Ntcan;
+using log4net;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections;
-using Esd.IO.Ntcan;
-using System.IO;
 using System.Windows.Forms;
 
 
@@ -28,6 +29,8 @@ namespace iCubProductionTestSuite.classes
         private int maxSendRetries = 2;
         private int maxReceiveRetries = 2;
         private int receiveTimeoutMs = 5000;
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(CanUtils));
 
         public CanUtils() { }
 
@@ -84,6 +87,7 @@ namespace iCubProductionTestSuite.classes
 
             while (attempts < maxSendRetries && !sent)
             {
+                //TODO: review try-catch block and decouple port open/close from send to trigger correctly the exceptions
                 try
                 {
                     port.Open();
@@ -99,7 +103,7 @@ namespace iCubProductionTestSuite.classes
 
                     port.Send(ref cmsg);
                     sent = true;
-                    Console.WriteLine("Sent CAN message: " + cmsg.ToString());
+                    log.InfoFormat("Sent CAN message: {0}", cmsg.ToString());
                 }
                 catch (InvalidOperationException ex)
                 {
@@ -118,7 +122,7 @@ namespace iCubProductionTestSuite.classes
                 }
                 finally
                 {
-                    if(port.IsOpen && port != null)
+                    if(port.IsOpen)
                     { 
                         port.Close();
                     }
@@ -156,7 +160,7 @@ namespace iCubProductionTestSuite.classes
                     if (port.Read(ref cmsg) >= 0)
                     {
                         received = true;
-                        Console.WriteLine(cmsg.ToString());
+                        log.Debug(cmsg.ToString());
                         lastSentData.Clear();
                         return cmsg;
                     }
@@ -168,11 +172,14 @@ namespace iCubProductionTestSuite.classes
                 }
                 finally
                 {
-                    port.Close();
+                    if (port.IsOpen)
+                    {
+                        port.Close();
+                    }
                 }
 
                 // If not received, resend the last message and try again
-                Console.WriteLine("Message not yet received. Retrying...");
+                log.Debug("Message not yet received. Retrying...");
                 send(lastSentData);
                 attempts++;
             }

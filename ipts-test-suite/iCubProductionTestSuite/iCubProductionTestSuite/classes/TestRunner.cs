@@ -22,7 +22,6 @@ namespace iCubProductionTestSuite.classes
         private Testplan tp;
         private string s;
         private Operation prev_send_operation = null;
-        private Operation curr_operation = null;
         private String prev="";
 
         public TestRunner(Testplan testplan)

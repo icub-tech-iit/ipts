@@ -3,6 +3,8 @@
 * Authors: davide.tome@iit.it, jacopo.losi@iit.it
 * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 */
+using Esd.IO.Ntcan;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +14,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Esd.IO.Ntcan;
+using log4net;
 
 
 namespace iCubProductionTestSuite.classes
@@ -26,7 +28,8 @@ namespace iCubProductionTestSuite.classes
         private CanUtils cu;
         private SerialUtils su;
         private List<CanMessage> cmsg;
-        
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(CommandRunner));
 
         public bool Pass
         {
@@ -79,14 +82,14 @@ namespace iCubProductionTestSuite.classes
         {
             List<String> data = new List<string>();
             data.Add(op.Command);
-            Console.WriteLine("Send operation with op.Command {0}", op.Command);
+            log.InfoFormat("Send operation with op.Command {0}", op.Command);
             if (op.AppendVar != null)
             {
                 foreach (OperationVariable o in opvl)
                     if (o.Name.Equals(op.AppendVar)) 
                     {
                         data.Add(o.Value);
-                        Console.WriteLine("Appending variable {0} with value {1} from appendVar {2}", o.Name, o.Value, op.AppendVar);
+                        log.DebugFormat("Appending variable {0} with value {1} from appendVar {2}", o.Name, o.Value, op.AppendVar);
                     }
             }
 
@@ -121,7 +124,7 @@ namespace iCubProductionTestSuite.classes
         {
             List<String> prev_data = new List<string>();
             prev_data.Add(prev_send.Command);
-            Console.WriteLine("Adding to prev_data the prev_send.Command {0}", prev_send.Command);
+            log.DebugFormat("Adding to prev_data the prev_send.Command {0}", prev_send.Command);
             
             // Add any appended variables from the previous operation
             if (prev_send.AppendVar != null)
@@ -130,7 +133,7 @@ namespace iCubProductionTestSuite.classes
                 {
                     if (o.Name.Equals(prev_send.AppendVar))
                     {
-                        Console.WriteLine("Appending variable {0} with value {1} from appendVar {2}", o.Name, o.Value, prev_send.AppendVar);
+                        log.DebugFormat("Appending variable {0} with value {1} from appendVar {2}", o.Name, o.Value, prev_send.AppendVar);
                         prev_data.Add(o.Value);
                     }
                 }
@@ -213,7 +216,7 @@ namespace iCubProductionTestSuite.classes
             process.WaitForExit();
             
             exitCode = process.ExitCode;
-            Console.WriteLine("ExitCode: " + exitCode.ToString(), "ExecuteCommand");
+            log.DebugFormat("ExitCode: {0}", exitCode.ToString(), "ExecuteCommand");
             process.Close();
 
             if (exitCode > 0) return false;

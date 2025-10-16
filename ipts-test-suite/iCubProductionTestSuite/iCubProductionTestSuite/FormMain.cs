@@ -41,11 +41,10 @@ namespace iCubProductionTestSuite
         static readonly String SW_VER = "1.6.3 - 15/10/2025"; // refer to  https://github.com/icub-tech-iit/ipts
         String RESULT = ""; 
         static String CONFIG_DIR = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
- //     static String CONFIG_DIR = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\IIT\\IPTS";
         static String CONFIG_FILE = "ipts.xml";
         static String SETTINGS_FILE = "settings.xml";
         static String REPORTS_DIR = "TestReports";
-        static String FW_DIR = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\tools\\boards\\icub-firmware-build";
+        static String FW_DIR = System.IO.Path.Combine( Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "tools", "boards", "icub-firmware-build");
         private static readonly ILog log = LogManager.GetLogger(typeof(FormMain));
 
         public FormMain()
@@ -157,7 +156,7 @@ namespace iCubProductionTestSuite
                 Application.Exit();
             }
 
-            //scelta interfaccie - DA RIVEDERE
+            //scelta interfacce - DA RIVEDERE
             //foreach (TestInterface t in tp.TestInterfaces)
             //{
 
@@ -209,7 +208,7 @@ namespace iCubProductionTestSuite
             LAST_SN = fi_s.Serial;
 
             //verifica interfacce (CAN, Seriale..)
-            //if (checkErrorInterfaces()) return;
+            if (checkErrorInterfaces()) return;
 
             if (radioButtonProduction.Checked) listBoxLog.Items.Clear();
 
