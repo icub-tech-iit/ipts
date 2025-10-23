@@ -43,8 +43,8 @@ namespace iCubProductionTestSuite
         static String CONFIG_DIR = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         static String CONFIG_FILE = "ipts.xml";
         static String SETTINGS_FILE = "settings.xml";
-        static String REPORTS_DIR = "TestReports";
-        static String FW_DIR = System.IO.Path.Combine( Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "tools", "boards", "icub-firmware-build");
+        static String REPORTS_DIR = System.IO.Path.Combine(CONFIG_DIR, "TestReports");
+        static String FW_DIR = System.IO.Path.Combine( CONFIG_DIR, "tools", "boards", "icub-firmware-build");
         private static readonly ILog log = LogManager.GetLogger(typeof(FormMain));
 
         public FormMain()
@@ -71,17 +71,8 @@ namespace iCubProductionTestSuite
             controlsDebug.addControl(buttonSaveLog);
             controlsDebug.addControl(buttonClearLog);
 
-            //verifico esistenza cartella di config altrimenti la creo
-            //if(!Directory.Exists(CONFIG_DIR))
-            //{
-            //    Directory.CreateDirectory(CONFIG_DIR);
-            //    Directory.CreateDirectory(CONFIG_DIR + "\\" + REPORTS_DIR);
-            //    File.Copy(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\" + CONFIG_FILE, CONFIG_DIR + "\\" + CONFIG_FILE, true);
-            //    File.Copy(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\" + SETTINGS_FILE, CONFIG_DIR + "\\" + SETTINGS_FILE, true);
-            //}
-            ////verifico esistenza file di config dopo eventuale disinstallazione e reinstallazione del sw
-            //if(!File.Exists(CONFIG_DIR + "\\" + CONFIG_FILE)) File.Copy(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\" + CONFIG_FILE, CONFIG_DIR + "\\" + CONFIG_FILE, true);
-            //if(!File.Exists(CONFIG_DIR + "\\" + SETTINGS_FILE)) File.Copy(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\" + SETTINGS_FILE, CONFIG_DIR + "\\" + SETTINGS_FILE, true);
+            //verifico esistenza main report folder ed eventuale creazione
+            if (!Directory.Exists(REPORTS_DIR)) Directory.CreateDirectory(REPORTS_DIR);
 
             //istanzio classi necessarie per parsing
             cp = new ConfigParser();
@@ -453,7 +444,7 @@ namespace iCubProductionTestSuite
         private void openTestReportFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
            
-            if (Directory.Exists(CONFIG_DIR + "\\" + REPORTS_DIR)) Process.Start(CONFIG_DIR + "\\" + REPORTS_DIR);
+            if (Directory.Exists(REPORTS_DIR)) Process.Start(REPORTS_DIR);
             else MessageBox.Show(this, "La directory " + REPORTS_DIR +" non esiste...", "Warning",
                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
