@@ -133,6 +133,7 @@
     <Reference Include="NtcanNet, Version=2.2.0.0, Culture=neutral, PublicKeyToken=6615f2958a501dde, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files\ESD\CAN\SDK\net\netstandard2.0\NtcanNet.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
