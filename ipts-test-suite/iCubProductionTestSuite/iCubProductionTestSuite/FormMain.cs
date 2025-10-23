@@ -299,7 +299,7 @@ namespace iCubProductionTestSuite
                 if (dialogResult == DialogResult.Yes) view = true;
 
                 Report rep = new Report();
-                rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, view, false, System.IO.Path.Combine(CONFIG_DIR, REPORTS_DIR, tp.ReportsDir), FW_DIR);
+                rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, view, false, System.IO.Path.Combine(REPORTS_DIR, tp.ReportsDir), FW_DIR);
 
                 //Aggiorno SN
                 double d;
@@ -433,7 +433,7 @@ namespace iCubProductionTestSuite
         private void buttonSaveLog_Click(object sender, EventArgs e)
         {
             Report rep = new Report();
-            rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, true, true, System.IO.Path.Combine(CONFIG_DIR, REPORTS_DIR, tp.ReportsDir), FW_DIR);
+            rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, true, true, System.IO.Path.Combine(REPORTS_DIR, tp.ReportsDir), FW_DIR);
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
