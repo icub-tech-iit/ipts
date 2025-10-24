@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "IPTS"
-#define MyAppVersion "1.6.2"
+#define MyAppVersion "1.7.0"
 #define MyAppPublisher "Fondazione Istituto Italiano di Tecnologia"
 #define MyAppURL "http://www.iit.it/"
 #define MyAppExeName "iCubProductionTestSuite.exe"
@@ -11,7 +11,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{D9C7E37E-2E90-4578-B3D6-3EF3B4D0451F}
+AppId={{EAF02E4A-B310-4589-807E-CEA7FFCE4F15}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -384,6 +384,9 @@ Source: "iCubProductionTestSuite\bin\Release\iCubProductionTestSuite.exe.config"
 Source: "iCubProductionTestSuite\bin\Release\iCubProductionTestSuite.pdb"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\bin\Release\NtcanNet.dll"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\bin\Release\NtcanNet.xml"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\bin\Release\log4net.dll"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\bin\Release\log4net.config"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\bin\Release\log4net.xml"; DestDir: "{app}\bin\Release"; Flags: ignoreversion
 
 Source: "iCubProductionTestSuite\tools\Git-2.31.1-64-bit.exe"; DestDir: "{app}\tools"; Flags: ignoreversion
 

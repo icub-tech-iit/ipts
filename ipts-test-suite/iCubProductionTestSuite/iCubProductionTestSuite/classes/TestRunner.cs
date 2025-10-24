@@ -21,6 +21,7 @@ namespace iCubProductionTestSuite.classes
         private bool res;
         private Testplan tp;
         private string s;
+        private Operation prev_send_operation = null;
         private String prev="";
 
         public TestRunner(Testplan testplan)
@@ -69,9 +70,10 @@ namespace iCubProductionTestSuite.classes
         {
             opvl = new List<OperationVariable>();
             Pass = true;
-            foreach (Operation o in test.OperationList)
+            //foreach (Operation o in test.OperationList)
+            for(int k = 0; k < test.OperationList.Count; ++k)
             {
-
+                Operation o = test.OperationList[k];
                 switch (o.Type)
                 {
                     case "wait":
@@ -99,12 +101,19 @@ namespace iCubProductionTestSuite.classes
 
                     case "send":
                         CommandRunner crs = new CommandRunner(o, tp.TestInterfaces, opvl, cu_t, su_t);
-                        crs.send();
+                        bool sent = crs.send();
+                        if (!sent)
+                        {
+                            Pass = false;
+                            s = string.Format("{0,-3} {1,-40} {2,-8}", test.Id + ")", test.Name, "SEND_FAIL");
+                            logBox.Items.Add(s);
+                        }
+                        prev_send_operation = o;
                         break;
 
                     case "receivePassFail":
                         CommandRunner crr = new CommandRunner(o, tp.TestInterfaces, opvl, cu_t, su_t);
-                        crr.receivePassFail();
+                        crr.receivePassFail(prev_send_operation);
                         res = crr.Pass;
                         if (!res) Pass = false;
                         if (o.Log == null || !o.Log.Equals("false"))

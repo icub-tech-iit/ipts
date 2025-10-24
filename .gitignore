@@ -1,0 +1,27 @@
+# .vs code project directory
+.vs/*
+ipts-test-suite/iCubProductionTestSuite/.vs/*
+ipts-test-suite/iCubProductionTestSuite/iCubProductionTestSuite/.vs/*
+
+# test reports
+ipts-test-suite/iCubProductionTestSuite/iCubProductionTestSuite/TestReports/*
+
+# logs file
+ipts-test-suite/iCubProductionTestSuite/iCubProductionTestSuite/bin/Debug/Logs/*
+ipts-test-suite/iCubProductionTestSuite/iCubProductionTestSuite/bin/Release/Logs/*
+
+# packages
+ipts-test-suite/iCubProductionTestSuite/packages/*
+
+# icub-firmware-build executables
+ipts-test-suite/iCubProductionTestSuite/iCubProductionTestSuite/tools/boards/icub-firmware-build/*
+
+# legacy bin
+ipts-test-suite/iCubProductionTestSuite/iCubProductionTestSuite/bin/x64/*
+ipts-test-suite/iCubProductionTestSuite/iCubProductionTestSuite/bin/x86/*
+
+# bin Debug (not needed for end user)
+ipts-test-suite/iCubProductionTestSuite/iCubProductionTestSuite/bin/Debug/*
+
+# object files
+ipts-test-suite/iCubProductionTestSuite/iCubProductionTestSuite/obj/*

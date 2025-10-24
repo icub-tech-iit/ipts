@@ -181,7 +181,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
         <test id="2" name="Flash Firmware di test" stopOnFail="true">
             <operation type="okDialog" text="Collocare la scheda (DUT) nel jig come in figura
-                                                                        Assicurarsi che gli switch siano nella corretta posizione." image="img/strain2/strain2_setup1.jpg" />
+Assicurarsi che gli switch siano nella corretta posizione." image="img/strain2/strain2_setup1.jpg" />
             <operation type="okDialog" text="Collegare il setup di test come in figura
 
 1. Connettere l'ESD CAN-USB (2) e il programmatore ST-LINK (3) alle usb del PC
@@ -317,7 +317,7 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
     <!-- **************************************************************************************************
   
-            TESTPLAN FOR MC4-PLUS
+            TESTPLAN FOR MC4-PLUS - REV.D
   
        **************************************************************************************************-->
 
@@ -486,6 +486,12 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
     </testplan>
 
+	<!-- **************************************************************************************************
+  
+            TESTPLAN FOR MC4-PLUS - REV.E
+  
+       **************************************************************************************************-->
+	
     <testplan id="5" board="MC4-PLUS" iitcode="5443.E" reportsDir="mc4plus" rev="1">
 
         <interfaces>
@@ -651,6 +657,13 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
     </testplan>
 
+
+	<!-- **************************************************************************************************
+  
+            TESTPLAN FOR MC4-PLUS C-SHAPE 
+  
+       **************************************************************************************************-->
+	
     <testplan id="6" board="MC4-PLUS C-SHAPE" iitcode="10004.B" reportsDir="mc4plus-c-shape" rev="1">
 
         <interfaces>
@@ -1040,7 +1053,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
         <test id="4" name="Verifica Revisione Firmmware di Test" stopOnFail="true">
             <operation type="send" interface="CAN" command="1" />
-            <operation type="receivePassFail" interface="CAN" valPass="0x01 0x02 0x0" logMess="1" />
+            <operation type="receivePassFail" interface="CAN" valPass="0x01 0x03 0x0" logMess="1" />
         </test>
 
         <test id="5" name="Verifica Device ID microcontrollore">
@@ -1058,14 +1071,16 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
             <operation type="yesNoDialog" text="I led rosso e verde sono accesi?" image="img/amc-bldc/amc-bldc_LED_ON.jpg" />
         </test>
 
-        <test id="8" name="Test VIN" stopOnFail="true">
+        <test id="8" name="Test VIN" stopOnFail="false">
             <operation type="send" interface="CAN" command="5"/>
-            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+			<operation type="wait" value="2000"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
         </test>
 
-        <test id="9" name="Test CIN">
+        <test id="9" name="Test CIN" stopOnFail="false">
             <operation type="send" interface="CAN" command="6"/>
-            <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
+			<operation type="wait" value="2000"/>
+			<operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
         </test>
 
         <test id="10" name="Test VAUXOK">
@@ -1078,14 +1093,14 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
         </test>
 
-        <test id="12" name="Test FAULT OFF">
-            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_OFF.jpg" />
+        <test id="12" name="Test FAULT ON">
+            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_ON.jpg" />
             <operation type="send" interface="CAN" command="9" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
         </test>
 
-        <test id="13" name="Test FAULT ON">
-            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_ON.jpg" />
+        <test id="13" name="Test FAULT OFF">
+            <operation type="okDialog" text="Posizionare lo switch sul setup come in figura" image="img/amc-bldc/amc-bldc_FAULT_OFF.jpg" />
             <operation type="send" interface="CAN" command="10" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
         </test>
@@ -1109,6 +1124,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
 
         <test id="17" name="Test Option Bytes">
             <operation type="send" interface="CAN" command="14" />
+			<operation type="wait" value="2000"/>
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" />
         </test>
 
@@ -1251,8 +1267,8 @@ Collegare il setup di test come in figura
         </test>
 
         <test id="11" name="Test VAUXOK" stopOnFail="true">
-			<operation type="wait" value="500" />
             <operation type="send" interface="CAN" command="7"/>
+			<operation type="wait" value="2000" />  <!--for this test we need to wait some time since it takes a while for adc to stabilize-->
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"/>
         </test>
 
@@ -1311,8 +1327,8 @@ image="img/amc/amc_CAN2-connection-CM4-test.jpg "/>
         </test>
 
         <test id="21" name="Test VIN" stopOnFail="true">
-			<operation type="wait" value="2000" />
             <operation type="send" interface="CAN" command="5"/>
+			<operation type="wait" value="5000"/> <!--for this test we need to wait some time since it takes a while for adc to stabilize-->
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" logMess="1"/>
         </test>
 
@@ -1393,6 +1409,10 @@ Dopo circa 1-2 giri premi nuovamente e ruota nella direzione opposta" image="img
             <operation type="batch" batchDir="tools\boards\amc\flash" batchFile="amc_prod_cm4.bat"/>
 			<operation type="wait" value="1000" />
         </test>
+		
+		<test id="34" name="Test Board Boot" stopOnFail="false">
+			<operation type="passFailDialog" text="I led sulla scheda esterna sono accesi e lampeggiano a circa 1Hz?" />
+		</test>
     
     </testplan>
 

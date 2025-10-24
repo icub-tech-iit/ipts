@@ -35,15 +35,19 @@
             // 
             // buttonStop
             // 
+            this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonStop.BackColor = System.Drawing.SystemColors.Control;
             this.buttonStop.Enabled = false;
             this.buttonStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStop.Image = ((System.Drawing.Image)(resources.GetObject("buttonStop.Image")));
             this.buttonStop.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonStop.Location = new System.Drawing.Point(173, 2);
+            this.buttonStop.Location = new System.Drawing.Point(173, 3);
             this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(155, 72);
+            this.buttonStop.Size = new System.Drawing.Size(154, 72);
             this.buttonStop.TabIndex = 6;
             this.buttonStop.Text = "STOP";
             this.buttonStop.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -52,6 +56,9 @@
             // 
             // buttonRun
             // 
+            this.buttonRun.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRun.BackColor = System.Drawing.SystemColors.Control;
             this.buttonRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRun.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -59,7 +66,7 @@
             this.buttonRun.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonRun.Location = new System.Drawing.Point(3, 3);
             this.buttonRun.Name = "buttonRun";
-            this.buttonRun.Size = new System.Drawing.Size(154, 71);
+            this.buttonRun.Size = new System.Drawing.Size(154, 72);
             this.buttonRun.TabIndex = 5;
             this.buttonRun.Text = "START";
             this.buttonRun.TextAlign = System.Drawing.ContentAlignment.TopCenter;

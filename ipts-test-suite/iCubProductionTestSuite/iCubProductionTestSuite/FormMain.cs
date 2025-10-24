@@ -17,6 +17,7 @@ using iCubProductionTestSuite.classes;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
+using log4net;
 
 namespace iCubProductionTestSuite
 {
@@ -37,24 +38,31 @@ namespace iCubProductionTestSuite
         bool DEBUG = false;
         String LAST_SN = "0";
         String OPERATOR = "";
-        static readonly String SW_VER = "1.6.2 - 08/09/2025"; // refer to  https://github.com/icub-tech-iit/ipts
+        static readonly String SW_VER = "1.7.0 - 23/10/2025"; // refer to  https://github.com/icub-tech-iit/ipts
         String RESULT = ""; 
         static String CONFIG_DIR = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
- //     static String CONFIG_DIR = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\IIT\\IPTS";
         static String CONFIG_FILE = "ipts.xml";
         static String SETTINGS_FILE = "settings.xml";
-        static String REPORTS_DIR = "TestReports";
-        static String FW_DIR = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\tools\\boards\\icub-firmware-build";
+        static String REPORTS_DIR = System.IO.Path.Combine(CONFIG_DIR, "TestReports");
+        static String FW_DIR = System.IO.Path.Combine( CONFIG_DIR, "tools", "boards", "icub-firmware-build");
+        private static readonly ILog log = LogManager.GetLogger(typeof(FormMain));
 
         public FormMain()
         {
             InitializeComponent();
-           
+           log.Info("FormMain Initialized");
         }
 
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            // Ensure the form fits the main screen
+            var screen = Screen.PrimaryScreen.WorkingArea;
+            if (this.Width > screen.Width) this.Width = screen.Width;
+            if (this.Height > screen.Height) this.Height = screen.Height;
+            this.Left = screen.Left + (screen.Width - this.Width) / 2;
+            this.Top = screen.Top + (screen.Height - this.Height) / 2;
+
             startStop1.ButtonStartClick += new EventHandler(StartStop_ButtonStartClick);
             startStop1.ButtonStopClick += new EventHandler(StartStop_ButtonStopClick);
 
@@ -63,17 +71,8 @@ namespace iCubProductionTestSuite
             controlsDebug.addControl(buttonSaveLog);
             controlsDebug.addControl(buttonClearLog);
 
-            //verifico esistenza cartella di config altrimenti la creo
-            //if(!Directory.Exists(CONFIG_DIR))
-            //{
-            //    Directory.CreateDirectory(CONFIG_DIR);
-            //    Directory.CreateDirectory(CONFIG_DIR + "\\" + REPORTS_DIR);
-            //    File.Copy(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\" + CONFIG_FILE, CONFIG_DIR + "\\" + CONFIG_FILE, true);
-            //    File.Copy(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\" + SETTINGS_FILE, CONFIG_DIR + "\\" + SETTINGS_FILE, true);
-            //}
-            ////verifico esistenza file di config dopo eventuale disinstallazione e reinstallazione del sw
-            //if(!File.Exists(CONFIG_DIR + "\\" + CONFIG_FILE)) File.Copy(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\" + CONFIG_FILE, CONFIG_DIR + "\\" + CONFIG_FILE, true);
-            //if(!File.Exists(CONFIG_DIR + "\\" + SETTINGS_FILE)) File.Copy(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\" + SETTINGS_FILE, CONFIG_DIR + "\\" + SETTINGS_FILE, true);
+            //verifico esistenza main report folder ed eventuale creazione
+            if (!Directory.Exists(REPORTS_DIR)) Directory.CreateDirectory(REPORTS_DIR);
 
             //istanzio classi necessarie per parsing
             cp = new ConfigParser();
@@ -148,7 +147,7 @@ namespace iCubProductionTestSuite
                 Application.Exit();
             }
 
-            //scelta interfaccie - DA RIVEDERE
+            //scelta interfacce - DA RIVEDERE
             //foreach (TestInterface t in tp.TestInterfaces)
             //{
 
@@ -187,7 +186,7 @@ namespace iCubProductionTestSuite
             tr = new TestRunner(tp);
         }
 
-        protected void StartStop_ButtonStartClick(object sender, EventArgs e)
+        protected async void StartStop_ButtonStartClick(object sender, EventArgs e)
         {
             
             bool view = false;
@@ -200,7 +199,7 @@ namespace iCubProductionTestSuite
             LAST_SN = fi_s.Serial;
 
             //verifica interfacce (CAN, Seriale..)
-            //if (checkErrorInterfaces()) return;
+            if (checkErrorInterfaces()) return;
 
             if (radioButtonProduction.Checked) listBoxLog.Items.Clear();
 
@@ -222,9 +221,7 @@ namespace iCubProductionTestSuite
             foreach (Test t in tp.TestPlan)
             {
                 //inserisco un ritardo per catturare eventuale stop
-                DateTime Tthen = DateTime.Now;
-                do Application.DoEvents();
-                while (Tthen.AddSeconds(1) > DateTime.Now);
+                await System.Threading.Tasks.Task.Delay(3000);
                 int testid = Convert.ToInt16(t.Id) - 1;
 
                 //se premuto lo stop interrompo esecuzione
@@ -256,7 +253,7 @@ namespace iCubProductionTestSuite
                     if (!PASS_TMP)
                     {
                         tp.setTestResult(testid, "Fail");
-                        if (MessageBox.Show("Vuoi ripetere il test : " + t.Name + " ?", "Test Fallito!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                        if (MessageBox.Show(this, "Vuoi ripetere il test : " + t.Name + " ?", "Test Fallito!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                         {
                             repeat = false;
                         }
@@ -267,7 +264,7 @@ namespace iCubProductionTestSuite
                         }
                     }
                     else { repeat = false; repeated = false; }
-                    }
+                }
                 repeat = true;
                 if (!PASS_TMP) PASS = false;
 
@@ -297,12 +294,12 @@ namespace iCubProductionTestSuite
 
             if (!DEBUG)
             {
-                DialogResult dialogResult = MessageBox.Show("TEST " + RESULT + " !!!\n\n Vuoi vedere il report?", "End of Tests", 
+                DialogResult dialogResult = MessageBox.Show(this, "TEST " + RESULT + " !!!\n\n Vuoi vedere il report?", "End of Tests", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (dialogResult == DialogResult.Yes) view = true;
 
                 Report rep = new Report();
-                rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, view, false, CONFIG_DIR + "\\" + REPORTS_DIR + "\\" + tp.ReportsDir, FW_DIR);
+                rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, view, false, System.IO.Path.Combine(REPORTS_DIR, tp.ReportsDir), FW_DIR);
 
                 //Aggiorno SN
                 double d;
@@ -345,7 +342,7 @@ namespace iCubProductionTestSuite
                         if (cu.Ports.Count == 0)
                         {
                             error = true;
-                            MessageBox.Show("Errore interfaccia CAN, controllare collegamenti", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(this, "Errore interfaccia CAN, controllare collegamenti", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             startStop1.setStartEnabled(true);
                         }
                         break;
@@ -355,7 +352,7 @@ namespace iCubProductionTestSuite
                         if (SerialPort.GetPortNames().Length == 0)
                         {
                             error = true;
-                            MessageBox.Show("Errore interfaccia SERIALE, controllare collegamenti", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(this, "Errore interfaccia SERIALE, controllare collegamenti", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             startStop1.setStartEnabled(true);
                         }
                         break;
@@ -436,7 +433,7 @@ namespace iCubProductionTestSuite
         private void buttonSaveLog_Click(object sender, EventArgs e)
         {
             Report rep = new Report();
-            rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, true, true, CONFIG_DIR + "\\" + CONFIG_FILE + tp.ReportsDir, FW_DIR);
+            rep.doReportTxt(listBoxLog, tp.Iitcode, LAST_SN, RESULT, true, true, System.IO.Path.Combine(REPORTS_DIR, tp.ReportsDir), FW_DIR);
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -447,12 +444,22 @@ namespace iCubProductionTestSuite
         private void openTestReportFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
            
-            if (Directory.Exists(CONFIG_DIR + "\\" + REPORTS_DIR)) Process.Start(CONFIG_DIR + "\\" + REPORTS_DIR);
-            else MessageBox.Show("La directory " + REPORTS_DIR +" non esiste...", "Warning",
+            if (Directory.Exists(REPORTS_DIR)) Process.Start(REPORTS_DIR);
+            else MessageBox.Show(this, "La directory " + REPORTS_DIR +" non esiste...", "Warning",
                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void radioButtonDebug_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void startStop1_Load(object sender, EventArgs e)
         {
 
         }

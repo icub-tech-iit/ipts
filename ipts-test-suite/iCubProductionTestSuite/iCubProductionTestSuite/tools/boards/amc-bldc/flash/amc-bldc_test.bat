@@ -3,8 +3,8 @@
 
 set PATH=C:\Program Files
 
-echo "Program User Configuration Option Bytes DBANK and nSWBOOT0";
-"%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD -ob DBANK=0x0 nSWBOOT0=1 -Rst -Run
+echo "Program User Configuration Option Bytes DBANK, BOR_LEVEL and nSWBOOT0";
+"%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD -ob BOR_LEV=0x4 DBANK=0x0 nSWBOOT0=1 -Rst -Run
 echo;
 IF %errorlevel% NEQ 0 GOTO :error
 "%PATH%\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -c port=SWD freq=8000 ap=0 reset=SWrst

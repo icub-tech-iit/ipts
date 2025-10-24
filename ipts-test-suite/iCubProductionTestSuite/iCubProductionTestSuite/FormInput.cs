@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Esd.IO.Ntcan;
 using iCubProductionTestSuite.classes;
+using log4net;
 
 
 namespace iCubProductionTestSuite
@@ -31,9 +32,12 @@ namespace iCubProductionTestSuite
         private String selSERIAL;
         private String prevVal ="";
 
+        private static readonly ILog log = LogManager.GetLogger(typeof(FormInput));
+
         public FormInput(String text, String type, String prev)
         {
             InitializeComponent();
+            log.Info("FormInput Initialized.");
             this.Text = "Input Value";
             label1.Text = text;
             this.textBox1.Text = prev;

@@ -1,17 +1,18 @@
-﻿ /*
+﻿/*
  * Copyright (C) 2025 Istituto Italiano di Tecnologia
  * Authors: davide.tome@iit.it, jacopo.losi@iit.it
  * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  */
 
+using Esd.IO.Ntcan;
+using log4net;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections;
-using Esd.IO.Ntcan;
-using System.IO;
 using System.Windows.Forms;
 
 
@@ -23,6 +24,13 @@ namespace iCubProductionTestSuite.classes
         private List<String> ports;
         private CanPort port;
         private int messageId;
+
+        private List<string> lastSentData = null;
+        private int maxSendRetries = 2;
+        private int maxReceiveRetries = 2;
+        private int receiveTimeoutMs = 5000;
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(CanUtils));
 
         public CanUtils() { }
 
@@ -71,102 +79,113 @@ namespace iCubProductionTestSuite.classes
         }
 
        
-        public void send(List<String> data)
+        public bool send(List<string> data)
         {
-           
-            // Open the CAN port for communication and catch error
-            try
+            lastSentData = new List<string>(data);
+            int attempts = 0;
+            bool sent = false;
+
+            while (attempts < maxSendRetries && !sent)
             {
-                port.Open();
-            }
-            catch (IOException)
-            {
-                MessageBox.Show("Attenzione nessuna interfaccia CAN presente!", "Errore",
-                           MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                return;
-            }
-
-            // Configure the bit rate to 500 KBit/s
-            port.BitRate = new CanBitRate(CanBitRateTable.Cia1000KBit);
-
-            //  Single CAN message on the stack
-            CanMessage cmsg = new CanMessage();
-
-            // Initialize the CAN message with properties and the indexer as
-            // data message with 8 bytes in standard frame format (11 bit identifier)
-            cmsg.Identifier = 0x001;
-            cmsg.DataLength = Convert.ToByte(data.Count);
-
-            //for(int i = 0; i < data.Length; i++) cmsg[i] = Convert.ToByte(data[i]);
-
-            //int value = Convert.ToInt32(data, 16);
-            //data[0] = data[0].Substring(2, 2);
-            for(int i=0; i<data.Count; i++)
-            {
-                cmsg[i] = Convert.ToByte(data[i]);
-            }
-
-
-
-            // Transmit this message without blocking.
-            port.Send(ref cmsg);
-
-            // Close the port        
-            port.Close();
-        }
-
-        public CanMessage receive()
-        {
-            int timeout = 0;
-
-            // Open the CAN port for communication and catch error
-            try
-            {
-                port.Open();
-            }
-            catch (IOException)
-            {
-                MessageBox.Show("Attenzione nessuna interfaccia CAN presente!", "Errore",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
-            }
-
-            // Configure timeout
-           port.ReceiveTimeout = 3000;
-         
-            // Set the bit rate to 1000 KBit/s
-            port.BitRate = new CanBitRate(CanBitRateTable.Cia1000KBit);
-
-            // Enable CAN identifier to receive
-           // for (int id = 0; id < 2048; id++)
-            port.AddToMessageFilter(CanMessageType.Data, messageId);
-
-            // Define array for CAN messages and length
-            CanMessage cmsg = new CanMessage();
-
-            // Stay in loop until a CAN message is received.
-            while (true)
-            {
-                if (port.Read(ref cmsg) < 0)
+                //TODO: review try-catch block and decouple port open/close from send to trigger correctly the exceptions
+                try
                 {
-                    Console.WriteLine("Reading CAN data timed out");
-                    timeout++;
-                    if (timeout > 8)
+                    port.Open();
+                    port.BitRate = new CanBitRate(CanBitRateTable.Cia1000KBit);
+
+                    CanMessage cmsg = new CanMessage
                     {
-                        MessageBox.Show("CAN timeout!", "Errore CAN",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        timeout = 0;
-                        break;
-                    }else continue;
+                        Identifier = 0x001,
+                        DataLength = Convert.ToByte(data.Count)
+                    };
+                    for (int i = 0; i < data.Count; i++)
+                        cmsg[i] = Convert.ToByte(data[i]);
+
+                    port.Send(ref cmsg);
+                    sent = true;
+                    log.InfoFormat("Sent CAN message: {0}", cmsg.ToString());
                 }
-               
-                Console.WriteLine(cmsg.ToString());
-                break;
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show("Errore apertura CAN port: " + ex.Message, "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false; // No point retrying if the port can't be opened due to invalid state
+                }
+                catch (IOException)
+                {
+                    attempts++;
+                    if (attempts >= maxSendRetries)
+                    {
+                        MessageBox.Show("Errore invio CAN dopo vari tentativi!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    System.Threading.Thread.Sleep(100); // Small delay before retry
+                }
+                finally
+                {
+                    if(port.IsOpen)
+                    { 
+                        port.Close();
+                    }
+                }
             }
-            
-            port.Close();
-            return cmsg;
+            return sent;
         }
-    }   
+
+        public CanMessage receive(List<string> prev_data)
+        {
+            bool received = false;
+            lastSentData = prev_data;
+            if (lastSentData == null)
+            {
+                MessageBox.Show("Nessun messaggio CAN inviato da ritentare!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default(CanMessage);
+            }
+
+            int attempts = 0;
+            CanMessage cmsg = new CanMessage();
+
+            while (attempts < maxReceiveRetries && !received)
+            {
+                try
+                {
+                    port.Open();
+                    // Set receive timeout (ms)
+                    port.ReceiveTimeout = receiveTimeoutMs;
+                    // Set CAN bit rate to 1000 KBit/s (1 Mbit/s)
+                    port.BitRate = new CanBitRate(CanBitRateTable.Cia1000KBit);
+                    // Add CAN message filter for expected identifier (from ipts.xml)
+                    port.AddToMessageFilter(CanMessageType.Data, messageId);
+
+                    // Try to read a CAN message
+                    if (port.Read(ref cmsg) >= 0)
+                    {
+                        received = true;
+                        log.Debug(cmsg.ToString());
+                        lastSentData.Clear();
+                        return cmsg;
+                    }
+                }
+                catch (IOException)
+                {
+                    // Optionally handle port errors here
+                    MessageBox.Show("Problemi nella ricezione dal CAN port. Ritento...", "Warning CAN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                finally
+                {
+                    if (port.IsOpen)
+                    {
+                        port.Close();
+                    }
+                }
+
+                // If not received, resend the last message and try again
+                log.Debug("Message not yet received. Retrying...");
+                send(lastSentData);
+                attempts++;
+            }
+
+            MessageBox.Show("CAN timeout dopo vari tentativi di ricezione!", "Errore CAN", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return default(CanMessage);
+        }
+    }
 }

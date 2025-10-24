@@ -4,18 +4,20 @@
  * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  */
 
+using Esd.IO.Ntcan;
+using log4net;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Ports;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections;
-using Esd.IO.Ntcan;
-using System.IO;
 using System.Windows.Forms;
-using System.IO.Ports;
-using System.Reflection;
 using System.Windows.Interop;
+using log4net;
 
 namespace iCubProductionTestSuite.classes
 {
@@ -27,6 +29,8 @@ namespace iCubProductionTestSuite.classes
         private int messageId;
         private String serialRx;
         private static string serialRX;
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(SerialUtils));
 
         public SerialUtils() {
             this.ports = new List<string>();
@@ -61,7 +65,7 @@ namespace iCubProductionTestSuite.classes
             {
                 ports.Add(p);
                
-                    Console.WriteLine(p);
+                    log.Info(p);
             }
             return ports;
 
