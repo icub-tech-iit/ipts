@@ -38,7 +38,7 @@ namespace iCubProductionTestSuite
         bool DEBUG = false;
         String LAST_SN = "0";
         String OPERATOR = "";
-        static readonly String SW_VER = "1.7.0 - 23/10/2025"; // refer to  https://github.com/icub-tech-iit/ipts
+        static readonly String SW_VER = "1.7.1 - 13/11/2025"; // refer to  https://github.com/icub-tech-iit/ipts
         String RESULT = ""; 
         static String CONFIG_DIR = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         static String CONFIG_FILE = "ipts.xml";
