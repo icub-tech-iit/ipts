@@ -4,7 +4,35 @@ IPTS is a test suite, configurable via .xml file, that allows to interact with t
 Written in C# (.NET framework) , is a Windows Form application.
 In this repo there are Visual Studio solution file, sources, and the installer project ([InnoSetup](https://jrsoftware.org/isinfo.php)) and output.
 
-## List of tested codes
+## Index (Indice)
+- [Overview](#overview)
+- [List of tested codes](#list-of-tested-codes)
+- [1 Installation](#installation)
+  - [1.1 Installing the test suite](#installing-the-test-suite)
+  - [1.2 Installing ESD CAN-USB drivers](#installing-esd-can-usb-drivers)
+  - [1.3 Configuring network interface](#configuring-network-interface)
+- [2 Run IPTS](#run-ipts)
+- [3 IPTS GUI description](#ipts-gui-description)
+  - [3.1 Toolbar](#toolbar)
+  - [3.2 Test mode](#test-mode)
+  - [3.3 Testplan](#testplan)
+  - [3.4 Run/Stop](#runstop)
+  - [3.5 Log](#log)
+- [Maintainers](#maintainers)
+
+---
+
+<a name="overview"></a>
+## Overview
+
+IPTS is a test suite, configurable via .xml file, that allows to interact with test firmware loaded on boards to be tested.
+Written in C# (.NET framework), it is a Windows Form application.
+In this repo there are Visual Studio solution file, sources, and the installer project ([InnoSetup](https://jrsoftware.org/isinfo.php)) and output.
+
+<a name="list-of-tested-codes"></a>
+<details>
+<summary><strong>List of tested codes</strong></summary>
+
 Here is the list of the codes tested with the `IPTS` suite
 
 IIT Code | Revisions | Description
@@ -24,8 +52,11 @@ IIT Code | Revisions | Description
 10182    |           | Moog BLDC motor, OD 72.4, ID 15.5, L 27.5 , W/O HALL SENSOR	
 
 ---
+</details>
 
-## 1 Installation
+<a name="installation"></a>
+<details>
+<summary><strong>1 Installation</strong></summary>
 
 ### 1.1 Installing the test suite
 
@@ -90,8 +121,11 @@ Follow the steps below:
 ![IP address](assets/network-setup-6.png)
 
 ---
+</details>
 
-## 2 Run IPTS
+<a name="run-ipts"></a>
+<details>
+<summary><strong>2 Run IPTS</strong></summary>
 
 - Launch the ``iCubProductionTestSuite.exe`` either from start menu, Desktop shortcut or installation folder with ***Administrator privileges***
 - Enter the full operator’s name
@@ -107,14 +141,19 @@ Follow the steps below:
 ![Testplan](assets/fig_7_testplan.png)
 
 ---
+</details>
 
-## 3 IPTS GUI description
+<a name="ipts-gui-description"></a>
+<details>
+<summary><strong>3 IPTS GUI description</strong></summary>
 
 This is the main GUI, here is a brief description of its functionalities
 
 ![GUI](assets/fig_8_GUI.png)
 
-### 3.1 Toolbar
+<a name="toolbar"></a>
+<details>
+<summary><strong>3.1 Toolbar</strong></summary>
 
   - Under ``File`` you’ll find two options:
 
@@ -125,24 +164,36 @@ This is the main GUI, here is a brief description of its functionalities
 >- ``Exit`` -> quits the program
 
 - Under ``Help`` youll’find About option that gives you info about software revision
-  
+
 ![About](assets/fig_10_about.png)
 
-### 3.2 Test mode
+</details>
 
+<a name="test-mode"></a>
+<details>
+<summary><strong>3.2 Test mode</strong></summary>
 
 - ``Production`` mode
-  >In this mode you can’t check/uncheck tests to be executed; you will execute the whole testplan. At the and a report will be generated under ``PASS`` or ``FAIL`` subfolder in ``TesteReports`` folder.
+  >In this mode you can’t check/uncheck tests to be executed; you will execute the whole testplan. At the and a report will be generated under ``PASS`` or ``FAIL`` subfolder in ``TesteReports`` fold[...] 
 
 - ``Debug`` mode
-  >In this mode you can check/uncheck tests to be executed; you will be able to choose which test or set of tests will be executed. At the and no report will be generated, anyway if you click on Save log the log will be saved under ``DEBUG`` subfolder in ``TesteReports`` folder.
+  >In this mode you can check/uncheck tests to be executed; you will be able to choose which test or set of tests will be executed. At the and no report will be generated, anyway if you click on Save [...]
 
-### 3.3 Testplan
+</details>
+
+<a name="testplan"></a>
+<details>
+<summary><strong>3.3 Testplan</strong></summary>
+
 >Here’s the list of all tests to be executed to validate the DUT.
 The list of tetss is defined in the ``ipts.xml`` file.
 If Debug mode is selected you can execute one or more tests by checking them.
 
-### 3.4 Run/Stop
+</details>
+
+<a name="runstop"></a>
+<details>
+<summary><strong>3.4 Run/Stop</strong></summary>
 
 - ``Run``
   >starts tests execution
@@ -150,15 +201,24 @@ If Debug mode is selected you can execute one or more tests by checking them.
 - ``Stop``
   >stops tests execution
 
-### 3.5 Log
+</details>
+
+<a name="log"></a>
+<details>
+<summary><strong>3.5 Log</strong></summary>
 
 > Here you can read the log of testplan execution.
 Once tests execution is competed the report will be saved in the ``TestReports`` folder.
 ``Save log`` and ``Clear log`` buttons will be enabled only in debug mode.
 At the bottom youll’find info about operator name and date.
 
+</details>
 
+</details>
+
+<a name="maintainers"></a>
 ## Maintainers
+
 This repository is maintained by:
 
 | | |
