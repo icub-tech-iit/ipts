@@ -156,3 +156,12 @@ If Debug mode is selected you can execute one or more tests by checking them.
 Once tests execution is competed the report will be saved in the ``TestReports`` folder.
 ``Save log`` and ``Clear log`` buttons will be enabled only in debug mode.
 At the bottom youll’find info about operator name and date.
+
+
+## Maintainers
+This repository is maintained by:
+
+| | |
+|:---:|:---:|
+| [<img src="https://github.com/valegagge.png" width="40">](https://github.com/valegagge) | [@valegagge](https://github.com/valegagge) |
+| [<img src="https://github.com/MSECode.png" width="40">](https://github.com/MSECode) | [@MSEcode](https://github.com/MSECode) |
