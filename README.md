@@ -4,30 +4,60 @@ IPTS is a test suite, configurable via .xml file, that allows to interact with t
 Written in C# (.NET framework) , is a Windows Form application.
 In this repo there are Visual Studio solution file, sources, and the installer project ([InnoSetup](https://jrsoftware.org/isinfo.php)) and output.
 
+## Table of Contents
+
+- [List of tested codes](#list-of-tested-codes)
+- [1 Installation](#1-installation)
+  - [1.1 Installing the test suite](#11-installing-the-test-suite)
+  - [1.2 Installing ESD CAN-USB drivers](#12-installing-esd-can-usb-drivers)
+  - [1.3 Configuring network interface](#13-configuring-network-interface)
+- [2 Run IPTS](#2-run-ipts)
+- [3 IPTS GUI description](#3-ipts-gui-description)
+  - [3.1 Toolbar](#31-toolbar)
+  - [3.2 Test mode](#32-test-mode)
+  - [3.3 Testplan](#33-testplan)
+  - [3.4 Run/Stop](#34-runstop)
+  - [3.5 Log](#35-log)
+- [Maintainers](#maintainers)
+
+---
+
 ## List of tested codes
+
+<details>
+<summary>Click to expand</summary>
+
 Here is the list of the codes tested with the `IPTS` suite
 
 IIT Code | Revisions | Description
 -------- | ----------|----------
 12008    | B,C       | MTB4, IIT - Electronic board for tactile sensor, with 3 axis accelerometers Vin 5Vcc
 11996    | B,C       | STRAIN2, IIT - Electronic board, 6 channels strain gauges variable gain interface board with CAN/UART, Temperature sensor, IMU, STM32L4
-5443     | D,E       | MC4-PLUS, IIT - Electronic board with cortex M4, Ethernet and power driver for 4 DC motors, SPI interface, 2 analog channels, 12-32V supply voltage, low brightness	
+5443     | D,E       | MC4-PLUS, IIT - Electronic board with cortex M4, Ethernet and power driver for 4 DC motors, SPI interface, 2 analog channels, 12-32V supply voltage, low brightness
 10004    | B         | MC4-PLUS_CSHAPE , IIT - Electronic Board
 12024    | C         | RFE_MASTER, IIT - Electronic Board, Robot Face Expression Master board
 14962    | D         | AMC_BLDC, IIT - Electronic board, single motor driver BLDC 12V-52V, 1 Arms, Hall sensors, incremental encoder, CAN/FD interface
-2694     |           | 2224U012SR+IE2-512+2082 Faulhaber - Brush motor, encoder with 500mm cable lenght	
-12264    |           | FAULHABER MOTOR 1016M012GK380+GEARBOX 10/1 i=16	
-10347    |           | BLDC motor assembly, OD 49.2, ID 9.54, L 20.7, stack length 5.7, airgap diam 29.5	
-10350    |           | BLDC motor assembly, OD 49.2, ID 9.54, L 27.7, stack length 12.7, airgap diam 29.5	
+2694     |           | 2224U012SR+IE2-512+2082 Faulhaber - Brush motor, encoder with 500mm cable lenght
+12264    |           | FAULHABER MOTOR 1016M012GK380+GEARBOX 10/1 i=16
+10347    |           | BLDC motor assembly, OD 49.2, ID 9.54, L 20.7, stack length 5.7, airgap diam 29.5
+10350    |           | BLDC motor assembly, OD 49.2, ID 9.54, L 27.7, stack length 12.7, airgap diam 29.5
 7117     |           | Moog BLDC motor, OD 49.2, ID 15.5, L 24.7 , W/O HALL SENSOR
 7116     |           | Moog BLDC motor, OD 49.2, ID 15.5, L 17.7 , W/O HALL SENSOR
-10182    |           | Moog BLDC motor, OD 72.4, ID 15.5, L 27.5 , W/O HALL SENSOR	
+10182    |           | Moog BLDC motor, OD 72.4, ID 15.5, L 27.5 , W/O HALL SENSOR
+
+</details>
 
 ---
 
 ## 1 Installation
 
+<details>
+<summary>Click to expand</summary>
+
 ### 1.1 Installing the test suite
+
+<details>
+<summary>Click to expand</summary>
 
 You can install **IPTS** on a Windows 10/11 machine.
 
@@ -37,7 +67,12 @@ You can install **IPTS** on a Windows 10/11 machine.
 - Download the installer from the [releases page](https://github.com/icub-tech-iit/ipts/releases)
 - Run it and follow the wizard
 
+</details>
+
 ### 1.2 Installing ESD CAN-USB drivers
+
+<details>
+<summary>Click to expand</summary>
 
 `ESD CAN-USB` is an interface that allows to convert **USB** communications to **CAN** (and viceversa).
 It is is used as communication interface between the test suite and the test firmware during the test.
@@ -49,7 +84,7 @@ It is is used as communication interface between the test suite and the test fir
 
 ![Device manager](assets/fig_2_device-manager.png)
 
-- Choose “browse my computer for driver software” option
+- Choose "browse my computer for driver software" option
 
 ![Browse Drivers](assets/fig_3_browse-drivers.png)
 
@@ -57,7 +92,12 @@ It is is used as communication interface between the test suite and the test fir
 
 ![Select Drivers](assets/fig_4_select-drivers.png)
 
+</details>
+
 ### 1.3 Configuring network interface
+
+<details>
+<summary>Click to expand</summary>
 
 >This is necessary only for ETH boards (`mc4plus` and `mc2plus`).
 
@@ -89,12 +129,19 @@ Follow the steps below:
 
 ![IP address](assets/network-setup-6.png)
 
+</details>
+
+</details>
+
 ---
 
 ## 2 Run IPTS
 
+<details>
+<summary>Click to expand</summary>
+
 - Launch the ``iCubProductionTestSuite.exe`` either from start menu, Desktop shortcut or installation folder with ***Administrator privileges***
-- Enter the full operator’s name
+- Enter the full operator's name
 
 ![Select Operator](assets/fig_5_operator.png)
 
@@ -106,9 +153,14 @@ Follow the steps below:
 
 ![Testplan](assets/fig_7_testplan.png)
 
+</details>
+
 ---
 
 ## 3 IPTS GUI description
+
+<details>
+<summary>Click to expand</summary>
 
 This is the main GUI, here is a brief description of its functionalities
 
@@ -116,7 +168,10 @@ This is the main GUI, here is a brief description of its functionalities
 
 ### 3.1 Toolbar
 
-  - Under ``File`` you’ll find two options:
+<details>
+<summary>Click to expand</summary>
+
+  - Under ``File`` you'll find two options:
 
 ![Toolbar](assets/fig_9_toolbar.png)
 
@@ -124,25 +179,40 @@ This is the main GUI, here is a brief description of its functionalities
 >- ``Open TestReports folder`` -> opens the folder containing all test reports
 >- ``Exit`` -> quits the program
 
-- Under ``Help`` youll’find About option that gives you info about software revision
+- Under ``Help`` youll'find About option that gives you info about software revision
   
 ![About](assets/fig_10_about.png)
 
+</details>
+
 ### 3.2 Test mode
 
+<details>
+<summary>Click to expand</summary>
 
 - ``Production`` mode
-  >In this mode you can’t check/uncheck tests to be executed; you will execute the whole testplan. At the and a report will be generated under ``PASS`` or ``FAIL`` subfolder in ``TesteReports`` folder.
+  >In this mode you can't check/uncheck tests to be executed; you will execute the whole testplan. At the and a report will be generated under ``PASS`` or ``FAIL`` subfolder in ``TesteReports`` folder.
 
 - ``Debug`` mode
   >In this mode you can check/uncheck tests to be executed; you will be able to choose which test or set of tests will be executed. At the and no report will be generated, anyway if you click on Save log the log will be saved under ``DEBUG`` subfolder in ``TesteReports`` folder.
 
+</details>
+
 ### 3.3 Testplan
->Here’s the list of all tests to be executed to validate the DUT.
+
+<details>
+<summary>Click to expand</summary>
+
+>Here's the list of all tests to be executed to validate the DUT.
 The list of tetss is defined in the ``ipts.xml`` file.
 If Debug mode is selected you can execute one or more tests by checking them.
 
+</details>
+
 ### 3.4 Run/Stop
+
+<details>
+<summary>Click to expand</summary>
 
 - ``Run``
   >starts tests execution
@@ -150,18 +220,34 @@ If Debug mode is selected you can execute one or more tests by checking them.
 - ``Stop``
   >stops tests execution
 
+</details>
+
 ### 3.5 Log
+
+<details>
+<summary>Click to expand</summary>
 
 > Here you can read the log of testplan execution.
 Once tests execution is competed the report will be saved in the ``TestReports`` folder.
 ``Save log`` and ``Clear log`` buttons will be enabled only in debug mode.
-At the bottom youll’find info about operator name and date.
+At the bottom youll'find info about operator name and date.
 
+</details>
+
+</details>
+
+---
 
 ## Maintainers
+
+<details>
+<summary>Click to expand</summary>
+
 This repository is maintained by:
 
 | | |
 |:---:|:---:|
 | [<img src="https://github.com/valegagge.png" width="40">](https://github.com/valegagge) | [@valegagge](https://github.com/valegagge) |
 | [<img src="https://github.com/MSECode.png" width="40">](https://github.com/MSECode) | [@MSEcode](https://github.com/MSECode) |
+
+</details>
