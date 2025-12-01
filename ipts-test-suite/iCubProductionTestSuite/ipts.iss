@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "IPTS"
-#define MyAppVersion "1.7.0"
+#define MyAppVersion "1.7.1"
 #define MyAppPublisher "Fondazione Istituto Italiano di Tecnologia"
 #define MyAppURL "http://www.iit.it/"
 #define MyAppExeName "iCubProductionTestSuite.exe"
@@ -11,7 +11,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{EAF02E4A-B310-4589-807E-CEA7FFCE4F15}
+AppId={{323E8AC5-7C31-47BC-A820-243001DD3918}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -285,8 +285,17 @@ Source: "iCubProductionTestSuite\img\brushlessMotors\fasatura.jpg"; DestDir: "{a
 Source: "iCubProductionTestSuite\img\brushlessMotors\hall.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\brushlessMotors\motor.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\brushlessMotors\setup.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\brushlessMotors\setup-motor-plus-scatolotto.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\brushlessMotors\valori.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\brushlessMotors\allineamento-albero-rotore.png"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\brushlessMotors\accoppiamento-albero-rotore.gif"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\brushlessMotors\assembly-mot-setup-7117-16-p1.png"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\brushlessMotors\assembly-mot-setup-7117-16-p2.png"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\brushlessMotors\assembly-mot-setup-10182-p1.png"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\brushlessMotors\assembly-mot-setup-10182-p2.png"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\brushlessMotors\PN-SN-7117-7116-10182.png"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\brushlessMotors\test-motor-p1-Move-wo-HALL.jpg"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
+Source: "iCubProductionTestSuite\img\brushlessMotors\test-motor-p2-Speed.png"; DestDir: "{app}\img\brushlessMotors"; Flags: ignoreversion
 
 Source: "iCubProductionTestSuite\img\dcMotors\encoderWaveForm.jpg"; DestDir: "{app}\img\dcMotors"; Flags: ignoreversion
 Source: "iCubProductionTestSuite\img\dcMotors\label1.jpg"; DestDir: "{app}\img\dcMotors"; Flags: ignoreversion

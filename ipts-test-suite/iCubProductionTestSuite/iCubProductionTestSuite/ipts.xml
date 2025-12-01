@@ -1558,10 +1558,11 @@ Dopo circa 1-2 giri premi nuovamente e ruota nella direzione opposta" image="img
     <testplan id="15" board="BRUSHLESS MOTORS" iitcode="7117" reportsDir="brushlessMotors" rev="3">
 
         <test id="1" name="Controllo visivo">
-            <operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
+            <operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti ?" />
+			<operation type="yesNoDialog" text="Controllare visivamente che statore e rotore siano correttamente codificati, presentano definiti Part Number (P/N) e Serial Number (S/N) ?" image ="img/brushlessMotors/PN-SN-7117-7116-10182.png"/>
         </test>
 
-        <test id="2" name="Controllo assenza cc">
+        <test id="2" name="Controllo assenza CC">
             <operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
         </test>
 
@@ -1570,68 +1571,131 @@ Dopo circa 1-2 giri premi nuovamente e ruota nella direzione opposta" image="img
         </test>
 
         <test id="4" name="Verifica fasatura rotore">
-            <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
+            <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore. Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
         </test>
 
+		<!-- in test 5 add IIT code for the shaft (not available for 10182)-->
         <test id="5" name="Verifica accoppiamento rotore / albero">
-            <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
+			<operation type="okDialog" text="Al fine di verificare il corretto accoppiamento assicurarsi di utilizzare un albero con codice IIT (15768.A1) e che i componenti combacino con quelli in figura" image="img/brushlessMotors/allineamento-albero-rotore.png"/>
+            <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero. Si ha un risultato coerente al video mostrato?" image="img/brushlessMotors/accoppiamento-albero-rotore.gif" />
         </test>
 
-        <test id="6" name="Test motore">
-            <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
-      
-2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.
+		<test id="6" name="Assemblaggio test setup">
+			<operation type="okDialog" text="				   
+Preparazione setup di test. 
+Utilizzare il setup di test mostrato in figura a cui si collegeranno poi le fasi del motore. 
+Seguiranno le fasi specifiche di assemblaggio e collegamento" 
+			    image="img/brushlessMotors/setup-motor-plus-scatolotto.jpg" />
+			<operation type="okDialog" text="
+Assemblare rotore e albero. Come mostrato in figura seguire gli step seguenti:
 
-3. Verificare che selezionando V+ -> rotazione in senso antiorario.
+1. Inserire il rotore (B) sull'albero (A) facendo attenzione ad allineare correttamente le due parti.
 
-4. Verificare che selezionando V- -> rotazione in senso orario." image="img/brushlessMotors/motor.jpg" />
+2. Fissare il rotore sull'albero utilizzando il bullone (C) ottendo l'assemblato (X)." 
+			    image="img/brushlessMotors/assembly-mot-setup-7117-16-p1.png" />
+			<operation type="okDialog" text="				   
+Assemblare il gruppo albero/rotore allo statore. Come mostrato in figura seguire gli step seguenti:
+
+3. Montare il gruppo assemblato (X) sulla base del setup e posizionare lo statore (D)
+
+4. Chiudere il tutto con la cover fornita e stringere le 3 viti esagonali sulle guide indicate" 
+				image="img/brushlessMotors/assembly-mot-setup-7117-16-p2.png" />
+		</test>
+		
+		<!-- add new test that shows you how to mount the test setup motor same for 10182-->
+        <test id="7" name="Test motore">
+			<operation type="yesNoDialog" text="					   
+Per completare il test seguire i passaggi seguenti:
+
+1. Collegare le fasi del motore al setup di test.
+
+2. Come in figura, con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move wo HALL."
+                image="img/brushlessMotors/test-motor-p1-Move-wo-HALL.jpg"/>
+			<operation type="yesNoDialog" text="				   
+Come in figura, verificare la corretta movimentazione dell'assemblato motore seguendo i passaggi seguenti:
+
+3. Verificare che selezionando la velocitá tra 3 e 6 rpm -> rotazione in senso antiorario.
+
+4. Verificare che selezionando la velocitá tra -3 e -6 -> rotazione in senso orario." 
+				image="img/brushlessMotors/test-motor-p2-Speed.png" />
         </test>
 
     </testplan>
 
     <testplan id="16" board="BRUSHLESS MOTORS" iitcode="7116" reportsDir="brushlessMotors" rev="2">
 
-        <test id="1" name="Controllo visivo">
-            <operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
-        </test>
+		<test id="1" name="Controllo visivo">
+			<operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti ?" />
+			<operation type="yesNoDialog" text="Controllare visivamente che statore e rotore siano correttamente codificati, presentano definiti Part Number (P/N) e Serial Number (S/N) ?" image ="img/brushlessMotors/PN-SN-7117-7116-10182.png"/>
+		</test>
 
-        <test id="2" name="Controllo assenza cc">
-            <operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
-        </test>
+		<test id="2" name="Controllo assenza CC">
+			<operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
+		</test>
 
-        <test id="3" name="Verifica valore avvolgimenti">
-            <operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
-        </test>
+		<test id="3" name="Verifica valore avvolgimenti">
+			<operation type="yesNoDialog" text="Verificare con il tester il valore resistivo degli avvolgimenti (nero/rosso e nero/bianco). I valori ricadono nel range come da tabella in figura?" image="img/brushlessMotors/valori.jpg" />
+		</test>
 
-        <test id="4" name="Verifica fasatura rotore">
-            <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
-        </test>
+		<test id="4" name="Verifica fasatura rotore">
+			<operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore. Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
+		</test>
 
-        <test id="5" name="Verifica accoppiamento rotore / albero">
-            <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
-        </test>
+		<test id="5" name="Verifica accoppiamento rotore / albero">
+			<operation type="okDialog" text="Al fine di verificare il corretto accoppiamento assicurarsi di utilizzare un albero con codice IIT (15768.A1) e che i componenti combacino con quelli in figura" image="img/brushlessMotors/allineamento-albero-rotore.png"/>
+			<operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero. Si ha un risultato coerente al video mostrato?" image="img/brushlessMotors/accoppiamento-albero-rotore.gif" />
+		</test>
 
-        <test id="6" name="Test motore">
-            <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
-      
-2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.
+		<test id="6" name="Assemblaggio test setup">
+			<operation type="okDialog" text="
+Preparazione setup di test. 
+Utilizzare il setup di test mostrato in figura a cui si collegeranno poi le fasi del motore. 
+Seguiranno le fasi specifiche di assemblaggio e collegamento"
+			    image="img/brushlessMotors/setup-motor-plus-scatolotto.jpg" />
+			<operation type="okDialog" text="				   
+Assemblare rotore e albero. Come mostrato in figura seguire gli step seguenti:
 
-3. Verificare che selezionando V+ -> rotazione in senso antiorario.
+1. Inserire il rotore (B) sull'albero (A) facendo attenzione ad allineare correttamente le due parti.
 
-4. Verificare che selezionando V- -> rotazione in senso orario." 
-            image="img/brushlessMotors/motor.jpg" />
-        </test>
+2. Fissare il rotore sull'albero utilizzando il bullone (C) ottendo l'assemblato (X)."
+			    image="img/brushlessMotors/assembly-mot-setup-7117-16-p1.png" />
+			<operation type="okDialog" text="
+Assemblare il gruppo albero/rotore allo statore. Come mostrato in figura seguire gli step seguenti:
+
+3. Montare il gruppo assemblato (X) sulla base del setup e posizionare lo statore (D)
+
+4. Chiudere il tutto con la cover fornita e stringere le 3 viti esagonali sulle guide indicate"
+				image="img/brushlessMotors/assembly-mot-setup-7117-16-p2.png" />
+		</test>
+
+		<test id="7" name="Test motore">
+			<operation type="yesNoDialog" text="			   
+Per completare il test seguire i passaggi seguenti:
+
+1. Collegare le fasi del motore al setup di test.
+
+2. Come in figura, con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move wo HALL."
+                image="img/brushlessMotors/test-motor-p1-Move-wo-HALL.jpg"/>
+			<operation type="yesNoDialog" text="			   
+Come in figura, verificare la corretta movimentazione dell'assemblato motore seguendo i passaggi seguenti:
+
+3. Verificare che selezionando la velocitá tra 3 e 6 rpm -> rotazione in senso antiorario.
+
+4. Verificare che selezionando la velocitá tra -3 e -6 -> rotazione in senso orario."
+				image="img/brushlessMotors/test-motor-p2-Speed.png" />
+		</test>
 
     </testplan>
 
     <testplan id="17" board="BRUSHLESS MOTORS" iitcode="10182" reportsDir="brushlessMotors" rev="2">
 
-        <test id="1" name="Controllo visivo">
-            <operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti?" />
-        </test>
+		<test id="1" name="Controllo visivo">
+			<operation type="passFailDialog" text="Controllare visivamente lo stato del rotore e dello statore, vi é assenza di evidenti danni/difetti ?" />
+			<operation type="yesNoDialog" text="Controllare visivamente che statore e rotore siano correttamente codificati, presentano definiti Part Number (P/N) e Serial Number (S/N) ?" image ="img/brushlessMotors/PN-SN-7117-7116-10182.png"/>
+		</test>
 
-        <test id="2" name="Controllo assenza cc">
-            <operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco , vi é assenza di continuitá?" />
+        <test id="2" name="Controllo assenza CC">
+            <operation type="passFailDialog" text="Verificare con il tester l'assenza di continuitá tra carcasse ed i fili nero/rosso/bianco, vi é assenza di continuitá ?" />
         </test>
 
         <test id="3" name="Verifica valore avvolgimenti">
@@ -1639,23 +1703,56 @@ Dopo circa 1-2 giri premi nuovamente e ruota nella direzione opposta" image="img
         </test>
 
         <test id="4" name="Verifica fasatura rotore">
-            <operation type="yesNoDialog" text="Verificare con l'apposita carta magnetica verde la fasatura del rotore .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/fasatura.jpg" />
+            <operation type="yesNoDialog" text="			   
+Verificare con l'apposita carta magnetica verde la fasatura del rotore. Si ha un risultato coerente alla figura?
+(Poiché attualmente questo motore non presenta un albero con codice IIT univoco utilizzare un albero generico )?" 
+			    image="img/brushlessMotors/fasatura.jpg" />
         </test>
 
         <test id="5" name="Verifica accoppiamento rotore / albero">
-            <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero .  Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
+            <operation type="yesNoDialog" text="Verificare il corretto accoppiamento tra rotore ed albero. Si ha un risultato coerente alla figura?" image="img/brushlessMotors/allineamento-albero-rotore.png" />
         </test>
 
-        <test id="6" name="Test motore">
-            <operation type="yesNoDialog" text="1. Posizionare il motore come in figura.
-      
-2. Con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move it.
+		<test id="6" name="Assemblaggio test setup">
+			<operation type="okDialog" text="	   
+Preparazione setup di test. 
 
-3. Verificare che selezionando V+ -> rotazione in senso antiorario.
+Utilizzare il setup di test mostrato in figura a cui si collegeranno poi le fasi del motore.
 
-4. Verificare che selezionando V- -> rotazione in senso orario." 
-            image="img/brushlessMotors/motor.jpg" />
-        </test>
+Seguiranno le fasi specifiche di assemblaggio e collegamento"
+			    image="img/brushlessMotors/setup-motor-plus-scatolotto.jpg" />
+			<operation type="okDialog" text="		   
+Assemblare rotore e albero. Come mostrato in figura seguire gli step seguenti:
+
+1. Inserire il rotore sull'albero facendo attenzione ad allineare correttamente le due parti.
+
+2. Fissare il rotore sull'albero utilizzando il bullone ottendo l'assemblato mostrato."
+			    image="img/brushlessMotors/assembly-mot-setup-10182-p1.png" />
+			<operation type="okDialog" text="				   
+Assemblare il gruppo albero/rotore allo statore. Come mostrato in figura seguire gli step seguenti:
+
+3. Montare il gruppo assemblato sulla base del setup e posizionare lo statore
+
+4. Chiudere il tutto con la cover fornita e stringere le 3 viti esagonali sulle guide indicate"
+				image="img/brushlessMotors/assembly-mot-setup-10182-p2.png" />
+		</test>
+
+		<test id="7" name="Test motore">
+			<operation type="yesNoDialog" text="				   
+Per completare il test seguire i passaggi seguenti:
+
+1. Collegare le fasi del motore al setup di test.
+
+2. Come in figura, con il joystick sinistro selezionare : Test Motors -> Brushless Motor -> Test Move wo HALL."
+                image="img/brushlessMotors/test-motor-p1-Move-wo-HALL.jpg"/>
+			<operation type="yesNoDialog" text="			   
+Come in figura, verificare la corretta movimentazione dell'assemblato motore seguendo i passaggi seguenti:
+
+3. Verificare che selezionando la velocitá tra 3 e 6 rpm -> rotazione in senso antiorario.
+
+4. Verificare che selezionando la velocitá tra -3 e -6 -> rotazione in senso orario."
+				image="img/brushlessMotors/test-motor-p2-Speed.png" />
+		</test>
 
     </testplan>
 </iCubProductionTestSuite>
