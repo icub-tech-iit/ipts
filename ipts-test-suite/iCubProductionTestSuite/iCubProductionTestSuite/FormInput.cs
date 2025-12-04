@@ -1,19 +1,12 @@
-﻿ /*
+﻿/*
  * Copyright (C) 2025 Istituto Italiano di Tecnologia
  * Authors: davide.tome@iit.it, jacopo.losi@iit.it
  * CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  */
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Esd.IO.Ntcan;
 using iCubProductionTestSuite.classes;
 using log4net;
 
@@ -22,15 +15,16 @@ namespace iCubProductionTestSuite
 {
     public partial class FormInput : Form
     {
-        private String type;
+        private string type;  
         private int val_int;
-        private String val_t;
-        private String serial;
-        private String user;
+        private string val_t; 
+        private string serial; 
+        private string user;   
         private int selBoard;
-        private String selCAN;
-        private String selSERIAL;
-        private String prevVal ="";
+        private string selCAN;  
+        private string selSERIAL; 
+        private string prevVal = ""; 
+        private bool isReady = false;
 
         private static readonly ILog log = LogManager.GetLogger(typeof(FormInput));
 
@@ -45,7 +39,6 @@ namespace iCubProductionTestSuite
             this.button1.Click += buttonInputValue_Click;
         }
 
-    
         public FormInput(int last_sn)
         {
             InitializeComponent();
@@ -67,10 +60,10 @@ namespace iCubProductionTestSuite
         public FormInput(List<Testplan> tplist, SettingsFile sf)
         {
             InitializeComponent();
-            int index=0;
+            int index = 0;
             List<String> lb = new List<string>();
 
-            foreach(Testplan t in tplist)
+            foreach (Testplan t in tplist)
             {
                 lb.Add(t.Iitcode + " - " + t.Boardname + " - Testplan rev. " + t.Rev);
                 if (t.Idtestplan.Equals(sf.LastSel)) index = Convert.ToInt16(sf.LastSel);
@@ -87,213 +80,201 @@ namespace iCubProductionTestSuite
         public FormInput(TestInterface t)
         {
             InitializeComponent();
-            int index = 0;
-            int portCount = 0;
 
-            List<String> lb = new List<string>();
+            // Get ports according to interface type
+            List<string> lb = GetPortsForInterface(t);
 
+            if (lb.Count == 0)
+            {
+                MessageBox.Show(
+                    "Nessuna Interfaccia " + t.Name + " rilevata!\n\n" +
+                    "Utilizzerò la porta di default definita nel file di configurazione: " + t.NetPort + "\n\n" +
+                    "La selezione sarà disponibile al momento dell'esecuzione del test.",
+                    "Avviso - Interfaccia Non Disponibile",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
 
-            //switch (t.Name)
-            //{
-            //    case "CAN": CanUtils cu = new CanUtils(); portCount = cu.Ports.Count; foreach (String p in cu.Ports) lb.Add(p); break;
-            //    case "SERIAL": SerialUtils su = new SerialUtils(); portCount = su.Ports.Count; foreach (String p in su.Ports) lb.Add(p); break;
+                log.WarnFormat("Interface {0} not available at startup. Default port {1} will be used.", t.Name, t.NetPort);
+                isReady = false;
+                return;
+            }
 
-            //    default: break;
-            //}
+            ConfigureInterfaceDropdown(t, lb);
+            isReady = true;
+        }
 
-            //if (portCount == 0)
-            //{
-            //    MessageBox.Show("Nessuna Interfaccia " + t.Name + " rilevata!", "Errore",
-            //        MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    Application.Exit();
-            //}
-            //else
-            //{
-            //    this.label1.Text = "Selezionare Interfaccia " + t.Name;
-            //    this.textBox1.Visible = false;
-            //    this.comboBox1.Visible = true;
-            //    this.comboBox1.DataSource = lb;
-            //    this.button1.Click += buttonSelCAN_Click;
-            //    this.comboBox1.SelectedIndex = index;
-            //}
+        /// <summary>
+        /// Configures the dropdown UI for interface selection.
+        /// </summary>
+        private void ConfigureInterfaceDropdown(TestInterface t, List<string> portList)
+        {
+            label1.Text = "Selezionare Interfaccia " + t.Name;
+            textBox1.Visible = false;
+            comboBox1.Visible = true;
 
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(portList.ToArray());
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDown;
+            comboBox1.Text = !string.IsNullOrEmpty(t?.NetPort) ? t.NetPort : portList[0];
 
+            button1.Click += (sender, e) =>
+            {
+                var selected = (comboBox1.Text ?? string.Empty).Trim();
+                if (string.IsNullOrEmpty(selected))
+                {
+                    log.DebugFormat("Interface selection cancelled for {0}", t?.Name);
+                    Hide();
+                    return;
+                }
 
-            switch (t.Name)
+                SetSelectedInterface(t, selected);
+                Hide();
+            };
+
+            comboBox1.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// Sets the selected interface based on type.
+        /// </summary>
+        private void SetSelectedInterface(TestInterface t, string selected)
+        {
+            if (t?.Name.Equals("CAN", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                SelCAN = selected;
+                log.DebugFormat("CAN interface selected: {0}", selected);
+            }
+            else if (t?.Name.Equals("SERIAL", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                SelSERIAL = selected;
+                log.DebugFormat("SERIAL interface selected: {0}", selected);
+            }
+        }
+
+        public bool IsReady()
+        {
+            return isReady;
+        }
+
+        /// <summary>
+        /// Helper to centralize port discovery logic for each interface type.
+        /// Returns empty list if no ports found or on exception.
+        /// </summary>
+        private List<string> GetPortsForInterface(TestInterface t)
+        {
+            var list = new List<string>();
+            if (t == null || string.IsNullOrEmpty(t.Name))
+                return list;
+
+            switch (t.Name.ToUpperInvariant())
             {
                 case "CAN":
-                    CanUtils cu = new CanUtils();
-                    portCount = cu.Ports.Count;
-                    foreach (String p in cu.Ports)
-                        lb.Add(p);
-                    if (portCount == 0)
+                    try
                     {
-                        MessageBox.Show("Nessuna Interfaccia " + t.Name + " rilevata!", "Errore",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Application.Exit();
+                        // Using existing CanUtils to get CAN ports
+                        CanUtils cu = new CanUtils();
+                        if (cu?.Ports != null && cu.Ports.Count > 0)
+                        {
+                            list.AddRange(cu.Ports);
+                            log.DebugFormat("Found {0} CAN port(s)", cu.Ports.Count);
+                        }
                     }
-                    this.label1.Text = "Selezionare Interfaccia " + t.Name;
-                    this.textBox1.Visible = false;
-                    this.comboBox1.Visible = true;
-                    this.comboBox1.DataSource = lb;
-                    this.button1.Click += buttonSelCAN_Click;
-                    this.comboBox1.SelectedIndex = index;
+                    catch (Exception ex)
+                    {
+                        log.WarnFormat("Error discovering CAN ports: {0}", ex.Message);
+                        // Return empty list; caller handles gracefully
+                    }
                     break;
+
                 case "SERIAL":
-                    //SerialUtils su = new SerialUtils();
-                    //portCount = su.Ports.Count;
-                    portCount = SerialPort.GetPortNames().Length;
-
-                    foreach (String p in SerialPort.GetPortNames()) lb.Add(p);
-                    if (portCount == 0)
+                    try
                     {
-                        MessageBox.Show("Nessuna Interfaccia " + t.Name + " rilevata!", "Errore",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Application.Exit();
+                        // Get serial port names from System.IO.Ports
+                        string[] portNames = SerialPort.GetPortNames();
+                        if (portNames != null && portNames.Length > 0)
+                        {
+                            list.AddRange(portNames);
+                            log.DebugFormat("Found {0} SERIAL port(s): {1}", portNames.Length, string.Join(", ", portNames));
+                        }
                     }
-                    this.label1.Text = "Selezionare Interfaccia " + t.Name;
-                    this.textBox1.Visible = false;
-                    this.comboBox1.Visible = true;
-                    this.comboBox1.DataSource = lb;
-                    this.button1.Click += buttonSelSERIAL_Click;
-                    this.comboBox1.SelectedIndex = index;
+                    catch (Exception ex)
+                    {
+                        log.WarnFormat("Error discovering SERIAL ports: {0}", ex.Message);
+                        // Return empty list; caller handles gracefully
+                    }
                     break;
 
-                default: break;
+                default:
+                    log.WarnFormat("Unknown interface type: {0}", t.Name);
+                    break;
             }
-
-            if (portCount == 0)
-            {
-                MessageBox.Show("Nessuna Interfaccia " + t.Name + " rilevata!", "Errore",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
-            }
-            else
-            {
-                this.label1.Text = "Selezionare Interfaccia " + t.Name;
-                this.textBox1.Visible = false;
-                this.comboBox1.Visible = true;
-                this.comboBox1.DataSource = lb;
-                this.button1.Click += buttonSelCAN_Click;
-                this.comboBox1.SelectedIndex = index;
-            }
-
+            return list;
         }
+
+        #region Properties
 
         public int Val_int
         {
-            get
-            {
-                return val_int;
-            }
-
-            set
-            {
-                val_int = value;
-            }
+            get { return val_int; }
+            set { val_int = value; }
         }
 
         public string Val_t
         {
-            get
-            {
-                return val_t;
-            }
-
-            set
-            {
-                val_t = value;
-            }
+            get { return val_t; }
+            set { val_t = value; }
         }
 
         public string Val
         {
-            get
-            {
-                return textBox1.Text;
-            }
-            
+            get { return textBox1.Text; }
         }
 
         public String Serial
         {
-            get
-            {
-                return serial;
-            }
-
-            set
-            {
-                serial = value;
-            }
+            get { return serial; }
+            set { serial = value; }
         }
 
         public string User
         {
-            get
-            {
-                return user;
-            }
-
-            set
-            {
-                user = value;
-            }
+            get { return user; }
+            set { user = value; }
         }
 
         public int SelBoard
         {
-            get
-            {
-                return selBoard;
-            }
-
-            set
-            {
-                selBoard = value;
-            }
+            get { return selBoard; }
+            set { selBoard = value; }
         }
 
         public string PrevVal
         {
-            get
-            {
-                return prevVal;
-            }
-
-            set
-            {
-                prevVal = value;
-            }
+            get { return prevVal; }
+            set { prevVal = value; }
         }
 
-        public int SelSerial
+        /// <summary>
+        /// Fixed: was recursive getter/setter. Now properly backed by field.
+        /// </summary>
+        public string SelCAN
         {
-            get
-            {
-                return SelSerial;
-            }
-
-            set
-            {
-                SelSerial = value;
-            }
+            get { return selCAN; }
+            set { selCAN = value; }
         }
 
-        public string SelCAN { get => selCAN; set => selCAN = value; }
-        public string SelSERIAL { get => selSERIAL; set => selSERIAL = value; }
-
-        private void buttonSelCAN_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Serial interface selection. Properly backed by field.
+        /// </summary>
+        public string SelSERIAL
         {
-            this.SelCAN = this.comboBox1.SelectedItem.ToString();
-            this.Hide();
+            get { return selSERIAL; }
+            set { selSERIAL = value; }
         }
 
-        private void buttonSelSERIAL_Click(object sender, EventArgs e)
-        {
-            this.SelSERIAL = this.comboBox1.SelectedItem.ToString();
-            this.Hide();
-        }
+        #endregion
+
+        #region Event Handlers
 
         private void buttonSelBoard_Click(object sender, EventArgs e)
         {
@@ -303,7 +284,7 @@ namespace iCubProductionTestSuite
 
         private void buttonOperator_Click(object sender, EventArgs e)
         {
-            if(this.textBox1.Text.Length == 0)
+            if (this.textBox1.Text.Length == 0)
             {
                 MessageBox.Show("Il nome operatore non deve essere nullo!", "Errore",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -315,15 +296,13 @@ namespace iCubProductionTestSuite
 
         private void buttonSerial_Click(object sender, EventArgs e)
         {
-           
-                this.Serial = this.textBox1.Text;
-           
+            this.Serial = this.textBox1.Text;
             this.Hide();
         }
 
         private void buttonInputValue_Click(object sender, EventArgs e)
         {
-            switch(type)
+            switch (type)
             {
                 case "num":
                     int d;
@@ -339,24 +318,29 @@ namespace iCubProductionTestSuite
                         return;
                     }
                     break;
+
                 case "text":
                     if (!textBox1.Text.Equals(""))
                     {
                         this.val_t = textBox1.Text;
                         PrevVal = textBox1.Text;
-                    }                      
-                    else return;
+                    }
+                    else
+                        return;
                     break;
+
                 case "serial":
                     if (!textBox1.Text.Equals(""))
                     {
                         this.Serial = this.textBox1.Text;
                     }
-                    else return;
+                    else
+                        return;
                     break;
-
             }
             this.Hide();
         }
+
+        #endregion
     }
 }

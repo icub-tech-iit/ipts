@@ -38,7 +38,7 @@ namespace iCubProductionTestSuite
         bool DEBUG = false;
         String LAST_SN = "0";
         String OPERATOR = "";
-        static readonly String SW_VER = "1.7.1 - 13/11/2025"; // refer to  https://github.com/icub-tech-iit/ipts
+        static readonly String SW_VER = "1.7.2 - 05/12/2025"; // refer to  https://github.com/icub-tech-iit/ipts
         String RESULT = ""; 
         static String CONFIG_DIR = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         static String CONFIG_FILE = "ipts.xml";
@@ -147,19 +147,40 @@ namespace iCubProductionTestSuite
                 Application.Exit();
             }
 
-            //scelta interfacce - DA RIVEDERE
-            //foreach (TestInterface t in tp.TestInterfaces)
-            //{
-
-            //    FormInput fi_i = new FormInput(t);
-            //    fi_i.ShowDialog();
-            //    if (t.Name.Equals("CAN")) { t.NetPort = fi_i.SelCAN; cu = new CanUtils(t); }
-            //    else if (t.Name.Equals("SERIAL")) { t.NetPort = fi_i.SelSERIAL; su = new SerialUtils(t); }
-            //    int i = 0;
-            //    i++;
-            //}
-
-     
+            // Scelta delle interfacce di comunicazione
+            foreach (TestInterface t in tp.TestInterfaces)
+            {
+                log.Debug("Selecting interface: " + t.Name);
+                
+                if (t.Name.Equals("CAN"))
+                {
+                    FormInput fi_i = new FormInput(t);
+                    if (fi_i.IsReady()) { fi_i.ShowDialog(); }
+                    if (!string.IsNullOrEmpty(fi_i.SelCAN)) 
+                    { 
+                        t.NetPort = fi_i.SelCAN; 
+                        cu = new CanUtils(t); 
+                    }
+                }
+                else if (t.Name.Equals("SERIAL"))
+                {
+                    FormInput fi_i = new FormInput(t);
+                    if (fi_i.IsReady()) { fi_i.ShowDialog(); }
+                    
+                    if (!string.IsNullOrEmpty(fi_i.SelSERIAL)) 
+                    { 
+                        t.NetPort = fi_i.SelSERIAL; 
+                        su = new SerialUtils(t);
+                    }
+                    else
+                    {
+                        // SERIAL interface not found at startup - use default initialization
+                        // The interface will be reconfigured just-in-time when first used
+                        log.WarnFormat("SERIAL interface not available at startup. Using default initialization for {0}", t.NetPort);
+                        su = new SerialUtils(t); // Creates with default "COM1" if ti.NetPort is empty
+                    }
+                }
+            }
 
             //setto titolo del form
             this.Text += " -  " + tp.Boardname + " - " + tp.Iitcode + " - Testplan rev. " + tp.Rev;
@@ -247,7 +268,7 @@ namespace iCubProductionTestSuite
                 {
                     tp.setTestResult(testid, "Running...");
                     this.Refresh();
-                    PASS_TMP = tr.runTest(t, this.listBoxLog, repeated, cu, su);
+                    PASS_TMP = tr.RunTest(t, this.listBoxLog, repeated, cu, su);
                     
 
                     if (!PASS_TMP)
@@ -348,12 +369,12 @@ namespace iCubProductionTestSuite
                         break;
 
                     case "SERIAL":
-                        //su = new SerialUtils();
+                        // SERIAL interface check is now non-blocking; it will be validated at runtime
+                        // This allows testing boards without initial SERIAL connectivity
                         if (SerialPort.GetPortNames().Length == 0)
                         {
-                            error = true;
-                            MessageBox.Show(this, "Errore interfaccia SERIALE, controllare collegamenti", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            startStop1.setStartEnabled(true);
+                            log.WarnFormat("No SERIAL ports detected at validation time. Tests using SERIAL will attempt lazy initialization.");
+                            // Do not fail here - SERIAL may become available after firmware flash
                         }
                         break;
 
