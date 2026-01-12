@@ -852,7 +852,7 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
             <interface name="SERIAL" netPort="COM4" bitrate="9600" />
         </interfaces>
 
-    <test id="1" name="Connessioni Setup">
+        <test id="1" name="Connessioni Setup">
             <operation type="okDialog" text="Collegare il setup di test come in figura
 
 1. Impostare l'alimentatore a 12V @0.8A
@@ -936,27 +936,27 @@ Impostare l'alimentatore a 24Vdc @0.3A ed alimentare la scheda" image="img\mc4pl
             <operation type="receivePassFail" interface="CAN" valPass="0xA0"  logMess="1" />
         </test>
 
-        <test id="13" name="Test IMU MPU-9250">
+        <!--<test id="13" name="Test IMU MPU-9250">
             <operation type="wait" value="500" />
             <operation type="send" interface="CAN" command="06" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
-        </test>
+        </test>-->
 
-        <test id="14" name="Test Connector J2 (servo)">
+        <test id="13" name="Test Connector J2 (servo)">
             <operation type="okDialog" text="Collegare apposito connettore esterno al connettore J2 come in figura" image="img/rfe/rfe-j2.jpg" />
             <operation type="wait" value="500" />
             <operation type="send" interface="CAN" command="07" />
             <operation type="receivePassFail" interface="CAN" valPass="0xAA"  logMess="1" />
         </test>
 
-        <test id="15" name="Test J5 (12V)">
+        <test id="14" name="Test J5 (12V)">
             <operation type="okDialog" text="Accendere alimentatore esterno 12V " image="img/rfe/rfe-j5.jpg"/>
             <operation type="send" interface="CAN" command="04" />
             <operation type="wait" value="500" />                       
             <operation type="passFailDialog" text="Scollegare il cavo USB, Il led Blue é sempre acceso?"  image="img/rfe/rfe-j5_2jpg"/>
         </test>
 
-        <test id="16" name="Flash Bootloader/Applicativo">
+        <test id="15" name="Flash Bootloader/Applicativo">
             <operation type="batch" batchDir="tools\boards\rfe\flash" batchFile="rfe_prod.bat" />
         </test>
     
