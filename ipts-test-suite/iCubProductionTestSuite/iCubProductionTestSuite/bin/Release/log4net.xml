@@ -240,8 +240,8 @@
             Should transactions be used to insert logging events in the database.
             </summary>
             <value>
-            <c>true</c> if transactions should be used to insert logging events in
-            the database, otherwise <c>false</c>. The default value is <c>true</c>.
+            <see langword="true"/> if transactions should be used to insert logging events in
+            the database, otherwise <see langword="false"/>. The default value is <see langword="true"/>.
             </value>
             <remarks>
             <para>
@@ -276,8 +276,8 @@
             Should this appender try to reconnect to the database on error.
             </summary>
             <value>
-            <c>true</c> if the appender should try to reconnect to the database after an
-            error has occurred, otherwise <c>false</c>. The default value is <c>false</c>, 
+            <see langword="true"/> if the appender should try to reconnect to the database after an
+            error has occurred, otherwise <see langword="false"/>. The default value is <see langword="false"/>, 
             i.e. not to try to reconnect.
             </value>
             <remarks>
@@ -287,7 +287,7 @@
             </para>
             <para>
             To force the appender to attempt to reconnect to the database set this
-            property to <c>true</c>.
+            property to <see langword="true"/>.
             </para>
             <note>
             When the appender attempts to connect to the database there may be a
@@ -371,7 +371,7 @@
             <param name="events">The array of events to insert into the database.</param>
             <remarks>
             <para>
-            The transaction argument can be <c>null</c> if the appender has been
+            The transaction argument can be <see langword="null"/> if the appender has been
             configured not to use transactions. See <see cref="P:log4net.Appender.AdoNetAppender.UseTransactions"/>
             property for more information.
             </para>
@@ -1249,7 +1249,7 @@
             </summary>
             <remarks>
             <para>
-            If this appender has not been closed then the <c>Finalize</c> method
+            If this appender has not been closed then the <see cref="M:log4net.Appender.AppenderSkeleton.Finalize"/> method
             will call <see cref="M:log4net.Appender.AppenderSkeleton.Close"/>.
             </para>
             </remarks>
@@ -1385,7 +1385,7 @@
                <item>
                  <description>
                  Calls <see cref="M:log4net.Appender.AppenderSkeleton.PreAppendCheck"/> and checks that 
-                 it returns <c>true</c>.</description>
+                 it returns <see langword="true"/>.</description>
                </item>
             </list>
             </para>
@@ -1428,7 +1428,7 @@
                <item>
                  <description>
                  Calls <see cref="M:log4net.Appender.AppenderSkeleton.PreAppendCheck"/> and checks that 
-                 it returns <c>true</c>.</description>
+                 it returns <see langword="true"/>.</description>
                </item>
             </list>
             </para>
@@ -1443,7 +1443,7 @@
             Test if the logging event should we output by this appender
             </summary>
             <param name="loggingEvent">the event to test</param>
-            <returns><c>true</c> if the event should be output, <c>false</c> if the event should be ignored</returns>
+            <returns><see langword="true"/> if the event should be output, <see langword="false"/> if the event should be ignored</returns>
             <remarks>
             <para>
             This method checks the logging event against the threshold level set
@@ -1502,8 +1502,8 @@
             </summary>
             <param name="level"><see cref="T:log4net.Core.Level"/> to test against.</param>
             <returns>
-            <c>true</c> if the <paramref name="level"/> meets the <see cref="P:log4net.Appender.AppenderSkeleton.Threshold"/> 
-            requirements of this appender. A null level always maps to <c>true</c>,
+            <see langword="true"/> if the <paramref name="level"/> meets the <see cref="P:log4net.Appender.AppenderSkeleton.Threshold"/> 
+            requirements of this appender. A null level always maps to <see langword="true"/>,
             the equivalent of <see cref="F:log4net.Core.Level.All"/>.
             </returns>
         </member>
@@ -1592,7 +1592,7 @@
             this base class if it is overridden.
             </para>
             </remarks>
-            <returns><c>true</c> if the call to <see cref="M:log4net.Appender.AppenderSkeleton.Append(log4net.Core.LoggingEvent)"/> should proceed.</returns>
+            <returns><see langword="true"/> if the call to <see cref="M:log4net.Appender.AppenderSkeleton.Append(log4net.Core.LoggingEvent)"/> should proceed.</returns>
         </member>
         <member name="M:log4net.Appender.AppenderSkeleton.RenderLoggingEvent(log4net.Core.LoggingEvent)">
             <summary>
@@ -1653,14 +1653,14 @@
             <para>
             In the rather exceptional case, where the appender 
             implementation admits a layout but can also work without it, 
-            then the appender should return <c>true</c>.
+            then the appender should return <see langword="true"/>.
             </para>
             <para>
-            This default implementation always returns <c>false</c>.
+            This default implementation always returns <see langword="false"/>.
             </para>
             </remarks>
             <returns>
-            <c>true</c> if the appender requires a layout object, otherwise <c>false</c>.
+            <see langword="true"/> if the appender requires a layout object, otherwise <see langword="false"/>.
             </returns>
         </member>
         <member name="M:log4net.Appender.AppenderSkeleton.Flush(System.Int32)">
@@ -1670,7 +1670,7 @@
             <remarks>
             This implementation doesn't flush anything and always returns true
             </remarks>
-            <returns><c>True</c> if all logging events were flushed successfully, else <c>false</c>.</returns>
+            <returns><see langword="true"/> if all logging events were flushed successfully, else <see langword="false"/>.</returns>
         </member>
         <member name="F:log4net.Appender.AppenderSkeleton._errorHandler">
             <summary>
@@ -1813,7 +1813,7 @@
             The buffering appender can be configured in a <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/> mode. 
             By default the appender is NOT lossy. When the buffer is full all 
             the buffered events are sent with <see cref="M:log4net.Appender.BufferingAppenderSkeleton.SendBuffer(log4net.Core.LoggingEvent[])"/>.
-            If the <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/> property is set to <c>true</c> then the 
+            If the <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/> property is set to <see langword="true"/> then the 
             buffer will not be sent when it is full, and new events arriving 
             in the appender will overwrite the oldest event in the buffer. 
             In lossy mode the buffer will only be sent when the <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Evaluator"/>
@@ -1842,7 +1842,7 @@
             Initializes a new instance of the <see cref="T:log4net.Appender.BufferingAppenderSkeleton" /> class.
             </summary>
             <param name="eventMustBeFixed">the events passed through this appender must be
-            fixed by the time that they arrive in the derived class' <c>SendBuffer</c> method.</param>
+            fixed by the time that they arrive in the derived class' <see cref="M:log4net.Appender.BufferingAppenderSkeleton.SendBuffer(log4net.Core.LoggingEvent[])"/> method.</param>
             <remarks>
             <para>
             Protected constructor to allow subclassing.
@@ -1859,7 +1859,7 @@
             Gets or sets a value that indicates whether the appender is lossy.
             </summary>
             <value>
-            <c>true</c> if the appender is lossy, otherwise <c>false</c>. The default is <c>false</c>.
+            <see langword="true"/> if the appender is lossy, otherwise <see langword="false"/>. The default is <see langword="false"/>.
             </value>
             <remarks>
             <para>
@@ -1867,10 +1867,10 @@
             delivering them. A triggering event causes the whole buffer
             to be sent to the remote sink. If the buffer overruns before
             a triggering event then logging events could be lost. Set
-            <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/> to <c>false</c> to prevent logging events 
+            <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/> to <see langword="false"/> to prevent logging events 
             from being lost.
             </para>
-            <para>If <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/> is set to <c>true</c> then an
+            <para>If <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/> is set to <see langword="true"/> then an
             <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Evaluator"/> must be specified.</para>
             </remarks>
         </member>
@@ -1914,7 +1914,7 @@
             appender. If the evaluator triggers then the current buffer will 
             immediately be sent (see <see cref="M:log4net.Appender.BufferingAppenderSkeleton.SendBuffer(log4net.Core.LoggingEvent[])"/>).
             </para>
-            <para>If <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/> is set to <c>true</c> then an
+            <para>If <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/> is set to <see langword="true"/> then an
             <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Evaluator"/> must be specified.</para>
             </remarks>
         </member>
@@ -1954,7 +1954,7 @@
             Flushes any buffered log data.
             </summary>
             <param name="millisecondsTimeout">The maximum time to wait for logging events to be flushed.</param>
-            <returns><c>True</c> if all logging events were flushed successfully, else <c>false</c>.</returns>
+            <returns><see langword="true"/> if all logging events were flushed successfully, else <see langword="false"/>.</returns>
         </member>
         <member name="M:log4net.Appender.BufferingAppenderSkeleton.Flush">
             <summary>
@@ -1974,21 +1974,21 @@
             <summary>
             Flush the currently buffered events
             </summary>
-            <param name="flushLossyBuffer">set to <c>true</c> to flush the buffer of lossy events</param>
+            <param name="flushLossyBuffer">set to <see langword="true"/> to flush the buffer of lossy events</param>
             <remarks>
             <para>
             Flushes events that have been buffered. If <paramref name="flushLossyBuffer" /> is
-            <c>false</c> then events will only be flushed if this buffer is non-lossy mode.
+            <see langword="false"/> then events will only be flushed if this buffer is non-lossy mode.
             </para>
             <para>
             If the appender is buffering in <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/> mode then the contents
-            of the buffer will only be flushed if <paramref name="flushLossyBuffer" /> is <c>true</c>.
+            of the buffer will only be flushed if <paramref name="flushLossyBuffer" /> is <see langword="true"/>.
             In this case the contents of the buffer will be tested against the 
             <see cref="P:log4net.Appender.BufferingAppenderSkeleton.LossyEvaluator"/> and if triggering will be output. All other buffered
             events will be discarded.
             </para>
             <para>
-            If <paramref name="flushLossyBuffer" /> is <c>true</c> then the buffer will always
+            If <paramref name="flushLossyBuffer" /> is <see langword="true"/> then the buffer will always
             be emptied by calling this method.
             </para>
             </remarks>
@@ -2173,7 +2173,7 @@
             </summary>
             <param name="name">The name of the appender to lookup.</param>
             <returns>
-            The appender with the specified name, or <c>null</c>.
+            The appender with the specified name, or <see langword="null"/>.
             </returns>
         </member>
         <member name="M:log4net.Appender.BufferingForwardingAppender.RemoveAllAppenders">
@@ -2559,7 +2559,7 @@
             </summary>
             <remarks>
             <para>The default behavior is to flush at the end of each 
-            write. If the option is set to<c>false</c>, then the underlying 
+            write. If the option is set to<see langword="false"/>, then the underlying 
             stream can defer writing to physical medium to a later time. 
             </para>
             <para>
@@ -2588,7 +2588,7 @@
             Flushes any buffered log data.
             </summary>
             <param name="millisecondsTimeout">The maximum time to wait for logging events to be flushed.</param>
-            <returns><c>True</c> if all logging events were flushed successfully, else <c>false</c>.</returns>
+            <returns><see langword="true"/> if all logging events were flushed successfully, else <see langword="false"/>.</returns>
         </member>
         <member name="M:log4net.Appender.DebugAppender.Append(log4net.Core.LoggingEvent)">
             <summary>
@@ -2598,7 +2598,7 @@
             <remarks>
             <para>
             Writes the logging event to the <see cref="T:System.Diagnostics.Debug"/> system.
-            If <see cref="P:log4net.Appender.DebugAppender.ImmediateFlush"/> is <c>true</c> then the <see cref="M:System.Diagnostics.Debug.Flush"/>
+            If <see cref="P:log4net.Appender.DebugAppender.ImmediateFlush"/> is <see langword="true"/> then the <see cref="M:System.Diagnostics.Debug.Flush"/>
             is called.
             </para>
             </remarks> 
@@ -2623,8 +2623,8 @@
             on the <see cref="T:log4net.Core.LoggingEvent"/>.
             </para>
             <para>
-            The <c>Category</c> of the event log entry can be
-            set using the <c>Category</c> property (<see cref="P:log4net.Core.LoggingEvent.Properties"/>)
+            The <see cref="P:log4net.Appender.EventLogAppender.Category"/> of the event log entry can be
+            set using the <see cref="P:log4net.Appender.EventLogAppender.Category"/> property (<see cref="P:log4net.Core.LoggingEvent.Properties"/>)
             on the <see cref="T:log4net.Core.LoggingEvent"/>.
             </para>
             <para>
@@ -2750,7 +2750,7 @@
         </member>
         <member name="P:log4net.Appender.EventLogAppender.EventId">
             <summary>
-            Gets or sets the <c>EventId</c> to use unless one is explicitly specified via the <c>LoggingEvent</c>'s properties.
+            Gets or sets the <see cref="P:log4net.Appender.EventLogAppender.EventId"/> to use unless one is explicitly specified via the <c>LoggingEvent</c>'s properties.
             </summary>
             <remarks>
             <para>
@@ -2763,12 +2763,12 @@
         </member>
         <member name="P:log4net.Appender.EventLogAppender.Category">
             <summary>
-            Gets or sets the <c>Category</c> to use unless one is explicitly specified via the <c>LoggingEvent</c>'s properties.
+            Gets or sets the <see cref="P:log4net.Appender.EventLogAppender.Category"/> to use unless one is explicitly specified via the <c>LoggingEvent</c>'s properties.
             </summary>
             <remarks>
             <para>
-            The <c>Category</c> of the event log entry will normally be
-            set using the <c>Category</c> property (<see cref="P:log4net.Core.LoggingEvent.Properties"/>)
+            The <see cref="P:log4net.Appender.EventLogAppender.Category"/> of the event log entry will normally be
+            set using the <see cref="P:log4net.Appender.EventLogAppender.Category"/> property (<see cref="P:log4net.Core.LoggingEvent.Properties"/>)
             on the <see cref="T:log4net.Core.LoggingEvent"/>.
             This property provides the fallback value which defaults to 0.
             </para>
@@ -2819,7 +2819,7 @@
             <summary>
             This appender requires a <see cref="N:log4net.Layout"/> to be set.
             </summary>
-            <value><c>true</c></value>
+            <value><see langword="true"/></value>
         </member>
         <member name="M:log4net.Appender.EventLogAppender.GetEntryType(log4net.Core.Level)">
             <summary>
@@ -3759,7 +3759,7 @@
             </summary>
             <param name="name">The name of the appender to lookup.</param>
             <returns>
-            The appender with the specified name, or <c>null</c>.
+            The appender with the specified name, or <see langword="null"/>.
             </returns>
             <remarks>
             <para>
@@ -3915,7 +3915,7 @@
             </para>
             </remarks>
             <param name="millisecondsTimeout">The maximum time to wait for logging events to be flushed.</param>
-            <returns><c>True</c> if all logging events were flushed successfully, else <c>false</c>.</returns>
+            <returns><see langword="true"/> if all logging events were flushed successfully, else <see langword="false"/>.</returns>
         </member>
         <member name="T:log4net.Appender.Internal.IUdpConnection">
             <summary>
@@ -4509,10 +4509,19 @@
         </member>
         <member name="T:log4net.Appender.OutputDebugStringAppender">
             <summary>
-            Appends log events to the OutputDebugString system.
+            Appends log events to the OutputDebugString system
             </summary>
             <author>Nicko Cadell</author>
             <author>Gert Driesen</author>
+        </member>
+        <member name="M:log4net.Appender.OutputDebugStringAppender.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:log4net.Appender.OutputDebugStringAppender.#ctor(System.Action{System.String})">
+            <summary>
+            Constructor for unit testing
+            </summary>
+            <param name="outputDebugString">replacement for <see cref="M:log4net.Util.NativeMethods.OutputDebugString(System.String)"/></param>
         </member>
         <member name="M:log4net.Appender.OutputDebugStringAppender.Append(log4net.Core.LoggingEvent)">
             <summary>
@@ -4752,6 +4761,26 @@
             reserved for local use
             </summary>
         </member>
+        <member name="T:log4net.Appender.RemoteSyslogAppender.SyslogNewLineHandling">
+            <summary>
+            Options for handling newlines (\r or \n) in <see ref="AppendMessage" />
+            </summary>
+        </member>
+        <member name="F:log4net.Appender.RemoteSyslogAppender.SyslogNewLineHandling.Escape">
+            <summary>
+            escape the newlines (\\r for \r and \\n for \n)
+            </summary>
+        </member>
+        <member name="F:log4net.Appender.RemoteSyslogAppender.SyslogNewLineHandling.Split">
+            <summary>
+            split the message at new lines
+            </summary>
+        </member>
+        <member name="F:log4net.Appender.RemoteSyslogAppender.SyslogNewLineHandling.Keep">
+            <summary>
+            keep newlines as is (many syslog servers can handle newlines in the message part)
+            </summary>
+        </member>
         <member name="M:log4net.Appender.RemoteSyslogAppender.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:log4net.Appender.RemoteSyslogAppender" /> class.
@@ -4783,6 +4812,12 @@
             facilities is predefined and cannot be extended. The default value
             is <see cref="F:log4net.Appender.RemoteSyslogAppender.SyslogFacility.User"/>.
             </remarks>
+        </member>
+        <member name="P:log4net.Appender.RemoteSyslogAppender.NewLineHandling">
+            <summary>
+            NewLine handling
+            </summary>
+            <remarks>The default value is <see cref="F:log4net.Appender.RemoteSyslogAppender.SyslogNewLineHandling.Escape"/>.</remarks>
         </member>
         <member name="M:log4net.Appender.RemoteSyslogAppender.CreateUdpConnection">
             <summary>
@@ -5505,7 +5540,7 @@
             If <c>countDirection</c> &lt; 0, then files
             {<c>File.1</c>, ..., <c>File.curSizeRollBackups -1</c>}
             are renamed to {<c>File.2</c>, ...,
-            <c>File.curSizeRollBackups</c>}. Moreover, <c>File</c> is
+            <c>File.curSizeRollBackups</c>}. Moreover, <see langword="file"/> is
             renamed <c>File.1</c> and closed.
             </para>
             <para>
@@ -5513,10 +5548,10 @@
             </para>
             <para>
             If <c>maxSizeRollBackups</c> is equal to zero, then the
-            <c>File</c> is truncated with no backup files created.
+            <see langword="file"/> is truncated with no backup files created.
             </para>
             <para>
-            If <c>maxSizeRollBackups</c> &lt; 0, then <c>File</c> is
+            If <c>maxSizeRollBackups</c> &lt; 0, then <see langword="file"/> is
             renamed if needed and no files are deleted.
             </para>
             </remarks>
@@ -5538,10 +5573,10 @@
             </para>
             <para>
             If <c>maxSizeRollBackups</c> is equal to zero, then the
-            <c>File</c> is truncated with no backup files created.
+            <see langword="file"/> is truncated with no backup files created.
             </para>
             <para>
-            If <c>maxSizeRollBackups</c> &lt; 0, then <c>File</c> is
+            If <c>maxSizeRollBackups</c> &lt; 0, then <see langword="file"/> is
             renamed if needed and no files are deleted.
             </para>
             <para>
@@ -6240,7 +6275,7 @@
             append operation.
             </para>
             <para>
-            If this option is set to <c>false</c>, then the underlying 
+            If this option is set to <see langword="false"/>, then the underlying 
             stream can defer persisting the logging event to a later 
             time.
             </para>
@@ -6281,7 +6316,7 @@
             layout has been set. 
             </para>
             </remarks>
-            <returns><c>false</c> if any of the preconditions fail.</returns>
+            <returns><see langword="false"/> if any of the preconditions fail.</returns>
         </member>
         <member name="M:log4net.Appender.TextWriterAppender.Append(log4net.Core.LoggingEvent)">
             <summary>
@@ -6416,7 +6451,7 @@
             Flushes any buffered log data.
             </summary>
             <param name="millisecondsTimeout">The maximum time to wait for logging events to be flushed.</param>
-            <returns><c>True</c> if all logging events were flushed successfully, else <c>false</c>.</returns>
+            <returns><see langword="true"/> if all logging events were flushed successfully, else <see langword="false"/>.</returns>
         </member>
         <member name="T:log4net.Appender.TraceAppender">
             <summary>
@@ -6454,7 +6489,7 @@
             </summary>
             <remarks>
             <para>The default behavior is to flush at the end of each 
-            write. If the option is set to<c>false</c>, then the underlying 
+            write. If the option is set to<see langword="false"/>, then the underlying 
             stream can defer writing to physical medium to a later time. 
             </para>
             <para>
@@ -6494,7 +6529,7 @@
             Flushes any buffered log data.
             </summary>
             <param name="millisecondsTimeout">The maximum time to wait for logging events to be flushed.</param>
-            <returns><c>True</c> if all logging events were flushed successfully, else <c>false</c>.</returns>
+            <returns><see langword="true"/> if all logging events were flushed successfully, else <see langword="false"/>.</returns>
         </member>
         <member name="T:log4net.Appender.UdpAppender">
              <summary>
@@ -7764,11 +7799,11 @@
             Gets or sets a value indicating whether to watch the configuration file.
             </summary>
             <value>
-            <c>true</c> if the configuration should be watched, <c>false</c> otherwise.
+            <see langword="true"/> if the configuration should be watched, <see langword="false"/> otherwise.
             </value>
             <remarks>
             <para>
-            If this flag is specified and set to <c>true</c> then the framework
+            If this flag is specified and set to <see langword="true"/> then the framework
             will watch the configuration file and will reload the config each time 
             the file is modified.
             </para>
@@ -7905,7 +7940,7 @@
             <returns>The <see cref="T:log4net.Repository.ILoggerRepository"/> for the specified repository.</returns>
             <remarks>
             <para>
-            Returns the named repository. If <paramref name="repositoryName"/> is <c>null</c>
+            Returns the named repository. If <paramref name="repositoryName"/> is <see langword="null"/>
             a <see cref="T:System.ArgumentNullException"/> is thrown. If the repository 
             does not exist a <see cref="T:log4net.Core.LogException"/> is thrown.
             </para>
@@ -7961,7 +7996,7 @@
             <param name="repositoryAssembly">the assembly to use to create the repository to associate with the <see cref="T:log4net.Repository.ILoggerRepository"/>.</param>
             <param name="repositoryType">The type of repository to create, must implement <see cref="T:log4net.Repository.ILoggerRepository"/>.</param>
             <param name="repositoryName">The name to assign to the created repository</param>
-            <param name="readAssemblyAttributes">Set to <c>true</c> to read and apply the assembly attributes</param>
+            <param name="readAssemblyAttributes">Set to <see langword="true"/> to read and apply the assembly attributes</param>
             <returns>The repository created.</returns>
             <remarks>
             <para>
@@ -8017,7 +8052,7 @@
             Test if a named repository exists
             </summary>
             <param name="repositoryName">the named repository to check</param>
-            <returns><c>true</c> if the repository exists</returns>
+            <returns><see langword="true"/> if the repository exists</returns>
             <remarks>
             <para>
             Test if a named repository exists. Use <see cref="M:log4net.Core.DefaultRepositorySelector.CreateRepository(System.String,System.Type)"/>
@@ -8211,9 +8246,9 @@
             Is this <paramref name="loggingEvent"/> the triggering event?
             </summary>
             <param name="loggingEvent">The event to check</param>
-            <returns>This method returns <c>true</c>, if the logging event Exception 
+            <returns>This method returns <see langword="true"/>, if the logging event Exception 
             Type is <see cref="P:log4net.Core.ExceptionEvaluator.ExceptionType"/>. 
-            Otherwise it returns <c>false</c></returns>
+            Otherwise it returns <see langword="false"/></returns>
             <remarks>
             <para>
             This evaluator will trigger if the Exception Type of the event
@@ -8350,7 +8385,7 @@
             Gets a collection of attached appenders.
             If there are no attached appenders the
             implementation should return an empty 
-            collection rather than <c>null</c>.
+            collection rather than <see langword="null"/>.
             </para>
             </remarks>
         </member>
@@ -8360,13 +8395,13 @@
             </summary>
             <param name="name">The name of the appender to get.</param>
             <returns>
-            The appender with the name specified, or <c>null</c> if no appender with the
+            The appender with the name specified, or <see langword="null"/> if no appender with the
             specified name is found.
             </returns>
             <remarks>
             <para>
             Returns an attached appender with the <paramref name="name"/> specified.
-            If no appender with the specified name is found <c>null</c> will be
+            If no appender with the specified name is found <see langword="null"/> will be
             returned.
             </para>
             </remarks>
@@ -8523,7 +8558,7 @@
             the stack boundary into the logging system for this call.</param>
             <param name="level">The level of the message to be logged.</param>
             <param name="message">The message object to log.</param>
-            <param name="exception">the exception to log, including its stack trace. Pass <c>null</c> to not log an exception.</param>
+            <param name="exception">the exception to log, including its stack trace. Pass <see langword="null"/> to not log an exception.</param>
             <remarks>
             <para>
             This generic form is intended to be used by wrappers.
@@ -8548,7 +8583,7 @@
             </summary>
             <param name="level">The level to check.</param>
             <returns>
-            <c>true</c> if this logger is enabled for <c>level</c>, otherwise <c>false</c>.
+            <see langword="true"/> if this logger is enabled for <c>level</c>, otherwise <see langword="false"/>.
             </returns>
         </member>
         <member name="P:log4net.Core.ILogger.Repository">
@@ -8752,7 +8787,7 @@
             Test if a named repository exists
             </summary>
             <param name="repositoryName">the named repository to check</param>
-            <returns><c>true</c> if the repository exists</returns>
+            <returns><see langword="true"/> if the repository exists</returns>
             <remarks>
             <para>
             Test if a named repository exists. Use <see cref="M:log4net.Core.IRepositorySelector.CreateRepository(System.Reflection.Assembly,System.Type)"/>
@@ -8810,10 +8845,10 @@
             Test if this event triggers the action
             </summary>
             <param name="loggingEvent">The event to check</param>
-            <returns><c>true</c> if this event triggers the action, otherwise <c>false</c></returns>
+            <returns><see langword="true"/> if this event triggers the action, otherwise <see langword="false"/></returns>
             <remarks>
             <para>
-            Return <c>true</c> if this event triggers the action
+            Return <see langword="true"/> if this event triggers the action
             </para>
             </remarks>
         </member>
@@ -9255,8 +9290,8 @@
             Advances the enumerator to the next element in the collection.
             </summary>
             <returns>
-            <c>true</c> if the enumerator was successfully advanced to the next element; 
-            <c>false</c> if the enumerator has passed the end of the collection.
+            <see langword="true"/> if the enumerator was successfully advanced to the next element; 
+            <see langword="false"/> if the enumerator has passed the end of the collection.
             </returns>
             <exception cref="T:System.InvalidOperationException">
             The collection was modified after the enumerator was created.
@@ -9269,52 +9304,52 @@
         </member>
         <member name="M:log4net.Core.LevelCollection.ReadOnly(log4net.Core.LevelCollection)">
             <summary>
-            Creates a read-only wrapper for a <c>LevelCollection</c> instance.
+            Creates a read-only wrapper for a <see cref="T:log4net.Core.LevelCollection"/> instance.
             </summary>
             <param name="list">list to create a readonly wrapper arround</param>
             <returns>
-            A <c>LevelCollection</c> wrapper that is read-only.
+            A <see cref="T:log4net.Core.LevelCollection"/> wrapper that is read-only.
             </returns>
         </member>
         <member name="M:log4net.Core.LevelCollection.#ctor">
             <summary>
-            Initializes a new instance of the <c>LevelCollection</c> class
+            Initializes a new instance of the <see cref="T:log4net.Core.LevelCollection"/> class
             that is empty and has the default initial capacity.
             </summary>
         </member>
         <member name="M:log4net.Core.LevelCollection.#ctor(System.Int32)">
             <summary>
-            Initializes a new instance of the <c>LevelCollection</c> class
+            Initializes a new instance of the <see cref="T:log4net.Core.LevelCollection"/> class
             that has the specified initial capacity.
             </summary>
             <param name="capacity">
-            The number of elements that the new <c>LevelCollection</c> is initially capable of storing.
+            The number of elements that the new <see cref="T:log4net.Core.LevelCollection"/> is initially capable of storing.
             </param>
         </member>
         <member name="M:log4net.Core.LevelCollection.#ctor(log4net.Core.LevelCollection)">
             <summary>
-            Initializes a new instance of the <c>LevelCollection</c> class
-            that contains elements copied from the specified <c>LevelCollection</c>.
+            Initializes a new instance of the <see cref="T:log4net.Core.LevelCollection"/> class
+            that contains elements copied from the specified <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
-            <param name="collection">The <c>LevelCollection</c> whose elements are copied to the new collection.</param>
+            <param name="collection">The <see cref="T:log4net.Core.LevelCollection"/> whose elements are copied to the new collection.</param>
         </member>
         <member name="M:log4net.Core.LevelCollection.#ctor(log4net.Core.Level[])">
             <summary>
-            Initializes a new instance of the <c>LevelCollection</c> class
+            Initializes a new instance of the <see cref="T:log4net.Core.LevelCollection"/> class
             that contains elements copied from the specified <see cref="T:log4net.Core.Level"/> array.
             </summary>
             <param name="array">The <see cref="T:log4net.Core.Level"/> array whose elements are copied to the new list.</param>
         </member>
         <member name="M:log4net.Core.LevelCollection.#ctor(System.Collections.ICollection)">
             <summary>
-            Initializes a new instance of the <c>LevelCollection</c> class
+            Initializes a new instance of the <see cref="T:log4net.Core.LevelCollection"/> class
             that contains elements copied from the specified <see cref="T:log4net.Core.Level"/> collection.
             </summary>
             <param name="collection">The <see cref="T:log4net.Core.Level"/> collection whose elements are copied to the new list.</param>
         </member>
         <member name="M:log4net.Core.LevelCollection.#ctor(System.Collections.Generic.ICollection{log4net.Core.Level})">
             <summary>
-            Initializes a new instance of the <c>LevelCollection</c> class
+            Initializes a new instance of the <see cref="T:log4net.Core.LevelCollection"/> class
             that contains elements copied from the specified <see cref="T:log4net.Core.Level"/> collection.
             </summary>
             <param name="collection">The <see cref="T:log4net.Core.Level"/> collection whose elements are copied to the new list.</param>
@@ -9337,19 +9372,19 @@
         </member>
         <member name="P:log4net.Core.LevelCollection.Count">
             <summary>
-            Gets the number of elements actually contained in the <c>LevelCollection</c>.
+            Gets the number of elements actually contained in the <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
         </member>
         <member name="M:log4net.Core.LevelCollection.CopyTo(log4net.Core.Level[])">
             <summary>
-            Copies the entire <c>LevelCollection</c> to a one-dimensional
+            Copies the entire <see cref="T:log4net.Core.LevelCollection"/> to a one-dimensional
             <see cref="T:log4net.Core.Level"/> array.
             </summary>
             <param name="array">The one-dimensional <see cref="T:log4net.Core.Level"/> array to copy to.</param>
         </member>
         <member name="M:log4net.Core.LevelCollection.CopyTo(log4net.Core.Level[],System.Int32)">
             <summary>
-            Copies the entire <c>LevelCollection</c> to a one-dimensional
+            Copies the entire <see cref="T:log4net.Core.LevelCollection"/> to a one-dimensional
             <see cref="T:log4net.Core.Level"/> array, starting at the specified index of the target array.
             </summary>
             <param name="array">The one-dimensional <see cref="T:log4net.Core.Level"/> array to copy to.</param>
@@ -9379,14 +9414,14 @@
         </member>
         <member name="M:log4net.Core.LevelCollection.Add(log4net.Core.Level)">
             <summary>
-            Adds a <see cref="T:log4net.Core.Level"/> to the end of the <c>LevelCollection</c>.
+            Adds a <see cref="T:log4net.Core.Level"/> to the end of the <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
-            <param name="item">The <see cref="T:log4net.Core.Level"/> to be added to the end of the <c>LevelCollection</c>.</param>
+            <param name="item">The <see cref="T:log4net.Core.Level"/> to be added to the end of the <see cref="T:log4net.Core.LevelCollection"/>.</param>
             <returns>The index at which the value has been added.</returns>
         </member>
         <member name="M:log4net.Core.LevelCollection.Clear">
             <summary>
-            Removes all elements from the <c>LevelCollection</c>.
+            Removes all elements from the <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
         </member>
         <member name="M:log4net.Core.LevelCollection.Clone">
@@ -9397,25 +9432,25 @@
         </member>
         <member name="M:log4net.Core.LevelCollection.Contains(log4net.Core.Level)">
             <summary>
-            Determines whether a given <see cref="T:log4net.Core.Level"/> is in the <c>LevelCollection</c>.
+            Determines whether a given <see cref="T:log4net.Core.Level"/> is in the <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
             <param name="item">The <see cref="T:log4net.Core.Level"/> to check for.</param>
-            <returns><c>true</c> if <paramref name="item"/> is found in the <c>LevelCollection</c>; otherwise, <c>false</c>.</returns>
+            <returns><see langword="true"/> if <paramref name="item"/> is found in the <see cref="T:log4net.Core.LevelCollection"/>; otherwise, <see langword="false"/>.</returns>
         </member>
         <member name="M:log4net.Core.LevelCollection.IndexOf(log4net.Core.Level)">
             <summary>
             Returns the zero-based index of the first occurrence of a <see cref="T:log4net.Core.Level"/>
-            in the <c>LevelCollection</c>.
+            in the <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
-            <param name="item">The <see cref="T:log4net.Core.Level"/> to locate in the <c>LevelCollection</c>.</param>
+            <param name="item">The <see cref="T:log4net.Core.Level"/> to locate in the <see cref="T:log4net.Core.LevelCollection"/>.</param>
             <returns>
             The zero-based index of the first occurrence of <paramref name="item"/> 
-            in the entire <c>LevelCollection</c>, if found; otherwise, -1.
+            in the entire <see cref="T:log4net.Core.LevelCollection"/>, if found; otherwise, -1.
              </returns>
         </member>
         <member name="M:log4net.Core.LevelCollection.Insert(System.Int32,log4net.Core.Level)">
             <summary>
-            Inserts an element into the <c>LevelCollection</c> at the specified index.
+            Inserts an element into the <see cref="T:log4net.Core.LevelCollection"/> at the specified index.
             </summary>
             <param name="index">The zero-based index at which <paramref name="item"/> should be inserted.</param>
             <param name="item">The <see cref="T:log4net.Core.Level"/> to insert.</param>
@@ -9427,16 +9462,16 @@
         </member>
         <member name="M:log4net.Core.LevelCollection.Remove(log4net.Core.Level)">
             <summary>
-            Removes the first occurrence of a specific <see cref="T:log4net.Core.Level"/> from the <c>LevelCollection</c>.
+            Removes the first occurrence of a specific <see cref="T:log4net.Core.Level"/> from the <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
-            <param name="item">The <see cref="T:log4net.Core.Level"/> to remove from the <c>LevelCollection</c>.</param>
+            <param name="item">The <see cref="T:log4net.Core.Level"/> to remove from the <see cref="T:log4net.Core.LevelCollection"/>.</param>
             <exception cref="T:System.ArgumentException">
-            The specified <see cref="T:log4net.Core.Level"/> was not found in the <c>LevelCollection</c>.
+            The specified <see cref="T:log4net.Core.Level"/> was not found in the <see cref="T:log4net.Core.LevelCollection"/>.
             </exception>
         </member>
         <member name="M:log4net.Core.LevelCollection.RemoveAt(System.Int32)">
             <summary>
-            Removes the element at the specified index of the <c>LevelCollection</c>.
+            Removes the element at the specified index of the <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
             <param name="index">The zero-based index of the element to remove.</param>
             <exception cref="T:System.ArgumentOutOfRangeException">
@@ -9459,35 +9494,35 @@
         </member>
         <member name="M:log4net.Core.LevelCollection.GetEnumerator">
             <summary>
-            Returns an enumerator that can iterate through the <c>LevelCollection</c>.
+            Returns an enumerator that can iterate through the <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
-            <returns>An <see cref="T:log4net.Core.LevelCollection.Enumerator"/> for the entire <c>LevelCollection</c>.</returns>
+            <returns>An <see cref="T:log4net.Core.LevelCollection.Enumerator"/> for the entire <see cref="T:log4net.Core.LevelCollection"/>.</returns>
         </member>
         <member name="P:log4net.Core.LevelCollection.Capacity">
             <summary>
-            Gets or sets the number of elements the <c>LevelCollection</c> can contain.
+            Gets or sets the number of elements the <see cref="T:log4net.Core.LevelCollection"/> can contain.
             </summary>
         </member>
         <member name="M:log4net.Core.LevelCollection.AddRange(log4net.Core.LevelCollection)">
             <summary>
-            Adds the elements of another <c>LevelCollection</c> to the current <c>LevelCollection</c>.
+            Adds the elements of another <see cref="T:log4net.Core.LevelCollection"/> to the current <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
-            <param name="collection">The <c>LevelCollection</c> whose elements should be added to the end of the current <c>LevelCollection</c>.</param>
-            <returns>The new <see cref="P:log4net.Core.LevelCollection.Count"/> of the <c>LevelCollection</c>.</returns>
+            <param name="collection">The <see cref="T:log4net.Core.LevelCollection"/> whose elements should be added to the end of the current <see cref="T:log4net.Core.LevelCollection"/>.</param>
+            <returns>The new <see cref="P:log4net.Core.LevelCollection.Count"/> of the <see cref="T:log4net.Core.LevelCollection"/>.</returns>
         </member>
         <member name="M:log4net.Core.LevelCollection.AddRange(log4net.Core.Level[])">
             <summary>
-            Adds the elements of a <see cref="T:log4net.Core.Level"/> array to the current <c>LevelCollection</c>.
+            Adds the elements of a <see cref="T:log4net.Core.Level"/> array to the current <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
-            <param name="array">The <see cref="T:log4net.Core.Level"/> array whose elements should be added to the end of the <c>LevelCollection</c>.</param>
-            <returns>The new <see cref="P:log4net.Core.LevelCollection.Count"/> of the <c>LevelCollection</c>.</returns>
+            <param name="array">The <see cref="T:log4net.Core.Level"/> array whose elements should be added to the end of the <see cref="T:log4net.Core.LevelCollection"/>.</param>
+            <returns>The new <see cref="P:log4net.Core.LevelCollection.Count"/> of the <see cref="T:log4net.Core.LevelCollection"/>.</returns>
         </member>
         <member name="M:log4net.Core.LevelCollection.AddRange(System.Collections.ICollection)">
             <summary>
-            Adds the elements of a <see cref="T:log4net.Core.Level"/> collection to the current <c>LevelCollection</c>.
+            Adds the elements of a <see cref="T:log4net.Core.Level"/> collection to the current <see cref="T:log4net.Core.LevelCollection"/>.
             </summary>
-            <param name="collection">The <see cref="T:log4net.Core.Level"/> collection whose elements should be added to the end of the <c>LevelCollection</c>.</param>
-            <returns>The new <see cref="P:log4net.Core.LevelCollection.Count"/> of the <c>LevelCollection</c>.</returns>
+            <param name="collection">The <see cref="T:log4net.Core.Level"/> collection whose elements should be added to the end of the <see cref="T:log4net.Core.LevelCollection"/>.</param>
+            <returns>The new <see cref="P:log4net.Core.LevelCollection.Count"/> of the <see cref="T:log4net.Core.LevelCollection"/>.</returns>
         </member>
         <member name="M:log4net.Core.LevelCollection.TrimToSize">
             <summary>
@@ -9515,7 +9550,7 @@
         </member>
         <member name="M:log4net.Core.LevelCollection.Enumerator.#ctor(log4net.Core.LevelCollection)">
             <summary>
-            Initializes a new instance of the <c>Enumerator</c> class.
+            Initializes a new instance of the <see cref="T:log4net.Core.LevelCollection.Enumerator"/> class.
             </summary>
             <param name="tc"></param>
         </member>
@@ -9529,8 +9564,8 @@
             Advances the enumerator to the next element in the collection.
             </summary>
             <returns>
-            <c>true</c> if the enumerator was successfully advanced to the next element; 
-            <c>false</c> if the enumerator has passed the end of the collection.
+            <see langword="true"/> if the enumerator was successfully advanced to the next element; 
+            <see langword="false"/> if the enumerator has passed the end of the collection.
             </returns>
             <exception cref="T:System.InvalidOperationException">
             The collection was modified after the enumerator was created.
@@ -9605,9 +9640,9 @@
             Is this <paramref name="loggingEvent"/> the triggering event?
             </summary>
             <param name="loggingEvent">The event to check</param>
-            <returns>This method returns <c>true</c>, if the event level
+            <returns>This method returns <see langword="true"/>, if the event level
             is equal or higher than the <see cref="P:log4net.Core.LevelEvaluator.Threshold"/>. 
-            Otherwise it returns <c>false</c></returns>
+            Otherwise it returns <see langword="false"/></returns>
         </member>
         <member name="T:log4net.Core.LevelMap">
             <summary>
@@ -9642,7 +9677,7 @@
             Looks up a <see cref="T:log4net.Core.Level"/> by name
             </summary>
             <param name="name">The name of the Level to look up.</param>
-            <returns>A Level from the map with the name specified, or <c>null</c> if none is found.</returns>
+            <returns>A Level from the map with the name specified, or <see langword="null"/> if none is found.</returns>
         </member>
         <member name="M:log4net.Core.LevelMap.Add(System.String,System.Int32)">
             <summary>
@@ -9959,14 +9994,14 @@
             <param name="repository">The repository to lookup in.</param>
             <param name="name">The fully qualified logger name to look for.</param>
             <returns>
-            The logger found, or <c>null</c> if the named logger does not exist in the
+            The logger found, or <see langword="null"/> if the named logger does not exist in the
             specified repository.
             </returns>
             <remarks>
             <para>
             If the named logger exists (in the specified repository) then it
             returns a reference to the logger, otherwise it returns
-            <c>null</c>.
+            <see langword="null"/>.
             </para>
             </remarks>
         </member>
@@ -9977,14 +10012,14 @@
             <param name="repositoryAssembly">The assembly to use to look up the repository.</param>
             <param name="name">The fully qualified logger name to look for.</param>
             <returns>
-            The logger found, or <c>null</c> if the named logger does not exist in the
+            The logger found, or <see langword="null"/> if the named logger does not exist in the
             specified assembly's repository.
             </returns>
             <remarks>
             <para>
             If the named logger exists (in the specified assembly's repository) then it
             returns a reference to the logger, otherwise it returns
-            <c>null</c>.
+            <see langword="null"/>.
             </para>
             </remarks>
         </member>
@@ -10158,8 +10193,8 @@
             <para>
             Resets all values contained in the repository instance to their
             defaults.  This removes all appenders from all loggers, sets
-            the level of all non-root loggers to <c>null</c>,
-            sets their additivity flag to <c>true</c> and sets the level
+            the level of all non-root loggers to <see langword="null"/>,
+            sets their additivity flag to <see langword="true"/> and sets the level
             of the root logger to <see cref="F:log4net.Core.Level.Debug"/>. Moreover,
             message disabling is set its default "off" value.
             </para>    
@@ -10174,8 +10209,8 @@
             <para>
             Resets all values contained in the repository instance to their
             defaults.  This removes all appenders from all loggers, sets
-            the level of all non-root loggers to <c>null</c>,
-            sets their additivity flag to <c>true</c> and sets the level
+            the level of all non-root loggers to <see langword="null"/>,
+            sets their additivity flag to <see langword="true"/> and sets the level
             of the root logger to <see cref="F:log4net.Core.Level.Debug"/>. Moreover,
             message disabling is set its default "off" value.
             </para>    
@@ -10347,7 +10382,7 @@
             </value>
             <remarks>
             <para>
-            The <c>Logger</c> object may not be the same object as this object 
+            The <see cref="P:log4net.Core.LoggerWrapperImpl.Logger"/> object may not be the same object as this object 
             because of logger decorators.
             </para>
             <para>
@@ -12033,8 +12068,8 @@
             level.
             </summary>
             <value>
-            <c>true</c> if this logger is enabled for <c>DEBUG</c> events,
-            <c>false</c> otherwise.
+            <see langword="true"/> if this logger is enabled for <c>DEBUG</c> events,
+            <see langword="false"/> otherwise.
             </value>
             <remarks>
             <para>
@@ -12065,8 +12100,8 @@
             construction if debugging is disabled for <c>log</c>. On
             the other hand, if the <c>log</c> is debug enabled, you
             will incur the cost of evaluating whether the logger is debug
-            enabled twice. Once in <c>IsDebugEnabled</c> and once in
-            the <c>Debug</c>.  This is an insignificant overhead
+            enabled twice. Once in <see cref="P:log4net.Core.LogImpl.IsDebugEnabled"/> and once in
+            the <see cref="M:log4net.Core.LogImpl.Debug(System.Object)"/>.  This is an insignificant overhead
             since evaluating a logger takes about 1% of the time it
             takes to actually log.
             </para>
@@ -12077,8 +12112,8 @@
             Checks if this logger is enabled for the <c>INFO</c> level.
             </summary>
             <value>
-            <c>true</c> if this logger is enabled for <c>INFO</c> events,
-            <c>false</c> otherwise.
+            <see langword="true"/> if this logger is enabled for <c>INFO</c> events,
+            <see langword="false"/> otherwise.
             </value>
             <remarks>
             <para>
@@ -12093,8 +12128,8 @@
             Checks if this logger is enabled for the <c>WARN</c> level.
             </summary>
             <value>
-            <c>true</c> if this logger is enabled for <c>WARN</c> events,
-            <c>false</c> otherwise.
+            <see langword="true"/> if this logger is enabled for <c>WARN</c> events,
+            <see langword="false"/> otherwise.
             </value>
             <remarks>
             <para>
@@ -12109,8 +12144,8 @@
             Checks if this logger is enabled for the <c>ERROR</c> level.
             </summary>
             <value>
-            <c>true</c> if this logger is enabled for <c>ERROR</c> events,
-            <c>false</c> otherwise.
+            <see langword="true"/> if this logger is enabled for <c>ERROR</c> events,
+            <see langword="false"/> otherwise.
             </value>
             <remarks>
             <para>
@@ -12124,8 +12159,8 @@
             Checks if this logger is enabled for the <c>FATAL</c> level.
             </summary>
             <value>
-            <c>true</c> if this logger is enabled for <c>FATAL</c> events,
-            <c>false</c> otherwise.
+            <see langword="true"/> if this logger is enabled for <c>FATAL</c> events,
+            <see langword="false"/> otherwise.
             </value>
             <remarks>
             <para>
@@ -12229,7 +12264,7 @@
             </summary>
             <param name="state">State supplied by the caller</param>
             <returns>An <see cref="T:System.IDisposable"/> instance that will
-            revoke the impersonation of this SecurityContext, or <c>null</c></returns>
+            revoke the impersonation of this SecurityContext, or <see langword="null"/></returns>
             <remarks>
             <para>
             Impersonate this security context. Further calls on the current
@@ -12461,9 +12496,9 @@
             Is this <paramref name="loggingEvent"/> the triggering event?
             </summary>
             <param name="loggingEvent">The event to check</param>
-            <returns>This method returns <c>true</c>, if the specified time period 
+            <returns>This method returns <see langword="true"/>, if the specified time period 
             <see cref="P:log4net.Core.TimeEvaluator.Interval"/> has passed since last check.. 
-            Otherwise it returns <c>false</c></returns>
+            Otherwise it returns <see langword="false"/></returns>
             <remarks>
             <para>
             This evaluator will trigger if the specified time period 
@@ -12938,7 +12973,7 @@
             the chain.
             </para>
             <para>
-            This method is marked <c>abstract</c> and must be implemented
+            This method is marked <see langword="abstract"/> and must be implemented
             in a subclass.
             </para>
             </remarks>
@@ -13038,7 +13073,7 @@
             of the <see cref="P:log4net.Filter.LevelMatchFilter.LevelToMatch"/> option and the <see cref="T:log4net.Core.Level"/> of the 
             <see cref="T:log4net.Core.LoggingEvent"/>, then the <see cref="M:log4net.Filter.LevelMatchFilter.Decide(log4net.Core.LoggingEvent)"/> method returns <see cref="F:log4net.Filter.FilterDecision.Accept"/> in 
             case the <see cref="P:log4net.Filter.LevelMatchFilter.AcceptOnMatch"/> option value is set
-            to <c>true</c>, if it is <c>false</c> then 
+            to <see langword="true"/>, if it is <see langword="false"/> then 
             <see cref="F:log4net.Filter.FilterDecision.Deny"/> is returned. If the <see cref="T:log4net.Core.Level"/> does not match then
             the result will be <see cref="F:log4net.Filter.FilterDecision.Neutral"/>.
             </para>
@@ -13058,7 +13093,7 @@
             logging event, otherwise it will <see cref="F:log4net.Filter.FilterDecision.Deny"/> the event.
             </para>
             <para>
-            The default is <c>true</c> i.e. to <see cref="F:log4net.Filter.FilterDecision.Accept"/> the event.
+            The default is <see langword="true"/> i.e. to <see cref="F:log4net.Filter.FilterDecision.Accept"/> the event.
             </para>
             </remarks>
         </member>
@@ -13102,7 +13137,7 @@
             <see cref="P:log4net.Filter.LevelRangeFilter.AcceptOnMatch"/>. If there is a match between the range
             of priorities and the <see cref="T:log4net.Core.Level"/> of the <see cref="T:log4net.Core.LoggingEvent"/>, then the 
             <see cref="M:log4net.Filter.LevelRangeFilter.Decide(log4net.Core.LoggingEvent)"/> method returns <see cref="F:log4net.Filter.FilterDecision.Accept"/> in case the <see cref="P:log4net.Filter.LevelRangeFilter.AcceptOnMatch"/> 
-            option value is set to <c>true</c>, if it is <c>false</c>
+            option value is set to <see langword="true"/>, if it is <see langword="false"/>
             then <see cref="F:log4net.Filter.FilterDecision.Deny"/> is returned. If there is no match, <see cref="F:log4net.Filter.FilterDecision.Deny"/> is returned.
             </para>
             </remarks>
@@ -13121,7 +13156,7 @@
             logging event, otherwise it will <see cref="F:log4net.Filter.FilterDecision.Neutral"/> the event.
             </para>
             <para>
-            The default is <c>true</c> i.e. to <see cref="F:log4net.Filter.FilterDecision.Accept"/> the event.
+            The default is <see langword="true"/> i.e. to <see cref="F:log4net.Filter.FilterDecision.Accept"/> the event.
             </para>
             </remarks>
         </member>
@@ -13177,8 +13212,8 @@
             <see cref="P:log4net.Core.LoggingEvent.LoggerName"/> of the <see cref="T:log4net.Core.LoggingEvent"/> starts 
             with the value of the <see cref="P:log4net.Filter.LoggerMatchFilter.LoggerToMatch"/> option, then the 
             <see cref="M:log4net.Filter.LoggerMatchFilter.Decide(log4net.Core.LoggingEvent)"/> method returns <see cref="F:log4net.Filter.FilterDecision.Accept"/> in 
-            case the <see cref="P:log4net.Filter.LoggerMatchFilter.AcceptOnMatch"/> option value is set to <c>true</c>, 
-            if it is <c>false</c> then <see cref="F:log4net.Filter.FilterDecision.Deny"/> is returned.
+            case the <see cref="P:log4net.Filter.LoggerMatchFilter.AcceptOnMatch"/> option value is set to <see langword="true"/>, 
+            if it is <see langword="false"/> then <see cref="F:log4net.Filter.FilterDecision.Deny"/> is returned.
             </para>
             </remarks>
             <author>Daniel Cazzulino</author>
@@ -13195,7 +13230,7 @@
             logging event, otherwise it will <see cref="F:log4net.Filter.FilterDecision.Deny"/> the event.
             </para>
             <para>
-            The default is <c>true</c> i.e. to <see cref="F:log4net.Filter.FilterDecision.Accept"/> the event.
+            The default is <see langword="true"/> i.e. to <see cref="F:log4net.Filter.FilterDecision.Accept"/> the event.
             </para>
             </remarks>
         </member>
@@ -13362,7 +13397,7 @@
             logging event, otherwise it will <see cref="F:log4net.Filter.FilterDecision.Neutral"/> the event.
             </para>
             <para>
-            The default is <c>true</c> i.e. to <see cref="F:log4net.Filter.FilterDecision.Accept"/> the event.
+            The default is <see langword="true"/> i.e. to <see cref="F:log4net.Filter.FilterDecision.Accept"/> the event.
             </para>
             </remarks>
         </member>
@@ -13425,7 +13460,7 @@
             </summary>
             <remarks>
             <para>
-            The <c>GlobalContext</c> provides a location for global debugging 
+            The <see cref="T:log4net.GlobalContext"/> provides a location for global debugging 
             information to be stored.
             </para>
             <para>
@@ -14262,7 +14297,7 @@
             Checks if this logger is enabled for the <see cref="F:log4net.Core.Level.Debug"/> level.
             </summary>
             <value>
-            <c>true</c> if this logger is enabled for <see cref="F:log4net.Core.Level.Debug"/> events, <c>false</c> otherwise.
+            <see langword="true"/> if this logger is enabled for <see cref="F:log4net.Core.Level.Debug"/> events, <see langword="false"/> otherwise.
             </value>
             <remarks>
             <para>
@@ -14333,7 +14368,7 @@
             Checks if this logger is enabled for the <see cref="F:log4net.Core.Level.Info"/> level.
             </summary>
             <value>
-            <c>true</c> if this logger is enabled for <see cref="F:log4net.Core.Level.Info"/> events, <c>false</c> otherwise.
+            <see langword="true"/> if this logger is enabled for <see cref="F:log4net.Core.Level.Info"/> events, <see langword="false"/> otherwise.
             </value>
             <remarks>
             For more information see <see cref="P:log4net.ILog.IsDebugEnabled"/>.
@@ -14347,7 +14382,7 @@
             Checks if this logger is enabled for the <see cref="F:log4net.Core.Level.Warn"/> level.
             </summary>
             <value>
-            <c>true</c> if this logger is enabled for <see cref="F:log4net.Core.Level.Warn"/> events, <c>false</c> otherwise.
+            <see langword="true"/> if this logger is enabled for <see cref="F:log4net.Core.Level.Warn"/> events, <see langword="false"/> otherwise.
             </value>
             <remarks>
             For more information see <see cref="P:log4net.ILog.IsDebugEnabled"/>.
@@ -14361,7 +14396,7 @@
             Checks if this logger is enabled for the <see cref="F:log4net.Core.Level.Error"/> level.
             </summary>
             <value>
-            <c>true</c> if this logger is enabled for <see cref="F:log4net.Core.Level.Error"/> events, <c>false</c> otherwise.
+            <see langword="true"/> if this logger is enabled for <see cref="F:log4net.Core.Level.Error"/> events, <see langword="false"/> otherwise.
             </value>
             <remarks>
             For more information see <see cref="P:log4net.ILog.IsDebugEnabled"/>.
@@ -14375,7 +14410,7 @@
             Checks if this logger is enabled for the <see cref="F:log4net.Core.Level.Fatal"/> level.
             </summary>
             <value>
-            <c>true</c> if this logger is enabled for <see cref="F:log4net.Core.Level.Fatal"/> events, <c>false</c> otherwise.
+            <see langword="true"/> if this logger is enabled for <see cref="F:log4net.Core.Level.Fatal"/> events, <see langword="false"/> otherwise.
             </value>
             <remarks>
             For more information see <see cref="P:log4net.ILog.IsDebugEnabled"/>.
@@ -14588,13 +14623,13 @@
             <summary>
             Flag indicating if this layout handle exceptions
             </summary>
-            <value><c>false</c> if this layout handles exceptions</value>
+            <value><see langword="false"/> if this layout handles exceptions</value>
             <remarks>
             <para>
             If this layout handles the exception object contained within
             <see cref="T:log4net.Core.LoggingEvent"/>, then the layout should return
-            <c>false</c>. Otherwise, if the layout ignores the exception
-            object, then the layout should return <c>true</c>.
+            <see langword="false"/>. Otherwise, if the layout ignores the exception
+            object, then the layout should return <see langword="true"/>.
             </para>
             </remarks>
         </member>
@@ -14620,6 +14655,11 @@
             </summary>
             <param name="writer">TextWriter</param>
             <returns>XmlWriter</returns>
+        </member>
+        <member name="M:log4net.Layout.Internal.XmlWriterExtensions.WriteAttributeStringSafe(System.Xml.XmlWriter,System.String,System.String,System.String)">
+            <summary>
+            writes the attribute and replaces invalid characters
+            </summary>
         </member>
         <member name="T:log4net.Layout.IRawLayout">
             <summary>
@@ -14817,17 +14857,17 @@
             <summary>
             Flag indicating if this layout handles exceptions.
             </summary>
-            <value><c>false</c> if this layout handles exceptions</value>
+            <value><see langword="false"/> if this layout handles exceptions</value>
             <remarks>
             <para>
             If this layout handles the exception object contained within
             <see cref="T:log4net.Core.LoggingEvent"/>, then the layout should return
-            <c>false</c>. Otherwise, if the layout ignores the exception
-            object, then the layout should return <c>true</c>.
+            <see langword="false"/>. Otherwise, if the layout ignores the exception
+            object, then the layout should return <see langword="true"/>.
             </para>
             <para>
             Set this value to override the default setting. The default
-            value is <c>true</c>, this layout does not handle the exception.
+            value is <see langword="true"/>, this layout does not handle the exception.
             </para>
             </remarks>
         </member>
@@ -15449,17 +15489,17 @@
             <summary>
             Flag indicating if this converter handles the logging event exception
             </summary>
-            <value><c>false</c> if this converter handles the logging event exception</value>
+            <value><see langword="false"/> if this converter handles the logging event exception</value>
             <remarks>
             <para>
             If this converter handles the exception object contained within
             <see cref="T:log4net.Core.LoggingEvent"/>, then this property should be set to
-            <c>false</c>. Otherwise, if the layout ignores the exception
-            object, then the property should be set to <c>true</c>.
+            <see langword="false"/>. Otherwise, if the layout ignores the exception
+            object, then the property should be set to <see langword="true"/>.
             </para>
             <para>
             Set this value to override a this default setting. The default
-            value is <c>true</c>, this converter does not handle the exception.
+            value is <see langword="true"/>, this converter does not handle the exception.
             </para>
             </remarks>
         </member>
@@ -15490,7 +15530,7 @@
             property.
             </para>
             <para>
-            If the <see cref="P:log4net.Util.PatternConverter.Option"/> is set to <c>null</c>
+            If the <see cref="P:log4net.Util.PatternConverter.Option"/> is set to <see langword="null"/>
             then all the properties are written as key value pairs.
             </para>
             </remarks>
@@ -15509,7 +15549,7 @@
             property.
             </para>
             <para>
-            If the <see cref="P:log4net.Util.PatternConverter.Option"/> is set to <c>null</c>
+            If the <see cref="P:log4net.Util.PatternConverter.Option"/> is set to <see langword="null"/>
             then all the properties are written as key value pairs.
             </para>
             </remarks>
@@ -16662,7 +16702,7 @@
             Can the sourceType be converted to an <see cref="T:log4net.Layout.IRawLayout"/>
             </summary>
             <param name="sourceType">the source to be to be converted</param>
-            <returns><c>true</c> if the source type can be converted to <see cref="T:log4net.Layout.IRawLayout"/></returns>
+            <returns><see langword="true"/> if the source type can be converted to <see cref="T:log4net.Layout.IRawLayout"/></returns>
             <remarks>
             <para>
             Test if the <paramref name="sourceType"/> can be converted to a
@@ -16706,7 +16746,7 @@
             <para>
             Looks up and returns the object value of the property
             named <see cref="P:log4net.Layout.RawPropertyLayout.Key"/>. If there is no property defined
-            with than name then <c>null</c> will be returned.
+            with than name then <see langword="null"/> will be returned.
             </para>
             </remarks>
         </member>
@@ -16983,7 +17023,7 @@
             <para>
             The <paramref name="locationInfo" /> parameter determines whether 
             location information will be output by the layout. If 
-            <paramref name="locationInfo" /> is set to <c>true</c>, then the 
+            <paramref name="locationInfo" /> is set to <see langword="true"/>, then the 
             file name and line number of the statement at the origin of the log 
             statement will be output. 
             </para>
@@ -17000,12 +17040,12 @@
             the XML events.
             </summary>
             <value>
-            <c>true</c> if location information should be included in the XML 
-            events; otherwise, <c>false</c>.
+            <see langword="true"/> if location information should be included in the XML 
+            events; otherwise, <see langword="false"/>.
             </value>
             <remarks>
             <para>
-            If <see cref="P:log4net.Layout.XmlLayoutBase.LocationInfo" /> is set to <c>true</c>, then the file 
+            If <see cref="P:log4net.Layout.XmlLayoutBase.LocationInfo" /> is set to <see langword="true"/>, then the file 
             name and line number of the statement at the origin of the log 
             statement will be output. 
             </para>
@@ -17160,9 +17200,9 @@
             </summary>
             <remarks>
             <para>
-            The <c>LogicalThreadContext</c> provides a location for <see cref="T:System.Runtime.Remoting.Messaging.CallContext"/> specific debugging 
+            The <see cref="T:log4net.LogicalThreadContext"/> provides a location for <see cref="T:System.Runtime.Remoting.Messaging.CallContext"/> specific debugging 
             information to be stored.
-            The <c>LogicalThreadContext</c> properties override any <see cref="T:log4net.ThreadContext"/> or <see cref="T:log4net.GlobalContext"/>
+            The <see cref="T:log4net.LogicalThreadContext"/> properties override any <see cref="T:log4net.ThreadContext"/> or <see cref="T:log4net.GlobalContext"/>
             properties with the same name.
             </para>
             <para>
@@ -17215,7 +17255,7 @@
             </summary>
             <remarks>
             <para>
-            The <c>LogicalThreadContext</c> properties override any <see cref="T:log4net.ThreadContext"/> 
+            The <see cref="T:log4net.LogicalThreadContext"/> properties override any <see cref="T:log4net.ThreadContext"/> 
             or <see cref="T:log4net.GlobalContext"/> properties with the same name.
             </para>
             </remarks>
@@ -17265,11 +17305,11 @@
             <remarks>
             <para>
             If the named logger exists (in the default repository) then it
-            returns a reference to the logger, otherwise it returns <c>null</c>.
+            returns a reference to the logger, otherwise it returns <see langword="null"/>.
             </para>
             </remarks>
             <param name="name">The fully qualified logger name to look for.</param>
-            <returns>The logger found, or <c>null</c> if no logger could be found.</returns>
+            <returns>The logger found, or <see langword="null"/> if no logger could be found.</returns>
         </member>
         <member name="M:log4net.LogManager.GetCurrentLoggers">
             <overloads>Get the currently defined loggers.</overloads>
@@ -17309,13 +17349,13 @@
             <para>
             If the named logger exists (in the specified repository) then it
             returns a reference to the logger, otherwise it returns
-            <c>null</c>.
+            <see langword="null"/>.
             </para>
             </remarks>
             <param name="repository">The repository to lookup in.</param>
             <param name="name">The fully qualified logger name to look for.</param>
             <returns>
-            The logger found, or <c>null</c> if the logger doesn't exist in the specified 
+            The logger found, or <see langword="null"/> if the logger doesn't exist in the specified 
             repository.
             </returns>
         </member>
@@ -17327,13 +17367,13 @@
             <para>
             If the named logger exists (in the repository for the specified assembly) then it
             returns a reference to the logger, otherwise it returns
-            <c>null</c>.
+            <see langword="null"/>.
             </para>
             </remarks>
             <param name="repositoryAssembly">The assembly to use to look up the repository.</param>
             <param name="name">The fully qualified logger name to look for.</param>
             <returns>
-            The logger, or <c>null</c> if the logger doesn't exist in the specified
+            The logger, or <see langword="null"/> if the logger doesn't exist in the specified
             assembly's repository.
             </returns>
         </member>
@@ -17528,8 +17568,8 @@
             <para>
             Resets all values contained in the repository instance to their
             defaults.  This removes all appenders from all loggers, sets
-            the level of all non-root loggers to <c>null</c>,
-            sets their additivity flag to <c>true</c> and sets the level
+            the level of all non-root loggers to <see langword="null"/>,
+            sets their additivity flag to <see langword="true"/> and sets the level
             of the root logger to <see cref="F:log4net.Core.Level.Debug"/>. Moreover,
             message disabling is set to its default "off" value.
             </para>    
@@ -17543,8 +17583,8 @@
             <para>
             Reset all values contained in the repository instance to their
             defaults.  This removes all appenders from all loggers, sets
-            the level of all non-root loggers to <c>null</c>,
-            sets their additivity flag to <c>true</c> and sets the level
+            the level of all non-root loggers to <see langword="null"/>,
+            sets their additivity flag to <see langword="true"/> and sets the level
             of the root logger to <see cref="F:log4net.Core.Level.Debug"/>. Moreover,
             message disabling is set to its default "off" value.
             </para>    
@@ -17559,8 +17599,8 @@
             <para>
             Reset all values contained in the repository instance to their
             defaults.  This removes all appenders from all loggers, sets
-            the level of all non-root loggers to <c>null</c>,
-            sets their additivity flag to <c>true</c> and sets the level
+            the level of all non-root loggers to <see langword="null"/>,
+            sets their additivity flag to <see langword="true"/> and sets the level
             of the root logger to <see cref="F:log4net.Core.Level.Debug"/>. Moreover,
             message disabling is set to its default "off" value.
             </para>    
@@ -17691,7 +17731,7 @@
             Flushes logging events buffered in all configured appenders in the default repository.
             </summary>
             <param name="millisecondsTimeout">The maximum time in milliseconds to wait for logging events from asynchronous appenders to be flushed.</param>
-            <returns><c>True</c> if all logging events were flushed successfully, else <c>false</c>.</returns>
+            <returns><see langword="true"/> if all logging events were flushed successfully, else <see langword="false"/>.</returns>
         </member>
         <member name="M:log4net.LogManager.WrapLogger(log4net.Core.ILogger)">
             <summary>
@@ -17752,7 +17792,7 @@
             Gets the context value identified by the <paramref name="key" /> parameter.
             </summary>
             <param name="key">The key to lookup in the MDC.</param>
-            <returns>The string value held for the key, or a <c>null</c> reference if no corresponding value is found.</returns>
+            <returns>The string value held for the key, or a <see langword="null"/> reference if no corresponding value is found.</returns>
             <remarks>
             <note>
             <para>
@@ -17762,7 +17802,7 @@
             </note>
             <para>
             If the <paramref name="key" /> parameter does not look up to a
-            previously defined context then <c>null</c> will be returned.
+            previously defined context then <see langword="null"/> will be returned.
             </para>
             </remarks>
         </member>
@@ -17787,7 +17827,7 @@
             <para>
             If a value is already defined for the <paramref name="key" />
             specified then the value will be replaced. If the <paramref name="value" /> 
-            is specified as <c>null</c> then the key value mapping will be removed.
+            is specified as <see langword="null"/> then the key value mapping will be removed.
             </para>
             </remarks>
         </member>
@@ -17963,7 +18003,7 @@
             <para>
             Remove the top context from the stack, and return
             it to the caller. If the stack is empty then an
-            empty string (not <c>null</c>) is returned.
+            empty string (not <see langword="null"/>) is returned.
             </para>
             </remarks>
         </member>
@@ -17986,11 +18026,11 @@
             <para>
             Pushes a new context onto the context stack. An <see cref="T:System.IDisposable"/>
             is returned that can be used to clean up the context stack. This
-            can be easily combined with the <c>using</c> keyword to scope the
+            can be easily combined with the <see langword="using"/> keyword to scope the
             context.
             </para>
             </remarks>
-            <example>Simple example of using the <c>Push</c> method with the <c>using</c> keyword.
+            <example>Simple example of using the <see cref="M:log4net.NDC.Push(System.String)"/> method with the <see langword="using"/> keyword.
             <code lang="C#">
             using(log4net.NDC.Push("NDC_Message"))
             {
@@ -18019,11 +18059,11 @@
             <para>
             Pushes a new context onto the context stack. An <see cref="T:System.IDisposable"/>
             is returned that can be used to clean up the context stack. This
-            can be easily combined with the <c>using</c> keyword to scope the
+            can be easily combined with the <see langword="using"/> keyword to scope the
             context.
             </para>
             </remarks>
-            <example>Simple example of using the <c>Push</c> method with the <c>using</c> keyword.
+            <example>Simple example of using the <see cref="M:log4net.NDC.Push(System.String)"/> method with the <see langword="using"/> keyword.
             <code lang="C#">
             var someValue = "ExampleContext"
             using(log4net.NDC.PushFormat("NDC_Message {0}", someValue))
@@ -18113,7 +18153,7 @@
                  <description>Rendered String</description>
                </listheader>
                <item>
-                 <term><c>null</c></term>
+                 <term><see langword="null"/></term>
                  <description>
                  <para>"(null)"</para>
                  </description>
@@ -18269,7 +18309,7 @@
             <remarks>
             <para>
             The <see cref="M:log4net.ObjectRenderer.RendererMap.FindAndRender(System.Object)"/> method is used to render an
-            <c>object</c> using the appropriate renderers defined in this map,
+            <see langword="object"/> using the appropriate renderers defined in this map,
             using a default renderer if no custom renderer is defined for a type.
             </para>
             </remarks>
@@ -18334,7 +18374,7 @@
             Recursively searches interfaces.
             </summary>
             <param name="type">The type for which to look up the renderer.</param>
-            <returns>The renderer for the specified type, or <c>null</c> if not found.</returns>
+            <returns>The renderer for the specified type, or <see langword="null"/> if not found.</returns>
         </member>
         <member name="P:log4net.ObjectRenderer.RendererMap.DefaultRenderer">
             <summary>
@@ -18460,8 +18500,8 @@
              Advances the enumerator to the next element in the collection.
             </summary>
             <returns>
-             <c>true</c> if the enumerator was successfully advanced to the next element; 
-             <c>false</c> if the enumerator has passed the end of the collection.
+             <see langword="true"/> if the enumerator was successfully advanced to the next element; 
+             <see langword="false"/> if the enumerator has passed the end of the collection.
             </returns>
             <exception cref="T:System.InvalidOperationException">
              The collection was modified after the enumerator was created.
@@ -18474,52 +18514,52 @@
         </member>
         <member name="M:log4net.Plugin.PluginCollection.ReadOnly(log4net.Plugin.PluginCollection)">
             <summary>
-             Creates a read-only wrapper for a <c>PluginCollection</c> instance.
+             Creates a read-only wrapper for a <see cref="T:log4net.Plugin.PluginCollection"/> instance.
             </summary>
             <param name="list">list to create a readonly wrapper arround</param>
             <returns>
-            A <c>PluginCollection</c> wrapper that is read-only.
+            A <see cref="T:log4net.Plugin.PluginCollection"/> wrapper that is read-only.
             </returns>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.#ctor">
             <summary>
-             Initializes a new instance of the <c>PluginCollection</c> class
+             Initializes a new instance of the <see cref="T:log4net.Plugin.PluginCollection"/> class
              that is empty and has the default initial capacity.
             </summary>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.#ctor(System.Int32)">
             <summary>
-            Initializes a new instance of the <c>PluginCollection</c> class
+            Initializes a new instance of the <see cref="T:log4net.Plugin.PluginCollection"/> class
             that has the specified initial capacity.
             </summary>
             <param name="capacity">
-            The number of elements that the new <c>PluginCollection</c> is initially capable of storing.
+            The number of elements that the new <see cref="T:log4net.Plugin.PluginCollection"/> is initially capable of storing.
             </param>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.#ctor(log4net.Plugin.PluginCollection)">
             <summary>
-            Initializes a new instance of the <c>PluginCollection</c> class
-            that contains elements copied from the specified <c>PluginCollection</c>.
+            Initializes a new instance of the <see cref="T:log4net.Plugin.PluginCollection"/> class
+            that contains elements copied from the specified <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
-            <param name="collection">The <c>PluginCollection</c> whose elements are copied to the new collection.</param>
+            <param name="collection">The <see cref="T:log4net.Plugin.PluginCollection"/> whose elements are copied to the new collection.</param>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.#ctor(log4net.Plugin.IPlugin[])">
             <summary>
-            Initializes a new instance of the <c>PluginCollection</c> class
+            Initializes a new instance of the <see cref="T:log4net.Plugin.PluginCollection"/> class
             that contains elements copied from the specified <see cref="T:log4net.Plugin.IPlugin"/> array.
             </summary>
             <param name="array">The <see cref="T:log4net.Plugin.IPlugin"/> array whose elements are copied to the new list.</param>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.#ctor(System.Collections.ICollection)">
             <summary>
-            Initializes a new instance of the <c>PluginCollection</c> class
+            Initializes a new instance of the <see cref="T:log4net.Plugin.PluginCollection"/> class
             that contains elements copied from the specified <see cref="T:log4net.Plugin.IPlugin"/> collection.
             </summary>
             <param name="collection">The <see cref="T:log4net.Plugin.IPlugin"/> collection whose elements are copied to the new list.</param>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.#ctor(System.Collections.Generic.ICollection{log4net.Plugin.IPlugin})">
             <summary>
-            Initializes a new instance of the <c>PluginCollection</c> class
+            Initializes a new instance of the <see cref="T:log4net.Plugin.PluginCollection"/> class
             that contains elements copied from the specified <see cref="T:log4net.Plugin.IPlugin"/> collection.
             </summary>
             <param name="collection">The <see cref="T:log4net.Plugin.IPlugin"/> collection whose elements are copied to the new list.</param>
@@ -18544,19 +18584,19 @@
         </member>
         <member name="P:log4net.Plugin.PluginCollection.Count">
             <summary>
-            Gets the number of elements actually contained in the <c>PluginCollection</c>.
+            Gets the number of elements actually contained in the <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.CopyTo(log4net.Plugin.IPlugin[])">
             <summary>
-            Copies the entire <c>PluginCollection</c> to a one-dimensional
+            Copies the entire <see cref="T:log4net.Plugin.PluginCollection"/> to a one-dimensional
             <see cref="T:log4net.Plugin.IPlugin"/> array.
             </summary>
             <param name="array">The one-dimensional <see cref="T:log4net.Plugin.IPlugin"/> array to copy to.</param>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.CopyTo(log4net.Plugin.IPlugin[],System.Int32)">
             <summary>
-            Copies the entire <c>PluginCollection</c> to a one-dimensional
+            Copies the entire <see cref="T:log4net.Plugin.PluginCollection"/> to a one-dimensional
             <see cref="T:log4net.Plugin.IPlugin"/> array, starting at the specified index of the target array.
             </summary>
             <param name="array">The one-dimensional <see cref="T:log4net.Plugin.IPlugin"/> array to copy to.</param>
@@ -18589,14 +18629,14 @@
         </member>
         <member name="M:log4net.Plugin.PluginCollection.Add(log4net.Plugin.IPlugin)">
             <summary>
-            Adds a <see cref="T:log4net.Plugin.IPlugin"/> to the end of the <c>PluginCollection</c>.
+            Adds a <see cref="T:log4net.Plugin.IPlugin"/> to the end of the <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
-            <param name="item">The <see cref="T:log4net.Plugin.IPlugin"/> to be added to the end of the <c>PluginCollection</c>.</param>
+            <param name="item">The <see cref="T:log4net.Plugin.IPlugin"/> to be added to the end of the <see cref="T:log4net.Plugin.PluginCollection"/>.</param>
             <returns>The index at which the value has been added.</returns>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.Clear">
             <summary>
-            Removes all elements from the <c>PluginCollection</c>.
+            Removes all elements from the <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.Clone">
@@ -18607,25 +18647,25 @@
         </member>
         <member name="M:log4net.Plugin.PluginCollection.Contains(log4net.Plugin.IPlugin)">
             <summary>
-            Determines whether a given <see cref="T:log4net.Plugin.IPlugin"/> is in the <c>PluginCollection</c>.
+            Determines whether a given <see cref="T:log4net.Plugin.IPlugin"/> is in the <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
             <param name="item">The <see cref="T:log4net.Plugin.IPlugin"/> to check for.</param>
-            <returns><c>true</c> if <paramref name="item"/> is found in the <c>PluginCollection</c>; otherwise, <c>false</c>.</returns>
+            <returns><see langword="true"/> if <paramref name="item"/> is found in the <see cref="T:log4net.Plugin.PluginCollection"/>; otherwise, <see langword="false"/>.</returns>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.IndexOf(log4net.Plugin.IPlugin)">
             <summary>
             Returns the zero-based index of the first occurrence of a <see cref="T:log4net.Plugin.IPlugin"/>
-            in the <c>PluginCollection</c>.
+            in the <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
-            <param name="item">The <see cref="T:log4net.Plugin.IPlugin"/> to locate in the <c>PluginCollection</c>.</param>
+            <param name="item">The <see cref="T:log4net.Plugin.IPlugin"/> to locate in the <see cref="T:log4net.Plugin.PluginCollection"/>.</param>
             <returns>
             The zero-based index of the first occurrence of <paramref name="item"/> 
-            in the entire <c>PluginCollection</c>, if found; otherwise, -1.
+            in the entire <see cref="T:log4net.Plugin.PluginCollection"/>, if found; otherwise, -1.
             </returns>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.Insert(System.Int32,log4net.Plugin.IPlugin)">
             <summary>
-            Inserts an element into the <c>PluginCollection</c> at the specified index.
+            Inserts an element into the <see cref="T:log4net.Plugin.PluginCollection"/> at the specified index.
             </summary>
             <param name="index">The zero-based index at which <paramref name="item"/> should be inserted.</param>
             <param name="item">The <see cref="T:log4net.Plugin.IPlugin"/> to insert.</param>
@@ -18637,16 +18677,16 @@
         </member>
         <member name="M:log4net.Plugin.PluginCollection.Remove(log4net.Plugin.IPlugin)">
             <summary>
-            Removes the first occurrence of a specific <see cref="T:log4net.Plugin.IPlugin"/> from the <c>PluginCollection</c>.
+            Removes the first occurrence of a specific <see cref="T:log4net.Plugin.IPlugin"/> from the <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
-            <param name="item">The <see cref="T:log4net.Plugin.IPlugin"/> to remove from the <c>PluginCollection</c>.</param>
+            <param name="item">The <see cref="T:log4net.Plugin.IPlugin"/> to remove from the <see cref="T:log4net.Plugin.PluginCollection"/>.</param>
             <exception cref="T:System.ArgumentException">
-            The specified <see cref="T:log4net.Plugin.IPlugin"/> was not found in the <c>PluginCollection</c>.
+            The specified <see cref="T:log4net.Plugin.IPlugin"/> was not found in the <see cref="T:log4net.Plugin.PluginCollection"/>.
             </exception>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.RemoveAt(System.Int32)">
             <summary>
-            Removes the element at the specified index of the <c>PluginCollection</c>.
+            Removes the element at the specified index of the <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
             <param name="index">The zero-based index of the element to remove.</param>
             <exception cref="T:System.ArgumentOutOfRangeException">
@@ -18659,55 +18699,55 @@
             <summary>
             Gets a value indicating whether the collection has a fixed size.
             </summary>
-            <value><c>true</c> if the collection has a fixed size; otherwise, <c>false</c>. The default is <c>false</c>.</value>
+            <value><see langword="true"/> if the collection has a fixed size; otherwise, <see langword="false"/>. The default is <see langword="false"/>.</value>
         </member>
         <member name="P:log4net.Plugin.PluginCollection.IsReadOnly">
             <summary>
             Gets a value indicating whether the IList is read-only.
             </summary>
-            <value><c>true</c> if the collection is read-only; otherwise, <c>false</c>. The default is <c>false</c>.</value>
+            <value><see langword="true"/> if the collection is read-only; otherwise, <see langword="false"/>. The default is <see langword="false"/>.</value>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.GetEnumerator">
             <summary>
-            Returns an enumerator that can iterate through the <c>PluginCollection</c>.
+            Returns an enumerator that can iterate through the <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
-            <returns>An <see cref="T:log4net.Plugin.PluginCollection.Enumerator"/> for the entire <c>PluginCollection</c>.</returns>
+            <returns>An <see cref="T:log4net.Plugin.PluginCollection.Enumerator"/> for the entire <see cref="T:log4net.Plugin.PluginCollection"/>.</returns>
         </member>
         <member name="P:log4net.Plugin.PluginCollection.Capacity">
             <summary>
-            Gets or sets the number of elements the <c>PluginCollection</c> can contain.
+            Gets or sets the number of elements the <see cref="T:log4net.Plugin.PluginCollection"/> can contain.
             </summary>
             <value>
-            The number of elements the <c>PluginCollection</c> can contain.
+            The number of elements the <see cref="T:log4net.Plugin.PluginCollection"/> can contain.
             </value>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.AddRange(log4net.Plugin.PluginCollection)">
             <summary>
-            Adds the elements of another <c>PluginCollection</c> to the current <c>PluginCollection</c>.
+            Adds the elements of another <see cref="T:log4net.Plugin.PluginCollection"/> to the current <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
-            <param name="collection">The <c>PluginCollection</c> whose elements should be added to the end of the current <c>PluginCollection</c>.</param>
-            <returns>The new <see cref="P:log4net.Plugin.PluginCollection.Count"/> of the <c>PluginCollection</c>.</returns>
+            <param name="collection">The <see cref="T:log4net.Plugin.PluginCollection"/> whose elements should be added to the end of the current <see cref="T:log4net.Plugin.PluginCollection"/>.</param>
+            <returns>The new <see cref="P:log4net.Plugin.PluginCollection.Count"/> of the <see cref="T:log4net.Plugin.PluginCollection"/>.</returns>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.AddRange(log4net.Plugin.IPlugin[])">
             <summary>
-            Adds the elements of a <see cref="T:log4net.Plugin.IPlugin"/> array to the current <c>PluginCollection</c>.
+            Adds the elements of a <see cref="T:log4net.Plugin.IPlugin"/> array to the current <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
-            <param name="array">The <see cref="T:log4net.Plugin.IPlugin"/> array whose elements should be added to the end of the <c>PluginCollection</c>.</param>
-            <returns>The new <see cref="P:log4net.Plugin.PluginCollection.Count"/> of the <c>PluginCollection</c>.</returns>
+            <param name="array">The <see cref="T:log4net.Plugin.IPlugin"/> array whose elements should be added to the end of the <see cref="T:log4net.Plugin.PluginCollection"/>.</param>
+            <returns>The new <see cref="P:log4net.Plugin.PluginCollection.Count"/> of the <see cref="T:log4net.Plugin.PluginCollection"/>.</returns>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.AddRange(System.Collections.ICollection)">
             <summary>
-            Adds the elements of a <see cref="T:log4net.Plugin.IPlugin"/> collection to the current <c>PluginCollection</c>.
+            Adds the elements of a <see cref="T:log4net.Plugin.IPlugin"/> collection to the current <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
-            <param name="collection">The <see cref="T:log4net.Plugin.IPlugin"/> collection whose elements should be added to the end of the <c>PluginCollection</c>.</param>
-            <returns>The new <see cref="P:log4net.Plugin.PluginCollection.Count"/> of the <c>PluginCollection</c>.</returns>
+            <param name="collection">The <see cref="T:log4net.Plugin.IPlugin"/> collection whose elements should be added to the end of the <see cref="T:log4net.Plugin.PluginCollection"/>.</param>
+            <returns>The new <see cref="P:log4net.Plugin.PluginCollection.Count"/> of the <see cref="T:log4net.Plugin.PluginCollection"/>.</returns>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.AddRange(System.Collections.Generic.ICollection{log4net.Plugin.IPlugin})">
             <summary>
-            Adds the elements of a <see cref="T:log4net.Plugin.IPlugin"/> collection to the current <c>PluginCollection</c>.
+            Adds the elements of a <see cref="T:log4net.Plugin.IPlugin"/> collection to the current <see cref="T:log4net.Plugin.PluginCollection"/>.
             </summary>
-            <param name="collection">The <see cref="T:log4net.Plugin.IPlugin"/> collection whose elements should be added to the end of the <c>PluginCollection</c>.</param>
-            <returns>The new <see cref="P:log4net.Plugin.PluginCollection.Count"/> of the <c>PluginCollection</c>.</returns>
+            <param name="collection">The <see cref="T:log4net.Plugin.IPlugin"/> collection whose elements should be added to the end of the <see cref="T:log4net.Plugin.PluginCollection"/>.</param>
+            <returns>The new <see cref="P:log4net.Plugin.PluginCollection.Count"/> of the <see cref="T:log4net.Plugin.PluginCollection"/>.</returns>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.TrimToSize">
             <summary>
@@ -18736,7 +18776,7 @@
         </member>
         <member name="M:log4net.Plugin.PluginCollection.Enumerator.#ctor(log4net.Plugin.PluginCollection)">
             <summary>
-            Initializes a new instance of the <c>Enumerator</c> class.
+            Initializes a new instance of the <see cref="T:log4net.Plugin.PluginCollection.Enumerator"/> class.
             </summary>
             <param name="tc"></param>
         </member>
@@ -18750,8 +18790,8 @@
             Advances the enumerator to the next element in the collection.
             </summary>
             <returns>
-            <c>true</c> if the enumerator was successfully advanced to the next element; 
-            <c>false</c> if the enumerator has passed the end of the collection.
+            <see langword="true"/> if the enumerator was successfully advanced to the next element; 
+            <see langword="false"/> if the enumerator has passed the end of the collection.
             </returns>
             <exception cref="T:System.InvalidOperationException">
             The collection was modified after the enumerator was created.
@@ -18800,7 +18840,7 @@
             <param name="name">The name of the <see cref="T:log4net.Plugin.IPlugin" /> to lookup.</param>
             <returns>
             The <see cref="T:log4net.Plugin.IPlugin" /> from the map with the name specified, or 
-            <c>null</c> if no plugin is found.
+            <see langword="null"/> if no plugin is found.
             </returns>
         </member>
         <member name="P:log4net.Plugin.PluginMap.AllPlugins">
@@ -18949,7 +18989,7 @@
             Create a new <see cref="T:log4net.Repository.Hierarchy.Logger" /> instance with the specified name.
             </summary>
             <param name="repository">The <see cref="T:log4net.Repository.ILoggerRepository" /> that will own the <see cref="T:log4net.Repository.Hierarchy.Logger" />.</param>
-            <param name="name">The name of the <see cref="T:log4net.Repository.Hierarchy.Logger" />. If <c>null</c>, the root logger is returned.</param>
+            <param name="name">The name of the <see cref="T:log4net.Repository.Hierarchy.Logger" />. If <see langword="null"/>, the root logger is returned.</param>
             <returns>The <see cref="T:log4net.Repository.Hierarchy.Logger" /> instance for the specified name.</returns>
             <remarks>
             <para>
@@ -19496,7 +19536,7 @@
             new named <see cref="T:log4net.Repository.Hierarchy.Logger"/> instances.
             </para>
             <para>
-            If the <paramref name="name"/> is <c>null</c> then the root logger
+            If the <paramref name="name"/> is <see langword="null"/> then the root logger
             must be returned.
             </para>
             </remarks>
@@ -19841,6 +19881,20 @@
             </para>
             </remarks>
         </member>
+        <member name="M:log4net.Repository.Hierarchy.Logger.ReplaceAppenders(System.Collections.Generic.IEnumerable{log4net.Appender.IAppender})">
+            <summary>
+            Atomically replaces all appenders with the provided collection.
+            </summary>
+            <param name="appenders">The new set of appenders to attach.</param>
+            <remarks>
+            <para>
+            This method removes the existing appenders and attaches all new
+            appenders inside a single writer lock, minimizing the window
+            during which the logger has no appenders. This reduces silent log
+            event loss during reconfiguration.
+            </para>
+            </remarks>
+        </member>
         <member name="T:log4net.Repository.Hierarchy.LoggerKey">
             <summary>
             Used internally to accelerate hash table searches.
@@ -19944,7 +19998,7 @@
             that it provides several guarantees.
             </para>
             <para>
-            First, it cannot be assigned a <c>null</c>
+            First, it cannot be assigned a <see langword="null"/>
             level. Second, since the root logger cannot have a parent, the
             <see cref="P:log4net.Repository.Hierarchy.RootLogger.EffectiveLevel"/> property always returns the value of the
             level field without walking the hierarchy.
@@ -19977,7 +20031,7 @@
             <remarks>
             <para>
             Because the root logger cannot have a parent and its level
-            must not be <c>null</c> this property just returns the
+            must not be <see langword="null"/> this property just returns the
             value of <see cref="P:log4net.Repository.Hierarchy.Logger.Level"/>.
             </para>
             </remarks>
@@ -19991,7 +20045,7 @@
             </value>
             <remarks>
             <para>
-            Setting the level of the root logger to a <c>null</c> reference
+            Setting the level of the root logger to a <see langword="null"/> reference
             may have catastrophic results. We prevent this here.
             </para>
             </remarks>
@@ -20050,7 +20104,7 @@
             Parses an appender element.
             </summary>
             <param name="appenderElement">The appender element.</param>
-            <returns>The appender instance or <c>null</c> when parsing failed.</returns>
+            <returns>The appender instance or <see langword="null"/> when parsing failed.</returns>
             <remarks>
             <para>
             Parse an XML element that represents an appender and return
@@ -20090,6 +20144,11 @@
             <remarks>
             <para>
             Parse the child elements of a &lt;logger&gt; element.
+            </para>
+            <para>
+            Appenders are collected from XML first, then applied atomically via
+            <see cref="M:log4net.Repository.Hierarchy.Logger.ReplaceAppenders(System.Collections.Generic.IEnumerable{log4net.Appender.IAppender})"/>, minimizing the window during
+            which the logger has no appenders and silent log event loss can occur.
             </para>
             </remarks>
         </member>
@@ -20140,14 +20199,14 @@
             Test if an element has no attributes or child elements
             </summary>
             <param name="element">the element to inspect</param>
-            <returns><c>true</c> if the element has any attributes or child elements, <c>false</c> otherwise</returns>
+            <returns><see langword="true"/> if the element has any attributes or child elements, <see langword="false"/> otherwise</returns>
         </member>
         <member name="M:log4net.Repository.Hierarchy.XmlHierarchyConfigurator.IsTypeConstructible(System.Type)">
             <summary>
             Test if a <see cref="T:System.Type"/> is constructible with <c>Activator.CreateInstance</c>.
             </summary>
             <param name="type">the type to inspect</param>
-            <returns><c>true</c> if the type is creatable using a default constructor, <c>false</c> otherwise</returns>
+            <returns><see langword="true"/> if the type is creatable using a default constructor, <see langword="false"/> otherwise</returns>
         </member>
         <member name="M:log4net.Repository.Hierarchy.XmlHierarchyConfigurator.FindMethodInfo(System.Type,System.String)">
             <summary>
@@ -20173,7 +20232,7 @@
             <returns>
             <para>
             An object of type <paramref name="type"/> with value <paramref name="value"/> or 
-            <c>null</c> when the conversion could not be performed.
+            <see langword="null"/> when the conversion could not be performed.
             </para>
             </returns>
         </member>
@@ -20184,7 +20243,7 @@
             <param name="element">The XML element that contains the definition of the object.</param>
             <param name="defaultTargetType">The object type to use if not explicitly specified.</param>
             <param name="typeConstraint">The type that the returned object must be or must inherit from.</param>
-            <returns>The object or <c>null</c></returns>
+            <returns>The object or <see langword="null"/></returns>
             <remarks>
             <para>
             Parse an XML element and create an object instance based on the configuration
@@ -20309,10 +20368,10 @@
         </member>
         <member name="M:log4net.Repository.ILoggerRepository.Exists(System.String)">
             <summary>
-            Gets the named logger, or <c>null</c>.
+            Gets the named logger, or <see langword="null"/>.
             </summary>
             <param name="name">The name of the logger to look up.</param>
-            <returns>The logger if found, or <c>null</c>.</returns>
+            <returns>The logger if found, or <see langword="null"/>.</returns>
         </member>
         <member name="M:log4net.Repository.ILoggerRepository.GetCurrentLoggers">
             <summary>
@@ -20568,7 +20627,7 @@
             <remarks>
             <para>
             Check if the named logger exists in the repository. If so return
-            its reference, otherwise returns <c>null</c>.
+            its reference, otherwise returns <see langword="null"/>.
             </para>
             </remarks>
         </member>
@@ -20788,7 +20847,7 @@
             </summary>
             <param name="millisecondsTimeout">The maximum time in milliseconds to wait for logging events from asynchronous appenders to be flushed,
             or <see cref="F:System.Threading.Timeout.Infinite"/> to wait indefinitely.</param>
-            <returns><c>True</c> if all logging events were flushed successfully, else <c>false</c>.</returns>
+            <returns><see langword="true"/> if all logging events were flushed successfully, else <see langword="false"/>.</returns>
         </member>
         <member name="T:log4net.ThreadContext">
             <summary>
@@ -20796,9 +20855,9 @@
             </summary>
             <remarks>
             <para>
-            The <c>ThreadContext</c> provides a location for thread specific debugging 
+            The <see cref="T:log4net.ThreadContext"/> provides a location for thread specific debugging 
             information to be stored.
-            The <c>ThreadContext</c> properties override any <see cref="T:log4net.GlobalContext"/>
+            The <see cref="T:log4net.ThreadContext"/> properties override any <see cref="T:log4net.GlobalContext"/>
             properties with the same name.
             </para>
             <para>
@@ -20844,7 +20903,7 @@
             </value>
             <remarks>
             <para>
-            The <c>ThreadContext</c> properties override any <see cref="T:log4net.GlobalContext"/>
+            The <see cref="T:log4net.ThreadContext"/> properties override any <see cref="T:log4net.GlobalContext"/>
             properties with the same name.
             </para>
             </remarks>
@@ -20944,7 +21003,7 @@
             Gets all attached appenders.
             </summary>
             <returns>
-            A collection of attached appenders, or <c>null</c> if there
+            A collection of attached appenders, or <see langword="null"/> if there
             are no attached appenders.
             </returns>
             <remarks>
@@ -20959,7 +21018,7 @@
             </summary>
             <param name="name">The name of the appender to get.</param>
             <returns>
-            The appender with the name specified, or <c>null</c> if no appender with the
+            The appender with the name specified, or <see langword="null"/> if no appender with the
             specified name is found.
             </returns>
             <remarks>
@@ -21064,7 +21123,7 @@
             </para>
             <para>
             If none of the collections contain the specified key then
-            <c>null</c> is returned.
+            <see langword="null"/> is returned.
             </para>
             </remarks>
         </member>
@@ -21242,11 +21301,11 @@
             Appends a <paramref name="loggingEvent"/> to the buffer.
             </summary>
             <param name="loggingEvent">The event to append to the buffer.</param>
-            <returns>The event discarded from the buffer, if the buffer is full, otherwise <c>null</c>.</returns>
+            <returns>The event discarded from the buffer, if the buffer is full, otherwise <see langword="null"/>.</returns>
             <remarks>
             <para>
             Append an event to the buffer. If the buffer still contains free space then
-            <c>null</c> is returned. If the buffer is full then an event will be dropped
+            <see langword="null"/> is returned. If the buffer is full then an event will be dropped
             to make space for the new event, the dropped event is returned.
             </para>
             </remarks>
@@ -21291,7 +21350,7 @@
             <remarks>
             <para>
             If <paramref name="i"/> is outside the range 0 to the number of events
-            currently in the buffer, then <c>null</c> is returned.
+            currently in the buffer, then <see langword="null"/> is returned.
             </para>
             </remarks>
         </member>
@@ -21378,7 +21437,7 @@
             </value>
             <remarks>
             <para>
-            For the <see cref="T:log4net.Util.EmptyCollection"/> this property is always <c>true</c>.
+            For the <see cref="T:log4net.Util.EmptyCollection"/> this property is always <see langword="true"/>.
             </para>
             </remarks>
         </member>
@@ -21561,10 +21620,10 @@
             with the specified key.
             </summary>
             <param name="key">The key to locate in the <see cref="T:log4net.Util.EmptyDictionary" />.</param>
-            <returns><c>false</c></returns>
+            <returns><see langword="false"/></returns>
             <remarks>
             <para>
-            As the collection is empty the <see cref="M:log4net.Util.EmptyDictionary.Contains(System.Object)"/> method always returns <c>false</c>.
+            As the collection is empty the <see cref="M:log4net.Util.EmptyDictionary.Contains(System.Object)"/> method always returns <see langword="false"/>.
             </para>
             </remarks>
         </member>
@@ -21599,10 +21658,10 @@
             <summary>
             Gets a value indicating whether the <see cref="T:log4net.Util.EmptyDictionary" /> has a fixed size.
             </summary>
-            <value><c>true</c></value>
+            <value><see langword="true"/></value>
             <remarks>
             <para>
-            As the collection is empty <see cref="P:log4net.Util.EmptyDictionary.IsFixedSize"/> always returns <c>true</c>.
+            As the collection is empty <see cref="P:log4net.Util.EmptyDictionary.IsFixedSize"/> always returns <see langword="true"/>.
             </para>
             </remarks>
         </member>
@@ -21610,10 +21669,10 @@
             <summary>
             Gets a value indicating whether the <see cref="T:log4net.Util.EmptyDictionary" /> is read-only.
             </summary>
-            <value><c>true</c></value>
+            <value><see langword="true"/></value>
             <remarks>
             <para>
-            As the collection is empty <see cref="P:log4net.Util.EmptyDictionary.IsReadOnly"/> always returns <c>true</c>.
+            As the collection is empty <see cref="P:log4net.Util.EmptyDictionary.IsReadOnly"/> always returns <see langword="true"/>.
             </para>
             </remarks>
         </member>
@@ -21644,11 +21703,11 @@
             Gets or sets the element with the specified key.
             </summary>
             <param name="key">The key of the element to get or set.</param>
-            <value><c>null</c></value>
+            <value><see langword="null"/></value>
             <remarks>
             <para>
             As the collection is empty no values can be looked up or stored. 
-            If the index getter is called then <c>null</c> is returned.
+            If the index getter is called then <see langword="null"/> is returned.
             A <see cref="T:System.InvalidOperationException"/> is thrown if the setter is called.
             </para>
             </remarks>
@@ -21816,7 +21875,7 @@
             </summary>
             <remarks>
             <para>
-            This variable is declared <c>volatile</c> to prevent the compiler and JIT from
+            This variable is declared <see langword="volatile"/> to prevent the compiler and JIT from
             reordering reads and writes of this thread performed on different threads.
             </para>
             </remarks>
@@ -23214,11 +23273,11 @@
             <para>
             Pushes a new context onto this stack. An <see cref="T:System.IDisposable"/>
             is returned that can be used to clean up this stack. This
-            can be easily combined with the <c>using</c> keyword to scope the
+            can be easily combined with the <see langword="using"/> keyword to scope the
             context.
             </para>
             </remarks>
-            <example>Simple example of using the <c>Push</c> method with the <c>using</c> keyword.
+            <example>Simple example of using the <see cref="M:log4net.Util.LogicalThreadContextStack.Push(System.String)"/> method with the <see langword="using"/> keyword.
             <code lang="C#">
             using(log4net.LogicalThreadContext.Stacks["NDC"].Push("Stack_Message"))
             {
@@ -23468,12 +23527,12 @@
             <para>
             The <c>log4net.Internal.Debug</c> application setting
             controls internal debugging. This setting should be set
-            to <c>true</c> to enable debugging.
+            to <see langword="true"/> to enable debugging.
             </para>
             <para>
             The <c>log4net.Internal.Quiet</c> application setting
             suppresses all internal logging including error messages. 
-            This setting should be set to <c>true</c> to enable message
+            This setting should be set to <see langword="true"/> to enable message
             suppression.
             </para>
             </remarks>
@@ -23484,12 +23543,12 @@
             is enabled or disabled.
             </summary>
             <value>
-            <c>true</c> if log4net internal logging is enabled, otherwise 
-            <c>false</c>.
+            <see langword="true"/> if log4net internal logging is enabled, otherwise 
+            <see langword="false"/>.
             </value>
             <remarks>
             <para>
-            When set to <c>true</c>, internal debug level logging will be 
+            When set to <see langword="true"/>, internal debug level logging will be 
             displayed.
             </para>
             <para>
@@ -23498,7 +23557,7 @@
             file.
             </para>
             <para>
-            The default value is <c>false</c>, i.e. debugging is
+            The default value is <see langword="false"/>, i.e. debugging is
             disabled.
             </para>
             </remarks>
@@ -23522,12 +23581,12 @@
             from internal logging, not even for errors. 
             </summary>
             <value>
-            <c>true</c> if log4net should generate no output at all from internal 
-            logging, otherwise <c>false</c>.
+            <see langword="true"/> if log4net should generate no output at all from internal 
+            logging, otherwise <see langword="false"/>.
             </value>
             <remarks>
             <para>
-            When set to <c>true</c> will cause internal logging at all levels to be 
+            When set to <see langword="true"/> will cause internal logging at all levels to be 
             suppressed. This means that no warning or error reports will be logged. 
             This option overrides the <see cref="P:log4net.Util.LogLog.InternalDebugging"/> setting and 
             disables all debug also.
@@ -23536,7 +23595,7 @@
             <c>log4net.Internal.Quiet</c> in the application configuration file.
             </para>
             <para>
-            The default value is <c>false</c>, i.e. internal logging is not
+            The default value is <see langword="false"/>, i.e. internal logging is not
             disabled.
             </para>
             </remarks>
@@ -23554,8 +23613,14 @@
         </member>
         <member name="P:log4net.Util.LogLog.EmitInternalMessages">
             <summary>
-            
+            Configures whether internal messages are emitted to Console.Out and Console.Error.
             </summary>
+        </member>
+        <member name="M:log4net.Util.LogLog.ExecuteWithoutEmittingInternalMessages(System.Action)">
+            <summary>
+            Execute the callback with internal messages suppressed
+            </summary>
+            <param name="callback">Callback</param>
         </member>
         <member name="M:log4net.Util.LogLog.OnLogReceived(System.Type,System.String,System.String,System.Exception)">
             <summary>
@@ -23571,7 +23636,7 @@
             Test if LogLog.Debug is enabled for output.
             </summary>
             <value>
-            <c>true</c> if Debug is enabled
+            <see langword="true"/> if Debug is enabled
             </value>
             <remarks>
             <para>
@@ -23613,7 +23678,7 @@
             Test if LogLog.Warn is enabled for output.
             </summary>
             <value>
-            <c>true</c> if Warn is enabled
+            <see langword="true"/> if Warn is enabled
             </value>
         </member>
         <member name="M:log4net.Util.LogLog.Warn(System.Type,System.String)">
@@ -23650,7 +23715,7 @@
             Test if LogLog.Error is enabled for output.
             </summary>
             <value>
-            <c>true</c> if Error is enabled
+            <see langword="true"/> if Error is enabled
             </value>
             <remarks>
             <para>
@@ -23966,12 +24031,12 @@
             <summary>
             Test if the enumerator can advance, if so advance.
             </summary>
-            <returns><c>false</c> as the <see cref="T:log4net.Util.NullDictionaryEnumerator" /> cannot advance.</returns>
+            <returns><see langword="false"/> as the <see cref="T:log4net.Util.NullDictionaryEnumerator" /> cannot advance.</returns>
             <remarks>
             <para>
             As the enumerator is over an empty collection its <see cref="P:log4net.Util.NullDictionaryEnumerator.Current"/>
             value cannot be moved over a valid position, therefore <see cref="M:log4net.Util.NullDictionaryEnumerator.MoveNext"/>
-            will always return <c>false</c>.
+            will always return <see langword="false"/>.
             </para>
             </remarks>
         </member>
@@ -24091,12 +24156,12 @@
             <summary>
             Test if the enumerator can advance, if so advance
             </summary>
-            <returns><c>false</c> as the <see cref="T:log4net.Util.NullEnumerator" /> cannot advance.</returns>
+            <returns><see langword="false"/> as the <see cref="T:log4net.Util.NullEnumerator" /> cannot advance.</returns>
             <remarks>
             <para>
             As the enumerator is over an empty collection its <see cref="P:log4net.Util.NullEnumerator.Current"/>
             value cannot be moved over a valid position, therefore <see cref="M:log4net.Util.NullEnumerator.MoveNext"/>
-            will always return <c>false</c>.
+            will always return <see langword="false"/>.
             </para>
             </remarks>
         </member>
@@ -24148,10 +24213,10 @@
             Impersonate this SecurityContext
             </summary>
             <param name="state">State supplied by the caller</param>
-            <returns><c>null</c></returns>
+            <returns><see langword="null"/></returns>
             <remarks>
             <para>
-            No impersonation is done and <c>null</c> is always returned.
+            No impersonation is done and <see langword="null"/> is always returned.
             </para>
             </remarks>
         </member>
@@ -24326,8 +24391,8 @@
             <returns>The <see cref="T:System.Boolean" /> value of <paramref name="argValue" />.</returns>
             <remarks>
             <para>
-            If <paramref name="argValue"/> is "true", then <c>true</c> is returned. 
-            If <paramref name="argValue"/> is "false", then <c>false</c> is returned. 
+            If <paramref name="argValue"/> is "true", then <see langword="true"/> is returned. 
+            If <paramref name="argValue"/> is "false", then <see langword="false"/> is returned. 
             Otherwise, <paramref name="defaultValue"/> is returned.
             </para>
             </remarks>
@@ -24357,7 +24422,7 @@
             <param name="target">The target type to convert to.</param>
             <param name="txt">The string to convert to an object.</param>
             <returns>
-            The object converted from a string or <c>null</c> when the 
+            The object converted from a string or <see langword="null"/> when the 
             conversion failed.
             </returns>
             <remarks>
@@ -24373,7 +24438,7 @@
             </summary>
             <param name="sourceType">The type to convert from.</param>
             <param name="targetType">The type to convert to.</param>
-            <returns><c>true</c> if there is a conversion from the source type to the target type.</returns>
+            <returns><see langword="true"/> if there is a conversion from the source type to the target type.</returns>
             <remarks>
             Checks if there is an appropriate type conversion from the source type to the target type.
             <para>
@@ -24464,7 +24529,7 @@
             </summary>
             <param name="enumType">The type to convert to.</param>
             <param name="value">The enum string value.</param>
-            <param name="ignoreCase">If <c>true</c>, ignore case; otherwise, regard case.</param>
+            <param name="ignoreCase">If <see langword="true"/>, ignore case; otherwise, regard case.</param>
             <returns>An object of type <paramref name="enumType" /> whose value is represented by <paramref name="value" />.</returns>
         </member>
         <member name="F:log4net.Util.OptionConverter._declaringType">
@@ -24664,7 +24729,7 @@
             </summary>
             <remarks>
             <para>
-            The <c>PatternParser</c> processes a pattern string and
+            The <see cref="T:log4net.Util.PatternParser"/> processes a pattern string and
             returns a chain of <see cref="T:log4net.Util.PatternConverter"/> objects.
             </para>
             </remarks>
@@ -24780,7 +24845,7 @@
             <para>
             This class functions similarly to the <see cref="T:log4net.Layout.PatternLayout"/>
             in that it accepts a pattern and renders it to a string. Unlike the 
-            <see cref="T:log4net.Layout.PatternLayout"/> however the <c>PatternString</c>
+            <see cref="T:log4net.Layout.PatternLayout"/> however the <see cref="T:log4net.Util.PatternString"/>
             does not render the properties of a specific <see cref="T:log4net.Core.LoggingEvent"/> but
             of the process in general.
             </para>
@@ -25181,7 +25246,7 @@
             property.
             </para>
             <para>
-            If the <see cref="P:log4net.Util.PatternConverter.Option"/> is set to <c>null</c>
+            If the <see cref="P:log4net.Util.PatternConverter.Option"/> is set to <see langword="null"/>
             then all the properties are written as key value pairs.
             </para>
             </remarks>
@@ -25566,7 +25631,7 @@
             property.
             </para>
             <para>
-            If the <see cref="P:log4net.Util.PatternConverter.Option"/> is set to <c>null</c>
+            If the <see cref="P:log4net.Util.PatternConverter.Option"/> is set to <see langword="null"/>
             then all the properties are written as key value pairs.
             </para>
             </remarks>
@@ -25837,12 +25902,12 @@
             See <see cref="P:System.Collections.IDictionary.IsReadOnly"/>
             </summary>
             <value>
-            <c>false</c>
+            <see langword="false"/>
             </value>
             <remarks>
             <para>
             This collection is modifiable. This property always
-            returns <c>false</c>.
+            returns <see langword="false"/>.
             </para>
             </remarks>
         </member>
@@ -25954,7 +26019,7 @@
             Gets a value indicating whether this writer is closed.
             </summary>
             <value>
-            <c>true</c> if this writer is closed, otherwise <c>false</c>.
+            <see langword="true"/> if this writer is closed, otherwise <see langword="false"/>.
             </value>
             <remarks>
             <para>
@@ -26013,11 +26078,11 @@
             </summary>
             <remarks>
             <para>
-            <c>ReaderWriterLock</c> is used to synchronize access to a resource. 
+            <see cref="T:log4net.Util.ReaderWriterLock"/> is used to synchronize access to a resource. 
             At any given time, it allows either concurrent read access for 
             multiple threads, or write access for a single thread. In a 
             situation where a resource is changed infrequently, a 
-            <c>ReaderWriterLock</c> provides better throughput than a simple 
+            <see cref="T:log4net.Util.ReaderWriterLock"/> provides better throughput than a simple 
             one-at-a-time lock, such as <see cref="T:System.Threading.Monitor"/>.
             </para>
             <para>
@@ -26468,11 +26533,11 @@
         </member>
         <member name="P:log4net.Util.SystemInfo.NullText">
             <summary>
-            Text to output when a <c>null</c> is encountered.
+            Text to output when a <see langword="null"/> is encountered.
             </summary>
             <remarks>
             <para>
-            Use this value to indicate a <c>null</c> has been encountered while
+            Use this value to indicate a <see langword="null"/> has been encountered while
             outputting a string representation of an item.
             </para>
             <para>
@@ -26549,9 +26614,9 @@
             </summary>
             <param name="relativeType">A sibling type to use to load the type.</param>
             <param name="typeName">The name of the type to load.</param>
-            <param name="throwOnError">Flag set to <c>true</c> to throw an exception if the type cannot be loaded.</param>
-            <param name="ignoreCase"><c>true</c> to ignore the case of the type name; otherwise, <c>false</c></param>
-            <returns>The type loaded or <c>null</c> if it could not be loaded.</returns>
+            <param name="throwOnError">Flag set to <see langword="true"/> to throw an exception if the type cannot be loaded.</param>
+            <param name="ignoreCase"><see langword="true"/> to ignore the case of the type name; otherwise, <see langword="false"/></param>
+            <returns>The type loaded or <see langword="null"/> if it could not be loaded.</returns>
             <remarks>
             <para>
             If the type name is fully qualified, i.e. if contains an assembly name in 
@@ -26570,9 +26635,9 @@
             Loads the type specified in the type string.
             </summary>
             <param name="typeName">The name of the type to load.</param>
-            <param name="throwOnError">Flag set to <c>true</c> to throw an exception if the type cannot be loaded.</param>
-            <param name="ignoreCase"><c>true</c> to ignore the case of the type name; otherwise, <c>false</c></param>
-            <returns>The type loaded or <c>null</c> if it could not be loaded.</returns>    
+            <param name="throwOnError">Flag set to <see langword="true"/> to throw an exception if the type cannot be loaded.</param>
+            <param name="ignoreCase"><see langword="true"/> to ignore the case of the type name; otherwise, <see langword="false"/></param>
+            <returns>The type loaded or <see langword="null"/> if it could not be loaded.</returns>    
             <remarks>
             <para>
             If the type name is fully qualified, i.e. if contains an assembly name in 
@@ -26592,9 +26657,9 @@
             </summary>
             <param name="relativeAssembly">An assembly to load the type from.</param>
             <param name="typeName">The name of the type to load.</param>
-            <param name="throwOnError">Flag set to <c>true</c> to throw an exception if the type cannot be loaded.</param>
-            <param name="ignoreCase"><c>true</c> to ignore the case of the type name; otherwise, <c>false</c></param>
-            <returns>The type loaded or <c>null</c> if it could not be loaded.</returns>
+            <param name="throwOnError">Flag set to <see langword="true"/> to throw an exception if the type cannot be loaded.</param>
+            <param name="ignoreCase"><see langword="true"/> to ignore the case of the type name; otherwise, <see langword="false"/></param>
+            <returns>The type loaded or <see langword="null"/> if it could not be loaded.</returns>
             <remarks>
             <para>
             If the type name is fully qualified, i.e. if contains an assembly name in 
@@ -26633,11 +26698,11 @@
             </summary>
             <param name="s">the string to parse</param>
             <param name="val">out param where the parsed value is placed</param>
-            <returns><c>true</c> if the string was parsed into an integer</returns>
+            <returns><see langword="true"/> if the string was parsed into an integer</returns>
             <remarks>
             <para>
             Attempts to parse the string into an integer. If the string cannot
-            be parsed then this method returns <c>false</c>. The method does not throw an exception.
+            be parsed then this method returns <see langword="false"/>. The method does not throw an exception.
             </para>
             </remarks>
         </member>
@@ -26647,11 +26712,11 @@
             </summary>
             <param name="s">the string to parse</param>
             <param name="val">out param where the parsed value is placed</param>
-            <returns><c>true</c> if the string was parsed into an integer</returns>
+            <returns><see langword="true"/> if the string was parsed into an integer</returns>
             <remarks>
             <para>
             Attempts to parse the string into an integer. If the string cannot
-            be parsed then this method returns <c>false</c>. The method does not throw an exception.
+            be parsed then this method returns <see langword="false"/>. The method does not throw an exception.
             </para>
             </remarks>
         </member>
@@ -26661,11 +26726,11 @@
             </summary>
             <param name="s">the string to parse</param>
             <param name="val">out param where the parsed value is placed</param>
-            <returns><c>true</c> if the string was parsed into an integer</returns>
+            <returns><see langword="true"/> if the string was parsed into an integer</returns>
             <remarks>
             <para>
             Attempts to parse the string into an integer. If the string cannot
-            be parsed then this method returns <c>false</c>. The method does not throw an exception.
+            be parsed then this method returns <see langword="false"/>. The method does not throw an exception.
             </para>
             </remarks>
         </member>
@@ -26674,7 +26739,7 @@
             Lookup an application setting
             </summary>
             <param name="key">the application settings key to lookup</param>
-            <returns>the value for the key, or <c>null</c></returns>
+            <returns>the value for the key, or <see langword="null"/></returns>
         </member>
         <member name="M:log4net.Util.SystemInfo.ConvertToFullPath(System.String)">
             <summary>
@@ -26711,13 +26776,13 @@
             </summary>
             <remarks>
             If the platform permits, culture information is ignored completely (ordinal comparison).
-            The aim of this method is to provide a fast comparison that deals with <c>null</c> and ignores different casing.
+            The aim of this method is to provide a fast comparison that deals with <see langword="null"/> and ignores different casing.
             It is not supposed to deal with various, culture-specific habits.
             Use it to compare against pure ASCII constants, like keywords etc.
             </remarks>
             <param name="a">The one string.</param>
             <param name="b">The other string.</param>
-            <returns><c>true</c> if the strings are equal, <c>false</c> otherwise.</returns>
+            <returns><see langword="true"/> if the strings are equal, <see langword="false"/> otherwise.</returns>
         </member>
         <member name="F:log4net.Util.SystemInfo._declaringType">
             <summary>
@@ -27083,11 +27148,11 @@
             <para>
             Pushes a new context onto this stack. An <see cref="T:System.IDisposable"/>
             is returned that can be used to clean up this stack. This
-            can be easily combined with the <c>using</c> keyword to scope the
+            can be easily combined with the <see langword="using"/> keyword to scope the
             context.
             </para>
             </remarks>
-            <example>Simple example of using the <c>Push</c> method with the <c>using</c> keyword.
+            <example>Simple example of using the <see cref="M:log4net.Util.ThreadContextStack.Push(System.String)"/> method with the <see langword="using"/> keyword.
             <code lang="C#">
             using(log4net.ThreadContext.Stacks["NDC"].Push("Stack_Message"))
             {
@@ -27229,9 +27294,6 @@
             Utility class for transforming strings.
             </summary>
             <remarks>
-            <para>
-            Utility class for transforming strings.
-            </para>
             </remarks>
             <author>Nicko Cadell</author>
             <author>Gert Driesen</author>
@@ -27266,6 +27328,10 @@
             This method replaces any illegal characters in the input string
             with the mask string specified.
             </para>
+            <para>
+            Supplementary characters (U+10000�U+10FFFF) encoded as valid UTF-16 surrogate
+            pairs are preserved; only lone surrogates and other illegal code units are masked.
+            </para>
             </remarks>
         </member>
         <member name="M:log4net.Util.Transform.CountSubstrings(System.String,System.String)">
@@ -27281,9 +27347,12 @@
             </para>
             </remarks>
         </member>
-        <member name="F:log4net.Util.Transform._invalidchars">
+        <member name="F:log4net.Util.Transform._invalidChars">
             <summary>
-            Characters illegal in XML 1.0
+            Matches either a valid UTF-16 surrogate pair (preserved) or a single character
+            that is illegal in XML 1.0 (replaced). The surrogate-pair alternative must come
+            first so the engine consumes both code units together before the single-char
+            alternative can match them individually.
             </summary>
         </member>
         <member name="T:log4net.Util.TypeConverters.BooleanConverter">
@@ -27292,7 +27361,7 @@
             </summary>
             <remarks>
             <para>
-            Supports conversion from string to <c>bool</c> type.
+            Supports conversion from string to <see langword="bool"/> type.
             </para>
             </remarks>
             <seealso cref="T:log4net.Util.TypeConverters.ConverterRegistry"/>
@@ -27307,7 +27376,7 @@
             </summary>
             <param name="sourceType">the type to convert</param>
             <returns>
-            <c>True</c> if the <paramref name="sourceType"/> is
+            <see langword="true"/> if the <paramref name="sourceType"/> is
             the <see cref="T:System.String"/> type.
             </returns>
         </member>
@@ -27464,7 +27533,7 @@
             <param name="sourceType">The type being converted from.</param>
             <param name="destinationType">The type being converted to.</param>
             <returns>
-            The type converter instance to use for type conversions or <c>null</c> 
+            The type converter instance to use for type conversions or <see langword="null"/> 
             if no type converter is found.
             </returns>
         </member>
@@ -27474,7 +27543,7 @@
             </summary>
             <param name="destinationType">The type being converted to.</param>
             <returns>
-            The type converter instance to use for type conversions or <c>null</c> 
+            The type converter instance to use for type conversions or <see langword="null"/> 
             if no type converter is found.
             </returns>
         </member>
@@ -27485,7 +27554,7 @@
             </summary>
             <param name="destinationType">The type being converted to.</param>
             <returns>
-            The type converter instance to use for type conversions or <c>null</c> 
+            The type converter instance to use for type conversions or <see langword="null"/> 
             if no type converter is found.
             </returns>
         </member>
@@ -27495,7 +27564,7 @@
             </summary>
             <param name="converterType">The type of the type converter.</param>
             <returns>
-            The type converter instance to use for type conversions or <c>null</c> 
+            The type converter instance to use for type conversions or <see langword="null"/> 
             if no type converter is found.
             </returns>
             <remarks>
@@ -27531,7 +27600,7 @@
             </summary>
             <param name="sourceType">the type to convert</param>
             <returns>
-            <c>True</c> if the <paramref name="sourceType"/> is
+            <see langword="true"/> if the <paramref name="sourceType"/> is
             the <see cref="T:System.String"/> type.
             </returns>
         </member>
@@ -27652,7 +27721,7 @@
             <returns>true if the conversion is possible</returns>
             <remarks>
             <para>
-            Returns <c>true</c> if the <paramref name="sourceType"/> is
+            Returns <see langword="true"/> if the <paramref name="sourceType"/> is
             the <see cref="T:System.String"/> type.
             </para>
             </remarks>
@@ -27697,7 +27766,7 @@
             </summary>
             <param name="sourceType">the type to convert</param>
             <returns>
-            <c>True</c> if the <paramref name="sourceType"/> is
+            <see langword="true"/> if the <paramref name="sourceType"/> is
             the <see cref="T:System.String"/> type.
             </returns>
         </member>
@@ -27747,7 +27816,7 @@
             <returns>true if the conversion is possible</returns>
             <remarks>
             <para>
-            Returns <c>true</c> if the <paramref name="targetType"/> is
+            Returns <see langword="true"/> if the <paramref name="targetType"/> is
             assignable from a <see cref="T:System.String"/> type.
             </para>
             </remarks>
@@ -27777,7 +27846,7 @@
             </summary>
             <param name="sourceType">the type to convert</param>
             <returns>
-            <c>True</c> if the <paramref name="sourceType"/> is
+            <see langword="true"/> if the <paramref name="sourceType"/> is
             the <see cref="T:System.String"/> type.
             </returns>
         </member>
@@ -27815,7 +27884,7 @@
             </summary>
             <param name="sourceType">the type to convert</param>
             <returns>
-            <c>True</c> if the <paramref name="sourceType"/> is
+            <see langword="true"/> if the <paramref name="sourceType"/> is
             the <see cref="T:System.String"/> type.
             </returns>
         </member>
@@ -27850,7 +27919,7 @@
             </para>
             <para>
             To associate a type converter with a target type apply a
-            <c>TypeConverterAttribute</c> to the target type. Specify the
+            <see cref="T:log4net.Util.TypeConverters.TypeConverterAttribute"/> to the target type. Specify the
             type of the type converter on the attribute.
             </para>
             </remarks>
