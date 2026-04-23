@@ -33,8 +33,12 @@
 
 3. Connettere la “ADC_MTB_LED” (6) alla MTB4 (MTB4-J3)
 
-4. Premere Invio a programmazione terminata
-        
+4. Prima di iniziare la programmazione, utilizzare il laccio in velcro per fissare la scheda al banco di test (i molex posizionati verso il basso), in modo che i test points rimangano connessi agli aghi di programmazione durante tutta la durata dei test.
+
+5. Premere Invio a programmazione terminata
+
+6. Una volta terminata la programmazione, la board può essere rimossa dal banco di test e alimentata normalmente per eseguire i test successivi, ma è necessario posizionarla come indicato durante la programmazione.
+
 UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
             image="img/mtb4/MTB4_setup.jpg" />
@@ -78,12 +82,25 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
             <operation type="receivePassFail" interface="CAN" valPass="0xAA" />
         </test>
         <test id="11" name="Flash Bootloader/Applicativo">
+			<operation type="message" text="
+Al fine di finalizzare correttamente la programmazione eseguire le seguenti operazioni:
+
+1. Disalimentare la scheda per sicurezza
+
+2. Verificare che il programmatore ST-LINK sia collegato alla scheda e al pc come nel setup di test
+
+3. Verificare che l'ESD CAN-USB sia collegato alla scheda e al pc come nel setup di test
+
+4. Verificare che la scheda sia fissata al banco di test con il laccio in velcro, in modo che i test points rimangano connessi agli aghi di programmazione durante tutta la durata dei test.
+
+5. Alimentare nuovamente la scheda" 
+			/>
             <operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4_prod.bat" />
         </test>
     </testplan>
 
 
-    <testplan id="1" board="MTB4C" iitcode="12008.C" reportsDir="mtb4c" rev="1">
+    <testplan id="1" board="MTB4C" iitcode="12008.C" reportsDir="mtb4c" rev="2">
 
         <interfaces>
                 <interface name="CAN" netPort="0" bitrate="1000" messageID="0x551" />
@@ -104,8 +121,12 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
 
 3. Connettere la “ADC_MTB_LED” (6) alla MTB4 (MTB4-J3) 
 
-4. Premere Invio a programmazione terminata
-        
+4. Prima di iniziare la programmazione, utilizzare il laccio in velcro per fissare la scheda al banco di test (i molex posizionati verso il basso), in modo che i test points rimangano connessi agli aghi di programmazione durante tutta la durata dei test.
+
+5. Premere Invio a programmazione terminata
+
+6. Una volta terminata la programmazione, la board può essere rimossa dal banco di test e alimentata normalmente per eseguire i test successivi, ma è necessario posizionarla come indicato durante la programmazione.
+	   
 UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
         
             image="img/mtb4/MTB4_setup.jpg" />
@@ -158,6 +179,19 @@ UTILIZZARE SEMPRE IL TOOL PER ESTRARRE I CONNETTORI MOLEX (5)"
         </test>
 
         <test id="11" name="Flash Bootloader/Applicativo">
+			<operation type="message" text="
+Al fine di finalizzare correttamente la programmazione eseguire le seguenti operazioni:
+
+1. Disalimentare la scheda per sicurezza
+
+2. Verificare che il programmatore ST-LINK sia collegato alla scheda e al pc come nel setup di test
+
+3. Verificare che l'ESD CAN-USB sia collegato alla scheda e al pc come nel setup di test
+
+4. Verificare che la scheda sia fissata al banco di test con il laccio in velcro, in modo che i test points rimangano connessi agli aghi di programmazione durante tutta la durata dei test.
+
+5. Alimentare nuovamente la scheda"
+			/>
             <operation type="batch" batchDir="tools\boards\mtb4\flash" batchFile="mtb4c_prod.bat" />
         </test>
     </testplan>

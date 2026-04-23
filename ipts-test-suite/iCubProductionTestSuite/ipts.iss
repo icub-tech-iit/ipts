@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "IPTS"
-#define MyAppVersion "1.7.2"
+#define MyAppVersion "1.7.3"
 #define MyAppPublisher "Fondazione Istituto Italiano di Tecnologia"
 #define MyAppURL "http://www.iit.it/"
 #define MyAppExeName "iCubProductionTestSuite.exe"
